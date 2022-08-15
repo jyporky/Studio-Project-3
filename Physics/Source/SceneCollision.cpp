@@ -58,7 +58,7 @@ void SceneCollision::Init()
 	gameclear = false;
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
-	//cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
 
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
@@ -139,12 +139,6 @@ void SceneCollision::Update(double dt)
 		}
 		return;
 	}
-	/*static bool init = false;
-	if (!init)
-	{
-		init = false;
-		cSoundController->LoadSound(FileSystem::getPath("Physics\\Sounds\\damage.ogg"), 1, false);
-	}*/
 
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
