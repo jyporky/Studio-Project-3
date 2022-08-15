@@ -154,6 +154,12 @@ void SceneBase::Init()
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
 	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");
 
+	meshList[GEO_LEFT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
+	meshList[GEO_LEFT_PLAYER]->textureID = LoadTGA("Image//playerleft.tga");	
+	
+	meshList[GEO_RIGHT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
+	meshList[GEO_RIGHT_PLAYER]->textureID = LoadTGA("Image//playerright.tga");
+
 	//NPCs
 	meshList[GEO_BLACKSMITH] = MeshBuilder::GenerateQuad("blacksmith", Color(1, 1, 1));
 	meshList[GEO_BLACKSMITH]->textureID = LoadTexture("Image//blacksmith.png");

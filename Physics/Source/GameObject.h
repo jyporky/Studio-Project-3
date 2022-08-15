@@ -13,8 +13,7 @@ struct GameObject
 		GO_CUBE,
 		GO_PILLAR,
 		GO_WALL,
-
-
+		GO_PLAYER,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;
