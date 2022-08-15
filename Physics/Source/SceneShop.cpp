@@ -3,6 +3,7 @@
 #include "Application.h"
 #include <sstream>
 
+
 SceneShop::SceneShop()
 {
 	
@@ -27,6 +28,13 @@ void SceneShop::Init()
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
 	bLightEnabled = true;
+
+
+	
+
+	player = Player::GetInstance();
+	m_player = player->getPlayer();
+	player->SetGameObject(m_player);
 
 	Math::InitRNG();
 
@@ -70,7 +78,7 @@ void SceneShop::Update(double dt)
 	else if (!Application::IsKeyPressed('S') && s)
 		s = false;
 
-	if (Application::IsKeyPressed('E'))
+	if (Application::IsKeyPressed('P'))
 	{
 		switch (menubuttonhighlight)
 		{
@@ -82,7 +90,51 @@ void SceneShop::Update(double dt)
 			break;
 		}
 	}	
+
+	// Moving of player
+	Vector3 movementDirection;
+	movementDirection.SetZero();
+	if (Application::IsKeyPressed('W'))
+	{
+		movementDirection.y += 1;
+	}
+
+	if (Application::IsKeyPressed('S'))
+	{
+		movementDirection.y -= 1;
+	}
+
+	if (Application::IsKeyPressed('A'))
+	{
+		movementDirection.x -= 1;
+	}
+
+	if (Application::IsKeyPressed('D'))
+	{
+		movementDirection.x += 1;
+	}
+
+	if (movementDirection.x > 0)
+	{
+		m_player->angle = 0;
+	}
+
+	else if (movementDirection.x < 0)
+	{
+		m_player->angle = 180;
+	}
+
+	m_player->pos += movementDirection.Normalize() * 40 * dt;
+
+	m_player = Checkborder(m_player);
+
+	// Put this after all changes is made to player
+	player->SetGameObject(m_player);
 	return;
+
+
+	
+
 }
 
 
@@ -110,27 +162,116 @@ void SceneShop::Render()
 	//On screen text
 	std::ostringstream ss;
 	
+
+	modelStack.PushMatrix();
+	modelStack.Translate(camera.position.x, camera.position.y, 0);
+	modelStack.Scale(1000, 1000, 1000);
+	RenderMesh(meshList[GEO_SANDBG], false);
+	modelStack.PopMatrix();
+
+
+	//player
+	modelStack.PushMatrix();
+	modelStack.Translate(m_player->pos.x, m_player->pos.y, m_player->pos.z);
+	modelStack.Scale(m_player->scale.x, m_player->scale.y, m_player->scale.z);
+	if (m_player->angle == 180)
+	{
+		meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(m_player->color.x, m_player->color.y, m_player->color.z);
+		RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+	}
+
+	else if (m_player->angle == 0)
+	{
+		meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(m_player->color.x, m_player->color.y, m_player->color.z);
+		RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+	}
+	modelStack.PopMatrix();
+
+	//NPCs
+
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth/2, 80, 1);
+	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Scale(15, 15, 1);
+	RenderMesh(meshList[GEO_BLACKSMITH], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth / 2 - 40, 75, 1);
+	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Scale(15, 15, 1);
+	RenderMesh(meshList[GEO_PARTDEALER], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth / 2 + 40, 75, 1);
+	modelStack.Rotate(180, 0, 0, 2);
+	modelStack.Scale(15, 15, 1);
+	RenderMesh(meshList[GEO_ALCHEMIST], false);
+	modelStack.PopMatrix();
+
+	renderEnvironment();
+
+
+
 	ss.str("");
-	ss << ">";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 0, 44 - menubuttonhighlight * 4);
-	
-	ss.str("");
-	ss << "Start";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 44);
-
-
-	ss.str("");
-	ss << "Quit";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
-
-
-	ss.str("");
-	ss << "Fake Peggle";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 8, 4, 52);
-
+	ss << "Shop ";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 3, 55);
 }
+
+
 
 void SceneShop::Exit()
 {
 	SceneBase::Exit();
+}
+
+void SceneShop::renderEnvironment()
+{
+	//top
+	modelStack.PushMatrix();
+	modelStack.Translate(88, 98, 1);
+	modelStack.Scale(m_worldWidth +10, 5, 1);
+	RenderMesh(meshList[GEO_CUBE], false);
+	modelStack.PopMatrix();
+
+	//left
+	modelStack.PushMatrix();
+	modelStack.Translate(2, 50, 1);
+	modelStack.Scale(5, m_worldHeight, 1);
+	RenderMesh(meshList[GEO_CUBE], false);
+	modelStack.PopMatrix();
+
+	//right
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth - 3, 50, 1);
+	modelStack.Scale(5, m_worldHeight, 1);
+	RenderMesh(meshList[GEO_CUBE], false);
+	modelStack.PopMatrix();
+}
+
+
+GameObject* SceneShop::Checkborder(GameObject* go)
+{
+	if (go->pos.x + go->scale.x / 2 > m_worldWidth)
+	{
+		go->pos.x = m_worldWidth - go->scale.x / 2;
+	}
+
+	if (go->pos.x - go->scale.x / 2 < 0)
+	{
+		go->pos.x = 0 + go->scale.x / 2;
+	}
+
+	if (go->pos.y + go->scale.y / 2 > m_worldHeight)
+	{
+		go->pos.y = m_worldHeight - go->scale.y / 2;
+	}
+
+	if (go->pos.y - go->scale.y / 2 < 0)
+	{
+		go->pos.y = 0 + go->scale.y / 2;
+	}
+
+	return go;
 }

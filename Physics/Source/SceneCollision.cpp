@@ -3,6 +3,7 @@
 #include "Application.h"
 #include <sstream>
 
+
 SceneCollision::SceneCollision()
 {
 
@@ -43,6 +44,18 @@ void SceneCollision::Init()
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
+
+	m_player = FetchGO();
+	m_player->type = GameObject::GO_PLAYER;
+	m_player->pos.Set(m_worldWidth/2, m_worldHeight/2, 1);
+	m_player->vel.SetZero();
+	m_player->scale.Set(10, 10, 1);
+	m_player->color.Set(1, 1, 1);
+	m_player->angle = 0;
+	m_player->active = true;
+
+	player = Player::GetInstance();
+	player->SetGameObject(m_player);
 
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
@@ -145,9 +158,10 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
-	if (Application::IsKeyPressed('E') && !e)
+	if (Application::IsKeyPressed('R') && !e)
 	{
-		
+		Application::SetState(3);
+
 	}
 	else if (!Application::IsKeyPressed('E') && e)
 		e = false;
@@ -166,6 +180,45 @@ void SceneCollision::Update(double dt)
 		}
 	}
 	
+	// Moving of player
+	Vector3 movementDirection;
+	movementDirection.SetZero();
+	if (Application::IsKeyPressed('W'))
+	{
+		movementDirection.y += 1;
+	}
+
+	if (Application::IsKeyPressed('S'))
+	{
+		movementDirection.y -= 1;
+	}
+
+	if (Application::IsKeyPressed('A'))
+	{
+		movementDirection.x -= 1;
+	}
+
+	if (Application::IsKeyPressed('D'))
+	{
+		movementDirection.x += 1;
+	}
+
+	if (movementDirection.x > 0)
+	{
+		m_player->angle = 0;
+	}
+
+	else if (movementDirection.x < 0)
+	{
+		m_player->angle = 180;
+	}
+
+	m_player->pos += movementDirection.Normalize() * 40 * dt;
+
+	m_player = Checkborder(m_player);
+
+	// Put this after all changes is made to player
+	player->SetGameObject(m_player);
 
 	//Mouse Section
 	double x, y, windowWidth, windowHeight;
@@ -462,6 +515,24 @@ void SceneCollision::RenderGO(GameObject *go)
 
 		//Exercise 11: think of a way to give balls different colors
 		break;
+	case GameObject::GO_PLAYER:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+		}
+
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+		}
+		modelStack.PopMatrix();
+		break;
+
 	case GameObject::GO_WALL:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -493,15 +564,15 @@ void SceneCollision::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
-	if (m_ghost->active)
-		RenderGO(m_ghost);
-
 	//render the sand bg
 	modelStack.PushMatrix();
-	modelStack.Translate(camera.position.x, 0, camera.position.z);
+	modelStack.Translate(camera.position.x, camera.position.y, 0);
 	modelStack.Scale(1000,1000,1000);
 	RenderMesh(meshList[GEO_SANDBG], false);
 	modelStack.PopMatrix();
+
+	if (m_ghost->active)
+		RenderGO(m_ghost);
 
 
 	for(std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
@@ -528,7 +599,9 @@ void SceneCollision::Render()
 	
 	}
 
-
+	ss.str("");
+	ss << "Press r to go shop";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
 
 	if (playerwin)
 	{
@@ -583,4 +656,29 @@ void SceneCollision::Exit()
 		delete m_ghost;
 		m_ghost = NULL;
 	}
+}
+
+GameObject* SceneCollision::Checkborder(GameObject* go)
+{
+	if (go->pos.x + go->scale.x / 2 > m_worldWidth)
+	{
+		go->pos.x = m_worldWidth - go->scale.x / 2;
+	}	
+	
+	if (go->pos.x - go->scale.x / 2 < 0)
+	{
+		go->pos.x = 0 + go->scale.x / 2;
+	}	
+	
+	if (go->pos.y + go->scale.y / 2 > m_worldHeight)
+	{
+		go->pos.y = m_worldHeight - go->scale.y / 2;
+	}	
+	
+	if (go->pos.y - go->scale.y / 2 < 0)
+	{
+		go->pos.y = 0 + go->scale.y / 2;
+	}
+
+	return go;
 }

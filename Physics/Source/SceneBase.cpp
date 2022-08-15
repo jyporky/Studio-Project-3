@@ -149,10 +149,26 @@ void SceneBase::Init()
 	}
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_BALL] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(1, 1, 1), 1.f);
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.5, 0.5, 0.5), 1.f);
 	
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
 	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");
+
+	meshList[GEO_LEFT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
+	meshList[GEO_LEFT_PLAYER]->textureID = LoadTGA("Image//playerleft.tga");	
+	
+	meshList[GEO_RIGHT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
+	meshList[GEO_RIGHT_PLAYER]->textureID = LoadTGA("Image//playerright.tga");
+
+	//NPCs
+	meshList[GEO_BLACKSMITH] = MeshBuilder::GenerateQuad("blacksmith", Color(1, 1, 1));
+	meshList[GEO_BLACKSMITH]->textureID = LoadTexture("Image//blacksmith.png");
+
+	meshList[GEO_PARTDEALER] = MeshBuilder::GenerateQuad("partdealer", Color(1, 1, 1));
+	meshList[GEO_PARTDEALER]->textureID = LoadTexture("Image//partdealer.png");
+
+	meshList[GEO_ALCHEMIST] = MeshBuilder::GenerateQuad("alchemist", Color(1, 1, 1));
+	meshList[GEO_ALCHEMIST]->textureID = LoadTexture("Image//alchemist.png");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//DimboFont.tga");
@@ -247,6 +263,7 @@ void SceneBase::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, fl
 
 void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 {
+	glDisable(GL_DEPTH_TEST);
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 	
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
@@ -285,6 +302,7 @@ void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+	glEnable(GL_DEPTH_TEST);
 }
 
 void SceneBase::Render()

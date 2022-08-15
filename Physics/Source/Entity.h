@@ -7,6 +7,7 @@ class Entity
 public:
 	Entity();
 	~Entity();
+	virtual void update();
 protected:
 	Vector3 position;
 };
