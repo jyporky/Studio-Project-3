@@ -49,7 +49,7 @@ void SceneMenu::Update(double dt)
 		w = true;
 		if (menubuttonhighlight == 0)
 		{
-			menubuttonhighlight = 1;
+			menubuttonhighlight = 2;
 		}
 		else
 			menubuttonhighlight--;
@@ -60,7 +60,7 @@ void SceneMenu::Update(double dt)
 	if (Application::IsKeyPressed('S') && !s)
 	{
 		s = true;
-		if (menubuttonhighlight == 1)
+		if (menubuttonhighlight == 2)
 		{
 			menubuttonhighlight = 0;
 		}
@@ -78,6 +78,9 @@ void SceneMenu::Update(double dt)
 			Application::SetState(2);
 			break;
 		case 1:
+			Application::SetState(4);
+			break;
+		case 2:
 			Application::SetState(0);
 			break;
 		}
@@ -112,20 +115,23 @@ void SceneMenu::Render()
 	
 	ss.str("");
 	ss << ">";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 0, 44 - menubuttonhighlight * 4);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 1, 44 - menubuttonhighlight * 4);
 	
 	ss.str("");
 	ss << "Start";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 44);
 
-
-	ss.str("");
-	ss << "Quit";
+	ss.str("Options");
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
 
 
 	ss.str("");
-	ss << "Fake Peggle";
+	ss << "Quit";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 36);
+
+
+	ss.str("");
+	ss << "GROBYC";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 8, 4, 52);
 
 }
