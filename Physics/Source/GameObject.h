@@ -35,7 +35,6 @@ struct GameObject
 
 	bool checkCollision;
 	bool disappearWhenHit;
-	bool affectedByGravity;
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();
 

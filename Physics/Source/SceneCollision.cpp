@@ -5,9 +5,7 @@
 
 SceneCollision::SceneCollision()
 {
-	basketleft = nullptr;
-	basketright = nullptr;
-	basket = nullptr;
+
 }
 
 SceneCollision::~SceneCollision()
@@ -57,58 +55,12 @@ void SceneCollision::Init()
 	//}
 
 	
-	//create the gun body
-	m_gunbody = new GameObject(GameObject::GO_BALL);
-	m_gunbody->checkCollision = false;
-	m_gunbody->pos.Set(m_worldWidth * 0.5f, m_worldHeight * 0.99f, 0);
-	m_gunbody->scale.Set(5, 5, 5);
-	m_gunbody->color.Set(107.0f / 255.0f, 119.0f / 255.0f, 138.0f / 255.0f);
-	m_gunbody->vel.SetZero();
-
-	//create the gun barrel
-	m_gunbarrel = new GameObject(GameObject::GO_WALL);
-	m_gunbarrel->checkCollision = false;
-	m_gunbarrel->pos.Set(m_worldWidth * 0.5f, m_worldHeight * 0.99f, 0);
-	m_gunbarrel->scale.Set(4, 6, 2);
-	m_gunbarrel->color.Set(82.0f / 255.0f, 89.0f / 255.0f, 102.0f / 255.0f);
-	m_gunbarrel->normal.Set(1, 0, 0);
-	m_gunbarrel->vel.SetZero();
-
-	basket = new GameObject(GameObject::GO_WALL);
-	basket->checkCollision = true;
-	basket->pos.Set(m_worldWidth * 0.5, m_worldHeight * 0.03, 0);
-	basket->scale.Set(4, 14, 2);
-	basket->color.Set(252.f / 255.f, 160.f / 255.f, 68.f / 255.f);
-	basket->affectedByGravity = false;
-	basket->normal.Set(0, 1, 0);
-	basket->vel.SetZero();
-	basket->visible = false;
-
-	//create the basket at the bottom of the map
-	basketright = FetchGO();
-	basketright->type = GameObject::GO_PILLAR;
-	basketright->pos.Set(m_worldWidth * 0.5 + 7, m_worldHeight * 0.05, 0);
-	basketright->scale.Set(1, 1, 1);
-	basketright->color.Set(252.f / 255.f, 160.f / 255.f, 68.f / 255.f);
-	basketright->vel.SetZero();
-	basketright->checkCollision = true;
-	basketright->affectedByGravity = false;
-	basketright->disappearWhenHit = false;
-
-	basketleft = FetchGO();
-	basketleft->pos.Set(m_worldWidth * 0.5 - 7, m_worldHeight * 0.05, 0);
-	basketleft->scale.Set(1, 1, 1);
-	basketleft->type = GameObject::GO_PILLAR;
-	basketleft->color.Set(252.f / 255.f, 160.f / 255.f, 68.f / 255.f);
-	basketleft->vel.SetZero();
-	basketleft->checkCollision = true;
-	basketleft->affectedByGravity = false;
-	basketleft->disappearWhenHit = false;
 
 
-	debug = false; shootcooldown = 10; activeballs = 0; redbricksleft = 0;
-	Gravity.Set(0, -30, 0); ballsleft = 5; playerlose = false; playerwin = false; levelno = 1;
-	gameclear = false; ballselected = 0;
+
+	debug = false; 
+	playerlose = false; playerwin = false; levelno = 1;
+	gameclear = false;
 
 	basketshotdt = 0;
 
@@ -162,7 +114,7 @@ void SceneCollision::ResetLevel()
 {
 	for (unsigned idx = 0; idx < m_goList.size(); idx++)
 	{
-		if (m_goList[idx] == basketleft || m_goList[idx] == basketright || !m_goList[idx]->active)
+		if (!m_goList[idx]->active)
 			continue;
 		ReturnGO(m_goList[idx]);
 		m_goList[idx]->ResetValues();
@@ -172,16 +124,9 @@ void SceneCollision::ResetLevel()
 	else if (playerlose)
 		levelno = 1;
 
-	ballsleft = 5 * levelno;
-	redbricksleft = 0;
-	shootcooldown = 10; activeballs = 0; redbricksleft = 0;
+
 	playerlose = false; playerwin = false;
 	basketshotdt = 0;
-
-	basketleft->pos.Set(m_worldWidth * 0.5 - 7, m_worldHeight * 0.05, 0);
-	basketright->pos.Set(m_worldWidth * 0.5 + 7, m_worldHeight * 0.05, 0);
-	basket->pos.Set(m_worldWidth * 0.5, m_worldHeight * 0.03, 0);
-
 }
 
 void SceneCollision::Update(double dt)
@@ -204,19 +149,6 @@ void SceneCollision::Update(double dt)
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
-	shootcooldown += dt;
-	if (ballsleft <= 0 && redbricksleft != 0 && activeballs == 0)
-		playerlose = true;
-	else if (redbricksleft == 0 && activeballs == 0)
-	{
-		if (levelno == 2)
-		{
-			gameclear = true;
-		}
-		else
-			playerwin = true;
-	}
-
 	basketshotdt -= dt;
 	if (basketshotdt < 0)
 	{
@@ -235,12 +167,6 @@ void SceneCollision::Update(double dt)
 	static bool q = false, e = false;
 	if (Application::IsKeyPressed('Q') && !q)
 	{
-		if (ballselected == 0)
-		{
-			ballselected = 2;
-		}
-		else
-			ballselected--;
 		q = true;
 	}
 	else if (!Application::IsKeyPressed('Q') && q)
@@ -248,44 +174,11 @@ void SceneCollision::Update(double dt)
 
 	if (Application::IsKeyPressed('E') && !e)
 	{
-		if (ballselected == 2)
-		{
-			ballselected = 0;
-		}
-		else
-			ballselected++;
-		e = true;
+		
 	}
 	else if (!Application::IsKeyPressed('E') && e)
 		e = false;
 
-
-	//update the basket
-	static bool basketmovingleft = true;
-	if (basketmovingleft)
-	{
-		//move basket left
-		basket->pos += Vector3(15, 0, 0) * dt;
-		basketleft->vel = Vector3(15, 0, 0);
-		basketright->vel = Vector3(15, 0, 0);
-		if (basketright->pos.x + basketright->scale.x > m_worldWidth)
-		{
-			basketmovingleft = false;
-		}
-	}
-	else
-	{
-		//move basket right
-		basket->pos += Vector3(-15, 0, 0) * dt;
-		basketleft->vel = Vector3(-15, 0, 0);
-		basketright->vel = Vector3(-15, 0, 0);
-
-		//check if the basket has reached the edge of the screen
-		if (basketleft->pos.x - basketleft->scale.x < 0)
-		{
-			basketmovingleft = true;
-		}
-	}
 
 	
 	if (debug)
@@ -338,8 +231,6 @@ void SceneCollision::Update(double dt)
 		if(go->active)
 		{
 			go->pos += go->vel * dt * m_speed;
-			if (go->affectedByGravity)
-				go->vel += Gravity * dt;
 
 
 			if (((go->pos.x - go->scale.x < 0) && go->vel.x < 0 ) || ((go->pos.x + go->scale.x > m_worldWidth) && go->vel.x > 0))
@@ -498,7 +389,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	pillar1->color = color;
 	pillar1->scale.Set(size, size, 1);
 	pillar1->pos = pos + height * 0.48f * tangent + width * 0.48f * normal;
-	pillar1->affectedByGravity = false;
 	pillar1->disappearWhenHit = true;
 	pillar1->visible = true;
 
@@ -509,7 +399,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	pillar2->color = color;
 	pillar2->scale.Set(size, size, 1);
 	pillar2->pos = pos + height * 0.48f * tangent - width * 0.48f * normal;
-	pillar2->affectedByGravity = false;
 	pillar2->disappearWhenHit = true;
 	pillar2->visible = true;
 
@@ -519,7 +408,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	pillar3->color = color;
 	pillar3->scale.Set(size, size, 1);
 	pillar3->pos = pos - height * 0.48f * tangent - width * 0.48f * normal;
-	pillar3->affectedByGravity = false;
 	pillar3->disappearWhenHit = true;
 	pillar3->visible = true;
 
@@ -529,7 +417,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	pillar4->color = color;
 	pillar4->scale.Set(size, size, 1);
 	pillar4->pos = pos - height * 0.48f * tangent + width * 0.48f * normal;
-	pillar4->affectedByGravity = false;
 	pillar4->disappearWhenHit = true;
 	pillar4->visible = true;
 
@@ -539,7 +426,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	wall1->normal = normal;
 	wall1->color = color;
 	wall1->pos = pos;
-	wall1->affectedByGravity = false;
 	wall1->disappearWhenHit = true;
 	wall1->visible = true;
 
@@ -550,7 +436,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	wall2->color = color;
 	wall2->pos = pos;
 	wall2->visible = false;
-	wall2->affectedByGravity = false;
 	wall2->disappearWhenHit = true;
 
 
@@ -640,9 +525,6 @@ void SceneCollision::Render()
 		RenderGO(m_ghost);
 
 
-	RenderGO(m_gunbarrel);
-	RenderGO(m_gunbody);
-	RenderGO(basket);
 	for(std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
 	{
 		GameObject *go = (GameObject *)*it;
@@ -665,40 +547,8 @@ void SceneCollision::Render()
 		ss << " FPS: " << fps;
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 9);
 	
-		ss.str("");
-		ss << " ACtiveBalls " << activeballs;
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 15);
 	}
 
-	//render the number of balls left
-	ss.str("");
-	ss << "Balls Left:" << ballsleft;
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 3);
-
-	ss.str("");
-	ss << "Red Bricks left:" << redbricksleft;
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 6);
-
-	ss.str("");
-	ss << "Level " << levelno;
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 0, 56);
-
-	ss.str("");
-	ss << "Selected Ball:";
-	switch (ballselected)
-	{
-	case 0:
-		ss << "Normal, Cost:1";
-		break;
-	case 1:
-		ss << "Homing ball, Cost:2";
-		break;
-	case 2:
-		ss << "Explosive ball, Cost: 3";
-		break;
-	}
-
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 0, 52);
 
 
 	if (playerwin)
@@ -759,20 +609,5 @@ void SceneCollision::Exit()
 	{
 		delete m_ghost;
 		m_ghost = NULL;
-	}
-	if (m_gunbarrel)
-	{
-		delete m_gunbarrel;
-		m_gunbarrel = NULL;
-	}
-	if (m_gunbody)
-	{
-		delete m_gunbody;
-		m_gunbody = NULL;
-	}
-	if (basket)
-	{
-		delete basket;
-		basket = NULL;
 	}
 }

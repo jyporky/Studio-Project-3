@@ -12,7 +12,6 @@ GameObject::GameObject(GAMEOBJECT_TYPE typeValue)
 	momentOfInertia = 0;
 	checkCollision = true;
 	disappearWhenHit = false;
-	affectedByGravity = true;
 	visible = true;
 }
 
@@ -38,5 +37,4 @@ void GameObject::ResetValues()
 	otherGameObjects.clear();
 	checkCollision = true;
 	disappearWhenHit = false;
-	affectedByGravity = true;
 }
