@@ -6,6 +6,7 @@
 #include "SceneBase.h"
 #include "SoundController.h"
 #include "filesystem.h"
+#include "Entity.h"
 
 class SceneCollision : public SceneBase
 {
