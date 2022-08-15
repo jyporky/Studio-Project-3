@@ -1,6 +1,13 @@
 #pragma once
 #include "Source/Skill.h"
-class HackSkill : public Skill
+#include <string>
+class Hack : public Skill
 {
+public:
+	Hack();
+	~Hack();
+	int getMoneyCost();
+	int getEnegyCost();
+	std::string getDescription();	
 };
 
