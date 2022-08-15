@@ -48,6 +48,8 @@ public:
 		GEO_BALL,
 		GEO_CUBE,
 		GEO_SANDBG,
+		GEO_LEFT_PLAYER,
+		GEO_RIGHT_PLAYER,
 		NUM_GEOMETRY,
 	};
 public:

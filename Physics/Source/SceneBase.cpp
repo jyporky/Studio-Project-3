@@ -154,6 +154,12 @@ void SceneBase::Init()
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
 	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");
 
+	meshList[GEO_LEFT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
+	meshList[GEO_LEFT_PLAYER]->textureID = LoadTGA("Image//playerleft.tga");	
+	
+	meshList[GEO_RIGHT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
+	meshList[GEO_RIGHT_PLAYER]->textureID = LoadTGA("Image//playerright.tga");
+
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//DimboFont.tga");
 	meshList[GEO_TEXT]->material.kAmbient.Set(1, 0, 0);

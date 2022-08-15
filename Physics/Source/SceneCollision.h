@@ -7,6 +7,7 @@
 #include "SoundController.h"
 #include "filesystem.h"
 #include "Entity.h"
+#include "Player.h"
 
 class SceneCollision : public SceneBase
 {
@@ -29,6 +30,8 @@ public:
 	bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2);
 	void SceneCollision::CollisionResponse(GameObject* go1, GameObject* go2);
 	void MakeThickWall(float width, float height, const Vector3& normal, const Vector3& pos, const Vector3& color);
+	GameObject* Checkborder(GameObject* go);
+
 protected:
 
 	//Physics
@@ -37,6 +40,7 @@ protected:
 	float m_worldWidth;
 	float m_worldHeight;
 	GameObject *m_ghost;
+	GameObject* m_player;
 	int m_objectCount;
 	bool debug;
 	unsigned levelno;
@@ -44,6 +48,7 @@ protected:
 	bool playerlose;
 	bool gameclear;
 	CSoundController* cSoundController;
+	Player* player;
 
 	//Auditing
 	float m1, m2;
