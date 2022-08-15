@@ -493,9 +493,10 @@ void SceneCollision::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 	
-	//RenderMesh(meshList[GEO_AXES], false);
 	if (m_ghost->active)
 		RenderGO(m_ghost);
+
+	
 
 
 	for(std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)

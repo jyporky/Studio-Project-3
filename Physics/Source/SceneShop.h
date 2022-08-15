@@ -1,15 +1,15 @@
-#ifndef SCENE_MENU_H
-#define SCENE_MENU_H
+#ifndef SCENE_SHOP_H
+#define SCENE_SHOP_H
 
 #include "GameObject.h"
 #include <vector>
 #include "SceneBase.h"
 
-class SceneMenu : public SceneBase
+class SceneShop : public SceneBase
 {
 public:
-	SceneMenu();
-	~SceneMenu();
+	SceneShop();
+	~SceneShop();
 
 	virtual void Init();
 	virtual void Update(double dt);

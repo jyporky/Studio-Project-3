@@ -1,14 +1,14 @@
-#include "SceneMenu.h"
+#include "SceneShop.h"
 #include "GL\glew.h"
 #include "Application.h"
 #include <sstream>
 
-SceneMenu::SceneMenu()
+SceneShop::SceneShop()
 {
 	
 }
 
-SceneMenu::~SceneMenu()
+SceneShop::~SceneShop()
 {
 }
 
@@ -18,7 +18,7 @@ static Vector3 RotateVector(const Vector3& vec, float radian)
 		vec.x * sin(radian) + vec.y * cos(radian), 0.f);
 }
 
-void SceneMenu::Init()
+void SceneShop::Init()
 {
 	SceneBase::Init();
 
@@ -34,7 +34,7 @@ void SceneMenu::Init()
 
 
 
-void SceneMenu::Update(double dt)
+void SceneShop::Update(double dt)
 {
 	SceneBase::Update(dt);
 	
@@ -86,7 +86,7 @@ void SceneMenu::Update(double dt)
 }
 
 
-void SceneMenu::Render()
+void SceneShop::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -130,7 +130,7 @@ void SceneMenu::Render()
 
 }
 
-void SceneMenu::Exit()
+void SceneShop::Exit()
 {
 	SceneBase::Exit();
 }
