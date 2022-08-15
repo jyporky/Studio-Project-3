@@ -8,6 +8,7 @@ public:
 	void SetGameObject(GameObject* player);
 	void update();
 	~Player();
+	GameObject* getPlayer();
 private:
 	GameObject* m_player;
 };

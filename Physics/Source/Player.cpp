@@ -19,3 +19,8 @@ Player::~Player()
 {
 
 }
+
+GameObject* Player::getPlayer()
+{
+	return m_player;
+}

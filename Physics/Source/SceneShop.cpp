@@ -3,6 +3,7 @@
 #include "Application.h"
 #include <sstream>
 
+
 SceneShop::SceneShop()
 {
 	
@@ -27,6 +28,13 @@ void SceneShop::Init()
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
 	bLightEnabled = true;
+
+
+	
+
+	player = Player::GetInstance();
+	m_player = player->getPlayer();
+	player->SetGameObject(m_player);
 
 	Math::InitRNG();
 
@@ -82,7 +90,51 @@ void SceneShop::Update(double dt)
 			break;
 		}
 	}	
+
+	// Moving of player
+	Vector3 movementDirection;
+	movementDirection.SetZero();
+	if (Application::IsKeyPressed('W'))
+	{
+		movementDirection.y += 1;
+	}
+
+	if (Application::IsKeyPressed('S'))
+	{
+		movementDirection.y -= 1;
+	}
+
+	if (Application::IsKeyPressed('A'))
+	{
+		movementDirection.x -= 1;
+	}
+
+	if (Application::IsKeyPressed('D'))
+	{
+		movementDirection.x += 1;
+	}
+
+	if (movementDirection.x > 0)
+	{
+		m_player->angle = 0;
+	}
+
+	else if (movementDirection.x < 0)
+	{
+		m_player->angle = 180;
+	}
+
+	m_player->pos += movementDirection.Normalize() * 40 * dt;
+
+	m_player = Checkborder(m_player);
+
+	// Put this after all changes is made to player
+	player->SetGameObject(m_player);
 	return;
+
+
+	
+
 }
 
 
@@ -116,6 +168,25 @@ void SceneShop::Render()
 	modelStack.Scale(1000, 1000, 1000);
 	RenderMesh(meshList[GEO_SANDBG], false);
 	modelStack.PopMatrix();
+
+
+	//player
+	modelStack.PushMatrix();
+	modelStack.Translate(m_player->pos.x, m_player->pos.y, m_player->pos.z);
+	modelStack.Scale(m_player->scale.x, m_player->scale.y, m_player->scale.z);
+	if (m_player->angle == 180)
+	{
+		meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(m_player->color.x, m_player->color.y, m_player->color.z);
+		RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+	}
+
+	else if (m_player->angle == 0)
+	{
+		meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(m_player->color.x, m_player->color.y, m_player->color.z);
+		RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+	}
+	modelStack.PopMatrix();
+
 	//NPCs
 
 	modelStack.PushMatrix();
@@ -179,3 +250,28 @@ void SceneShop::renderEnvironment()
 	modelStack.PopMatrix();
 }
 
+
+GameObject* SceneShop::Checkborder(GameObject* go)
+{
+	if (go->pos.x + go->scale.x / 2 > m_worldWidth)
+	{
+		go->pos.x = m_worldWidth - go->scale.x / 2;
+	}
+
+	if (go->pos.x - go->scale.x / 2 < 0)
+	{
+		go->pos.x = 0 + go->scale.x / 2;
+	}
+
+	if (go->pos.y + go->scale.y / 2 > m_worldHeight)
+	{
+		go->pos.y = m_worldHeight - go->scale.y / 2;
+	}
+
+	if (go->pos.y - go->scale.y / 2 < 0)
+	{
+		go->pos.y = 0 + go->scale.y / 2;
+	}
+
+	return go;
+}

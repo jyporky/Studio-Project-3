@@ -263,6 +263,7 @@ void SceneBase::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, fl
 
 void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 {
+	glDisable(GL_DEPTH_TEST);
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 	
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
@@ -301,6 +302,7 @@ void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+	glEnable(GL_DEPTH_TEST);
 }
 
 void SceneBase::Render()
