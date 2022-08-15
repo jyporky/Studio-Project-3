@@ -110,7 +110,6 @@ void SceneCollision::Init()
 	Gravity.Set(0, -30, 0); ballsleft = 5; playerlose = false; playerwin = false; levelno = 1;
 	gameclear = false; ballselected = 0;
 
-	CreateLevel(5, 5, 2);
 	basketshotdt = 0;
 
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
@@ -183,14 +182,6 @@ void SceneCollision::ResetLevel()
 	basketright->pos.Set(m_worldWidth * 0.5 + 7, m_worldHeight * 0.05, 0);
 	basket->pos.Set(m_worldWidth * 0.5, m_worldHeight * 0.03, 0);
 
-	if (levelno == 1)
-	{
-		CreateLevel(5, 5, 3);
-	}
-	else if (levelno == 2)
-	{
-		CreateLevel(10, 10, 6);
-	}
 }
 
 void SceneCollision::Update(double dt)

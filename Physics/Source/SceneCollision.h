@@ -25,7 +25,6 @@ public:
 
 	bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2);
 	void SceneCollision::CollisionResponse(GameObject* go1, GameObject* go2);
-	void CreateLevel(unsigned numrectWidth = 10, unsigned numrectHeight = 10, unsigned redbrickchance = 7);
 	void MakeThickWall(float width, float height, const Vector3& normal, const Vector3& pos, const Vector3& color);
 protected:
 
@@ -37,21 +36,10 @@ protected:
 	GameObject *m_ghost;
 	int m_objectCount;
 	bool debug;
-	Vector3 Gravity;
 
-	GameObject* basketleft;
-	GameObject* basketright;
-	GameObject* basket;
 
-	GameObject* m_gunbody;
-	GameObject* m_gunbarrel;
-	float shootcooldown;
-	unsigned ballsleft;
-	unsigned redbricksleft;
-	unsigned activeballs;
 	unsigned levelno;
 	float basketshotdt;
-	unsigned ballselected;
 
 
 	bool playerwin;
