@@ -1,14 +1,14 @@
-#include "SceneMenu.h"
+#include "SceneOptions.h"
 #include "GL\glew.h"
 #include "Application.h"
 #include <sstream>
 
-SceneMenu::SceneMenu()
+SceneOptions::SceneOptions()
 {
 	
 }
 
-SceneMenu::~SceneMenu()
+SceneOptions::~SceneOptions()
 {
 }
 
@@ -18,7 +18,7 @@ static Vector3 RotateVector(const Vector3& vec, float radian)
 		vec.x * sin(radian) + vec.y * cos(radian), 0.f);
 }
 
-void SceneMenu::Init()
+void SceneOptions::Init()
 {
 	SceneBase::Init();
 
@@ -34,7 +34,7 @@ void SceneMenu::Init()
 
 
 
-void SceneMenu::Update(double dt)
+void SceneOptions::Update(double dt)
 {
 	SceneBase::Update(dt);
 	
@@ -70,7 +70,7 @@ void SceneMenu::Update(double dt)
 	else if (!Application::IsKeyPressed('S') && s)
 		s = false;
 
-	if (Application::IsKeyPressed('E'))
+	/*if (Application::IsKeyPressed('E'))
 	{
 		switch (menubuttonhighlight)
 		{
@@ -85,11 +85,11 @@ void SceneMenu::Update(double dt)
 			break;
 		}
 	}	
-	return;
+	return;*/
 }
 
 
-void SceneMenu::Render()
+void SceneOptions::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -115,28 +115,28 @@ void SceneMenu::Render()
 	
 	ss.str("");
 	ss << ">";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 1, 44 - menubuttonhighlight * 4);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 1, 44 - menubuttonhighlight * 4);
 	
 	ss.str("");
-	ss << "Start";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 44);
+	ss << "Master Volume:";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 44);
 
 	ss.str("Options");
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 40);
 
 
 	ss.str("");
 	ss << "Quit";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 36);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 36);
 
 
 	ss.str("");
-	ss << "GROBYC";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 8, 4, 52);
+	ss << "Options";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 8, 4, 52);
 
 }
 
-void SceneMenu::Exit()
+void SceneOptions::Exit()
 {
 	SceneBase::Exit();
 }

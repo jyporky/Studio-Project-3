@@ -298,8 +298,6 @@ void SceneCollision::Update(double dt)
 					if (actor->type == GameObject::GO_BALL)
 						actor->vel *= 0.8;
 
-
-
 					CollisionResponse(actor, actee);
 					if (actee->disappearWhenHit)
 					{
