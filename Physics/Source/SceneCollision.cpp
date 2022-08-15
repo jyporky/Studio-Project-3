@@ -482,21 +482,26 @@ void SceneCollision::Render()
 	Mtx44 projection;
 	projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
 	projectionStack.LoadMatrix(projection);
-	
+
 	// Camera matrix
 	viewStack.LoadIdentity();
 	viewStack.LookAt(
-						camera.position.x, camera.position.y, camera.position.z,
-						camera.target.x, camera.target.y, camera.target.z,
-						camera.up.x, camera.up.y, camera.up.z
-					);
+		camera.position.x, camera.position.y, camera.position.z,
+		camera.target.x, camera.target.y, camera.target.z,
+		camera.up.x, camera.up.y, camera.up.z
+	);
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
-	
+
 	if (m_ghost->active)
 		RenderGO(m_ghost);
 
-	
+	//render the sand bg
+	modelStack.PushMatrix();
+	modelStack.Translate(camera.position.x, 0, camera.position.z);
+	modelStack.Scale(1000,1000,1000);
+	RenderMesh(meshList[GEO_SANDBG], false);
+	modelStack.PopMatrix();
 
 
 	for(std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)

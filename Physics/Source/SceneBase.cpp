@@ -151,20 +151,12 @@ void SceneBase::Init()
 	meshList[GEO_BALL] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(1, 1, 1), 1.f);
 	
-	meshList[GEO_SHIP] = MeshBuilder::GenerateQuad("ship", Color(1, 1, 1), 2.f);
-	meshList[GEO_SHIP]->textureID = LoadTexture("Image//ship.png");
-	meshList[GEO_SHIP]->material.kAmbient.Set(1, 1, 1);
-
-	meshList[GEO_ASTEROID] = MeshBuilder::GenerateQuad("asteroid", Color(1, 1, 1), 2.f);
-	meshList[GEO_ASTEROID]->textureID = LoadTGA("Image//asteroid.tga");
-	meshList[GEO_ASTEROID]->material.kAmbient.Set(1, 1, 1);
+	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
+	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//DimboFont.tga");
 	meshList[GEO_TEXT]->material.kAmbient.Set(1, 0, 0);
-
-	meshList[GEO_BLACKHOLE] = MeshBuilder::GenerateSphere("ball", Color(1, 0, 0), 10, 10, 1.f);
-	meshList[GEO_WHITEHOLE] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 
 	bLightEnabled = false;
 }
