@@ -37,22 +37,6 @@ void SceneCollision::Init()
 
 	m_ghost = new GameObject(GameObject::GO_BALL);
 
-	//MakeThinWall(5.0f, 20.0f, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0));
-
-	/*float angle = Math::QUARTER_PI;
-	float wallLength = 30;
-	float radius = wallLength * 0.5f / tan(angle * 0.5f);*/
-	////create octogonal shape
-	//for (int i = 0; i < 8; ++i)
-	//{
-	//	GameObject* go = FetchGO();
-	//	go->type = GameObject::GO_WALL;
-	//	go->active = true;
-	//	go->scale.Set(2.0f, wallLength + 0.9f, 1.0f);
-	//	go->pos = Vector3(radius * cosf(i * angle) + m_worldWidth * 0.5, radius * sinf(i * angle) + m_worldHeight * 0.5, 0.f);
-	//	go->normal = Vector3(cosf(i * angle), sinf(i * angle), 0.f);
-	//	go->vel.SetZero();
-	//}
 	debug = false; 
 	playerlose = false; playerwin = false; levelno = 1;
 	gameclear = false;
