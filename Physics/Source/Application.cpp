@@ -13,7 +13,6 @@
 
 #include "SceneCollision.h"
 #include "SceneMenu.h"
-#include "SceneOptions.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -133,14 +132,10 @@ void Application::Run()
 {
 	//Main Loop
 	Scene* scene1 = new SceneMenu();
-	Scene* scene2 = new SceneCollision();
-	//Scene* scene3;
-	Scene* scene4 = new SceneOptions();
+	Scene *scene2 = new SceneCollision();
 	Scene *scene = scene1;
 	scene1->Init();
 	scene2->Init();
-	//scene3->Init();
-	scene4->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
@@ -151,10 +146,6 @@ void Application::Run()
 			scene = scene1;
 		else if (state == 2)
 			scene = scene2;
-	/*	else if (state == 3)
-			scene = scene3;*/
-		else if (state == 4)
-			scene = scene4;
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();
 		//Swap buffers
@@ -166,12 +157,8 @@ void Application::Run()
 	} //Check if the ESC key had been pressed or if the window had been closed
 	scene1->Exit();
 	scene2->Exit();
-	//scene3->Exit();
-	scene4->Exit();
 	delete scene1;
 	delete scene2;
-	//delete scene3;
-	delete scene4;
 }
 
 void Application::Exit()
