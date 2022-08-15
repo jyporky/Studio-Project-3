@@ -7,6 +7,6 @@ public:
 	~Skill();
 
 private:
-
+	
 };
 
