@@ -1,6 +1,1 @@
-﻿  GameObject.cpp
-  SceneBase.cpp
-  Utility.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  Physics.vcxproj -> C:\Users\khorm\Documents\GitHub\Studio-Project-3\Debug\Physics.exe
+﻿
