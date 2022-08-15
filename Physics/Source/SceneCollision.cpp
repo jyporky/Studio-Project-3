@@ -145,9 +145,10 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
-	if (Application::IsKeyPressed('E') && !e)
+	if (Application::IsKeyPressed('R') && !e)
 	{
-		
+		Application::SetState(3);
+
 	}
 	else if (!Application::IsKeyPressed('E') && e)
 		e = false;
@@ -528,7 +529,9 @@ void SceneCollision::Render()
 	
 	}
 
-
+	ss.str("");
+	ss << "Press r to go shop";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
 
 	if (playerwin)
 	{

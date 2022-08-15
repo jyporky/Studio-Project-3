@@ -15,6 +15,8 @@ public:
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
+
+	void renderEnvironment();
 protected:
 
 	float m_worldWidth;

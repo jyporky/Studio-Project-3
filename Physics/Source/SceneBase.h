@@ -48,6 +48,11 @@ public:
 		GEO_BALL,
 		GEO_CUBE,
 		GEO_SANDBG,
+
+		//NPCs
+		GEO_BLACKSMITH,
+		GEO_PARTDEALER,
+		GEO_ALCHEMIST,
 		NUM_GEOMETRY,
 	};
 public:

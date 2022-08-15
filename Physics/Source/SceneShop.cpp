@@ -70,7 +70,7 @@ void SceneShop::Update(double dt)
 	else if (!Application::IsKeyPressed('S') && s)
 		s = false;
 
-	if (Application::IsKeyPressed('E'))
+	if (Application::IsKeyPressed('P'))
 	{
 		switch (menubuttonhighlight)
 		{
@@ -110,27 +110,72 @@ void SceneShop::Render()
 	//On screen text
 	std::ostringstream ss;
 	
+
+	modelStack.PushMatrix();
+	modelStack.Translate(camera.position.x, camera.position.y, 0);
+	modelStack.Scale(1000, 1000, 1000);
+	RenderMesh(meshList[GEO_SANDBG], false);
+	modelStack.PopMatrix();
+	//NPCs
+
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth/2, 80, 1);
+	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Scale(15, 15, 1);
+	RenderMesh(meshList[GEO_BLACKSMITH], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth / 2 - 40, 75, 1);
+	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Scale(15, 15, 1);
+	RenderMesh(meshList[GEO_PARTDEALER], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth / 2 + 40, 75, 1);
+	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Scale(15, 15, 1);
+	RenderMesh(meshList[GEO_ALCHEMIST], false);
+	modelStack.PopMatrix();
+
+	renderEnvironment();
+
+
+
 	ss.str("");
-	ss << ">";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 0, 44 - menubuttonhighlight * 4);
-	
-	ss.str("");
-	ss << "Start";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 44);
-
-
-	ss.str("");
-	ss << "Quit";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
-
-
-	ss.str("");
-	ss << "Fake Peggle";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 8, 4, 52);
-
+	ss << "Shop ";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 3, 55);
 }
+
+
 
 void SceneShop::Exit()
 {
 	SceneBase::Exit();
 }
+
+void SceneShop::renderEnvironment()
+{
+	//top
+	modelStack.PushMatrix();
+	modelStack.Translate(88, 98, 1);
+	modelStack.Scale(m_worldWidth +10, 5, 1);
+	RenderMesh(meshList[GEO_CUBE], false);
+	modelStack.PopMatrix();
+
+	//left
+	modelStack.PushMatrix();
+	modelStack.Translate(2, 50, 1);
+	modelStack.Scale(5, m_worldHeight, 1);
+	RenderMesh(meshList[GEO_CUBE], false);
+	modelStack.PopMatrix();
+
+	//right
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth - 3, 50, 1);
+	modelStack.Scale(5, m_worldHeight, 1);
+	RenderMesh(meshList[GEO_CUBE], false);
+	modelStack.PopMatrix();
+}
+

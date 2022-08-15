@@ -13,6 +13,7 @@
 
 #include "SceneCollision.h"
 #include "SceneMenu.h"
+#include "SceneShop.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -133,9 +134,11 @@ void Application::Run()
 	//Main Loop
 	Scene* scene1 = new SceneMenu();
 	Scene *scene2 = new SceneCollision();
+	Scene* scene3 = new SceneShop();
 	Scene *scene = scene1;
 	scene1->Init();
 	scene2->Init();
+	scene3->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
@@ -146,6 +149,9 @@ void Application::Run()
 			scene = scene1;
 		else if (state == 2)
 			scene = scene2;
+		else if (state == 3)
+			scene = scene3;
+			
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();
 		//Swap buffers
