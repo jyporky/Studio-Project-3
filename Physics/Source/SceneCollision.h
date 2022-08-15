@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include <vector>
 #include "SceneBase.h"
+#include "SoundController.h"
+#include "filesystem.h"
 
 class SceneCollision : public SceneBase
 {
@@ -36,15 +38,11 @@ protected:
 	GameObject *m_ghost;
 	int m_objectCount;
 	bool debug;
-
-
 	unsigned levelno;
-	float basketshotdt;
-
-
 	bool playerwin;
 	bool playerlose;
 	bool gameclear;
+	CSoundController* cSoundController;
 
 	//Auditing
 	float m1, m2;

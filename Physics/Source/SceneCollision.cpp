@@ -53,16 +53,12 @@ void SceneCollision::Init()
 	//	go->normal = Vector3(cosf(i * angle), sinf(i * angle), 0.f);
 	//	go->vel.SetZero();
 	//}
-
-	
-
-
-
 	debug = false; 
 	playerlose = false; playerwin = false; levelno = 1;
 	gameclear = false;
-
-	basketshotdt = 0;
+	cSoundController = CSoundController::GetInstance();
+	cSoundController->Init();
+	//cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
 
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
@@ -126,7 +122,6 @@ void SceneCollision::ResetLevel()
 
 
 	playerlose = false; playerwin = false;
-	basketshotdt = 0;
 }
 
 void SceneCollision::Update(double dt)
@@ -144,16 +139,16 @@ void SceneCollision::Update(double dt)
 		}
 		return;
 	}
+	/*static bool init = false;
+	if (!init)
+	{
+		init = false;
+		cSoundController->LoadSound(FileSystem::getPath("Physics\\Sounds\\damage.ogg"), 1, false);
+	}*/
 
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-
-	basketshotdt -= dt;
-	if (basketshotdt < 0)
-	{
-		basketshotdt = 0;
-	}
 
 	static bool oem_5 = false;
 	if (Application::IsKeyPressed(VK_OEM_5) && !oem_5)
@@ -587,12 +582,6 @@ void SceneCollision::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
 	}
 
-	if (basketshotdt > 0)
-	{
-		ss.str("");
-		ss << "Awesome! Ball +1";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 20, 40);
-	}
 }
 
 void SceneCollision::Exit()
