@@ -205,7 +205,7 @@ void SceneShop::Render()
 
 	modelStack.PushMatrix();
 	modelStack.Translate(m_worldWidth / 2 + 40, 75, 1);
-	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Rotate(180, 0, 0, 2);
 	modelStack.Scale(15, 15, 1);
 	RenderMesh(meshList[GEO_ALCHEMIST], false);
 	modelStack.PopMatrix();
