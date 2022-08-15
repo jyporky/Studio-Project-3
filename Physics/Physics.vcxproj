@@ -156,6 +156,8 @@
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTexture.cpp" />
@@ -163,10 +165,14 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Projectile.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneCollision.cpp" />
     <ClCompile Include="Source\SceneMenu.cpp" />
+    <ClCompile Include="Source\SceneShop.cpp" />
     <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\Skill.cpp" />
     <ClCompile Include="Source\SoundController.cpp" />
     <ClCompile Include="Source\SoundInfo.cpp" />
     <ClCompile Include="Source\SpriteAnimation.cpp" />
@@ -175,6 +181,8 @@
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
@@ -183,11 +191,15 @@
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Projectile.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\SceneCollision.h" />
     <ClInclude Include="Source\SceneMenu.h" />
+    <ClInclude Include="Source\SceneShop.h" />
     <ClInclude Include="Source\shader.hpp" />
+    <ClInclude Include="Source\Skill.h" />
     <ClInclude Include="Source\SoundController.h" />
     <ClInclude Include="Source\SoundInfo.h" />
     <ClInclude Include="Source\SpriteAnimation.h" />
