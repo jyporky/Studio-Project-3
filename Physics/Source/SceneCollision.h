@@ -8,6 +8,7 @@
 #include "filesystem.h"
 #include "Entity.h"
 #include "Player.h"
+#include "GameManger.h"
 
 class SceneCollision : public SceneBase
 {
@@ -49,6 +50,7 @@ protected:
 	bool gameclear;
 	CSoundController* cSoundController;
 	Player* player;
+	GameManger* cGameManager;
 
 	//Auditing
 	float m1, m2;

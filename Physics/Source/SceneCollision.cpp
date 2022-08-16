@@ -57,6 +57,8 @@ void SceneCollision::Init()
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
 
+	cGameManager = GameManger::GetInstance();
+
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
 
