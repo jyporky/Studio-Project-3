@@ -190,6 +190,18 @@ void SceneBase::Init()
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//DimboFont.tga");
 	meshList[GEO_TEXT]->material.kAmbient.Set(1, 0, 0);
 
+
+	//potions
+	meshList[GEO_SPEEDPOT] = MeshBuilder::GenerateQuad("speedpot", Color(1, 1, 1));
+	meshList[GEO_SPEEDPOT]->textureID = LoadTexture("Image//speed potion.png");
+
+	meshList[GEO_HEALTHPOT] = MeshBuilder::GenerateQuad("healthpot", Color(1, 1, 1));
+	meshList[GEO_HEALTHPOT]->textureID = LoadTexture("Image//health potion.png");
+
+	meshList[GEO_STRENGTHPOT] = MeshBuilder::GenerateQuad("strenghtpot", Color(1, 1, 1));
+	meshList[GEO_STRENGTHPOT]->textureID = LoadTexture("Image//strength potion.png");
+
+
 	bLightEnabled = false;
 	eButtonState = false;
 }

@@ -464,8 +464,8 @@ void SceneShop::renderShopMenu3()
 void SceneShop::renderShopMenu4()
 {
 	modelStack.PushMatrix();
-	modelStack.Translate(m_worldWidth / 2, 30, 1);
-	modelStack.Scale(m_worldWidth - 5, 55, 1);
+	modelStack.Translate(m_worldWidth / 2, 40, 1);
+	modelStack.Scale(m_worldWidth - 30, 55, 1);
 	RenderMesh(meshList[GEO_SHOPMENUBG], false);
 	modelStack.PopMatrix();
 
@@ -473,15 +473,58 @@ void SceneShop::renderShopMenu4()
 
 	ss.str("");
 	ss << "Potions";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 4, 30.5);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 10, 36);
 
 	ss.str("");
 	ss << "[R]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 75, 31);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 68, 37);
 
 	ss.str("");
 	ss << "X";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 77, 30.5);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 70, 36.5);
+
+
+	modelStack.PushMatrix();
+	modelStack.Translate(45, 51.5, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_HEALTHPOT], false);
+	modelStack.PopMatrix();
+
+	ss.str("");
+	ss << "Health Potion";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 30);
+	ss.str("");
+	ss << HealthPotion->getMoneyCost();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 30);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(47, 38, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_STRENGTHPOT], false);
+	modelStack.PopMatrix();
+
+	ss.str("");
+	ss << "Strength Potion";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 22);
+	ss.str("");
+	ss << StrengthPotion->getMoneyCost();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 22);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(45, 25.5, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_SPEEDPOT], false);
+	modelStack.PopMatrix();
+
+	ss.str("");
+	ss << "Speed Potion";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 14);
+	ss.str("");
+	ss << SpeedPotion->getMoneyCost();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 14);
+
+
+
 }
 GameObject* SceneShop::Checkborder(GameObject* go)
 {

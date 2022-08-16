@@ -47,19 +47,29 @@ public:
 		GEO_TEXT,
 		GEO_BALL,
 		GEO_CUBE,
+
 		GEO_SHOPMENUBG,
 		GEO_SANDBG,
 
 		// Weapons
 		GEO_SWORD,
 
+		//potions
+		GEO_SPEEDPOT,
+		GEO_STRENGTHPOT,
+		GEO_HEALTHPOT,
+
 		//NPCs
 		GEO_BLACKSMITH, //sell weapon upgrades
 		GEO_PARTDEALER, //sell upgrades to player
 		GEO_ALCHEMIST, //sell potions
 		GEO_WEAPONDEALER, //sell weapons
+		
+		//player
 		GEO_LEFT_PLAYER,
 		GEO_RIGHT_PLAYER,
+
+		//enemies
 		GEO_LEFT_SWORDSMAN,
 		GEO_RIGHT_SWORDSMAN,
 		NUM_GEOMETRY,

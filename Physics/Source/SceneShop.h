@@ -6,6 +6,11 @@
 #include "SceneBase.h"
 #include "Player.h"
 
+#include "Potions.h"
+#include "StrengthPotion.h"
+#include "HealthPotion.h"
+#include "SpeedPotion.h"
+
 class SceneShop : public SceneBase
 {
 public:
@@ -38,6 +43,10 @@ protected:
 	char weaponType;
 
 	bool ShopMenu1, ShopMenu2, ShopMenu3, ShopMenu4;
+
+	Potions* StrengthPotion = new StrengthPot();
+	Potions* HealthPotion = new HealthPot();
+	Potions* SpeedPotion = new SpeedPot();
 };
 
 #endif
