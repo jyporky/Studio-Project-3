@@ -19,6 +19,7 @@ protected:
 	float redTimer;
 	float greenTimer;
 	float attackdt;
+	float attackSpeed;
 	unsigned movementSpeed;
 	unsigned energyDropped;
 	unsigned moneyDropped;

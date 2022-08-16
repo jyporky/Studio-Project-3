@@ -14,6 +14,7 @@ Enemy::Enemy()
     affectedByKnockback = true;
     enemyGameObject = nullptr;
     PlayerPointer = nullptr;
+    attackSpeed = 0;
 }
 
 Enemy::~Enemy()
