@@ -13,6 +13,18 @@
 #include "GameManger.h"
 #include "Swordsman.h"
 
+#include "Skill.h"
+#include "HackSkill.h"
+#include "EMPSkill.h"
+#include "OverdriveSkill.h"
+#include "HealSkill.h"
+#include "ImmortalSkill.h"
+
+#include "Potions.h"
+#include "HealthPotion.h"
+#include "StrengthPotion.h"
+#include "SpeedPotion.h"
+
 class SceneCollision : public SceneBase
 {
 public:
@@ -48,7 +60,8 @@ protected:
 	CSoundController* cSoundController;
 	Player* player;
 	GameManger* cGameManager;
-
+	Skill* HackSkill = new Hack();
+	Potions* StrengthPotion = new StrengthPot();
 	//Auditing
 	float m1, m2;
 	Vector3 u1, u2, v1, v2;

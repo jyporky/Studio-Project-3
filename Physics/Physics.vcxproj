@@ -163,6 +163,7 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\HackSkill.cpp" />
     <ClCompile Include="Source\HealSkill.cpp" />
+    <ClCompile Include="Source\HealthPotion.cpp" />
     <ClCompile Include="Source\ImmortalSkill.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTexture.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\OverdriveSkill.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Potions.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneCollision.cpp" />
@@ -182,7 +184,9 @@
     <ClCompile Include="Source\Skill.cpp" />
     <ClCompile Include="Source\SoundController.cpp" />
     <ClCompile Include="Source\SoundInfo.cpp" />
+    <ClCompile Include="Source\SpeedPotion.cpp" />
     <ClCompile Include="Source\SpriteAnimation.cpp" />
+    <ClCompile Include="Source\StrengthPotion.cpp" />
     <ClCompile Include="Source\Swordsman.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
   </ItemGroup>
@@ -196,6 +200,7 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\HackSkill.h" />
     <ClInclude Include="Source\HealSkill.h" />
+    <ClInclude Include="Source\HealthPotion.h" />
     <ClInclude Include="Source\ImmortalSkill.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
@@ -206,6 +211,7 @@
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\OverdriveSkill.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Potions.h" />
     <ClInclude Include="Source\Projectile.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
@@ -217,7 +223,9 @@
     <ClInclude Include="Source\Skill.h" />
     <ClInclude Include="Source\SoundController.h" />
     <ClInclude Include="Source\SoundInfo.h" />
+    <ClInclude Include="Source\SpeedPotion.h" />
     <ClInclude Include="Source\SpriteAnimation.h" />
+    <ClInclude Include="Source\StrengthPotion.h" />
     <ClInclude Include="Source\Swordsman.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />

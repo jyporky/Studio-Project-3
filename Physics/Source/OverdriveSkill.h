@@ -6,8 +6,9 @@ class Overdrive : public Skill
 public:
 	Overdrive();
 	~Overdrive();
-	std::string getDescription();
-	int getMoneyCost();
-	int getEnergyCost();
+	virtual std::string getDescription();
+	virtual int getMoneyCost();
+	virtual int getEnergyCost();
+	virtual void UseSkill();
 };
 

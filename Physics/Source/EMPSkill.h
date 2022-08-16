@@ -6,8 +6,9 @@ class EMP : public Skill
 public:
 	EMP();
 	~EMP();
-	std::string getDescription();
-	int getMoneyCost();
-	int getEnergyCost();
+	virtual std::string getDescription();
+	virtual int getMoneyCost();
+	virtual int getEnergyCost();
+	virtual void UseSkill();
 };
 
