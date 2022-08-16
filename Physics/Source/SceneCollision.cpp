@@ -231,43 +231,10 @@ void SceneCollision::Update(double dt)
 		}
 	}
 	
-	
-	// Moving of player
-	Vector3 movementDirection;
-	movementDirection.SetZero();
-	if (Application::IsKeyPressed('W'))
-	{
-		movementDirection.y += 1;
-	}
-
-	if (Application::IsKeyPressed('S'))
-	{
-		movementDirection.y -= 1;
-	}
-
-	if (Application::IsKeyPressed('A'))
-	{
-		movementDirection.x -= 1;
-	}
-
-	if (Application::IsKeyPressed('D'))
-	{
-		movementDirection.x += 1;
-	}
-
-	if (movementDirection.x > 0)
-	{
-		player->getPlayer()->angle = 0;
-	}
-
-	else if (movementDirection.x < 0)
-	{
-		player->getPlayer()->angle = 180;
-	}
-
-	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
-
+	//update the player
+	player->Update(dt);
 	Checkborder(player->getPlayer());
+	
 
 	static bool Animate = false;
 

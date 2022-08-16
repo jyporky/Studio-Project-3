@@ -14,6 +14,7 @@ Swordsman::Swordsman()
     PlayerPointer = nullptr;
     sCurrState = CHASE;
     attackRange = 5;
+    attackSpeed = 1.5;
 }
 
 Swordsman::~Swordsman()
@@ -32,11 +33,23 @@ bool Swordsman::Update(double dt)
     else
         enemyGameObject->color.Set(1, 1, 1);
 
+    if (greenTimer > 0)
+    {
+        enemyGameObject->color.Set(0, 1, 0);
+        greenTimer -= dt;
+    }
+    else
+        enemyGameObject->color.Set(1, 1, 1);
+
+    if (attackdt > 0)
+        attackdt -= dt;
+
     if ((PlayerPointer->getPlayer()->pos - enemyGameObject->pos).LengthSquared() > attackRange * attackRange)
         sCurrState = CHASE;
     switch (sCurrState)
     {
     case IDLE:
+        //do nothing
         break;
     case CHASE:
         //chase the player
@@ -47,8 +60,11 @@ bool Swordsman::Update(double dt)
         }
         break;
     case ATTACK:
-        break;
-    default:
+        //Attack the player
+        if (attackdt <= 0)
+        {
+            attackdt = 1.5;
+        }
         break;
     }
     return false;
