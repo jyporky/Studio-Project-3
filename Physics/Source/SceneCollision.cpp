@@ -624,6 +624,15 @@ void SceneCollision::RenderGO(GameObject *go)
 			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
 		}
+
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+		}
+		modelStack.PopMatrix();
+		break;
+
 	case GameObject::GO_WEAPON:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x + go->scale.x * 0.2, go->pos.y - go->scale.y * 0.4, go->pos.z);
@@ -635,14 +644,6 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.PopMatrix();
 		break;
 
-		else if (go->angle == 0)
-		{
-			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
-		}
-		modelStack.PopMatrix();
-		break;
-		break;
 	case GameObject::GO_WALL:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
