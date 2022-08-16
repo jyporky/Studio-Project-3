@@ -10,6 +10,8 @@
 #include <sstream>
 #include <fstream>
 
+bool SceneBase::eButtonState = false;
+
 SceneBase::SceneBase()
 {
 }
@@ -175,6 +177,7 @@ void SceneBase::Init()
 	meshList[GEO_TEXT]->material.kAmbient.Set(1, 0, 0);
 
 	bLightEnabled = false;
+	eButtonState = false;
 }
 
 void SceneBase::Update(double dt)
