@@ -14,3 +14,6 @@ int EMP::getMoneyCost() {
 int EMP::getEnergyCost() {
 	return 100;
 }
+void EMP::UseSkill() {
+	return;
+}

@@ -1,14 +1,30 @@
 #pragma once
 #include "Entity.h"
+#include "Player.h"
+
 class Enemy : public Entity
 {
 public:
 	Enemy();
 	~Enemy();
-	virtual bool Update();
-	virtual bool ChangeHealth(int changeInHealth);
-private:
+	//enemy returns true if the enemy dies
+	virtual bool Update(double dt);
+	virtual void Init();
+	void SetEnemyGameObject(GameObject* enemyGO);
+	GameObject* GetEnemyGameObject();
+	void SetGO(GameObject* newGameObject);
+	bool ChangeHealth(int changeInHealth);
+protected:
 	unsigned health;
 	float redTimer;
+	float greenTimer;
+	float attackdt;
+	unsigned movementSpeed;
+	unsigned energyDropped;
+	unsigned moneyDropped;
+	unsigned attackDamage;
+	bool affectedByKnockback;
+	GameObject* enemyGameObject;
+	static Player* PlayerPointer;
 };
 

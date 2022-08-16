@@ -14,3 +14,6 @@ int Overdrive::getMoneyCost() {
 int Overdrive::getEnergyCost() {
 	return 80;
 }
+void Overdrive::UseSkill() {
+	return;
+}

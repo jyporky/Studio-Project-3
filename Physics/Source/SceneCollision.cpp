@@ -36,16 +36,12 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	m_ghost = new GameObject(GameObject::GO_BALL);
 
-	debug = false; 
-	playerlose = false; playerwin = false; levelno = 1;
-	gameclear = false;
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
 
-	m_player = FetchGO();
+	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
 	m_player->pos.Set(m_worldWidth/2, m_worldHeight/2, 1);
 	m_player->vel.SetZero();
@@ -56,6 +52,21 @@ void SceneCollision::Init()
 
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
+
+	cGameManager = GameManger::GetInstance();
+
+	//spawn one enemy
+	Enemy* enemy = new Swordsman();
+	enemy->Init();
+	GameObject* enemyGO = FetchGO();
+	enemyGO->type = GameObject::GO_SWORDSMAN;
+	enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
+	enemyGO->vel.SetZero();
+	enemyGO->scale.Set(10, 10, 1);
+	enemyGO->color.Set(1, 1, 1);
+	enemyGO->angle = 0;
+	enemy->SetEnemyGameObject(enemyGO);
+	m_enemyList.push_back(enemy);
 
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
@@ -112,21 +123,26 @@ void SceneCollision::ResetLevel()
 		ReturnGO(m_goList[idx]);
 		m_goList[idx]->ResetValues();
 	}
-	if (playerwin)
-		levelno++;
-	else if (playerlose)
-		levelno = 1;
+	if (cGameManager->bWaveClear)
+		cGameManager->dWaveNo++;
+	else if (cGameManager->bPlayerLost)
+		cGameManager->dWaveNo = 1;
 
-
-	playerlose = false; playerwin = false;
+	cGameManager->bPlayerLost = false;
+	cGameManager->bGameWin = false;
 }
 
 void SceneCollision::Update(double dt)
 {
+
+	//Calculating aspect ratio
+	m_worldHeight = 100.f;
+	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
+
 	SceneBase::Update(dt);
-	if (playerlose || playerwin || gameclear)
+	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
-		if (Application::IsKeyPressed('R') && !gameclear)
+		if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
 		{
 			ResetLevel();
 		}
@@ -136,15 +152,10 @@ void SceneCollision::Update(double dt)
 		}
 		return;
 	}
-
-	//Calculating aspect ratio
-	m_worldHeight = 100.f;
-	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-
 	static bool oem_5 = false;
 	if (Application::IsKeyPressed(VK_OEM_5) && !oem_5)
 	{
-		debug = !debug;
+		cGameManager->dDebug = !cGameManager->dDebug;
 		oem_5 = true;
 	}
 	else if (!Application::IsKeyPressed(VK_OEM_5) && oem_5)
@@ -168,7 +179,7 @@ void SceneCollision::Update(double dt)
 
 
 	
-	if (debug)
+	if (cGameManager->dDebug)
 	{
 		if(Application::IsKeyPressed('9'))
 		{
@@ -179,6 +190,32 @@ void SceneCollision::Update(double dt)
 			m_speed += 0.1f;
 		}
 	}
+
+	//update enemy
+	static bool ubutton;
+	bool dealdamage = false;
+	if (Application::IsKeyPressed('U') && !ubutton)
+	{
+		ubutton = true;
+		dealdamage = true;
+	}
+	else if (!Application::IsKeyPressed('U') && ubutton)
+		ubutton = false;
+	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
+	{
+		m_enemyList[idx]->Update(dt);
+		if (dealdamage)
+		{
+			if (m_enemyList[idx]->ChangeHealth(-1))
+			{
+				//delete the enemy
+				ReturnGO(m_enemyList[idx]->GetEnemyGameObject());
+				delete m_enemyList[idx];
+				m_enemyList.erase(m_enemyList.begin() + idx);
+			}
+		}
+	}
+	
 	
 	// Moving of player
 	Vector3 movementDirection;
@@ -205,20 +242,17 @@ void SceneCollision::Update(double dt)
 
 	if (movementDirection.x > 0)
 	{
-		m_player->angle = 0;
+		player->getPlayer()->angle = 0;
 	}
 
 	else if (movementDirection.x < 0)
 	{
-		m_player->angle = 180;
+		player->getPlayer()->angle = 180;
 	}
 
-	m_player->pos += movementDirection.Normalize() * 40 * dt;
+	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
 
-	m_player = Checkborder(m_player);
-
-	// Put this after all changes is made to player
-	player->SetGameObject(m_player);
+	Checkborder(player->getPlayer());
 
 	//Mouse Section
 	double x, y, windowWidth, windowHeight;
@@ -532,7 +566,24 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_SWORDSMAN:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+		}
 
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+		}
+		modelStack.PopMatrix();
+		break;
+		break;
 	case GameObject::GO_WALL:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -571,9 +622,6 @@ void SceneCollision::Render()
 	RenderMesh(meshList[GEO_SANDBG], false);
 	modelStack.PopMatrix();
 
-	if (m_ghost->active)
-		RenderGO(m_ghost);
-
 
 	for(std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
 	{
@@ -587,7 +635,7 @@ void SceneCollision::Render()
 	//On screen text
 	std::ostringstream ss;
 
-	if (debug)
+	if (cGameManager->dDebug)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(0, 1, 0), 3, 0, 12);
 
@@ -603,7 +651,7 @@ void SceneCollision::Render()
 	ss << "Press r to go shop";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
 
-	if (playerwin)
+	if (cGameManager->bWaveClear)
 	{
 		ss.str("");
 		ss << "You cleared the red bricks, You Win!!";
@@ -616,7 +664,7 @@ void SceneCollision::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
 	}
 
-	if (playerlose)
+	if (cGameManager->bPlayerLost)
 	{
 		ss.str("");
 		ss << "You ran out of balls, You Lose";
@@ -629,7 +677,7 @@ void SceneCollision::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
 	}
 
-	if (gameclear)
+	if (cGameManager->bGameWin)
 	{
 		ss.str("");
 		ss << "You cleared the game!";
@@ -638,7 +686,6 @@ void SceneCollision::Render()
 		ss << "Press '~' to return to main menu";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
 	}
-
 }
 
 void SceneCollision::Exit()
@@ -651,10 +698,11 @@ void SceneCollision::Exit()
 		delete go;
 		m_goList.pop_back();
 	}
-	if(m_ghost)
+	while (m_enemyList.size() > 0)
 	{
-		delete m_ghost;
-		m_ghost = NULL;
+		Enemy* go = m_enemyList.back();
+		delete go;
+		m_enemyList.pop_back();
 	}
 }
 

@@ -134,10 +134,10 @@ void Application::Run()
 {
 	//Main Loop
 	Scene* scene1 = new SceneMenu();
-	Scene *scene2 = new SceneCollision();
+	Scene* scene2 = new SceneCollision();
 	Scene* scene3 = new SceneShop();
 	Scene* scene4 = new SceneOptions();
-	Scene *scene = scene1;
+	Scene* scene = scene1;
 	scene1->Init();
 	scene2->Init();
 	scene3->Init();

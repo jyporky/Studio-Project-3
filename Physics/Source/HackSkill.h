@@ -6,8 +6,9 @@ class Hack : public Skill
 public:
 	Hack();
 	~Hack();
-	int getMoneyCost();
-	int getEnegyCost();
-	std::string getDescription();	
+	virtual int getMoneyCost();
+	virtual int getEnegyCost();
+	virtual std::string getDescription();	
+	virtual void UseSkill();
 };
 

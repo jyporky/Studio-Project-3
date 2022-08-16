@@ -33,8 +33,6 @@ void SceneShop::Init()
 	
 
 	player = Player::GetInstance();
-	m_player = player->getPlayer();
-	player->SetGameObject(m_player);
 
 	Math::InitRNG();
 
@@ -185,9 +183,9 @@ void SceneShop::Update(double dt)
 		}
 	}
 
-	m_player->pos += movementDirection.Normalize() * 40 * dt;
+	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
 
-	m_player = Checkborder(m_player);
+	Checkborder(player->getPlayer());
 
 	return;
 
@@ -253,17 +251,17 @@ void SceneShop::Render()
 	renderEnvironment();
 	//player
 	modelStack.PushMatrix();
-	modelStack.Translate(m_player->pos.x, m_player->pos.y, m_player->pos.z);
-	modelStack.Scale(m_player->scale.x, m_player->scale.y, m_player->scale.z);
-	if (m_player->angle == 180)
+	modelStack.Translate(player->getPlayer()->pos.x, player->getPlayer()->pos.y, player->getPlayer()->pos.z);
+	modelStack.Scale(player->getPlayer()->scale.x, player->getPlayer()->scale.y, player->getPlayer()->scale.z);
+	if (player->getPlayer()->angle == 180)
 	{
-		meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(m_player->color.x, m_player->color.y, m_player->color.z);
+		meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(player->getPlayer()->color.x, player->getPlayer()->color.y, player->getPlayer()->color.z);
 		RenderMesh(meshList[GEO_LEFT_PLAYER], true);
 	}
 
-	else if (m_player->angle == 0)
+	else if (player->getPlayer()->angle == 0)
 	{
-		meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(m_player->color.x, m_player->color.y, m_player->color.z);
+		meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(player->getPlayer()->color.x, player->getPlayer()->color.y, player->getPlayer()->color.z);
 		RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
 	}
 	modelStack.PopMatrix();
