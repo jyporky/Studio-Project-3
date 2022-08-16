@@ -36,16 +36,12 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	m_ghost = new GameObject(GameObject::GO_BALL);
 
-	debug = false; 
-	playerlose = false; playerwin = false; levelno = 1;
-	gameclear = false;
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
 
-	m_player = FetchGO();
+	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
 	m_player->pos.Set(m_worldWidth/2, m_worldHeight/2, 1);
 	m_player->vel.SetZero();
@@ -114,21 +110,21 @@ void SceneCollision::ResetLevel()
 		ReturnGO(m_goList[idx]);
 		m_goList[idx]->ResetValues();
 	}
-	if (playerwin)
-		levelno++;
-	else if (playerlose)
-		levelno = 1;
+	if (cGameManager->bWaveClear)
+		cGameManager->dLevelNo++;
+	else if (cGameManager->bPlayerLost)
+		cGameManager->dLevelNo = 1;
 
-
-	playerlose = false; playerwin = false;
+	cGameManager->bPlayerLost = false;
+	cGameManager->bGameWin = false;
 }
 
 void SceneCollision::Update(double dt)
 {
 	SceneBase::Update(dt);
-	if (playerlose || playerwin || gameclear)
+	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
-		if (Application::IsKeyPressed('R') && !gameclear)
+		if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
 		{
 			ResetLevel();
 		}
@@ -146,7 +142,7 @@ void SceneCollision::Update(double dt)
 	static bool oem_5 = false;
 	if (Application::IsKeyPressed(VK_OEM_5) && !oem_5)
 	{
-		debug = !debug;
+		cGameManager->dDebug = !cGameManager->dDebug;
 		oem_5 = true;
 	}
 	else if (!Application::IsKeyPressed(VK_OEM_5) && oem_5)
@@ -170,7 +166,7 @@ void SceneCollision::Update(double dt)
 
 
 	
-	if (debug)
+	if (cGameManager->dDebug)
 	{
 		if(Application::IsKeyPressed('9'))
 		{
@@ -207,20 +203,17 @@ void SceneCollision::Update(double dt)
 
 	if (movementDirection.x > 0)
 	{
-		m_player->angle = 0;
+		player->getPlayer()->angle = 0;
 	}
 
 	else if (movementDirection.x < 0)
 	{
-		m_player->angle = 180;
+		player->getPlayer()->angle = 180;
 	}
 
-	m_player->pos += movementDirection.Normalize() * 40 * dt;
+	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
 
-	m_player = Checkborder(m_player);
-
-	// Put this after all changes is made to player
-	player->SetGameObject(m_player);
+	Checkborder(player->getPlayer());
 
 	//Mouse Section
 	double x, y, windowWidth, windowHeight;
@@ -573,9 +566,6 @@ void SceneCollision::Render()
 	RenderMesh(meshList[GEO_SANDBG], false);
 	modelStack.PopMatrix();
 
-	if (m_ghost->active)
-		RenderGO(m_ghost);
-
 
 	for(std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
 	{
@@ -589,7 +579,7 @@ void SceneCollision::Render()
 	//On screen text
 	std::ostringstream ss;
 
-	if (debug)
+	if (cGameManager->dDebug)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(0, 1, 0), 3, 0, 12);
 
@@ -605,7 +595,7 @@ void SceneCollision::Render()
 	ss << "Press r to go shop";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
 
-	if (playerwin)
+	if (cGameManager->bWaveClear)
 	{
 		ss.str("");
 		ss << "You cleared the red bricks, You Win!!";
@@ -618,7 +608,7 @@ void SceneCollision::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
 	}
 
-	if (playerlose)
+	if (cGameManager->bPlayerLost)
 	{
 		ss.str("");
 		ss << "You ran out of balls, You Lose";
@@ -631,7 +621,7 @@ void SceneCollision::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
 	}
 
-	if (gameclear)
+	if (cGameManager->bGameWin)
 	{
 		ss.str("");
 		ss << "You cleared the game!";
@@ -640,7 +630,6 @@ void SceneCollision::Render()
 		ss << "Press '~' to return to main menu";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
 	}
-
 }
 
 void SceneCollision::Exit()
@@ -652,11 +641,6 @@ void SceneCollision::Exit()
 		GameObject *go = m_goList.back();
 		delete go;
 		m_goList.pop_back();
-	}
-	if(m_ghost)
-	{
-		delete m_ghost;
-		m_ghost = NULL;
 	}
 }
 
