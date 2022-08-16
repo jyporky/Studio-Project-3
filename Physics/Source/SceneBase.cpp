@@ -151,8 +151,10 @@ void SceneBase::Init()
 	}
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_BALL] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.5, 0.5, 0.5), 1.f);
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.3, 0.4, 0.4), 1.f);
 	
+	meshList[GEO_SHOPMENUBG] = MeshBuilder::GenerateCube("shopmenubg", Color(0.3, 0.3, 0.3), 1.f);
+
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
 	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");
 
@@ -168,6 +170,9 @@ void SceneBase::Init()
 
 	meshList[GEO_PARTDEALER] = MeshBuilder::GenerateQuad("partdealer", Color(1, 1, 1));
 	meshList[GEO_PARTDEALER]->textureID = LoadTexture("Image//partdealer.png");
+
+	meshList[GEO_WEAPONDEALER] = MeshBuilder::GenerateQuad("weapondealer", Color(1, 1, 1));
+	meshList[GEO_WEAPONDEALER]->textureID = LoadTexture("Image//weapondealer.png");
 
 	meshList[GEO_ALCHEMIST] = MeshBuilder::GenerateQuad("alchemist", Color(1, 1, 1));
 	meshList[GEO_ALCHEMIST]->textureID = LoadTexture("Image//alchemist.png");

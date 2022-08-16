@@ -18,12 +18,26 @@ public:
 	virtual void Exit();
 	GameObject* Checkborder(GameObject* go);
 	void renderEnvironment();
+
+	void renderShopMenu1(); //part dealer
+	void renderShopMenu2(); //weapon dealer
+	void renderShopMenu3(); //blacksmith
+	void renderShopMenu4(); //alchemist
+
 protected:
 	Player* player;
 	float m_worldWidth;
 	float m_worldHeight;
 	GameObject* m_player;
 	unsigned menubuttonhighlight = 0;
+
+	bool canInteract;
+	bool canLeave;
+	bool inShop;
+
+	char weaponType;
+
+	bool ShopMenu1, ShopMenu2, ShopMenu3, ShopMenu4;
 };
 
 #endif
