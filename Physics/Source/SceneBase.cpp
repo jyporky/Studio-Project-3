@@ -170,8 +170,10 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_SWORDSMAN] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
 	meshList[GEO_RIGHT_SWORDSMAN]->textureID = LoadTGA("Image//playerright.tga");
 
-	meshList[GEO_SWORD] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
-	meshList[GEO_SWORD]->textureID = LoadTGA("Image//sword.tga");
+	meshList[GEO_SWORDL] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
+	meshList[GEO_SWORDL]->textureID = LoadTGA("Image//swordleft.tga");	
+	meshList[GEO_SWORDR] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
+	meshList[GEO_SWORDR]->textureID = LoadTGA("Image//swordright.tga");
 
 	//NPCs
 	meshList[GEO_BLACKSMITH] = MeshBuilder::GenerateQuad("blacksmith", Color(1, 1, 1));

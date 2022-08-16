@@ -51,7 +51,8 @@ public:
 		GEO_SANDBG,
 
 		// Weapons
-		GEO_SWORD,
+		GEO_SWORDL,
+		GEO_SWORDR,
 
 		//NPCs
 		GEO_BLACKSMITH, //sell weapon upgrades

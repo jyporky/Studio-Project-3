@@ -79,6 +79,9 @@ void SceneCollision::Init()
 	enemy->SetEnemyGameObject(enemyGO);
 	m_enemyList.push_back(enemy);
 
+
+	offset.Set(weapon->scale.x * 0.2, 0, 0);
+
 	sword = new Sword();
 
 	timer = 0;
@@ -257,11 +260,13 @@ void SceneCollision::Update(double dt)
 	if (movementDirection.x > 0)
 	{
 		player->getPlayer()->angle = 0;
+		offset.x = weapon->scale.x * 0.2;
 	}
 
 	else if (movementDirection.x < 0)
 	{
 		player->getPlayer()->angle = 180;
+		offset.x = -(weapon->scale.x * 0.2);
 	}
 
 	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
@@ -272,33 +277,42 @@ void SceneCollision::Update(double dt)
 
 
 	static float prevtimer;
-	static bool IsKeyPress = false;
-	if (Application::IsMousePressed(0) && !IsKeyPress)
+	static float cdtimer;
+	static bool attackcd = false;
+	if (Application::IsMousePressed(0) && !attackcd)
 	{
 		Animate = true;
 		prevtimer = timer;
-		IsKeyPress = true;
+		attackcd = true;
 	}
 
 	if (Animate)
 	{
 		float diff = timer - prevtimer;
 
-		if (diff < 0.3)
+		if (diff < (sword->GetAttackCast() / 2))
 		{
-			weapon->angle -= 100 * dt;
+			weapon->angle -= sword->GetAttackAngle() / (sword->GetAttackCast()/2) * dt;
 		}
 
-		else if (diff < 0.6)
+		else if (diff < sword->GetAttackCast())
 		{
-			weapon->angle += 100 * dt;
+			weapon->angle += sword->GetAttackAngle() / (sword->GetAttackCast() / 2) * dt;
 		}
 
-		else if (diff > 0.6)
+		else if (diff > sword->GetAttackCast())
 		{
 			Animate = false;
-			IsKeyPress = false;
+			cdtimer = timer;
 		}
+	}
+
+	else if (!Animate && attackcd)
+	{
+		float diff = timer - cdtimer;
+
+		if (diff > sword->GetAttackSpeed())
+			attackcd = false;
 	}
 
 	weapon->pos = player->getPlayer()->pos;
@@ -635,12 +649,24 @@ void SceneCollision::RenderGO(GameObject *go)
 
 	case GameObject::GO_WEAPON:
 		modelStack.PushMatrix();
-		modelStack.Translate(go->pos.x + go->scale.x * 0.2, go->pos.y - go->scale.y * 0.4, go->pos.z);
+		modelStack.Translate(go->pos.x + offset.x, go->pos.y - go->scale.y * 0.4, go->pos.z);
 		modelStack.Rotate(go->angle, 0, 0, 1);
-		modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
-		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-		meshList[GEO_SWORD]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-		RenderMesh(meshList[GEO_SWORD], true);
+
+		if (player->getPlayer()->angle == 0)
+		{
+			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_SWORDL]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_SWORDL], true);
+		}
+
+		else if (player->getPlayer()->angle == 180)
+		{
+			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_SWORDR]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_SWORDR], true);
+		}
 		modelStack.PopMatrix();
 		break;
 
