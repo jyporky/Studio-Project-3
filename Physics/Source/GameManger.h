@@ -10,6 +10,6 @@ public:
 	bool bWaveClear;
 	bool bPlayerLost;
 	bool dDebug;
-	unsigned dLevelNo;
+	unsigned dWaveNo;
 };
 

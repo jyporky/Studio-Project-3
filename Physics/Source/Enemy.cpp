@@ -29,6 +29,16 @@ void Enemy::Init()
 {
 }
 
+void Enemy::SetEnemyGameObject(GameObject* enemyGO)
+{
+    enemyGameObject = enemyGO;
+}
+
+GameObject* Enemy::GetEnemyGameObject()
+{
+    return enemyGameObject;
+}
+
 void Enemy::SetGO(GameObject* newGameObject)
 {
     enemyGameObject = newGameObject;
@@ -36,8 +46,12 @@ void Enemy::SetGO(GameObject* newGameObject)
 
 bool Enemy::ChangeHealth(int changeInHealth)
 {
-    health -= changeInHealth;
-    redTimer = 0.5;
+    if (changeInHealth < 0)
+        redTimer = 0.5;
+    else if (changeInHealth > 0)
+        greenTimer = 0.5;
+
+    health += changeInHealth;
     if (health <= 0)
     {
         return true;

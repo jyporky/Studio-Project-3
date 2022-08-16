@@ -10,11 +10,14 @@ public:
 	//enemy returns true if the enemy dies
 	virtual bool Update(double dt);
 	virtual void Init();
+	void SetEnemyGameObject(GameObject* enemyGO);
+	GameObject* GetEnemyGameObject();
 	void SetGO(GameObject* newGameObject);
 	bool ChangeHealth(int changeInHealth);
 protected:
 	unsigned health;
 	float redTimer;
+	float greenTimer;
 	float attackdt;
 	unsigned movementSpeed;
 	unsigned energyDropped;

@@ -1,16 +1,11 @@
 #pragma once
 #include <string>
-class Skill
-{
+class Potions {
 public:
-	virtual void UseSkill();
+	Potions();
+	~Potions();
+	virtual void usePotion();
 	virtual std::string getDescription();
 	virtual int getMoneyCost();
-	virtual int getEnergyCost();
-	Skill();
-	~Skill();
-
-private:
-	
+	virtual int getDuration();
 };
-

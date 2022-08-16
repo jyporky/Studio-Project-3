@@ -18,6 +18,6 @@ public:
 
 private:
     unsigned sCurrState;
-
+    unsigned attackRange;
 };
 

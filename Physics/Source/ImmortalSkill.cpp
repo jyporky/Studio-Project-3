@@ -14,3 +14,6 @@ int Immortal::getMoneyCost() {
 int Immortal::getEnergyCost() {
 	return 200;
 }
+void Immortal::UseSkill() {
+	return;
+}

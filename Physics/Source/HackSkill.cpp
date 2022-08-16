@@ -14,3 +14,6 @@ int Hack::getMoneyCost() {
 int Hack::getEnegyCost() {
 	return 150;
 }
+void Hack::UseSkill() {
+	return;
+}

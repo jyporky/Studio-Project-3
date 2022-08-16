@@ -11,9 +11,25 @@
 #include "GameManger.h"
 #include "Enemy.h"
 #include "GameManger.h"
+<<<<<<< HEAD
 #include "Weapon.h"
 #include "Fist.h"
 #include "Sword.h"
+=======
+#include "Swordsman.h"
+
+#include "Skill.h"
+#include "HackSkill.h"
+#include "EMPSkill.h"
+#include "OverdriveSkill.h"
+#include "HealSkill.h"
+#include "ImmortalSkill.h"
+
+#include "Potions.h"
+#include "HealthPotion.h"
+#include "StrengthPotion.h"
+#include "SpeedPotion.h"
+>>>>>>> 78685c1f0494b66d6ad065fd1e5d0e7e0c7af0d1
 
 class SceneCollision : public SceneBase
 {
@@ -50,11 +66,16 @@ protected:
 	CSoundController* cSoundController;
 	Player* player;
 	GameManger* cGameManager;
+<<<<<<< HEAD
 	Weapon* sword;
 	GameObject* weapon;
 	float timer;
 	Vector3 offset;
 
+=======
+	Skill* HackSkill = new Hack();
+	Potions* StrengthPotion = new StrengthPot();
+>>>>>>> 78685c1f0494b66d6ad065fd1e5d0e7e0c7af0d1
 	//Auditing
 	float m1, m2;
 	Vector3 u1, u2, v1, v2;

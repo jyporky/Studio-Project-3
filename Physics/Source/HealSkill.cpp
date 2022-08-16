@@ -14,3 +14,6 @@ int Heal::getMoneyCost() {
 int Heal::getEnergyCost() {
 	return 150;
 }
+void Heal::UseSkill() {
+	return;
+}
