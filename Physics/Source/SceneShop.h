@@ -22,8 +22,6 @@ protected:
 	Player* player;
 	float m_worldWidth;
 	float m_worldHeight;
-	GameObject* m_player;
-	unsigned menubuttonhighlight = 0;
 };
 
 #endif

@@ -5,3 +5,6 @@
 *.db
 *.ipch
 .vs/DM2212_Physics/v16/.suo
+.vs/DM2212_Physics/v16/.suo
+*.db
+.vs/DM2212_Physics/v16/Browse.VC.db

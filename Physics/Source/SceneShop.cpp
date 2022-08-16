@@ -33,8 +33,6 @@ void SceneShop::Init()
 	
 
 	player = Player::GetInstance();
-	m_player = player->getPlayer();
-	player->SetGameObject(m_player);
 
 	Math::InitRNG();
 
@@ -51,45 +49,6 @@ void SceneShop::Update(double dt)
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
-	static bool w = false, s = false;
-	if (Application::IsKeyPressed('W') && !w)
-	{
-		w = true;
-		if (menubuttonhighlight == 0)
-		{
-			menubuttonhighlight = 1;
-		}
-		else
-			menubuttonhighlight--;
-	}
-	else if (!Application::IsKeyPressed('W') && w)
-		w = false;
-
-	if (Application::IsKeyPressed('S') && !s)
-	{
-		s = true;
-		if (menubuttonhighlight == 1)
-		{
-			menubuttonhighlight = 0;
-		}
-		else
-			menubuttonhighlight++;
-	}
-	else if (!Application::IsKeyPressed('S') && s)
-		s = false;
-
-	if (Application::IsKeyPressed('P'))
-	{
-		switch (menubuttonhighlight)
-		{
-		case 0:
-			Application::SetState(2);
-			break;
-		case 1:
-			Application::SetState(0);
-			break;
-		}
-	}	
 
 	// Moving of player
 	Vector3 movementDirection;
@@ -116,25 +75,19 @@ void SceneShop::Update(double dt)
 
 	if (movementDirection.x > 0)
 	{
-		m_player->angle = 0;
+		player->getPlayer()->angle = 0;
 	}
 
 	else if (movementDirection.x < 0)
 	{
-		m_player->angle = 180;
+		player->getPlayer()->angle = 180;
 	}
 
-	m_player->pos += movementDirection.Normalize() * 40 * dt;
+	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
 
-	m_player = Checkborder(m_player);
+	Checkborder(player->getPlayer());
 
-	// Put this after all changes is made to player
-	player->SetGameObject(m_player);
 	return;
-
-
-	
-
 }
 
 
@@ -172,17 +125,17 @@ void SceneShop::Render()
 
 	//player
 	modelStack.PushMatrix();
-	modelStack.Translate(m_player->pos.x, m_player->pos.y, m_player->pos.z);
-	modelStack.Scale(m_player->scale.x, m_player->scale.y, m_player->scale.z);
-	if (m_player->angle == 180)
+	modelStack.Translate(player->getPlayer()->pos.x, player->getPlayer()->pos.y, player->getPlayer()->pos.z);
+	modelStack.Scale(player->getPlayer()->scale.x, player->getPlayer()->scale.y, player->getPlayer()->scale.z);
+	if (player->getPlayer()->angle == 180)
 	{
-		meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(m_player->color.x, m_player->color.y, m_player->color.z);
+		meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(player->getPlayer()->color.x, player->getPlayer()->color.y, player->getPlayer()->color.z);
 		RenderMesh(meshList[GEO_LEFT_PLAYER], true);
 	}
 
-	else if (m_player->angle == 0)
+	else if (player->getPlayer()->angle == 0)
 	{
-		meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(m_player->color.x, m_player->color.y, m_player->color.z);
+		meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(player->getPlayer()->color.x, player->getPlayer()->color.y, player->getPlayer()->color.z);
 		RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
 	}
 	modelStack.PopMatrix();

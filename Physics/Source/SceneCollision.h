@@ -8,6 +8,9 @@
 #include "filesystem.h"
 #include "Entity.h"
 #include "Player.h"
+#include "GameManger.h"
+#include "Enemy.h"
+#include "GameManger.h"
 #include "Weapon.h"
 
 class SceneCollision : public SceneBase
@@ -37,19 +40,14 @@ protected:
 
 	//Physics
 	std::vector<GameObject *> m_goList;
+	std::vector<Enemy*> m_enemyList;
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;
-	GameObject *m_ghost;
-	GameObject* m_player;
 	int m_objectCount;
-	bool debug;
-	unsigned levelno;
-	bool playerwin;
-	bool playerlose;
-	bool gameclear;
 	CSoundController* cSoundController;
 	Player* player;
+	GameManger* cGameManager;
 
 	//Auditing
 	float m1, m2;
