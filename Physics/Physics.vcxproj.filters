@@ -98,19 +98,28 @@
     <ClCompile Include="Source\SceneOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Weapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Melee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Ranged.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Fist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Sword.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source\GameManger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Swordsman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SpeedPotion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\StrengthPotion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HealthPotion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Potions.cpp">
@@ -211,25 +220,34 @@
     <ClInclude Include="Source\SceneOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameManger.h">
+    <ClInclude Include="Source\EMPSkill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EMPSkill.h">
+    <ClInclude Include="Source\Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Melee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Ranged.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Sword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameManger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Swordsman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Potions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HealthPotion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\StrengthPotion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SpeedPotion.h">
+    <ClInclude Include="Source\Potions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -50,6 +50,9 @@ public:
 		GEO_SHOPMENUBG,
 		GEO_SANDBG,
 
+		// Weapons
+		GEO_SWORD,
+
 		//NPCs
 		GEO_BLACKSMITH, //sell weapon upgrades
 		GEO_PARTDEALER, //sell upgrades to player

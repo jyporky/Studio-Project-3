@@ -11,6 +11,9 @@
 #include "GameManger.h"
 #include "Enemy.h"
 #include "GameManger.h"
+#include "Weapon.h"
+#include "Fist.h"
+#include "Sword.h"
 #include "Swordsman.h"
 
 #include "Skill.h"
@@ -60,6 +63,11 @@ protected:
 	CSoundController* cSoundController;
 	Player* player;
 	GameManger* cGameManager;
+	Weapon* sword;
+	GameObject* weapon;
+	float timer;
+	Vector3 offset;
+
 	Skill* HackSkill = new Hack();
 	Potions* StrengthPotion = new StrengthPot();
 	//Auditing
