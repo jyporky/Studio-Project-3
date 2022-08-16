@@ -70,6 +70,7 @@ public:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderGO(GameObject *go);
+	static bool eButtonState;
 
 	GameObject* FetchGO();
 protected:
@@ -83,7 +84,6 @@ protected:
 	MS modelStack;
 	MS viewStack;
 	MS projectionStack;
-
 	Light lights[1];
 
 	bool bLightEnabled;
