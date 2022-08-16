@@ -11,6 +11,8 @@ SceneCollision::SceneCollision()
 
 SceneCollision::~SceneCollision()
 {
+	delete sword;
+	sword = nullptr;
 }
 
 static Vector3 RotateVector(const Vector3& vec, float radian)
@@ -50,11 +52,23 @@ void SceneCollision::Init()
 	m_player->angle = 0;
 	m_player->active = true;
 
+	weapon = FetchGO();
+	weapon->type = GameObject::GO_WEAPON;
+	weapon->vel.SetZero();
+	weapon->scale.Set(10, 10, 1);
+	weapon->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
+	weapon->color.Set(1, 1, 1);
+	weapon->angle = 0;
+	weapon->active = true;
+
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
 
 	cGameManager = GameManger::GetInstance();
 
+	sword = new Sword();
+
+	timer = 0;
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
 
@@ -70,7 +84,6 @@ GameObject* SceneCollision::FetchGO()
 		go->active = true;
 		return go;
 	}
-
 	int prevSize = m_goList.size();
 	for (int i = 0; i < 10; ++i)
 	{
@@ -121,6 +134,7 @@ void SceneCollision::ResetLevel()
 
 void SceneCollision::Update(double dt)
 {
+	timer += dt;
 	SceneBase::Update(dt);
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
@@ -214,6 +228,41 @@ void SceneCollision::Update(double dt)
 	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
 
 	Checkborder(player->getPlayer());
+
+	static bool Animate = false;
+
+
+	static float prevtimer;
+	static bool IsKeyPress = false;
+	if (Application::IsMousePressed(0) && !IsKeyPress)
+	{
+		Animate = true;
+		prevtimer = timer;
+		IsKeyPress = true;
+	}
+
+	if (Animate)
+	{
+		float diff = timer - prevtimer;
+
+		if (diff < 0.3)
+		{
+			weapon->angle -= 100 * dt;
+		}
+
+		else if (diff < 0.6)
+		{
+			weapon->angle += 100 * dt;
+		}
+
+		else if (diff > 0.6)
+		{
+			Animate = false;
+			IsKeyPress = false;
+		}
+	}
+
+	weapon->pos = player->getPlayer()->pos;
 
 	//Mouse Section
 	double x, y, windowWidth, windowHeight;
@@ -525,6 +574,16 @@ void SceneCollision::RenderGO(GameObject *go)
 			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
 		}
+		modelStack.PopMatrix();
+		break;
+	case GameObject::GO_WEAPON:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x + go->scale.x * 0.2, go->pos.y - go->scale.y * 0.4, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
+		modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		meshList[GEO_SWORD]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+		RenderMesh(meshList[GEO_SWORD], true);
 		modelStack.PopMatrix();
 		break;
 

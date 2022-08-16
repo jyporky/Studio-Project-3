@@ -49,6 +49,9 @@ public:
 		GEO_CUBE,
 		GEO_SANDBG,
 
+		// Weapons
+		GEO_SWORD,
+
 		//NPCs
 		GEO_BLACKSMITH,
 		GEO_PARTDEALER,

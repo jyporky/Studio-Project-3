@@ -160,6 +160,7 @@
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Fist.cpp" />
+    <ClCompile Include="Source\GameManger.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\HackSkill.cpp" />
     <ClCompile Include="Source\HealSkill.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Fist.h" />
+    <ClInclude Include="Source\GameManger.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\HackSkill.h" />
     <ClInclude Include="Source\HealSkill.h" />

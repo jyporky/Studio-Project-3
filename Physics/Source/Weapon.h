@@ -2,6 +2,12 @@
 class Weapon
 {
 public:
+	enum WEAPON_TYPE
+	{
+		FIST,
+		GUN,
+		NUM_TYPE,
+	};
 	int GetCost();
 	void SetCost(int Cost);
 	float GetDamage();
@@ -15,4 +21,5 @@ protected:
 	float damage;
 	float range;
 	float attack_speed;
+	/*unsigned type;*/
 };

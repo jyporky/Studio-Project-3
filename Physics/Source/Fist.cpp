@@ -13,7 +13,7 @@ Fist::Fist()
 
 Fist::~Fist()
 {
-
+	
 }
 
 int Fist::GetDamageTaken()

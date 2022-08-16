@@ -12,6 +12,8 @@
 #include "Enemy.h"
 #include "GameManger.h"
 #include "Weapon.h"
+#include "Fist.h"
+#include "Sword.h"
 
 class SceneCollision : public SceneBase
 {
@@ -48,6 +50,10 @@ protected:
 	CSoundController* cSoundController;
 	Player* player;
 	GameManger* cGameManager;
+	Weapon* sword;
+	GameObject* weapon;
+	float timer;
+	Vector3 offset;
 
 	//Auditing
 	float m1, m2;
