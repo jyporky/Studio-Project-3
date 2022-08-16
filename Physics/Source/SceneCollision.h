@@ -11,6 +11,7 @@
 #include "GameManger.h"
 #include "Enemy.h"
 #include "GameManger.h"
+#include "Swordsman.h"
 
 class SceneCollision : public SceneBase
 {

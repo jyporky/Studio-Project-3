@@ -55,6 +55,19 @@ void SceneCollision::Init()
 
 	cGameManager = GameManger::GetInstance();
 
+	//spawn one enemy
+	Enemy* enemy = new Swordsman();
+	enemy->Init();
+	GameObject* enemyGO = FetchGO();
+	enemyGO->type = GameObject::GO_SWORDSMAN;
+	enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
+	enemyGO->vel.SetZero();
+	enemyGO->scale.Set(10, 10, 1);
+	enemyGO->color.Set(1, 1, 1);
+	enemyGO->angle = 0;
+	enemy->SetEnemyGameObject(enemyGO);
+	m_enemyList.push_back(enemy);
+
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
 
@@ -111,9 +124,9 @@ void SceneCollision::ResetLevel()
 		m_goList[idx]->ResetValues();
 	}
 	if (cGameManager->bWaveClear)
-		cGameManager->dLevelNo++;
+		cGameManager->dWaveNo++;
 	else if (cGameManager->bPlayerLost)
-		cGameManager->dLevelNo = 1;
+		cGameManager->dWaveNo = 1;
 
 	cGameManager->bPlayerLost = false;
 	cGameManager->bGameWin = false;
@@ -121,6 +134,11 @@ void SceneCollision::ResetLevel()
 
 void SceneCollision::Update(double dt)
 {
+
+	//Calculating aspect ratio
+	m_worldHeight = 100.f;
+	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
+
 	SceneBase::Update(dt);
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
@@ -134,11 +152,6 @@ void SceneCollision::Update(double dt)
 		}
 		return;
 	}
-
-	//Calculating aspect ratio
-	m_worldHeight = 100.f;
-	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-
 	static bool oem_5 = false;
 	if (Application::IsKeyPressed(VK_OEM_5) && !oem_5)
 	{
@@ -177,6 +190,32 @@ void SceneCollision::Update(double dt)
 			m_speed += 0.1f;
 		}
 	}
+
+	//update enemy
+	static bool ubutton;
+	bool dealdamage = false;
+	if (Application::IsKeyPressed('U') && !ubutton)
+	{
+		ubutton = true;
+		dealdamage = true;
+	}
+	else if (!Application::IsKeyPressed('U') && ubutton)
+		ubutton = false;
+	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
+	{
+		m_enemyList[idx]->Update(dt);
+		if (dealdamage)
+		{
+			if (m_enemyList[idx]->ChangeHealth(-1))
+			{
+				//delete the enemy
+				ReturnGO(m_enemyList[idx]->GetEnemyGameObject());
+				delete m_enemyList[idx];
+				m_enemyList.erase(m_enemyList.begin() + idx);
+			}
+		}
+	}
+	
 	
 	// Moving of player
 	Vector3 movementDirection;
@@ -527,7 +566,24 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_SWORDSMAN:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+		}
 
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+		}
+		modelStack.PopMatrix();
+		break;
+		break;
 	case GameObject::GO_WALL:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -641,6 +697,12 @@ void SceneCollision::Exit()
 		GameObject *go = m_goList.back();
 		delete go;
 		m_goList.pop_back();
+	}
+	while (m_enemyList.size() > 0)
+	{
+		Enemy* go = m_enemyList.back();
+		delete go;
+		m_enemyList.pop_back();
 	}
 }
 
