@@ -212,8 +212,6 @@ void SceneShop::Render()
 
 	renderEnvironment();
 
-
-
 	ss.str("");
 	ss << "Shop ";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 3, 55);
