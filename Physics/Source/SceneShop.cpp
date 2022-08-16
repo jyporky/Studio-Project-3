@@ -32,7 +32,10 @@ void SceneShop::Init()
 
 	
 
+	
 	player = Player::GetInstance();
+	
+	player->getPlayer();
 
 	Math::InitRNG();
 
@@ -68,7 +71,7 @@ void SceneShop::Update(double dt)
 	{
 		if (Application::IsKeyPressed('W'))
 		{
-			if (m_player->pos.y <= 70)
+			if (player->getPlayer()->pos.y <= 70)
 			{
 				movementDirection.y += 1;
 			}
@@ -76,7 +79,7 @@ void SceneShop::Update(double dt)
 
 		if (Application::IsKeyPressed('S'))
 		{
-			if (m_player->pos.y >= 12)
+			if (player->getPlayer()->pos.y >= 12)
 			{
 				movementDirection.y -= 1;
 			}
@@ -94,18 +97,18 @@ void SceneShop::Update(double dt)
 
 		if (movementDirection.x > 0)
 		{
-			m_player->angle = 0;
+			player->getPlayer()->angle = 0;
 		}
 
 		else if (movementDirection.x < 0)
 		{
-			m_player->angle = 180;
+			player->getPlayer()->angle = 180;
 		}
 
 		
 	}
 
-	if ((m_player->pos.x >= 70) && (m_player->pos.x <= 100) && (m_player->pos.y <= 12))
+	if ((player->getPlayer()->pos.x >= 70) && (player->getPlayer()->pos.x <= 100) && (player->getPlayer()->pos.y <= 12))
 	{
 		canLeave = true;
 		if (Application::IsKeyPressed('E'))
@@ -118,7 +121,7 @@ void SceneShop::Update(double dt)
 		canLeave = false;
 	}
 
-	if ((m_player->pos.x >= 29) && (m_player->pos.x <= 43) && (m_player->pos.y >= 66)) //part dealer
+	if ((player->getPlayer()->pos.x >= 29) && (player->getPlayer()->pos.x <= 43) && (player->getPlayer()->pos.y >= 66)) //part dealer
 	{
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
@@ -127,7 +130,7 @@ void SceneShop::Update(double dt)
 			ShopMenu1 = true;
 		}
 	}
-	else if ((m_player->pos.x >= 64) && (m_player->pos.x <= 78) && (m_player->pos.y >= 66)) //weapon dealer
+	else if ((player->getPlayer()->pos.x >= 64) && (player->getPlayer()->pos.x <= 78) && (player->getPlayer()->pos.y >= 66)) //weapon dealer
 	{
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
@@ -138,7 +141,7 @@ void SceneShop::Update(double dt)
 			ShopMenu2 = true;
 		}
 	}
-	else if ((m_player->pos.x >= 100) && (m_player->pos.x <= 114) && (m_player->pos.y >= 66)) //blacksmith
+	else if ((player->getPlayer()->pos.x >= 100) && (player->getPlayer()->pos.x <= 114) && (player->getPlayer()->pos.y >= 66)) //blacksmith
 	{
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
@@ -147,7 +150,7 @@ void SceneShop::Update(double dt)
 			ShopMenu3 = true;
 		}
 	}
-	else if ((m_player->pos.x >= 135) && (m_player->pos.x <= 149) && (m_player->pos.y >= 66)) //alchemist
+	else if ((player->getPlayer()->pos.x >= 135) && (player->getPlayer()->pos.x <= 149) && (player->getPlayer()->pos.y >= 66)) //alchemist
 	{
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
@@ -326,9 +329,6 @@ void SceneShop::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.2, 0.2, 0.2), 3, 30, 8);
 	}
 
-	ss.str("");
-	ss << m_player->pos.x;
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 30, 17);
 }
 
 
@@ -419,19 +419,16 @@ void SceneShop::renderShopMenu2()
 	if (weaponType == 'm')
 	{
 		ss.str("");
-		ss << "Melee Weapons";
+		ss << "Melee Weapons [Z] / [X]";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 4, 30.5);
 	}
 	else if (weaponType == 'r')
 	{
 		ss.str("");
-		ss << "Ranged Weapons";
+		ss << "Ranged Weapons [Z] / [X]";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 4, 30.5);
 	}
 
-	ss.str("");
-	ss << "[Z] / [X]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 20, 30.5);
 
 	ss.str("");
 	ss << "[R]";

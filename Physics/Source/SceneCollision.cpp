@@ -169,10 +169,11 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
-	if (Application::IsKeyPressed('R') && !e)
+	if (Application::IsKeyPressed('R') && !e) //go shop
 	{
 		Application::SetState(3);
-
+		player->getPlayer()->pos.x = m_worldWidth / 2;
+		player->getPlayer()->pos.y = 12;
 	}
 	else if (!Application::IsKeyPressed('E') && e)
 		e = false;
