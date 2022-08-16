@@ -8,6 +8,7 @@
 #include "filesystem.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Weapon.h"
 
 class SceneCollision : public SceneBase
 {

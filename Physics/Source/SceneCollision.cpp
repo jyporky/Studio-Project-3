@@ -215,10 +215,7 @@ void SceneCollision::Update(double dt)
 
 	m_player->pos += movementDirection.Normalize() * 40 * dt;
 
-	m_player = Checkborder(m_player);
-
-	// Put this after all changes is made to player
-	player->SetGameObject(m_player);
+	Checkborder(m_player);
 
 	//Mouse Section
 	double x, y, windowWidth, windowHeight;
