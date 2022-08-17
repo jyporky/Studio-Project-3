@@ -14,7 +14,7 @@ struct GameObject
 		GO_PILLAR,
 		GO_WALL,
 		GO_PLAYER,
-		GO_WEAPON,
+		GO_SWORD,
 		GO_SWORDSMAN,
 		GO_TOTAL, //must be last
 	};

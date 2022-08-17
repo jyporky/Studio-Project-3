@@ -6,8 +6,10 @@ Fist::Fist()
 	damage = 8;
 	range = 1;
 	attack_speed = 1;
+	attack_cast = 0.4;
 	attack_angle = 10;
 	damage_taken = 1;
+	description = "Whats weapon? Just punch them like a man. But you hurt yourself dumbass.";
 }
 
 

@@ -11,8 +11,6 @@ SceneCollision::SceneCollision()
 
 SceneCollision::~SceneCollision()
 {
-	delete sword;
-	sword = nullptr;
 }
 
 static Vector3 RotateVector(const Vector3& vec, float radian)
@@ -51,18 +49,17 @@ void SceneCollision::Init()
 	m_player->color.Set(1, 1, 1);
 	m_player->angle = 0;
 	m_player->active = true;
-
-	weapon = FetchGO();
-	weapon->type = GameObject::GO_WEAPON;
-	weapon->vel.SetZero();
-	weapon->scale.Set(10, 10, 1);
-	weapon->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
-	weapon->color.Set(1, 1, 1);
-	weapon->angle = 0;
-	weapon->active = true;
-
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
+	player->SetWeapon(new Sword());
+	GameObject* weapon = FetchGO();
+	weapon->type = GameObject::GO_SWORD;
+	weapon->pos.SetZero();
+	weapon->vel.SetZero();
+	weapon->scale.Set(10, 10, 1);
+	weapon->angle = 0;
+	weapon->color.Set(1, 1, 1);
+	player->GetWeapon()->SetGameObject(weapon);
 
 	cGameManager = GameManger::GetInstance();
 
@@ -173,7 +170,6 @@ void SceneCollision::Update(double dt)
 	Application::GetCursorPos(&x, &y);
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
 
-	timer += dt;
 	SceneBase::Update(dt);
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
@@ -231,6 +227,7 @@ void SceneCollision::Update(double dt)
 	bool dealdamage = false;
 	if (Application::IsKeyPressed('U') && !ubutton)
 	{
+		HealSkill->UseSkill();
 		ubutton = true;
 		dealdamage = true;
 	}
@@ -271,69 +268,17 @@ void SceneCollision::Update(double dt)
 		movementDirection.y += 1;
 	}
 
-	if (Application::IsKeyPressed('S'))
-	{
-		movementDirection.y -= 1;
-	}
+	//else if (movementDirection.x < 0)
+	//{
+	//	player->getPlayer()->angle = 180;
+	//	offset.x = -(weapon->scale.x * 0.2);
+	//}
 
-	if (Application::IsKeyPressed('A'))
-	{
-		movementDirection.x -= 1;
-	}
-
-	if (Application::IsKeyPressed('D'))
-	{
-		movementDirection.x += 1;
-	}
-
-	if (movementDirection.x > 0)
-	{
-		player->getPlayer()->angle = 0;
-		offset.x = weapon->scale.x * 0.2;
-	}
-
-	else if (movementDirection.x < 0)
-	{
-		player->getPlayer()->angle = 180;
-		offset.x = -(weapon->scale.x * 0.2);
-	}
-
-	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
-
+	player->Update(dt, mousePos);
 	Checkborder(player->getPlayer());
 
-	static bool Animate = false;
 
 
-	static float prevtimer;
-	static float cdtimer;
-	static bool attackcd = false;
-	if (Application::IsMousePressed(0) && !attackcd)
-	{
-		Animate = true;
-		prevtimer = timer;
-		attackcd = true;
-	}
-
-	if (Animate)
-	{
-		float diff = timer - prevtimer;
-		float wp = sword->GetAttackAngle() / (sword->GetAttackCast() / 2) * dt;
-		if (diff < (sword->GetAttackCast() / 2))
-		{
-			if (player->getPlayer()->angle == 0)
-				weapon->angle -= wp;			
-			else if (player->getPlayer()->angle == 180)
-				weapon->angle += wp;
-		}
-
-		else if (diff < sword->GetAttackCast())
-		{
-			if (player->getPlayer()->angle == 0)
-				weapon->angle += wp;
-			else if (player->getPlayer()->angle == 180)
-				weapon->angle -= wp;
-		}
 
 		else if (diff > sword->GetAttackCast())
 		{
@@ -709,9 +654,9 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.PopMatrix();
 		break;
 
-	case GameObject::GO_WEAPON:
+	case GameObject::GO_SWORD:
 		modelStack.PushMatrix();
-		modelStack.Translate(go->pos.x + offset.x, go->pos.y - go->scale.y * 0.4, go->pos.z);
+		modelStack.Translate(go->pos.x, go->pos.y - go->scale.y * 0.4, go->pos.z);
 		modelStack.Rotate(go->angle, 0, 0, 1);
 
 		if (player->getPlayer()->angle == 0)
