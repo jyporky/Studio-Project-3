@@ -20,6 +20,7 @@ bool Melee::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 	return false;
 }
 
-void Melee::attack()
+bool Melee::attack()
 {
+	return false;
 }

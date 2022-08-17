@@ -31,6 +31,10 @@ Swordsman::~Swordsman()
 
 bool Swordsman::Update(double dt)
 {
+    //check if the enemy is dead
+    if (health <= 0)
+        return true;
+
     if (redTimer > 0)
     {
         gameobject->color.Set(1, 0, 0);

@@ -4,6 +4,8 @@
 #include "Application.h"
 #include "GameManger.h"
 #include "Weapon.h"
+#include <cmath>
+#include <iostream>
 
 class Player : public Entity ,public CSingletonTemplate<Player>
 {

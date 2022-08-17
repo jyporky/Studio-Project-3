@@ -19,7 +19,7 @@ public:
 	void SetGO(GameObject* newGameObject);
 	virtual bool ChangeHealth(int changeInHealth);
 protected:
-	unsigned health;
+	int health;
 	float redTimer;
 	float greenTimer;
 	float attackdt;

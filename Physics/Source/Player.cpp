@@ -98,6 +98,9 @@ void Player::Update(double dt, Vector3 mousepos)
 
 bool Player::ChangeHealth(int ChangeAmount)
 {
+	bool godmode = false;
+	if (godmode)
+		return false;
 	if (ChangeAmount > 0 && health != maxHealth)
 		greenTimer = 0.5;
 	else if (ChangeAmount < 0)
@@ -116,6 +119,7 @@ bool Player::ChangeHealth(int ChangeAmount)
 	{
 		health = maxHealth;
 	}
+	return false;
 }
 
 void Player::SetEnemyVector(std::vector<Entity*> m_enemyList)
@@ -143,6 +147,7 @@ void Player::SetWeapon(Weapon* weapon)
 	this->CurrWeapon = weapon;
 }
 
+//a function to deal with damaging enemies with the weapon
 void Player::Attack(Vector3 mousepos)
 {
 	if (CurrWeapon->IsMelee)
@@ -151,14 +156,19 @@ void Player::Attack(Vector3 mousepos)
 		{
 			//check through each enemy for distance
 			if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(gameobject->pos) > CurrWeapon->GetRange() * CurrWeapon->GetRange())
+			{
 				continue;
+			}
 			Vector3 enemy2player = m_enemyList[idx]->GetGameObject()->pos - gameobject->pos;
 			Vector3 mouse2player = mousepos - gameobject->pos;
-			//calculate the angle
-			float angle = Math::RadianToDegree(atan2f(enemy2player.y, enemy2player.x));
-			float angle2 = Math::RadianToDegree(atan2f(mouse2player.y, mouse2player.x));
-			angle = angle - angle2;
-			if (angle > CurrWeapon->GetAttackAngle() || angle < -5)
+			float dotproduct = enemy2player.Dot(mouse2player);
+			//check if the angles are pointing in the same direction
+			if (dotproduct < 0)
+				continue;
+
+			//check if the angle of vector is less than half the attack angle
+			dotproduct = Math::RadianToDegree(acos(dotproduct / (m_enemyList[idx]->GetGameObject()->pos.Distance(gameobject->pos) * mousepos.Distance(gameobject->pos))));
+			if (dotproduct > CurrWeapon->GetAttackAngle() * 0.5f)
 				continue;
 
 			m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage());

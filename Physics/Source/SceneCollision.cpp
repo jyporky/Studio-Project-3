@@ -221,7 +221,7 @@ void SceneCollision::Update(double dt)
 		}
 	}
 
-	static bool ubutton;
+	/*static bool ubutton;
 	bool dealdamage = false;
 	if (Application::IsKeyPressed('U') && !ubutton)
 	{
@@ -229,22 +229,29 @@ void SceneCollision::Update(double dt)
 		dealdamage = true;
 	}
 	else if (!Application::IsKeyPressed('U') && ubutton)
-		ubutton = false;
+		ubutton = false;*/
 	//update enemy
 	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 	{
-		m_enemyList[idx]->Update(dt);
-		if (dealdamage)
+		if (m_enemyList[idx]->Update(dt))
 		{
-			if (m_enemyList[idx]->ChangeHealth(-1))
-			{
-				//delete the enemy
-				ReturnGO(m_enemyList[idx]->GetGameObject());
-				ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
-				delete m_enemyList[idx];
-				m_enemyList.erase(m_enemyList.begin() + idx);
-			}
+			//delete the enemy
+			ReturnGO(m_enemyList[idx]->GetGameObject());
+			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+			delete m_enemyList[idx];
+			m_enemyList.erase(m_enemyList.begin() + idx);
 		}
+		//if (dealdamage)
+		//{
+		//	if (m_enemyList[idx]->ChangeHealth(-1))
+		//	{
+		//		//delete the enemy
+		//		ReturnGO(m_enemyList[idx]->GetGameObject());
+		//		ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+		//		delete m_enemyList[idx];
+		//		m_enemyList.erase(m_enemyList.begin() + idx);
+		//	}
+		//}
 	}
 
 	//update the player
