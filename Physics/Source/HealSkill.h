@@ -1,5 +1,6 @@
 #pragma once
 #include "Skill.h"
+#include "Player.h"
 #include <string>
 class Heal : public Skill
 {
@@ -11,6 +12,6 @@ public:
 	virtual int getEnergyCost();
 	virtual void UseSkill();
 protected:
-	
+	Player* player;
 };
 

@@ -63,10 +63,6 @@ protected:
 	CSoundController* cSoundController;
 	Player* player;
 	GameManger* cGameManager;
-	Weapon* sword;
-	GameObject* weapon;
-	float timer;
-	Vector3 offset;
 
 	Skill* HackSkill = new Hack();
 	Skill* HealSkill = new Heal();

@@ -1,5 +1,21 @@
 #include "Weapon.h"
 
+Weapon::Weapon()
+{
+	gameobject = nullptr;
+	attack_cast = 0;
+	attack_speed = 0;
+	cost = 0;
+	damage = 0;
+	range = 5;
+	attackdt = 0;
+}
+
+Weapon::~Weapon()
+{
+	gameobject = nullptr;
+}
+
 int Weapon::GetCost()
 {
 	return cost;
@@ -40,6 +56,15 @@ float Weapon::GetAttackAngle()
 	return 0;
 }
 
+bool Weapon::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO)
+{
+	return false;
+}
+
+void Weapon::attack()
+{
+}
+
 float Weapon::GetAttackCast()
 {
 	return attack_cast;
@@ -48,6 +73,16 @@ float Weapon::GetAttackCast()
 void Weapon::SetAttackCast(float cd)
 {
 	attack_cast = cd;
+}
+
+void Weapon::SetGameObject(GameObject* newGameObject)
+{
+	gameobject = newGameObject;
+}
+
+GameObject* Weapon::GetGameObject()
+{
+	return gameobject;
 }
 
 std::string Weapon::getDescription() {
