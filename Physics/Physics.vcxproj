@@ -155,9 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\BoxingGlove.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
-    <ClCompile Include="Source\Chicken.cpp" />
     <ClCompile Include="Source\EMPSkill.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
@@ -200,9 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
-    <ClInclude Include="Source\BoxingGlove.h" />
     <ClInclude Include="Source\Camera.h" />
-    <ClInclude Include="Source\Chicken.h" />
     <ClInclude Include="Source\EMPSkill.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
