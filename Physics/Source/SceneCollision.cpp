@@ -155,6 +155,13 @@ void SceneCollision::Update(double dt)
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
+
+	double x, y;
+	float width = Application::GetWindowWidth();
+	float height = Application::GetWindowHeight();
+	Application::GetCursorPos(&x, &y);
+	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
+
 	timer += dt;
 	SceneBase::Update(dt);
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
@@ -289,15 +296,21 @@ void SceneCollision::Update(double dt)
 	if (Animate)
 	{
 		float diff = timer - prevtimer;
-
+		float wp = sword->GetAttackAngle() / (sword->GetAttackCast() / 2) * dt;
 		if (diff < (sword->GetAttackCast() / 2))
 		{
-			weapon->angle -= sword->GetAttackAngle() / (sword->GetAttackCast()/2) * dt;
+			if (player->getPlayer()->angle == 0)
+				weapon->angle -= wp;			
+			else if (player->getPlayer()->angle == 180)
+				weapon->angle += wp;
 		}
 
 		else if (diff < sword->GetAttackCast())
 		{
-			weapon->angle += sword->GetAttackAngle() / (sword->GetAttackCast() / 2) * dt;
+			if (player->getPlayer()->angle == 0)
+				weapon->angle += wp;
+			else if (player->getPlayer()->angle == 180)
+				weapon->angle -= wp;
 		}
 
 		else if (diff > sword->GetAttackCast())
@@ -307,22 +320,41 @@ void SceneCollision::Update(double dt)
 		}
 	}
 
-	else if (!Animate && attackcd)
+	else if (!Animate)
 	{
-		float diff = timer - cdtimer;
+		Vector3 direction;
 
-		if (diff > sword->GetAttackSpeed())
-			attackcd = false;
+		if (player->getPlayer()->angle == 0)
+			direction = (mousePos - player->getPlayer()->pos);
+		else if (player->getPlayer()->angle == 180)
+			direction = -(mousePos - player->getPlayer()->pos);
+
+		weapon->angle = Math::RadianToDegree(atan2f(direction.y, direction.x));
+
+		if (attackcd)
+		{
+			float diff = timer - cdtimer;
+
+			if (diff > sword->GetAttackSpeed())
+				attackcd = false;
+		}
+
+		if (direction.x < 0 && movementDirection == 0)
+		{
+			if (player->getPlayer()->angle == 0)
+			{
+				player->getPlayer()->angle = 180;
+				offset.x = -(weapon->scale.x * 0.2);
+			}
+			else if (player->getPlayer()->angle == 180)
+			{
+				player->getPlayer()->angle = 0;
+				offset.x = weapon->scale.x * 0.2;
+			}
+		}
 	}
 
 	weapon->pos = player->getPlayer()->pos;
-
-	//Mouse Section
-	double x, y, windowWidth, windowHeight;
-	Application::GetCursorPos(&x, &y);
-	windowWidth = Application::GetWindowWidth();
-	windowHeight = Application::GetWindowHeight();
-	Vector3 mousePos(x * (m_worldWidth / windowWidth), (windowHeight - y) * (m_worldHeight / windowHeight), 0);
 
 
 
