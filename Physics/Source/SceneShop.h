@@ -5,6 +5,8 @@
 #include <vector>
 #include "SceneBase.h"
 #include "Player.h"
+#include "Potions.h"
+#include "StrengthPotion.h"
 
 class SceneShop : public SceneBase
 {
@@ -38,6 +40,8 @@ protected:
 	char weaponType;
 
 	bool ShopMenu1, ShopMenu2, ShopMenu3, ShopMenu4;
+
+	Potions* StrengthPotion = new StrengthPot();
 };
 
 #endif

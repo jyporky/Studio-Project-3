@@ -49,3 +49,7 @@ void Weapon::SetAttackCast(float cd)
 {
 	attack_cast = cd;
 }
+
+std::string Weapon::getDescription() {
+	return description;
+}

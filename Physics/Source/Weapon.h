@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 class Weapon
 {
 public:
@@ -18,12 +19,13 @@ public:
 	float GetAttackCast();
 	void SetAttackCast(float cd);
 	virtual float GetAttackAngle();
-
+	std::string getDescription();
 protected:
 	int cost;
 	float damage;
 	float range;
 	float attack_speed;
 	float attack_cast;
+	std::string description;
 	/*unsigned type;*/
 };

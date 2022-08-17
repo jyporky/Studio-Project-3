@@ -155,15 +155,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\BoxingGloves.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Crossbow.cpp" />
     <ClCompile Include="Source\EMPSkill.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Fist.cpp" />
+    <ClCompile Include="Source\Flamethrower.cpp" />
     <ClCompile Include="Source\GameManger.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\HackSkill.cpp" />
     <ClCompile Include="Source\HealSkill.cpp" />
+    <ClCompile Include="Source\HealthPotion.cpp" />
     <ClCompile Include="Source\ImmortalSkill.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTexture.cpp" />
@@ -177,6 +181,8 @@
     <ClCompile Include="Source\Potions.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
     <ClCompile Include="Source\Ranged.cpp" />
+    <ClCompile Include="Source\Rifle.cpp" />
+    <ClCompile Include="Source\RubberChicken.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneCollision.cpp" />
     <ClCompile Include="Source\SceneMenu.cpp" />
@@ -186,6 +192,7 @@
     <ClCompile Include="Source\Skill.cpp" />
     <ClCompile Include="Source\SoundController.cpp" />
     <ClCompile Include="Source\SoundInfo.cpp" />
+    <ClCompile Include="Source\SpeedPotion.cpp" />
     <ClCompile Include="Source\SpriteAnimation.cpp" />
     <ClCompile Include="Source\StrengthPotion.cpp" />
     <ClCompile Include="Source\Sword.cpp" />
@@ -195,15 +202,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\BoxingGloves.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Crossbow.h" />
     <ClInclude Include="Source\EMPSkill.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Fist.h" />
+    <ClInclude Include="Source\Flamethrower.h" />
     <ClInclude Include="Source\GameManger.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\HackSkill.h" />
     <ClInclude Include="Source\HealSkill.h" />
+    <ClInclude Include="Source\HealthPotion.h" />
     <ClInclude Include="Source\ImmortalSkill.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
@@ -218,6 +229,8 @@
     <ClInclude Include="Source\Potions.h" />
     <ClInclude Include="Source\Projectile.h" />
     <ClInclude Include="Source\Ranged.h" />
+    <ClInclude Include="Source\Rifle.h" />
+    <ClInclude Include="Source\RubberChicken.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\SceneCollision.h" />
@@ -228,6 +241,7 @@
     <ClInclude Include="Source\Skill.h" />
     <ClInclude Include="Source\SoundController.h" />
     <ClInclude Include="Source\SoundInfo.h" />
+    <ClInclude Include="Source\SpeedPotion.h" />
     <ClInclude Include="Source\SpriteAnimation.h" />
     <ClInclude Include="Source\StrengthPotion.h" />
     <ClInclude Include="Source\Sword.h" />

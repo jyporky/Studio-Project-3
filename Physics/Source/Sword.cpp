@@ -8,6 +8,7 @@ Sword::Sword()
 	attack_speed = 1.2;
 	attack_angle = 75;
 	attack_cast = 0.4;
+	description = "SAMURAI TIME!";
 }
 
 

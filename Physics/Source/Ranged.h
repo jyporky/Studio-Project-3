@@ -3,12 +3,12 @@
 class Ranged : public Weapon
 {
 public:
-	bool GetPiercing();
-	void SetPiercing(bool pierce);
-	float GetBulletSpeed();
-	void SetBulletSpeed(float bs);
+	virtual bool GetPiercing();
+	virtual void SetPiercing(bool pierce);
+	virtual float GetBulletSpeed();
+	virtual void SetBulletSpeed(float bs);
 
-private:
+protected:
 	bool piercing;
 	float bullet_speed;
 };
