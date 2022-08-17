@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Player.h"
 class Skill
 {
 public:
@@ -10,7 +11,7 @@ public:
 	Skill();
 	~Skill();
 
-private:
-	
+protected:
+	Player* player;
 };
 

@@ -63,13 +63,11 @@ protected:
 	CSoundController* cSoundController;
 	Player* player;
 	GameManger* cGameManager;
-	Weapon* sword;
-	GameObject* weapon;
-	float timer;
-	Vector3 offset;
 
 	Skill* HackSkill = new Hack();
+	Skill* HealSkill = new Heal();
 	Potions* StrengthPotion = new StrengthPot();
+	Potions* HealthPotion = new HealthPot();
 	//Auditing
 	float m1, m2;
 	Vector3 u1, u2, v1, v2;

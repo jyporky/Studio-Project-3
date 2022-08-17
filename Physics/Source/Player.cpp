@@ -7,7 +7,17 @@ Player::Player()
 	maxHealth = 100;
 	health = maxHealth;
 	m_player = nullptr;
+	weapon = nullptr;
 	cGameManager = GameManger::GetInstance();
+}
+
+Player::~Player()
+{
+	if (weapon)
+	{
+		delete weapon;
+		weapon = nullptr;
+	}
 }
 
 void Player::SetGameObject(GameObject* player)
@@ -15,7 +25,7 @@ void Player::SetGameObject(GameObject* player)
 	m_player = player;
 }
 
-void Player::Update(double dt)
+void Player::Update(double dt, Vector3 mousepos)
 {
 	Vector3 movementDirection;
 	movementDirection.SetZero();
@@ -50,6 +60,19 @@ void Player::Update(double dt)
 	}
 
 	m_player->pos += movementDirection.Normalize() * 40 * dt;
+
+	if (weapon)
+	{
+		static bool attack = false;
+		if (Application::IsMousePressed(0) && !attack)
+		{
+			weapon->attack();
+			attack = true;
+		}
+		else if (!Application::IsMousePressed(0) && attack)
+			attack = false;
+		weapon->Update(dt, mousepos, movementDirection, m_player);
+	}
 }
 
 void Player::ChangeHealth(int ChangeAmount)
@@ -89,10 +112,16 @@ void Player::SetMaxHealth(unsigned newMaxHealth)
 	maxHealth = newMaxHealth;
 }
 
-Player::~Player()
+void Player::SetWeapon(Weapon* weapon)
 {
-
+	this->weapon = weapon;
 }
+
+Weapon* Player::GetWeapon()
+{
+	return weapon;
+}
+
 
 GameObject* Player::getPlayer()
 {

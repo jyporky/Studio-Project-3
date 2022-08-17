@@ -1,6 +1,6 @@
 #include "HealSkill.h"
 Heal::Heal() {
-
+	player = Player::GetInstance();
 }
 Heal::~Heal() {
 
@@ -15,5 +15,5 @@ int Heal::getEnergyCost() {
 	return 150;
 }
 void Heal::UseSkill() {
-	return;
+	player->ChangeHealth(50);
 }

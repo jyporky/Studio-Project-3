@@ -7,6 +7,7 @@ void Skill::UseSkill()
 
 Skill::Skill()
 {
+	player = Player::GetInstance();
 }
 
 Skill::~Skill()
