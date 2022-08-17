@@ -6,7 +6,7 @@ Overdrive::~Overdrive() {
 
 }
 std::string Overdrive::getDescription() {
-	return "Attack increased by 30% for 10 second, movement speed increased by 20% for 15 seconds";
+	return "Attack increased by 30% for 10s, speed increased by 20% for 15s";
 }
 int Overdrive::getMoneyCost() {
 	return 200;

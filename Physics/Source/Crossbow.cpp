@@ -8,7 +8,7 @@ Crossbow::Crossbow() {
 	attack_speed = 1;
 	critChance = 0.3;
 	critDamage = 2;
-	description = "Have a 30% chance to headshot a target (Does not apply to tanks)";
+	description = "30% chance to headshot and CRIT	";
 }
 Crossbow::~Crossbow() {
 

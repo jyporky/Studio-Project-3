@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Vector3.h"
 #include <string>
+
 class Weapon
 {
 public:
