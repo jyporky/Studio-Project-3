@@ -38,7 +38,7 @@ bool Swordsman::Update(double dt)
         enemyGameObject->color.Set(0, 1, 0);
         greenTimer -= dt;
     }
-    else
+    else if (redTimer <= 0)
         enemyGameObject->color.Set(1, 1, 1);
 
     if (attackdt > 0)

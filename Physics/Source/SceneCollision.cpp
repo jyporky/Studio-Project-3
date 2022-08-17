@@ -80,7 +80,18 @@ void SceneCollision::Init()
 	m_enemyList.push_back(enemy);
 
 
-	offset.Set(weapon->scale.x * 0.2, 0, 0);
+	GameObject* ewep = FetchGO();
+	ewep->type = GameObject::GO_WEAPON;
+	ewep->vel.SetZero();
+	ewep->scale.Set(10, 10, 1);
+	ewep->pos = enemyGO->pos;
+	ewep->color.Set(1, 1, 1);
+	ewep->angle = 0;
+	ewep->active = true;
+	m_enemyWepList.push_back(ewep);
+
+
+	offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);
 
 	sword = new Sword();
 
@@ -236,10 +247,21 @@ void SceneCollision::Update(double dt)
 				ReturnGO(m_enemyList[idx]->GetEnemyGameObject());
 				delete m_enemyList[idx];
 				m_enemyList.erase(m_enemyList.begin() + idx);
+				ReturnGO(m_enemyWepList[idx]);
+				m_enemyWepList.erase(m_enemyWepList.begin() + idx);
 			}
 		}
 	}
 	
+	for (unsigned idx = 0; idx < m_enemyWepList.size(); idx++)
+	{
+		m_enemyWepList[idx]->pos = m_enemyList[idx]->GetEnemyGameObject()->pos;
+
+		Vector3 direction;
+		direction = (m_enemyList[idx]->GetEnemyGameObject()->pos - player->getPlayer()->pos);
+
+		m_enemyWepList[idx]->angle = Math::RadianToDegree(atan2f(direction.y, direction.x));
+	}
 	
 	// Moving of player
 	Vector3 movementDirection;
@@ -324,10 +346,18 @@ void SceneCollision::Update(double dt)
 	{
 		Vector3 direction;
 
+		float offset_angle = 45;
+
 		if (player->getPlayer()->angle == 0)
-			direction = (mousePos - player->getPlayer()->pos);
+		{
+			offset_angle = -45;
+			direction = (mousePos - (player->getPlayer()->pos + offset));
+		}
 		else if (player->getPlayer()->angle == 180)
-			direction = -(mousePos - player->getPlayer()->pos);
+		{
+			offset_angle = 45;
+			direction = -(mousePos - (player->getPlayer()->pos + offset));
+		}
 
 		weapon->angle = Math::RadianToDegree(atan2f(direction.y, direction.x));
 

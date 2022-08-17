@@ -56,6 +56,7 @@ protected:
 	//Physics
 	std::vector<GameObject *> m_goList;
 	std::vector<Enemy*> m_enemyList;
+	std::vector<GameObject*> m_enemyWepList;
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;
