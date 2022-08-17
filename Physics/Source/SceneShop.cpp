@@ -30,7 +30,6 @@ void SceneShop::Init()
 	bLightEnabled = true;
 
 
-	
 
 	
 	player = Player::GetInstance();
@@ -49,7 +48,8 @@ void SceneShop::Init()
 	ShopMenu3 = false;
 	ShopMenu4 = false;
 
-	weaponType = 'm';
+	weaponType = 'm'; // m -> melee 
+	playerUpgradeType = 'u'; //u -> upgrade
 
 }
 
@@ -149,6 +149,143 @@ void SceneShop::Update(double dt)
 		ShopMenu4 = false;
 	}
 
+
+
+	//parts dealer to switch between upgrades and skills
+	if (ShopMenu1 == true)
+	{
+		if (Application::IsKeyPressed('Z'))
+		{
+			playerUpgradeType = 'u'; //upgrade (for player)
+		}
+		else if (Application::IsKeyPressed('X'))
+		{
+			playerUpgradeType = 's'; //skills
+		}
+	}
+	//weapons dealer to switch between ranged and melee
+	if (ShopMenu2 == true) 
+	{
+		if (Application::IsKeyPressed('Z'))
+		{
+			weaponType = 'm'; //melee		
+			shopbuttonhighlight = 0;
+		}
+		else if (Application::IsKeyPressed('X'))
+		{
+			weaponType = 'r'; //ranged
+			shopbuttonhighlight = 0;
+		}
+			
+
+		if (weaponType == 'm')
+		{
+			static bool w = false, s = false;
+			if (Application::IsKeyPressed('W') && !w)
+			{
+				w = true;
+				if (shopbuttonhighlight == 0)
+				{
+					shopbuttonhighlight = 3;
+				}
+				else
+					shopbuttonhighlight--;
+			}
+			else if (!Application::IsKeyPressed('W') && w)
+				w = false;
+
+			if (Application::IsKeyPressed('S') && !s)
+			{
+				s = true;
+				if (shopbuttonhighlight == 3)
+				{
+					shopbuttonhighlight = 0;
+				}
+				else
+					shopbuttonhighlight++;
+			}
+			else if (!Application::IsKeyPressed('S') && s)
+				s = false;
+
+			if (Application::IsKeyPressed('E') && !eButtonState)
+			{
+				eButtonState = true;
+
+				switch (shopbuttonhighlight)
+				{
+				case 0:
+					//buy sword
+					break;
+				case 1:
+					//buy boxing glove
+					break;
+				case 2:
+					//buy chicken
+					break;
+				case 3:
+					//buy frying pan
+					break;
+				}
+			}
+			else if (!Application::IsKeyPressed('E') && eButtonState)
+			{
+				eButtonState = false;
+			}
+		}
+		else if (weaponType == 'r')
+		{
+			static bool w = false, s = false;
+			if (Application::IsKeyPressed('W') && !w)
+			{
+				w = true;
+				if (shopbuttonhighlight == 0)
+				{
+					shopbuttonhighlight = 2;
+				}
+				else
+					shopbuttonhighlight--;
+			}
+			else if (!Application::IsKeyPressed('W') && w)
+				w = false;
+
+			if (Application::IsKeyPressed('S') && !s)
+			{
+				s = true;
+				if (shopbuttonhighlight == 2)
+				{
+					shopbuttonhighlight = 0;
+				}
+				else
+					shopbuttonhighlight++;
+			}
+			else if (!Application::IsKeyPressed('S') && s)
+				s = false;
+
+			if (Application::IsKeyPressed('E') && !eButtonState)
+			{
+				eButtonState = true;
+
+				//if shop menu == 4 
+				switch (shopbuttonhighlight)
+				{
+				case 0:
+					//buy health pot
+					break;
+				case 1:
+					//buy strength pot
+					break;
+				case 2:
+					//buy speed pot
+					break;
+				}
+			}
+			else if (!Application::IsKeyPressed('E') && eButtonState)
+			{
+				eButtonState = false;
+			}
+		}
+	}
+
 	if (ShopMenu4)
 	{
 		static bool w = false, s = false;
@@ -198,20 +335,6 @@ void SceneShop::Update(double dt)
 		}
 		else if (!Application::IsKeyPressed('E') && eButtonState)
 			eButtonState = false;
-	}
-
-
-	//weapons dealer to switch between ranged and melee
-	if (ShopMenu2 == true) 
-	{
-		if (Application::IsKeyPressed('Z'))
-		{
-			weaponType = 'm';
-		}
-		else if (Application::IsKeyPressed('X'))
-		{
-			weaponType = 'r';
-		}
 	}
 
 	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
@@ -415,24 +538,160 @@ void SceneShop::renderEnvironment()
 void SceneShop::renderShopMenu1()
 {
 	modelStack.PushMatrix();
-	modelStack.Translate(m_worldWidth / 2, 30, 1);
-	modelStack.Scale(m_worldWidth - 5, 55, 1);
+	modelStack.Translate(m_worldWidth / 2, 40, 1);
+	modelStack.Scale(m_worldWidth - 30, 55, 1);
 	RenderMesh(meshList[GEO_SHOPMENUBG], false);
 	modelStack.PopMatrix();
 
 	std::ostringstream ss;
 
 	ss.str("");
-	ss << "Upgrades to Player";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 4, 30.5);
-
-	ss.str("");
 	ss << "[R]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 75, 31);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 69, 37);
 
 	ss.str("");
 	ss << "X";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 77, 30.5);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 71, 36.5);
+
+
+	if (playerUpgradeType == 'u') //upgrades
+	{
+		ss.str("");
+		ss << "Player Upgrades [Z]/[X]";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 37);
+
+		ss.str("");
+		ss << "Cost";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 37);
+
+		ss.str("");
+		ss << "Description";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 36, 37);
+
+		ss.str("");
+		ss << "Level";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 57, 37);
+	}
+	else if (playerUpgradeType == 's') //skills
+	{
+		ss.str("");
+		ss << "Skills [Z]/[X]";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 37);
+
+		ss.str("");
+		ss << "Cost";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 37);
+
+		ss.str("");
+		ss << "Description";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 36, 37);
+
+		ss.str("");
+		ss << "Energy Cost";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 57, 37);
+
+
+
+		modelStack.PushMatrix();
+		modelStack.Translate(38, 55.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_EMP], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "EMP Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 32);
+		ss.str("");
+		ss << emp->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 32);
+		ss.str("");
+		ss << emp->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 1.5, 31, 32);
+		ss.str("");
+		ss << emp->getEnergyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 32);
+
+
+		modelStack.PushMatrix();
+		modelStack.Translate(39, 46.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_HACK], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Hack Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 27);
+		ss.str("");
+		ss << hack->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 27);
+		ss.str("");
+		ss << hack->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.9, 0.1), 1.5, 31, 27);
+		ss.str("");
+		ss << hack->getEnergyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 27);
+
+		modelStack.PushMatrix();
+		modelStack.Translate(39, 38.5, 1);
+		modelStack.Scale(6, 6, 1);
+		RenderMesh(meshList[GEO_HEAL], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Heal Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 22);
+		ss.str("");
+		ss << heal->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 22);
+		ss.str("");
+		ss << heal->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0.1, 0.1), 1.5, 31, 22);
+		ss.str("");
+		ss << heal->getEnergyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 22);
+
+
+		modelStack.PushMatrix();
+		modelStack.Translate(44, 30.5, 1);
+		modelStack.Scale(6, 6, 1);
+		RenderMesh(meshList[GEO_IMMORTAL], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Immortal Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 17);
+		ss.str("");
+		ss << immortal->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 17);
+		ss.str("");
+		ss << immortal->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.8, 0.8, 0.1), 1.5, 31, 17);
+		ss.str("");
+		ss << immortal->getEnergyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 17);
+
+		modelStack.PushMatrix();
+		modelStack.Translate(44, 22.5, 1);
+		modelStack.Scale(6, 6, 1);
+		RenderMesh(meshList[GEO_OVERDRIVE], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Overdrive Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 12);
+		ss.str("");
+		ss << overdrive->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 12);
+		ss.str("");
+		ss << overdrive->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0.1), 1.5, 31, 12);
+		ss.str("");
+		ss << overdrive->getEnergyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 12);
+	}
+
+
+
 }
 
 void SceneShop::renderShopMenu2()
@@ -444,51 +703,56 @@ void SceneShop::renderShopMenu2()
 	modelStack.PopMatrix();
 
 	std::ostringstream ss;
-	
+	ss.str("");
+	ss << "Cost";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 36);
+
+	ss.str("");
+	ss << "Damage";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 30, 36);
+
+	ss.str("");
+	ss << "Attack Speed";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 38, 36);
+
+	ss.str("");
+	ss << "Description";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 36);
+
+	ss.str("");
+	ss << "Range";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 63, 36);
+
 	if (weaponType == 'm')
 	{
 		ss.str("");
-		ss << "Melee Weapons [Z] / [X]";
+		ss << "Melee Weapons [Z]/[X]";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 8, 36);
-
-		ss.str("");
-		ss << "Cost";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 36);
-
-		ss.str("");
-		ss << "Damage";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 30, 36);
-
-		ss.str("");
-		ss << "Attack Speed";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 38, 36);
-
-		ss.str("");
-		ss << "Description";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 36);
-
-		ss.str("");
-		ss << "Range";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 63, 36);
 
 		modelStack.PushMatrix();
 		modelStack.Translate(36, 53.5, 1);
 		modelStack.Scale(7, 7, 1);
-		RenderMesh(meshList[GEO_SWORD], false);
+		RenderMesh(meshList[GEO_SWORDR], false);
 		modelStack.PopMatrix();
 
 		ss.str("");
 		ss << "Sword";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 31);
-		//ss.str("");
-		//ss << Sword->GetCost();
-		//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 30);
-		//ss.str("");
-		//ss << Sword->GetDamage();
-		//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 33, 30);
-		//ss.str("");
-		//ss << Sword->GetAttackSpeed();
-		//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 30);
+		ss.str("");
+		ss << sword->GetCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 31);
+		ss.str("");
+		ss << sword->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 31);
+		ss.str("");
+		ss << sword->GetAttackSpeed();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 31);
+		ss.str("");
+		ss << sword->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 49, 31);
+		ss.str("");
+		ss << sword->GetRange();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 31);
 
 		modelStack.PushMatrix();
 		modelStack.Translate(41, 43.5, 1);
@@ -500,6 +764,22 @@ void SceneShop::renderShopMenu2()
 		ss << "Boxing Glove";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 25);
 
+		ss.str("");
+		ss << boxingGlove->GetCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 25);
+		ss.str("");
+		ss << boxingGlove->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 25);
+		ss.str("");
+		ss << boxingGlove->GetAttackSpeed();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 25);
+		ss.str("");
+		ss << boxingGlove->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 49, 25);
+		ss.str("");
+		ss << boxingGlove->GetRange();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 25);
+
 		modelStack.PushMatrix();
 		modelStack.Translate(43, 34.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -510,6 +790,22 @@ void SceneShop::renderShopMenu2()
 		ss << "Rubber Chicken";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 19);
 
+		ss.str("");
+		ss << rubberchicken->GetCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 19);
+		ss.str("");
+		ss << rubberchicken->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 19);
+		ss.str("");
+		ss << rubberchicken->GetAttackSpeed();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 19);
+		ss.str("");
+		ss << rubberchicken->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 19);
+		ss.str("");
+		ss << rubberchicken->GetRange();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 19);
+
 		modelStack.PushMatrix();
 		modelStack.Translate(47, 22.5, 1);
 		modelStack.Scale(8, 7, 1);
@@ -519,23 +815,129 @@ void SceneShop::renderShopMenu2()
 		ss.str("");
 		ss << "Mom's Frying Pan";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 13);
+
+		ss.str("");
+		ss << pan->GetCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 13);
+		ss.str("");
+		ss << pan->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 13);
+		ss.str("");
+		ss << pan->GetAttackSpeed();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 13);
+		ss.str("");
+		ss << pan->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 13);
+		ss.str("");
+		ss << pan->GetRange();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 13);
+
+		//selctor
+		ss.str("");
+		ss << ">";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 7, 30 - shopbuttonhighlight * 6);
 	}
 	else if (weaponType == 'r')
 	{
 		ss.str("");
-		ss << "Ranged Weapons [Z] / [X]";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 36);
+		ss << "Ranged Weapons [Z]/[X]";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 8, 36);
 
+		//rifle
+		modelStack.PushMatrix();
+		modelStack.Translate(35, 51.5, 1);
+		modelStack.Scale(12, 7, 1);
+		RenderMesh(meshList[GEO_RIFLE], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Rifle";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 31);
+
+		ss.str("");
+		ss << rifle->GetCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 31);
+		ss.str("");
+		ss << rifle->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 31);
+		ss.str("");
+		ss << rifle->GetAttackSpeed();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 31);
+		ss.str("");
+		ss << rifle->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 31);
+		ss.str("");
+		ss << rifle->GetRange();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 31);
+
+		//flamethrower
+		modelStack.PushMatrix();
+		modelStack.Translate(45, 38.5, 1);
+		modelStack.Scale(10, 6, 1);
+		RenderMesh(meshList[GEO_FLAMETHROWER], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Flamethrower";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 23);
+
+		ss.str("");
+		ss << flamethrower->GetCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 23);
+		ss.str("");
+		ss << flamethrower->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 23);
+		ss.str("");
+		ss << flamethrower->GetAttackSpeed();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 23);
+		ss.str("");
+		ss << flamethrower->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 23);
+		ss.str("");
+		ss << flamethrower->GetRange();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 22);
+
+		//crossbow
+		modelStack.PushMatrix();
+		modelStack.Translate(40, 25.5, 1);
+		modelStack.Scale(8, 6, 1);
+		RenderMesh(meshList[GEO_CROSSBOW], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Crossbow";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 15);
+
+		ss.str("");
+		ss << crossbow->GetCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 15);
+		ss.str("");
+		ss << crossbow->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 15);
+		ss.str("");
+		ss << crossbow->GetAttackSpeed();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 15);
+		ss.str("");
+		ss << crossbow->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 15);
+		ss.str("");
+		ss << crossbow->GetRange();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 15);
+
+		//selector
+		ss.str("");
+		ss << ">";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 7, 30 - shopbuttonhighlight * 8.2);
 	}
 
 
 	ss.str("");
 	ss << "[R]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 71, 38);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 71, 37);
 
 	ss.str("");
 	ss << "X";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 73, 37.5);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 73, 36.5);
 }
 
 void SceneShop::renderShopMenu3()
@@ -657,7 +1059,7 @@ void SceneShop::renderShopMenu4()
 	//selector
 	ss.str("");
 	ss << ">";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 4, 8, 29 - shopbuttonhighlight * 8.2);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 8, 29 - shopbuttonhighlight * 8.2);
 
 }
 GameObject* SceneShop::Checkborder(GameObject* go)

@@ -162,11 +162,8 @@
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Fist.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="Source\FryingPan.cpp" />
-=======
     <ClCompile Include="Source\Flamethrower.cpp" />
->>>>>>> 07f2684606c8e99a9966d2076d4262a9b965944a
+    <ClCompile Include="Source\FryingPan.cpp" />
     <ClCompile Include="Source\GameManger.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\HackSkill.cpp" />
@@ -213,11 +210,8 @@
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Fist.h" />
-<<<<<<< HEAD
-    <ClInclude Include="Source\FryingPan.h" />
-=======
     <ClInclude Include="Source\Flamethrower.h" />
->>>>>>> 07f2684606c8e99a9966d2076d4262a9b965944a
+    <ClInclude Include="Source\FryingPan.h" />
     <ClInclude Include="Source\GameManger.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\HackSkill.h" />

@@ -6,7 +6,7 @@ RubberChicken::RubberChicken() {
 	attack_speed = 5;
 	attack_angle = 60;
 	attack_cast = 0.4;
-	description = "Stuns enemy in a radius for 1 second";
+	description = "Stuns enemies in a radius for 1s";
 }
 RubberChicken::~RubberChicken() {
 

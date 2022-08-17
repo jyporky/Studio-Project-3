@@ -3,6 +3,7 @@
 #include <string>
 class Heal : public Skill
 {
+public:
 	Heal();
 	~Heal();
 	virtual std::string getDescription();

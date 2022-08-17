@@ -173,6 +173,8 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_SWORDSMAN] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
 	meshList[GEO_RIGHT_SWORDSMAN]->textureID = LoadTGA("Image//playerright.tga");
 
+
+	//weapons
 	meshList[GEO_SWORDL] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
 	meshList[GEO_SWORDL]->textureID = LoadTGA("Image//swordleft.tga");	
 	meshList[GEO_SWORDR] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
@@ -186,6 +188,31 @@ void SceneBase::Init()
 
 	meshList[GEO_PAN] = MeshBuilder::GenerateQuad("frying pan", Color(1, 1, 1));
 	meshList[GEO_PAN]->textureID = LoadTexture("Image//pan.png");
+
+	meshList[GEO_RIFLE] = MeshBuilder::GenerateQuad("rifle", Color(1, 1, 1));
+	meshList[GEO_RIFLE]->textureID = LoadTexture("Image//rifle.png");
+
+	meshList[GEO_FLAMETHROWER] = MeshBuilder::GenerateQuad("flamethrower", Color(1, 1, 1));
+	meshList[GEO_FLAMETHROWER]->textureID = LoadTexture("Image//flamethrower.png");
+
+	meshList[GEO_CROSSBOW] = MeshBuilder::GenerateQuad("crossbow", Color(1, 1, 1));
+	meshList[GEO_CROSSBOW]->textureID = LoadTexture("Image//crossbow.png");
+
+	//skills
+	meshList[GEO_EMP] = MeshBuilder::GenerateQuad("emp", Color(1, 1, 1));
+	meshList[GEO_EMP]->textureID = LoadTexture("Image//emp.png");
+
+	meshList[GEO_HACK] = MeshBuilder::GenerateQuad("hack", Color(1, 1, 1));
+	meshList[GEO_HACK]->textureID = LoadTexture("Image//hack.png");
+
+	meshList[GEO_HEAL] = MeshBuilder::GenerateQuad("heal", Color(1, 1, 1));
+	meshList[GEO_HEAL]->textureID = LoadTexture("Image//heal.png");
+
+	meshList[GEO_IMMORTAL] = MeshBuilder::GenerateQuad("immortal", Color(1, 1, 1));
+	meshList[GEO_IMMORTAL]->textureID = LoadTexture("Image//immortal.png");
+
+	meshList[GEO_OVERDRIVE] = MeshBuilder::GenerateQuad("overdrive", Color(1, 1, 1));
+	meshList[GEO_OVERDRIVE]->textureID = LoadTexture("Image//overdrive.png");
 
 	//NPCs
 	meshList[GEO_BLACKSMITH] = MeshBuilder::GenerateQuad("blacksmith", Color(1, 1, 1));

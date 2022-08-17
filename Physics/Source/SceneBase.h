@@ -54,10 +54,22 @@ public:
 		GEO_SANDBG,
 
 		// Weapons
-		GEO_SWORD,
+		GEO_SWORDL,
+		GEO_SWORDR,
 		GEO_BOXINGGLOVE,
 		GEO_CHICKEN,
 		GEO_PAN,
+
+		GEO_RIFLE,
+		GEO_FLAMETHROWER,
+		GEO_CROSSBOW,
+
+		//skills
+		GEO_EMP,
+		GEO_HACK,
+		GEO_HEAL,
+		GEO_IMMORTAL,
+		GEO_OVERDRIVE,
 
 		//potions
 		GEO_SPEEDPOT,
