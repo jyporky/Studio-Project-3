@@ -45,6 +45,8 @@ public:
 	{
 		GEO_AXES,
 		GEO_TEXT,
+		GEO_HEALTH_UI_BASE,
+		GEO_HEALTH_UI_RED,
 		GEO_BALL,
 		GEO_CUBE,
 		GEO_SHOPMENUBG,
@@ -77,6 +79,7 @@ public:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderMesh(Mesh *mesh, bool enableLight);
+	void RenderMeshOnScreen(Mesh* mesh, double x, double y, double sizex, double sizey);
 	void RenderGO(GameObject *go);
 	static bool eButtonState;
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "Player.h"
+#include "GameManger.h"
 
 class Enemy : public Entity
 {
@@ -27,5 +28,6 @@ protected:
 	bool affectedByKnockback;
 	GameObject* enemyGameObject;
 	static Player* PlayerPointer;
+	static GameManger* cGameManager;
 };
 

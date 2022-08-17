@@ -8,7 +8,7 @@ Swordsman::Swordsman()
     movementSpeed = 6;
     energyDropped = 2;
     moneyDropped = 2;
-    attackDamage = 0;
+    attackDamage = 5;
     affectedByKnockback = true;
     enemyGameObject = nullptr;
     PlayerPointer = nullptr;
@@ -44,8 +44,9 @@ bool Swordsman::Update(double dt)
     if (attackdt > 0)
         attackdt -= dt;
 
-    if ((PlayerPointer->getPlayer()->pos - enemyGameObject->pos).LengthSquared() > attackRange * attackRange)
-        sCurrState = CHASE;
+    if (cGameManager->bPlayerLost)
+        sCurrState = IDLE;
+    
     switch (sCurrState)
     {
     case IDLE:
@@ -60,10 +61,14 @@ bool Swordsman::Update(double dt)
         }
         break;
     case ATTACK:
+        if ((PlayerPointer->getPlayer()->pos - enemyGameObject->pos).LengthSquared() > attackRange * attackRange)
+            sCurrState = CHASE;
         //Attack the player
         if (attackdt <= 0)
         {
-            attackdt = 1.5;
+            //deal damage to the player
+            PlayerPointer->ChangeHealth(-attackDamage);
+            attackdt = attackSpeed;
         }
         break;
     }

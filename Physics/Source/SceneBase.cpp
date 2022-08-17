@@ -155,6 +155,9 @@ void SceneBase::Init()
 	
 	meshList[GEO_SHOPMENUBG] = MeshBuilder::GenerateCube("shopmenubg", Color(0.3, 0.3, 0.3), 1.f);
 
+	meshList[GEO_HEALTH_UI_BASE] = MeshBuilder::GenerateQuad("healthui", Color(1, 1, 1));
+	meshList[GEO_HEALTH_UI_RED] = MeshBuilder::GenerateQuad("healthuired", Color(1, 0, 0));
+
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
 	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");
 
@@ -323,6 +326,27 @@ void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 	}
 	glEnable(GL_DEPTH_TEST);
 }
+
+void SceneBase::RenderMeshOnScreen(Mesh* mesh, double x, double y, double sizex, double sizey)
+{
+	glDisable(GL_DEPTH_TEST);
+	Mtx44 ortho;
+	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity();
+	modelStack.Translate(x, y, 0);
+	modelStack.Scale(sizex, sizey, 1);
+	RenderMesh(mesh, false); //UI should not have light
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+	glEnable(GL_DEPTH_TEST);
+}
+
 
 void SceneBase::Render()
 {
