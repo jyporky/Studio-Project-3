@@ -1,1 +1,26 @@
-﻿
+﻿  SceneCollision.cpp
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(83,29): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(160,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(161,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(163,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(163,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(165,13): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(270,30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(276,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(279,67): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(300,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(348,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(353,32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(389,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(408,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(430,24): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(523,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(529,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(685,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(690,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(690,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(698,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(698,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(500): warning C4715: 'SceneCollision::CheckCollision': not all control paths return a value
+  Physics.vcxproj -> C:\Users\dariu\OneDrive\Documents\GitHub\sp3\Studio-Project-3\Debug\Physics.exe

@@ -3,11 +3,14 @@
 #include <string>
 class Heal : public Skill
 {
+public:
 	Heal();
 	~Heal();
 	virtual std::string getDescription();
 	virtual int getMoneyCost();
 	virtual int getEnergyCost();
 	virtual void UseSkill();
+protected:
+	
 };
 

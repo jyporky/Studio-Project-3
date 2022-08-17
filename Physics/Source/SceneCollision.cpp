@@ -291,6 +291,7 @@ void SceneCollision::Update(double dt)
 		Animate = true;
 		prevtimer = timer;
 		attackcd = true;
+		HealSkill->UseSkill();
 	}
 
 	if (Animate)
