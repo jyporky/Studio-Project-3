@@ -3,6 +3,7 @@
 Melee::Melee()
 {
 	attack_angle = 0;
+	IsMelee = true;
 }
 
 Melee::~Melee()

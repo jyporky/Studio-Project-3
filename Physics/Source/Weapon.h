@@ -25,7 +25,9 @@ public:
 
 
 	std::string getDescription();
+	bool IsMelee;
 protected:
+
 	int cost;
 	float damage;
 	float range;

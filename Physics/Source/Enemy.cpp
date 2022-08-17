@@ -13,7 +13,7 @@ Enemy::Enemy()
     moneyDropped = 0;
     attackDamage = 0;
     affectedByKnockback = true;
-    enemyGameObject = nullptr;
+    gameobject = nullptr;
     PlayerPointer = nullptr;
     attackSpeed = 0;
 }
@@ -31,19 +31,19 @@ void Enemy::Init()
 {
 }
 
-void Enemy::SetEnemyGameObject(GameObject* enemyGO)
+void Enemy::SetGameObject(GameObject* GO)
 {
-    enemyGameObject = enemyGO;
+    gameobject = GO;
 }
 
-GameObject* Enemy::GetEnemyGameObject()
+GameObject* Enemy::GetGameObject()
 {
-    return enemyGameObject;
+    return gameobject;
 }
 
 void Enemy::SetGO(GameObject* newGameObject)
 {
-    enemyGameObject = newGameObject;
+    gameobject = newGameObject;
 }
 
 bool Enemy::ChangeHealth(int changeInHealth)
@@ -63,10 +63,10 @@ bool Enemy::ChangeHealth(int changeInHealth)
 
 void Enemy::SetWeapon(Weapon* weapon)
 {
-    
+    CurrWeapon = weapon;
 }
 
 Weapon* Enemy::GetWeapon()
 {
-    return weapon;
+    return CurrWeapon;
 }

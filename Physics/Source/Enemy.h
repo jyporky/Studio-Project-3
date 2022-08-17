@@ -12,12 +12,12 @@ public:
 	//enemy returns true if the enemy dies
 	virtual bool Update(double dt);
 	virtual void Init();
-	void SetEnemyGameObject(GameObject* enemyGO);
-	GameObject* GetEnemyGameObject();
-	void SetGO(GameObject* newGameObject);
-	bool ChangeHealth(int changeInHealth);
+	virtual void SetGameObject(GameObject* GO);
 	virtual void SetWeapon(Weapon* weapon);
 	virtual Weapon* GetWeapon();
+	virtual GameObject* GetGameObject();
+	void SetGO(GameObject* newGameObject);
+	virtual bool ChangeHealth(int changeInHealth);
 protected:
 	unsigned health;
 	float redTimer;
@@ -29,9 +29,7 @@ protected:
 	unsigned moneyDropped;
 	unsigned attackDamage;
 	bool affectedByKnockback;
-	GameObject* enemyGameObject;
 	static Player* PlayerPointer;
 	static GameManger* cGameManager;
-	Weapon* weapon;
 };
 

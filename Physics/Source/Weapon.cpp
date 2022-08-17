@@ -9,6 +9,7 @@ Weapon::Weapon()
 	damage = 0;
 	range = 5;
 	attackdt = 0;
+	IsMelee = false;
 }
 
 Weapon::~Weapon()

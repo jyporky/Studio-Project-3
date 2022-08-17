@@ -3,6 +3,8 @@
 class Ranged : public Weapon
 {
 public:
+	Ranged();
+	~Ranged();
 	virtual bool GetPiercing();
 	virtual void SetPiercing(bool pierce);
 	virtual float GetBulletSpeed();

@@ -10,9 +10,9 @@ Swordsman::Swordsman()
     moneyDropped = 2;
     attackDamage = 5;
     affectedByKnockback = true;
-    enemyGameObject = nullptr;
+    gameobject = nullptr;
     PlayerPointer = nullptr;
-    weapon = nullptr;
+    CurrWeapon = nullptr;
     sCurrState = CHASE;
     attackRange = 12;
     attackSpeed = 1.5;
@@ -20,12 +20,12 @@ Swordsman::Swordsman()
 
 Swordsman::~Swordsman()
 {
-    enemyGameObject = nullptr;
+    gameobject = nullptr;
     PlayerPointer = nullptr;
-    if (weapon)
+    if (CurrWeapon)
     {
-        delete weapon;
-        weapon = nullptr;
+        delete CurrWeapon;
+        CurrWeapon = nullptr;
     }
 }
 
@@ -33,19 +33,19 @@ bool Swordsman::Update(double dt)
 {
     if (redTimer > 0)
     {
-        enemyGameObject->color.Set(1, 0, 0);
+        gameobject->color.Set(1, 0, 0);
         redTimer -= dt;
     }
     else
-        enemyGameObject->color.Set(1, 1, 1);
+        gameobject->color.Set(1, 1, 1);
 
     if (greenTimer > 0)
     {
-        enemyGameObject->color.Set(0, 1, 0);
+        gameobject->color.Set(0, 1, 0);
         greenTimer -= dt;
     }
     else if (redTimer <= 0)
-        enemyGameObject->color.Set(1, 1, 1);
+        gameobject->color.Set(1, 1, 1);
 
     if (attackdt > 0)
         attackdt -= dt;
@@ -60,20 +60,20 @@ bool Swordsman::Update(double dt)
         break;
     case CHASE:
         //chase the player
-        enemyGameObject->pos += (PlayerPointer->getPlayer()->pos - enemyGameObject->pos).Normalize() * dt * movementSpeed;
-        if ((PlayerPointer->getPlayer()->pos - enemyGameObject->pos).LengthSquared() <= attackRange * attackRange)
+        gameobject->pos += (PlayerPointer->getPlayer()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
+        if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
         {
             sCurrState = ATTACK;
         }
         break;
     case ATTACK:
-        if ((PlayerPointer->getPlayer()->pos - enemyGameObject->pos).LengthSquared() > attackRange * attackRange)
+        if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
             sCurrState = CHASE;
         //Attack the player
         if (attackdt <= 0)
         {
             //deal damage to the player
-            weapon->attack();
+            CurrWeapon->attack();
             PlayerPointer->ChangeHealth(-attackDamage);
             attackdt = attackSpeed;
         }
@@ -81,7 +81,7 @@ bool Swordsman::Update(double dt)
     }
 
     // Make the sword point to the player
-    weapon->Update(dt, PlayerPointer->getPlayer()->pos, 0, enemyGameObject);
+    CurrWeapon->Update(dt, PlayerPointer->getPlayer()->pos, 0, gameobject);
     return false;
 }
 
@@ -93,10 +93,10 @@ void Swordsman::Init()
 
 void Swordsman::SetWeapon(Weapon* weapon)
 {
-    this->weapon = weapon;
+    CurrWeapon = weapon;
 }
 
 Weapon* Swordsman::GetWeapon()
 {
-    return weapon;
+    return CurrWeapon;
 }

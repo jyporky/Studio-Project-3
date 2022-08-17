@@ -21,7 +21,7 @@ Sword::~Sword()
 bool Sword::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO)
 {
 	attackdt += dt;
-	Vector3 offset(0,0,0);
+	Vector3 offset(0, 0, 0);
 
 	// offset the sword
 	if (userGO->angle == 0)
