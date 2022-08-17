@@ -155,6 +155,9 @@ void SceneBase::Init()
 	
 	meshList[GEO_SHOPMENUBG] = MeshBuilder::GenerateCube("shopmenubg", Color(0.3, 0.3, 0.3), 1.f);
 
+	meshList[GEO_HEALTH_UI_BASE] = MeshBuilder::GenerateQuad("healthui", Color(1, 1, 1));
+	meshList[GEO_HEALTH_UI_RED] = MeshBuilder::GenerateQuad("healthuired", Color(1, 0, 0));
+
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
 	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");
 
@@ -170,9 +173,10 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_SWORDSMAN] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
 	meshList[GEO_RIGHT_SWORDSMAN]->textureID = LoadTGA("Image//playerright.tga");
 
-	//weapons
-	meshList[GEO_SWORD] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
-	meshList[GEO_SWORD]->textureID = LoadTGA("Image//sword.tga");
+	meshList[GEO_SWORDL] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
+	meshList[GEO_SWORDL]->textureID = LoadTGA("Image//swordleft.tga");	
+	meshList[GEO_SWORDR] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
+	meshList[GEO_SWORDR]->textureID = LoadTGA("Image//swordright.tga");
 
 	meshList[GEO_BOXINGGLOVE] = MeshBuilder::GenerateQuad("boxing glove", Color(1, 1, 1));
 	meshList[GEO_BOXINGGLOVE]->textureID = LoadTexture("Image//boxing_glove.png");
@@ -343,6 +347,27 @@ void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 	}
 	glEnable(GL_DEPTH_TEST);
 }
+
+void SceneBase::RenderMeshOnScreen(Mesh* mesh, double x, double y, double sizex, double sizey)
+{
+	glDisable(GL_DEPTH_TEST);
+	Mtx44 ortho;
+	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity();
+	modelStack.Translate(x, y, 0);
+	modelStack.Scale(sizex, sizey, 1);
+	RenderMesh(mesh, false); //UI should not have light
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+	glEnable(GL_DEPTH_TEST);
+}
+
 
 void SceneBase::Render()
 {

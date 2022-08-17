@@ -34,3 +34,22 @@ void Weapon::SetAttackSpeed(float as)
 {
 	attack_speed = as;
 }
+
+float Weapon::GetAttackAngle()
+{
+	return 0;
+}
+
+float Weapon::GetAttackCast()
+{
+	return attack_cast;
+}
+
+void Weapon::SetAttackCast(float cd)
+{
+	attack_cast = cd;
+}
+
+std::string Weapon::getDescription() {
+	return description;
+}

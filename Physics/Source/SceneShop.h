@@ -5,6 +5,8 @@
 #include <vector>
 #include "SceneBase.h"
 #include "Player.h"
+#include "Potions.h"
+#include "StrengthPotion.h"
 
 #include "Potions.h"
 #include "StrengthPotion.h"

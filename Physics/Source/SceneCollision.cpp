@@ -79,6 +79,9 @@ void SceneCollision::Init()
 	enemy->SetEnemyGameObject(enemyGO);
 	m_enemyList.push_back(enemy);
 
+
+	offset.Set(weapon->scale.x * 0.2, 0, 0);
+
 	sword = new Sword();
 
 	timer = 0;
@@ -151,6 +154,13 @@ void SceneCollision::Update(double dt)
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
+
+
+	double x, y;
+	float width = Application::GetWindowWidth();
+	float height = Application::GetWindowHeight();
+	Application::GetCursorPos(&x, &y);
+	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
 
 	timer += dt;
 	SceneBase::Update(dt);
@@ -231,52 +241,121 @@ void SceneCollision::Update(double dt)
 		}
 	}
 	
-	//update the player
-	player->Update(dt);
-	Checkborder(player->getPlayer());
 	
+	// Moving of player
+	Vector3 movementDirection;
+	movementDirection.SetZero();
+	if (Application::IsKeyPressed('W'))
+	{
+		movementDirection.y += 1;
+	}
+
+	if (Application::IsKeyPressed('S'))
+	{
+		movementDirection.y -= 1;
+	}
+
+	if (Application::IsKeyPressed('A'))
+	{
+		movementDirection.x -= 1;
+	}
+
+	if (Application::IsKeyPressed('D'))
+	{
+		movementDirection.x += 1;
+	}
+
+	if (movementDirection.x > 0)
+	{
+		player->getPlayer()->angle = 0;
+		offset.x = weapon->scale.x * 0.2;
+	}
+
+	else if (movementDirection.x < 0)
+	{
+		player->getPlayer()->angle = 180;
+		offset.x = -(weapon->scale.x * 0.2);
+	}
+
+	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
+
+	Checkborder(player->getPlayer());
 
 	static bool Animate = false;
 
 
 	static float prevtimer;
-	static bool IsKeyPress = false;
-	if (Application::IsMousePressed(0) && !IsKeyPress)
+	static float cdtimer;
+	static bool attackcd = false;
+	if (Application::IsMousePressed(0) && !attackcd)
 	{
 		Animate = true;
 		prevtimer = timer;
-		IsKeyPress = true;
+		attackcd = true;
 	}
 
 	if (Animate)
 	{
 		float diff = timer - prevtimer;
-
-		if (diff < 0.3)
+		float wp = sword->GetAttackAngle() / (sword->GetAttackCast() / 2) * dt;
+		if (diff < (sword->GetAttackCast() / 2))
 		{
-			weapon->angle -= 100 * dt;
+			if (player->getPlayer()->angle == 0)
+				weapon->angle -= wp;			
+			else if (player->getPlayer()->angle == 180)
+				weapon->angle += wp;
 		}
 
-		else if (diff < 0.6)
+		else if (diff < sword->GetAttackCast())
 		{
-			weapon->angle += 100 * dt;
+			if (player->getPlayer()->angle == 0)
+				weapon->angle += wp;
+			else if (player->getPlayer()->angle == 180)
+				weapon->angle -= wp;
 		}
 
-		else if (diff > 0.6)
+		else if (diff > sword->GetAttackCast())
 		{
 			Animate = false;
-			IsKeyPress = false;
+			cdtimer = timer;
+		}
+	}
+
+	else if (!Animate)
+	{
+		Vector3 direction;
+
+		if (player->getPlayer()->angle == 0)
+			direction = (mousePos - player->getPlayer()->pos);
+		else if (player->getPlayer()->angle == 180)
+			direction = -(mousePos - player->getPlayer()->pos);
+
+		weapon->angle = Math::RadianToDegree(atan2f(direction.y, direction.x));
+
+		if (attackcd)
+		{
+			float diff = timer - cdtimer;
+
+			if (diff > sword->GetAttackSpeed())
+				attackcd = false;
+		}
+
+		if (direction.x < 0 && movementDirection == 0)
+		{
+			if (player->getPlayer()->angle == 0)
+			{
+				player->getPlayer()->angle = 180;
+				offset.x = -(weapon->scale.x * 0.2);
+			}
+			else if (player->getPlayer()->angle == 180)
+			{
+				player->getPlayer()->angle = 0;
+				offset.x = weapon->scale.x * 0.2;
+			}
 		}
 	}
 
 	weapon->pos = player->getPlayer()->pos;
-
-	//Mouse Section
-	double x, y, windowWidth, windowHeight;
-	Application::GetCursorPos(&x, &y);
-	windowWidth = Application::GetWindowWidth();
-	windowHeight = Application::GetWindowHeight();
-	Vector3 mousePos(x * (m_worldWidth / windowWidth), (windowHeight - y) * (m_worldHeight / windowHeight), 0);
 
 
 
@@ -603,12 +682,24 @@ void SceneCollision::RenderGO(GameObject *go)
 
 	case GameObject::GO_WEAPON:
 		modelStack.PushMatrix();
-		modelStack.Translate(go->pos.x + go->scale.x * 0.2, go->pos.y - go->scale.y * 0.4, go->pos.z);
+		modelStack.Translate(go->pos.x + offset.x, go->pos.y - go->scale.y * 0.4, go->pos.z);
 		modelStack.Rotate(go->angle, 0, 0, 1);
-		modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
-		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-		meshList[GEO_SWORD]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-		RenderMesh(meshList[GEO_SWORD], true);
+
+		if (player->getPlayer()->angle == 0)
+		{
+			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_SWORDL]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_SWORDL], true);
+		}
+
+		else if (player->getPlayer()->angle == 180)
+		{
+			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_SWORDR]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_SWORDR], true);
+		}
 		modelStack.PopMatrix();
 		break;
 
@@ -660,59 +751,55 @@ void SceneCollision::Render()
 		}
 	}
 
+
 	//On screen text
 	std::ostringstream ss;
 
+	//render the player health
+	ss.str("");
+	ss << "Health:";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 57);
+	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_BASE], 12, 58.75, 10, 2);
+	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], 7 + (double)player->GetHealth() / (double)player->GetMaxHealth() * 5.0f, 58.75, (double)player->GetHealth() / (double)player->GetMaxHealth() * 10.0f, 2);
+
 	if (cGameManager->dDebug)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(0, 1, 0), 3, 0, 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(1, 1, 1), 3, 0, 12);
 
 		ss.precision(3);
 		ss.str("");
 		ss << "Speed: " << m_speed;
 		ss << " FPS: " << fps;
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 9);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0, 9);
 	
 	}
 
 	ss.str("");
 	ss << "Press r to go shop";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 4, 40);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 40);
 
-	if (cGameManager->bWaveClear)
-	{
-		ss.str("");
-		ss << "You cleared the red bricks, You Win!!";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 24);
-		ss.str("");
-		ss << "Press 'R' to go to next level";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 20);
-		ss.str("");
-		ss << "Press '~' to return to main menu";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
-	}
 
 	if (cGameManager->bPlayerLost)
 	{
 		ss.str("");
 		ss << "You ran out of balls, You Lose";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 4, 20, 24);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 24);
 		ss.str("");
 		ss << "Press 'R' to restart";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 10, 20);
 		ss.str("");
 		ss << "Press '~' to return to main menu";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 10, 16);
 	}
 
 	if (cGameManager->bGameWin)
 	{
 		ss.str("");
 		ss << "You cleared the game!";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 24);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 10, 24);
 		ss.str("");
 		ss << "Press '~' to return to main menu";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 4, 10, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 10, 16);
 	}
 }
 

@@ -125,6 +125,7 @@
     <ClCompile Include="Source\Potions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\SpeedPotion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -132,6 +133,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\FryingPan.cpp">
+=======
+    <ClCompile Include="Source\HealthPotion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpeedPotion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Flamethrower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rifle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Crossbow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BoxingGloves.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RubberChicken.cpp">
+>>>>>>> 07f2684606c8e99a9966d2076d4262a9b965944a
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -265,7 +287,23 @@
     <ClInclude Include="Source\HealthPotion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\FryingPan.h">
+=======
+    <ClInclude Include="Source\Flamethrower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rifle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Crossbow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BoxingGloves.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RubberChicken.h">
+>>>>>>> 07f2684606c8e99a9966d2076d4262a9b965944a
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

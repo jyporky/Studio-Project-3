@@ -155,12 +155,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\BoxingGloves.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Crossbow.cpp" />
     <ClCompile Include="Source\EMPSkill.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Fist.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Source\FryingPan.cpp" />
+=======
+    <ClCompile Include="Source\Flamethrower.cpp" />
+>>>>>>> 07f2684606c8e99a9966d2076d4262a9b965944a
     <ClCompile Include="Source\GameManger.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\HackSkill.cpp" />
@@ -179,6 +185,8 @@
     <ClCompile Include="Source\Potions.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
     <ClCompile Include="Source\Ranged.cpp" />
+    <ClCompile Include="Source\Rifle.cpp" />
+    <ClCompile Include="Source\RubberChicken.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneCollision.cpp" />
     <ClCompile Include="Source\SceneMenu.cpp" />
@@ -198,12 +206,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\BoxingGloves.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Crossbow.h" />
     <ClInclude Include="Source\EMPSkill.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Fist.h" />
+<<<<<<< HEAD
     <ClInclude Include="Source\FryingPan.h" />
+=======
+    <ClInclude Include="Source\Flamethrower.h" />
+>>>>>>> 07f2684606c8e99a9966d2076d4262a9b965944a
     <ClInclude Include="Source\GameManger.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\HackSkill.h" />
@@ -223,6 +237,8 @@
     <ClInclude Include="Source\Potions.h" />
     <ClInclude Include="Source\Projectile.h" />
     <ClInclude Include="Source\Ranged.h" />
+    <ClInclude Include="Source\Rifle.h" />
+    <ClInclude Include="Source\RubberChicken.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\SceneCollision.h" />

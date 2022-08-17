@@ -1,6 +1,7 @@
 #include "Enemy.h"
 
 Player* Enemy::PlayerPointer = Player::GetInstance();
+GameManger* Enemy::cGameManager = GameManger::GetInstance();
 
 Enemy::Enemy()
 {

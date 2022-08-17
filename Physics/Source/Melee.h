@@ -4,7 +4,7 @@
 class Melee :public Weapon
 {
 public:
-	float GetAttackAngle();
+	virtual float GetAttackAngle();
 protected:
 	float attack_angle;
 };
