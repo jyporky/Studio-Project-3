@@ -68,9 +68,15 @@ void SceneShop::Update(double dt)
 	Vector3 movementDirection;
 	movementDirection.SetZero();
 
+	double x, y;
+	float width = Application::GetWindowWidth();
+	float height = Application::GetWindowHeight();
+	Application::GetCursorPos(&x, &y);
+	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
+
 	if (inShop == false)
 	{
-		player->Update(dt); //movement
+		player->Update(dt, mousePos); //movement
 
 		//collision
 		if (player->getPlayer()->pos.y >= 70)
