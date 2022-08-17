@@ -170,8 +170,18 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_SWORDSMAN] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
 	meshList[GEO_RIGHT_SWORDSMAN]->textureID = LoadTGA("Image//playerright.tga");
 
+	//weapons
 	meshList[GEO_SWORD] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
 	meshList[GEO_SWORD]->textureID = LoadTGA("Image//sword.tga");
+
+	meshList[GEO_BOXINGGLOVE] = MeshBuilder::GenerateQuad("boxing glove", Color(1, 1, 1));
+	meshList[GEO_BOXINGGLOVE]->textureID = LoadTexture("Image//boxing_glove.png");
+
+	meshList[GEO_CHICKEN] = MeshBuilder::GenerateQuad("chicken", Color(1, 1, 1));
+	meshList[GEO_CHICKEN]->textureID = LoadTexture("Image//chicken.png");
+
+	meshList[GEO_PAN] = MeshBuilder::GenerateQuad("frying pan", Color(1, 1, 1));
+	meshList[GEO_PAN]->textureID = LoadTexture("Image//pan.png");
 
 	//NPCs
 	meshList[GEO_BLACKSMITH] = MeshBuilder::GenerateQuad("blacksmith", Color(1, 1, 1));

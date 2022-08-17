@@ -155,11 +155,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\BoxingGlove.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Chicken.cpp" />
     <ClCompile Include="Source\EMPSkill.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Fist.cpp" />
+    <ClCompile Include="Source\FryingPan.cpp" />
     <ClCompile Include="Source\GameManger.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\HackSkill.cpp" />
@@ -197,11 +200,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\BoxingGlove.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Chicken.h" />
     <ClInclude Include="Source\EMPSkill.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Fist.h" />
+    <ClInclude Include="Source\FryingPan.h" />
     <ClInclude Include="Source\GameManger.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\HackSkill.h" />

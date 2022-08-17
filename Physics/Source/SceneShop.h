@@ -11,6 +11,8 @@
 #include "HealthPotion.h"
 #include "SpeedPotion.h"
 
+#include "Weapon.h"
+
 class SceneShop : public SceneBase
 {
 public:
@@ -44,9 +46,16 @@ protected:
 
 	bool ShopMenu1, ShopMenu2, ShopMenu3, ShopMenu4;
 
+	unsigned shopbuttonhighlight = 0;
+
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
 	Potions* SpeedPotion = new SpeedPot();
+
+	Weapon* Sword;
+	Weapon* BoxingGlove;
+	Weapon* Chicken;
+	Weapon* Pan;
 };
 
 #endif

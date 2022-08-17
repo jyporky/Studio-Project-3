@@ -131,6 +131,15 @@
     <ClCompile Include="Source\HealthPotion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FryingPan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Chicken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BoxingGlove.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -260,6 +269,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\HealthPotion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FryingPan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Chicken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BoxingGlove.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

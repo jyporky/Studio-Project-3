@@ -2,7 +2,7 @@
 
 Sword::Sword()
 {
-	cost = 0;
+	cost = 100;
 	damage = 10;
 	range = 5;
 	attack_speed = 1.2;

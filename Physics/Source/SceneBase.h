@@ -53,6 +53,9 @@ public:
 
 		// Weapons
 		GEO_SWORD,
+		GEO_BOXINGGLOVE,
+		GEO_CHICKEN,
+		GEO_PAN,
 
 		//potions
 		GEO_SPEEDPOT,
