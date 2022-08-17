@@ -59,6 +59,7 @@ void SceneCollision::Init()
 	weapon->scale.Set(10, 10, 1);
 	weapon->angle = 0;
 	weapon->color.Set(1, 1, 1);
+	weapon->leftwep = false;
 	player->GetWeapon()->SetGameObject(weapon);
 
 	cGameManager = GameManger::GetInstance();
@@ -73,26 +74,23 @@ void SceneCollision::Init()
 	enemyGO->scale.Set(10, 10, 1);
 	enemyGO->color.Set(1, 1, 1);
 	enemyGO->angle = 0;
+	enemy->SetWeapon(new Sword());
 	enemy->SetEnemyGameObject(enemyGO);
 	m_enemyList.push_back(enemy);
 
 
 	GameObject* ewep = FetchGO();
-	ewep->type = GameObject::GO_WEAPON;
+	ewep->type = GameObject::GO_SWORD;
 	ewep->vel.SetZero();
 	ewep->scale.Set(10, 10, 1);
 	ewep->pos = enemyGO->pos;
 	ewep->color.Set(1, 1, 1);
 	ewep->angle = 0;
 	ewep->active = true;
-	m_enemyWepList.push_back(ewep);
+	ewep->leftwep = false;
+	enemy->GetWeapon()->SetGameObject(ewep);
 
-
-	offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);
-
-	sword = new Sword();
-
-	timer = 0;
+	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
 
@@ -175,7 +173,7 @@ void SceneCollision::Update(double dt)
 	{
 		if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
 		{
-			ResetLevel();
+			//ResetLevel();
 		}
 		if (Application::IsKeyPressed(VK_OEM_3))
 		{
@@ -242,22 +240,11 @@ void SceneCollision::Update(double dt)
 			{
 				//delete the enemy
 				ReturnGO(m_enemyList[idx]->GetEnemyGameObject());
+				ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
 				delete m_enemyList[idx];
 				m_enemyList.erase(m_enemyList.begin() + idx);
-				ReturnGO(m_enemyWepList[idx]);
-				m_enemyWepList.erase(m_enemyWepList.begin() + idx);
 			}
 		}
-	}
-	
-	for (unsigned idx = 0; idx < m_enemyWepList.size(); idx++)
-	{
-		m_enemyWepList[idx]->pos = m_enemyList[idx]->GetEnemyGameObject()->pos;
-
-		Vector3 direction;
-		direction = (m_enemyList[idx]->GetEnemyGameObject()->pos - player->getPlayer()->pos);
-
-		m_enemyWepList[idx]->angle = Math::RadianToDegree(atan2f(direction.y, direction.x));
 	}
 	
 	// Moving of player
@@ -276,62 +263,6 @@ void SceneCollision::Update(double dt)
 
 	player->Update(dt, mousePos);
 	Checkborder(player->getPlayer());
-
-
-
-
-		else if (diff > sword->GetAttackCast())
-		{
-			Animate = false;
-			cdtimer = timer;
-		}
-	}
-
-	else if (!Animate)
-	{
-		Vector3 direction;
-
-		float offset_angle = 45;
-
-		if (player->getPlayer()->angle == 0)
-		{
-			offset_angle = -45;
-			direction = (mousePos - (player->getPlayer()->pos + offset));
-		}
-		else if (player->getPlayer()->angle == 180)
-		{
-			offset_angle = 45;
-			direction = -(mousePos - (player->getPlayer()->pos + offset));
-		}
-
-		weapon->angle = Math::RadianToDegree(atan2f(direction.y, direction.x));
-
-		if (attackcd)
-		{
-			float diff = timer - cdtimer;
-
-			if (diff > sword->GetAttackSpeed())
-				attackcd = false;
-		}
-
-		if (direction.x < 0 && movementDirection == 0)
-		{
-			if (player->getPlayer()->angle == 0)
-			{
-				player->getPlayer()->angle = 180;
-				offset.x = -(weapon->scale.x * 0.2);
-			}
-			else if (player->getPlayer()->angle == 180)
-			{
-				player->getPlayer()->angle = 0;
-				offset.x = weapon->scale.x * 0.2;
-			}
-		}
-	}
-
-	weapon->pos = player->getPlayer()->pos;
-
-
 
 	static bool bLButtonState = false;
 	if(!bLButtonState && Application::IsMousePressed(0))
@@ -656,10 +587,10 @@ void SceneCollision::RenderGO(GameObject *go)
 
 	case GameObject::GO_SWORD:
 		modelStack.PushMatrix();
-		modelStack.Translate(go->pos.x, go->pos.y - go->scale.y * 0.4, go->pos.z);
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Rotate(go->angle, 0, 0, 1);
 
-		if (player->getPlayer()->angle == 0)
+		if (go->leftwep == false)
 		{
 			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
@@ -667,7 +598,7 @@ void SceneCollision::RenderGO(GameObject *go)
 			RenderMesh(meshList[GEO_SWORDL], true);
 		}
 
-		else if (player->getPlayer()->angle == 180)
+		else
 		{
 			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);

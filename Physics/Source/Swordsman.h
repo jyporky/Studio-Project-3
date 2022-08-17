@@ -16,10 +16,11 @@ public:
     ~Swordsman();
     bool Update(double dt);
     void Init();
+    void SetWeapon(Weapon* weapon);
+    Weapon* GetWeapon();
 
 
 private:
     unsigned sCurrState;
     unsigned attackRange;
 };
-

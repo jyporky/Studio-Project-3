@@ -28,6 +28,7 @@ struct GameObject
 	float mass;
 	Vector3 color;
 	Vector3 normal;
+	bool leftwep;
 
 	//Rotation variables
 	Vector3 direction;

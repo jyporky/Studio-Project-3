@@ -12,8 +12,9 @@ Swordsman::Swordsman()
     affectedByKnockback = true;
     enemyGameObject = nullptr;
     PlayerPointer = nullptr;
+    weapon = nullptr;
     sCurrState = CHASE;
-    attackRange = 5;
+    attackRange = 12;
     attackSpeed = 1.5;
 }
 
@@ -21,6 +22,11 @@ Swordsman::~Swordsman()
 {
     enemyGameObject = nullptr;
     PlayerPointer = nullptr;
+    if (weapon)
+    {
+        delete weapon;
+        weapon = nullptr;
+    }
 }
 
 bool Swordsman::Update(double dt)
@@ -67,11 +73,15 @@ bool Swordsman::Update(double dt)
         if (attackdt <= 0)
         {
             //deal damage to the player
+            weapon->attack();
             PlayerPointer->ChangeHealth(-attackDamage);
             attackdt = attackSpeed;
         }
         break;
     }
+
+    // Make the sword point to the player
+    weapon->Update(dt, PlayerPointer->getPlayer()->pos, 0, enemyGameObject);
     return false;
 }
 
@@ -81,3 +91,12 @@ void Swordsman::Init()
     PlayerPointer = Player::GetInstance();
 }
 
+void Swordsman::SetWeapon(Weapon* weapon)
+{
+    this->weapon = weapon;
+}
+
+Weapon* Swordsman::GetWeapon()
+{
+    return weapon;
+}

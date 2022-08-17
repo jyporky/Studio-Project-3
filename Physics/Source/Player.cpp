@@ -73,6 +73,22 @@ void Player::Update(double dt, Vector3 mousepos)
 			attack = false;
 		weapon->Update(dt, mousepos, movementDirection, m_player);
 	}
+
+	if (redTimer > 0)
+	{
+		m_player->color.Set(1, 0, 0);
+		redTimer -= dt;
+	}
+	else
+		m_player->color.Set(1, 1, 1);
+
+	if (greenTimer > 0)
+	{
+		m_player->color.Set(0, 1, 0);
+		greenTimer -= dt;
+	}
+	else if (redTimer <= 0)
+		m_player->color.Set(1, 1, 1);
 }
 
 void Player::ChangeHealth(int ChangeAmount)

@@ -60,3 +60,13 @@ bool Enemy::ChangeHealth(int changeInHealth)
     }
     return false;
 }
+
+void Enemy::SetWeapon(Weapon* weapon)
+{
+    
+}
+
+Weapon* Enemy::GetWeapon()
+{
+    return weapon;
+}

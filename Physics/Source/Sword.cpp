@@ -21,7 +21,20 @@ Sword::~Sword()
 bool Sword::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO)
 {
 	attackdt += dt;
-	float offset = 0;
+	Vector3 offset(0,0,0);
+
+	// offset the sword
+	if (userGO->angle == 0)
+	{
+		gameobject->leftwep = false;
+		offset = Vector3(gameobject->scale.x * 0.2, -gameobject->scale.y * 0.4);
+	}
+	else if (userGO->angle == 180)
+	{
+		gameobject->leftwep = true;
+		offset = Vector3(-gameobject->scale.x * 0.2, -gameobject->scale.y * 0.4);
+	}
+
 	//do the weapon animation
 	if (Animate)
 	{
@@ -51,37 +64,49 @@ bool Sword::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 	else
 	{
 		Vector3 direction;
-
+		float angle_offset;
 		if (userGO->angle == 0)
+		{
+			angle_offset = -40;
 			direction = (mousepos - userGO->pos);
+		}
 		else if (userGO->angle == 180)
+		{
+			angle_offset = 40;
 			direction = -(mousepos - userGO->pos);
+		}
 
-		gameobject->angle = Math::RadianToDegree(atan2f(direction.y, direction.x));
+		gameobject->angle = Math::RadianToDegree(atan2f(direction.y, direction.x)) + angle_offset;
 
 		if (direction.x < 0 && movementdirection == 0)
 		{
 			if (userGO->angle == 0)
 			{
+				gameobject->leftwep = true;
 				userGO->angle = 180;
-				offset = -(gameobject->scale.x * 0.2);
+				offset = Vector3(gameobject->scale.x * 0.2, -gameobject->scale.y * 0.4);
 			}
 			else if (userGO->angle == 180)
 			{
-				gameobject->angle = 0;
-				offset = gameobject->scale.x * 0.2;
+				gameobject->leftwep = false;
+				userGO->angle = 0;
+				offset = -Vector3(gameobject->scale.x * 0.2, -gameobject->scale.y * 0.4);
 			}
 		}
 	}
 
 	gameobject->pos = userGO->pos;
-	gameobject->pos.x += offset;
+	gameobject->pos += offset;
+
 
 	return false;
 }
 
 void Sword::attack()
 {
-	attackdt = 0;
-	Animate = true;
+	if (attackdt >= attack_speed)
+	{
+		attackdt = 0;
+		Animate = true;
+	}
 }
