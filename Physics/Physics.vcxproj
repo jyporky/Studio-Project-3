@@ -154,7 +154,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AccurateArrowsMod.cpp" />
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\BetterFuelMod.cpp" />
     <ClCompile Include="Source\BoxingGloves.cpp" />
     <ClCompile Include="Source\Bullet.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -162,6 +164,9 @@
     <ClCompile Include="Source\EMPSkill.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
+    <ClCompile Include="Source\ExplosiveBulletsMod.cpp" />
+    <ClCompile Include="Source\FasterBulletSpeedMod.cpp" />
+    <ClCompile Include="Source\FasterFiringRateMod.cpp" />
     <ClCompile Include="Source\Fist.cpp" />
     <ClCompile Include="Source\Flamethrower.cpp" />
     <ClCompile Include="Source\FryingPan.cpp" />
@@ -211,7 +216,9 @@
     <ClCompile Include="Source\WeaponModifiers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AccurateArrowsMod.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\BetterFuelMod.h" />
     <ClInclude Include="Source\BoxingGloves.h" />
     <ClInclude Include="Source\Bullet.h" />
     <ClInclude Include="Source\Camera.h" />
@@ -219,6 +226,9 @@
     <ClInclude Include="Source\EMPSkill.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
+    <ClInclude Include="Source\ExplosiveBulletsMod.h" />
+    <ClInclude Include="Source\FasterBulletSpeedMod.h" />
+    <ClInclude Include="Source\FasterFiringRateMod.h" />
     <ClInclude Include="Source\Fist.h" />
     <ClInclude Include="Source\Flamethrower.h" />
     <ClInclude Include="Source\FryingPan.h" />

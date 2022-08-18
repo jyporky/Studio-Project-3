@@ -1,7 +1,7 @@
 #include "Rifle.h"
 Rifle::Rifle() {
 	piercing = false;
-	bullet_speed = 30;
+	bullet_speed = 60;
 	cost = 80;
 	damage = 3;
 	range = 1000;
