@@ -29,6 +29,12 @@
 #include "ImmortalSkill.h"
 #include "OverdriveSkill.h"
 
+#include "SelfUpgrades.h"
+#include "HealthUpgrade.h"
+#include "MovementSpeedUpgrade.h"
+#include "MeleeDmgUpgrade.h"
+#include "RangedDmgUpgrade.h"
+
 class SceneShop : public SceneBase
 {
 public:
@@ -60,15 +66,18 @@ protected:
 
 	char weaponType;
 	char playerUpgradeType;
+	int weaponUpgradePage;
 
 	bool ShopMenu1, ShopMenu2, ShopMenu3, ShopMenu4;
 
 	unsigned shopbuttonhighlight = 0;
 
+	//potions
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
 	Potions* SpeedPotion = new SpeedPot();
 
+	//weapons
 	Weapon* sword = new Sword();
 	Weapon* boxingGlove = new BoxingGloves();
 	Weapon* rubberchicken = new RubberChicken();
@@ -78,11 +87,18 @@ protected:
 	Weapon* flamethrower = new Flamethrower();
 	Weapon* crossbow = new Crossbow();
 
+	//skills
 	Skill* emp = new EMP();
 	Skill* hack = new Hack();
 	Skill* heal = new Heal();
 	Skill* immortal = new Immortal();
 	Skill* overdrive = new Overdrive();
+
+	//self upgrades
+	SelfUpgrades* movementspeedupgrade = new MovementSpeedUpgrade();
+	SelfUpgrades* healthupgrade = new HealthUpgrade();
+	SelfUpgrades* meleedmgupgrade = new MeleeDmgUpgrade();
+	SelfUpgrades* rangeddmgupgrade = new RangedDmgUpgrade();
 };
 
 #endif

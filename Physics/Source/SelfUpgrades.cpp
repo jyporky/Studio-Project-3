@@ -14,3 +14,7 @@ std::string SelfUpgrades::getDescription() {
 int SelfUpgrades::getMoneyCost() {
 	return 0;
 }
+int SelfUpgrades::getUpgradeLevel()
+{
+	return noOfTimesUpgraded;
+}

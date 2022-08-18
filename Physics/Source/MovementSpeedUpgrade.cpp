@@ -15,3 +15,7 @@ std::string MovementSpeedUpgrade::getDescription() {
 int MovementSpeedUpgrade::getMoneyCost() {
 	return 30 + (20 * noOfTimesUpgraded);
 }
+int MovementSpeedUpgrade::getUpgradeLevel()
+{
+	return noOfTimesUpgraded;
+}

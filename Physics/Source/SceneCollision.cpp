@@ -630,7 +630,7 @@ void SceneCollision::Render()
 	//render the sand bg
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, 0);
-	modelStack.Scale(1000,1000,1000);
+	modelStack.Scale(360,240,1);
 	RenderMesh(meshList[GEO_SANDBG], false);
 	modelStack.PopMatrix();
 

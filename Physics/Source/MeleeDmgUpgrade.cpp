@@ -15,3 +15,7 @@ std::string MeleeDmgUpgrade::getDescription() {
 int MeleeDmgUpgrade::getMoneyCost() {
 	return 75 + (25 * noOfTimesUpgraded);
 }
+int MeleeDmgUpgrade::getUpgradeLevel()
+{
+	return noOfTimesUpgraded;
+}
