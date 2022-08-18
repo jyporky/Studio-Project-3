@@ -149,12 +149,6 @@
     <ClCompile Include="Source\FryingPan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-=======
-    <ClCompile Include="Source\HealthUpgrade.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
->>>>>>> a7ac3a2c422a209078d03e18f20d05dbcad31a6e
     <ClCompile Include="Source\MeleeDmgUpgrade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -167,12 +161,33 @@
     <ClCompile Include="Source\SelfUpgrades.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Source\HealthUpgrade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-=======
->>>>>>> a7ac3a2c422a209078d03e18f20d05dbcad31a6e
+    <ClCompile Include="Source\ExplosiveBulletsMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FasterBulletSpeedMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FasterFiringRateMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PiercingBulletMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WeaponModifiers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AccurateArrowsMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BetterFuelMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FasterMeleeMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -325,24 +340,40 @@
     <ClInclude Include="Source\HealthUpgrade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Source\RangedDmgUpgrade.h">
-=======
-    <ClInclude Include="Source\MeleeDmgUpgrade.h">
->>>>>>> a7ac3a2c422a209078d03e18f20d05dbcad31a6e
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\MovementSpeedUpgrade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Source\MeleeDmgUpgrade.h">
-=======
-    <ClInclude Include="Source\RangedDmgUpgrade.h">
->>>>>>> a7ac3a2c422a209078d03e18f20d05dbcad31a6e
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\SelfUpgrades.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PiercingBulletMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WeaponModifiers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AccurateArrowsMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BetterFuelMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ExplosiveBulletsMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FasterBulletSpeedMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FasterFiringRateMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FasterMeleeMod.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

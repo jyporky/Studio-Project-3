@@ -4,12 +4,14 @@ Player::Player()
 {
 	greenTimer = 0;
 	redTimer = 0;
+	blueTimer = 0;
 	maxHealth = 100;
 	health = maxHealth;
 	gameobject = nullptr;
 	CurrWeapon = nullptr;
 	cGameManager = GameManger::GetInstance();
 	movementspeed = 40;
+	iFrame = false;
 }
 
 Player::~Player()
@@ -31,6 +33,7 @@ void Player::Update(double dt, Vector3 mousepos)
 	//deal with the player movement
 	Vector3 movementDirection;
 	movementDirection.SetZero();
+
 	if (Application::IsKeyPressed('W'))
 	{
 		movementDirection.y += 1;
@@ -49,6 +52,17 @@ void Player::Update(double dt, Vector3 mousepos)
 	if (Application::IsKeyPressed('D'))
 	{
 		movementDirection.x += 1;
+	}
+
+	//dashing
+	if ((Application::IsKeyPressed(' ')) && (blueTimer <= 0))
+	{
+		movementspeed = 700;
+		blueTimer = 0.7;
+	}
+	else
+	{
+		movementspeed = 40;
 	}
 
 	if (movementDirection.x > 0)
@@ -94,6 +108,23 @@ void Player::Update(double dt, Vector3 mousepos)
 	}
 	else if (redTimer <= 0)
 		gameobject->color.Set(1, 1, 1);
+	else if (redTimer <= 0)
+		gameobject->color.Set(1, 1, 1);
+
+	//for dashing and i frame
+	if (blueTimer > 0)
+	{
+		blueTimer -= dt;
+	}
+	if (blueTimer > 0.4)
+	{
+		gameobject->color.Set(0.6, 0.6, 1);
+		iFrame = true;
+	}
+	else
+	{
+		iFrame = false;
+	}
 }
 
 bool Player::ChangeHealth(int ChangeAmount)

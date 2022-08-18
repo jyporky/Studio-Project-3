@@ -23,6 +23,7 @@ public:
 	Weapon* GetWeapon();
 	~Player();
 	GameObject* getPlayer();
+	bool iFrame;
 private:
 	std::vector<Entity*> m_enemyList;
 	int health;
@@ -30,6 +31,7 @@ private:
 	unsigned maxHealth;
 	float redTimer;
 	float greenTimer;
+	float blueTimer;
 	GameManger* cGameManager;
 };
 

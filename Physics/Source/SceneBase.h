@@ -89,12 +89,11 @@ public:
 		GEO_EXPLOSIVEBULLET,
 		GEO_BETTERFUEL,
 		GEO_ACCURATEARROWS,
-		GEO_SHARPERMELEE,
 		GEO_FASTERMELEE,
 
 		//NPCs
 		GEO_BLACKSMITH, //sell weapon upgrades
-		GEO_PARTDEALER, //sell upgrades to player
+		GEO_PARTDEALER, //sell upgrades to player and skills
 		GEO_ALCHEMIST, //sell potions
 		GEO_WEAPONDEALER, //sell weapons
 		

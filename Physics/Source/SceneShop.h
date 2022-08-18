@@ -35,6 +35,16 @@
 #include "MeleeDmgUpgrade.h"
 #include "RangedDmgUpgrade.h"
 
+#include "WeaponModifiers.h"
+#include "AccurateArrowsMod.h"
+#include "BetterFuelMod.h"
+#include "ExplosiveBulletsMod.h"
+#include "FasterBulletSpeedMod.h"
+#include "FasterFiringRateMod.h"
+#include "PiercingBulletMod.h"
+#include "FasterMeleeMod.h"
+
+
 class SceneShop : public SceneBase
 {
 public:
@@ -99,6 +109,15 @@ protected:
 	SelfUpgrades* healthupgrade = new HealthUpgrade();
 	SelfUpgrades* meleedmgupgrade = new MeleeDmgUpgrade();
 	SelfUpgrades* rangeddmgupgrade = new RangedDmgUpgrade();
+
+	//weapon upgrades
+	WeaponMods* PierceMod = new PiercingBulletMod();
+	WeaponMods* FasterFiringMod = new FasterFiringRateMod();
+	WeaponMods* FasterBulletMod = new FasterBulletSpeedMod();
+	WeaponMods* ExplosiveMod = new ExplosiveBulletsMod();
+	WeaponMods* betterFuelMod = new BetterFuelMod();
+	WeaponMods* accurateArrowsMod = new AccurateArrowsMod();
+	WeaponMods* fasterMeleeMod = new FasterMeleeMod();
 };
 
 #endif

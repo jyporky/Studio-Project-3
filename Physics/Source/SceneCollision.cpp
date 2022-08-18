@@ -3,7 +3,6 @@
 #include "Application.h"
 #include <sstream>
 
-
 SceneCollision::SceneCollision()
 {
 

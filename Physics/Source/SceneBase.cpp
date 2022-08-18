@@ -151,7 +151,7 @@ void SceneBase::Init()
 	}
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_BALL] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.5, 0.5, 0.4), 1.f);
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.4, 0.4, 0.3), 1.f);
 	
 	meshList[GEO_SHOPMENUBG] = MeshBuilder::GenerateCube("shopmenubg", Color(0.3, 0.3, 0.3), 1.f);
 
@@ -245,9 +245,6 @@ void SceneBase::Init()
 
 	meshList[GEO_ACCURATEARROWS] = MeshBuilder::GenerateQuad("accurate arrows", Color(1, 1, 1));
 	meshList[GEO_ACCURATEARROWS]->textureID = LoadTexture("Image//accurate_arrows.png");
-
-	meshList[GEO_SHARPERMELEE] = MeshBuilder::GenerateQuad("sharper melee", Color(1, 1, 1));
-	meshList[GEO_SHARPERMELEE]->textureID = LoadTexture("Image//sharper_melee.png");
 
 	meshList[GEO_FASTERMELEE] = MeshBuilder::GenerateQuad("faster melee", Color(1, 1, 1));
 	meshList[GEO_FASTERMELEE]->textureID = LoadTexture("Image//faster_melee_speed.png");
