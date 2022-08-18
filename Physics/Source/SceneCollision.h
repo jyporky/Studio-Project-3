@@ -15,6 +15,8 @@
 #include "Fist.h"
 #include "Sword.h"
 #include "Swordsman.h"
+#include "RiflerEnemy.h"
+#include "Rifle.h"
 
 #include "Skill.h"
 #include "HackSkill.h"

@@ -90,6 +90,31 @@ void SceneCollision::Init()
 	ewep->leftwep = false;
 	enemy->GetWeapon()->SetGameObject(ewep);
 
+	//spawn rifler enemy
+	Enemy* enemy2 = new Rifler();
+	enemy2->Init();
+	GameObject* enemy2GO = FetchGO();
+	enemy2GO->type = GameObject::GO_RIFLER;
+	enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
+	enemy2GO->vel.SetZero();
+	enemy2GO->scale.Set(13, 13, 1);
+	enemy2GO->color.Set(1, 1, 1);
+	enemy2GO->angle = 0;
+	enemy2->SetWeapon(new Rifle());
+	enemy2->SetGameObject(enemy2GO);
+	m_enemyList.push_back(enemy2);
+
+	GameObject* ewep2 = FetchGO();
+	ewep2->type = GameObject::GO_RIFLE;
+	ewep2->vel.SetZero();
+	ewep2->scale.Set(8, 3, 1);
+	ewep2->pos = enemy2GO->pos;
+	ewep2->color.Set(1, 1, 1);
+	ewep2->angle = 0;
+	ewep2->active = true;
+	ewep2->leftwep = false;
+	enemy2->GetWeapon()->SetGameObject(ewep2);
+
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
@@ -578,7 +603,23 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_RIFLER:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_RIFLER], true);
+		}
 
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_RIFLER], true);
+		}
+		modelStack.PopMatrix();
+		break;
 	case GameObject::GO_SWORD:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -601,7 +642,28 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_RIFLE:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
 
+		if (go->leftwep == false)
+		{
+			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_RIFLE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIFLE_LEFT], true);
+		}
+
+		else
+		{
+			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
+		}
+		modelStack.PopMatrix();
+		break;
 	case GameObject::GO_WALL:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);

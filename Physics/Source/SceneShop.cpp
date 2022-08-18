@@ -853,7 +853,7 @@ void SceneShop::renderShopMenu2()
 		modelStack.PushMatrix();
 		modelStack.Translate(35, 51.5, 1);
 		modelStack.Scale(12, 7, 1);
-		RenderMesh(meshList[GEO_RIFLE], false);
+		RenderMesh(meshList[GEO_RIFLE_RIGHT], false);
 		modelStack.PopMatrix();
 
 		ss.str("");

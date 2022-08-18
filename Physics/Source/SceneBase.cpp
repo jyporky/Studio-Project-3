@@ -167,12 +167,17 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
 	meshList[GEO_RIGHT_PLAYER]->textureID = LoadTGA("Image//playerright.tga");
 
-	meshList[GEO_LEFT_SWORDSMAN] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
+	meshList[GEO_LEFT_SWORDSMAN] = MeshBuilder::GenerateQuad("swordmanL", Color(1, 1, 1));
 	meshList[GEO_LEFT_SWORDSMAN]->textureID = LoadTGA("Image//playerleft.tga");
 
-	meshList[GEO_RIGHT_SWORDSMAN] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
+	meshList[GEO_RIGHT_SWORDSMAN] = MeshBuilder::GenerateQuad("swordmanR", Color(1, 1, 1));
 	meshList[GEO_RIGHT_SWORDSMAN]->textureID = LoadTGA("Image//playerright.tga");
 
+	meshList[GEO_LEFT_RIFLER] = MeshBuilder::GenerateQuad("riflerL", Color(1, 1, 1));
+	meshList[GEO_LEFT_RIFLER]->textureID = LoadTGA("Image//riflerL.tga");
+
+	meshList[GEO_RIGHT_RIFLER] = MeshBuilder::GenerateQuad("riflerR", Color(1, 1, 1));
+	meshList[GEO_RIGHT_RIFLER]->textureID = LoadTGA("Image//riflerR.tga");
 
 	//weapons
 	meshList[GEO_SWORDL] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
@@ -189,8 +194,11 @@ void SceneBase::Init()
 	meshList[GEO_PAN] = MeshBuilder::GenerateQuad("frying pan", Color(1, 1, 1));
 	meshList[GEO_PAN]->textureID = LoadTexture("Image//pan.png");
 
-	meshList[GEO_RIFLE] = MeshBuilder::GenerateQuad("rifle", Color(1, 1, 1));
-	meshList[GEO_RIFLE]->textureID = LoadTexture("Image//rifle.png");
+	meshList[GEO_RIFLE_LEFT] = MeshBuilder::GenerateQuad("rifleL", Color(1, 1, 1));
+	meshList[GEO_RIFLE_LEFT]->textureID = LoadTGA("Image//ar_left.tga");
+
+	meshList[GEO_RIFLE_RIGHT] = MeshBuilder::GenerateQuad("rifleR", Color(1, 1, 1));
+	meshList[GEO_RIFLE_RIGHT]->textureID = LoadTGA("Image//ar_right.tga");
 
 	meshList[GEO_FLAMETHROWER] = MeshBuilder::GenerateQuad("flamethrower", Color(1, 1, 1));
 	meshList[GEO_FLAMETHROWER]->textureID = LoadTexture("Image//flamethrower.png");

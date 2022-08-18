@@ -16,6 +16,8 @@ struct GameObject
 		GO_PLAYER,
 		GO_SWORD,
 		GO_SWORDSMAN,
+		GO_RIFLER,
+		GO_RIFLE,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;
