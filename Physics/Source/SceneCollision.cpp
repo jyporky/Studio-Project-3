@@ -307,7 +307,18 @@ void SceneCollision::Update(double dt)
 		}
 		if (m_enemyList[idx]->IsSpawningBullet())
 		{
-			//spawn bullet
+			Vector3 shootPlayer = player->getPlayer()->pos - m_enemyList[idx]->GetGameObject()->pos;
+			Bullet* bullet = new Bullet;
+			GameObject* bulletgo = FetchGO();
+			bulletgo->type = GameObject::GO_BULLET;
+			bulletgo->pos = m_enemyList[idx]->GetGameObject()->pos;
+			bulletgo->vel.SetZero();
+			bulletgo->scale.Set(2, 2, 1);
+			bulletgo->color.Set(1, 1, 1);
+			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
+			bullet->SetGameObject(bulletgo);
+			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage(), m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer.Normalize());
+			m_ebulletList.push_back(bullet);
 		}
 		//if (dealdamage)
 		//{
@@ -321,7 +332,7 @@ void SceneCollision::Update(double dt)
 		//	}
 		//}
 	}
-
+	
 	//update the player
 	player->SetEnemyVector(m_enemyList);
 	player->Update(dt, mousePos);
