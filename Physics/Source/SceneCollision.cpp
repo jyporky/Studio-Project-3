@@ -647,14 +647,14 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 		if (go->angle == 180)
 		{
-			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+			meshList[GEO_LEFT_SWORDSMAN]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_SWORDSMAN], true);
 		}
 
 		else if (go->angle == 0)
 		{
-			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+			meshList[GEO_RIGHT_SWORDSMAN]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_SWORDSMAN], true);
 		}
 		modelStack.PopMatrix();
 		break;

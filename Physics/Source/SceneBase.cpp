@@ -168,10 +168,10 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_PLAYER]->textureID = LoadTGA("Image//playerright.tga");
 
 	meshList[GEO_LEFT_SWORDSMAN] = MeshBuilder::GenerateQuad("swordmanL", Color(1, 1, 1));
-	meshList[GEO_LEFT_SWORDSMAN]->textureID = LoadTGA("Image//playerleft.tga");
+	meshList[GEO_LEFT_SWORDSMAN]->textureID = LoadTGA("Image//swordsmanL.tga");
 
 	meshList[GEO_RIGHT_SWORDSMAN] = MeshBuilder::GenerateQuad("swordmanR", Color(1, 1, 1));
-	meshList[GEO_RIGHT_SWORDSMAN]->textureID = LoadTGA("Image//playerright.tga");
+	meshList[GEO_RIGHT_SWORDSMAN]->textureID = LoadTGA("Image//swordsmanR.tga");
 
 	meshList[GEO_LEFT_RIFLER] = MeshBuilder::GenerateQuad("riflerL", Color(1, 1, 1));
 	meshList[GEO_LEFT_RIFLER]->textureID = LoadTGA("Image//riflerL.tga");
