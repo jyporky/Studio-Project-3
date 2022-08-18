@@ -10,6 +10,7 @@ Sword::Sword()
 	attack_cast = 0.4;
 	description = "SAMURAI TIME!";
 	Animate = false;
+	WeaponType = SWORD;
 }
 
 

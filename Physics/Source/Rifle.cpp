@@ -7,6 +7,7 @@ Rifle::Rifle() {
 	range = 1000;
 	attack_speed = 0.3;
 	description = "RATATATATATATATA";
+	WeaponType = RIFLE;
 }
 Rifle::~Rifle() {
 

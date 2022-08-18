@@ -28,6 +28,9 @@
 #include "StrengthPotion.h"
 #include "SpeedPotion.h"
 
+#include "WeaponModifiers.h"
+#include "PiercingBulletMod.h"
+
 class SceneCollision : public SceneBase
 {
 public:
@@ -68,6 +71,8 @@ protected:
 	Skill* HealSkill = new Heal();
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
+
+	WeaponMods* PierceMod = new PiercingBulletMod();
 	//Auditing
 	float m1, m2;
 	Vector3 u1, u2, v1, v2;

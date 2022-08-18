@@ -160,8 +160,7 @@ void SceneCollision::Update(double dt)
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-
-
+	
 	double x, y;
 	float width = Application::GetWindowWidth();
 	float height = Application::GetWindowHeight();
