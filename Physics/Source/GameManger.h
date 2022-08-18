@@ -9,7 +9,8 @@ public:
 	bool bGameWin;
 	bool bWaveClear;
 	bool bPlayerLost;
-	bool dDebug;
+	bool bDebug;
 	unsigned dWaveNo;
+	unsigned dPlayerScore;
 };
 

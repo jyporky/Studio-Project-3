@@ -270,7 +270,7 @@ int Player::getEnergy()
 
 void Player::changeEnergy(float energyChange)
 {
-	energy = energyChange;
+	energy += energyChange;
 }
 Weapon* Player::GetWeapon()
 {
