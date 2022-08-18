@@ -54,13 +54,12 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-
-	player->SetWeapon(new Sword());
+	player->SetWeapon(new Rifle());
 	GameObject* weapon = FetchGO();
-	weapon->type = GameObject::GO_SWORD;
+	weapon->type = GameObject::GO_RIFLE;
 	weapon->pos.SetZero();
 	weapon->vel.SetZero();
-	weapon->scale.Set(10, 10, 1);
+	weapon->scale.Set(8, 3, 1);
 	weapon->angle = 0;
 	weapon->color.Set(1, 1, 1);
 	weapon->leftwep = false;
@@ -700,16 +699,16 @@ void SceneCollision::RenderGO(GameObject *go)
 		{
 			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-			meshList[GEO_SWORDL]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_SWORDL], true);
+			meshList[GEO_SWORDR]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_SWORDR], true);
 		}
 
 		else
 		{
 			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-			meshList[GEO_SWORDR]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_SWORDR], true);
+			meshList[GEO_SWORDL]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_SWORDL], true);
 		}
 		modelStack.PopMatrix();
 		break;
@@ -722,16 +721,16 @@ void SceneCollision::RenderGO(GameObject *go)
 		{
 			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-			meshList[GEO_RIFLE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIFLE_LEFT], true);
+			meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
 		}
 
 		else
 		{
 			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-			meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
+			meshList[GEO_RIFLE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIFLE_LEFT], true);
 		}
 		modelStack.PopMatrix();
 		break;
