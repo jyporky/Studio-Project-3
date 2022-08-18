@@ -26,8 +26,19 @@ public:
 
 	std::string getDescription();
 	bool IsMelee;
-protected:
 
+	enum {
+		SWORD,
+		FIST,
+		BOXING_GLOVES,
+		FRYING_PAN,
+		RUBBER_CHICKEN,
+		RIFLE,
+		CROSSBOW,
+		FLAMETHROWER,
+	};
+protected:
+	unsigned WeaponType;
 	int cost;
 	float damage;
 	float range;
