@@ -852,7 +852,6 @@ void SceneShop::renderShopMenu2()
 		//rifle
 		modelStack.PushMatrix();
 		modelStack.Translate(35, 51.5, 1);
-		modelStack.Rotate(180, 0, 0, 1);
 		modelStack.Scale(12, 7, 1);
 		RenderMesh(meshList[GEO_RIFLE_RIGHT], false);
 		modelStack.PopMatrix();
