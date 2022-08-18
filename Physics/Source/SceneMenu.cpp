@@ -143,3 +143,7 @@ void SceneMenu::Exit()
 {
 	SceneBase::Exit();
 }
+
+void SceneMenu::CreateBullet(Vector3 pos, Vector3 direction)
+{
+}

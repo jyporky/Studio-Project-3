@@ -7,6 +7,7 @@ CSoundController* Enemy::cSoundController = CSoundController::GetInstance();
 Enemy::Enemy()
 {
     health = 0;
+    turned = false;
     redTimer = 0;
     attackdt = 0;
     movementSpeed = 0;
@@ -17,6 +18,8 @@ Enemy::Enemy()
     gameobject = nullptr;
     PlayerPointer = nullptr;
     attackSpeed = 0;
+    greenTimer = 0;
+    isSpawningBullet = false;
 }
 
 Enemy::~Enemy()
@@ -45,6 +48,11 @@ GameObject* Enemy::GetGameObject()
 void Enemy::SetGO(GameObject* newGameObject)
 {
     gameobject = newGameObject;
+}
+
+bool Enemy::IsSpawningBullet()
+{
+    return isSpawningBullet;
 }
 
 bool Enemy::ChangeHealth(int changeInHealth)

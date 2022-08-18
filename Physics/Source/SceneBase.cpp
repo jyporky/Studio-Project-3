@@ -178,6 +178,8 @@ void SceneBase::Init()
 
 	meshList[GEO_RIGHT_RIFLER] = MeshBuilder::GenerateQuad("riflerR", Color(1, 1, 1));
 	meshList[GEO_RIGHT_RIFLER]->textureID = LoadTGA("Image//riflerR.tga");
+	meshList[GEO_BULLET] = MeshBuilder::GenerateQuad("bullet", Color(1, 1, 1));
+	meshList[GEO_BULLET]->textureID = LoadTGA("Image//bullet.tga");
 
 	//weapons
 	meshList[GEO_SWORDL] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
@@ -420,3 +422,4 @@ void SceneBase::Exit()
 	glDeleteProgram(m_programID);
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 }
+

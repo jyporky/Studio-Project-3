@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\BoxingGloves.cpp" />
+    <ClCompile Include="Source\Bullet.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Crossbow.cpp" />
     <ClCompile Include="Source\EMPSkill.cpp" />
@@ -212,6 +213,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\BoxingGloves.h" />
+    <ClInclude Include="Source\Bullet.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Crossbow.h" />
     <ClInclude Include="Source\EMPSkill.h" />

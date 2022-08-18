@@ -19,6 +19,10 @@ public:
 	float GetAttackCast();
 	void SetAttackCast(float cd);
 	void SetGameObject(GameObject* newGameObject);
+	virtual bool GetPiercing();
+	virtual void SetPiercing(bool pierce);
+	virtual float GetBulletSpeed();
+	virtual void SetBulletSpeed(float bs);
 	GameObject* GetGameObject();
 	virtual float GetAttackAngle();
 	virtual bool Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO);
@@ -38,6 +42,7 @@ public:
 		CROSSBOW,
 		FLAMETHROWER,
 	};
+	bool Animate;
 protected:
 	unsigned WeaponType;
 	int cost;
@@ -45,7 +50,6 @@ protected:
 	float range;
 	float attack_speed;
 	float attack_cast;
-	bool Animate;
 	double attackdt;
 	GameObject* gameobject;
 	std::string description;

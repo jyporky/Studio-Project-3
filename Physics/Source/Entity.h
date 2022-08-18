@@ -14,6 +14,7 @@ public:
 	virtual GameObject* GetGameObject();
 	virtual bool ChangeHealth(int changeInHealth);
 	virtual Weapon* GetWeapon();
+	virtual bool IsSpawningBullet();
 	virtual void SetWeapon(Weapon* weapon);
 protected:
 	GameObject* gameobject;

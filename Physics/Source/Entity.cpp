@@ -21,6 +21,7 @@ void Entity::Init()
 
 void Entity::SetGameObject(GameObject* GO)
 {
+	gameobject = GO;
 }
 
 GameObject* Entity::GetGameObject()
@@ -36,6 +37,11 @@ bool Entity::ChangeHealth(int changeInHealth)
 Weapon* Entity::GetWeapon()
 {
 	return nullptr;
+}
+
+bool Entity::IsSpawningBullet()
+{
+	return false;
 }
 
 void Entity::SetWeapon(Weapon* weapon)

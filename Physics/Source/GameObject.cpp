@@ -13,6 +13,7 @@ GameObject::GameObject(GAMEOBJECT_TYPE typeValue)
 	checkCollision = true;
 	disappearWhenHit = false;
 	visible = true;
+	leftwep = false;
 }
 
 GameObject::~GameObject()

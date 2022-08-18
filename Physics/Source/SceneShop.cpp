@@ -496,6 +496,10 @@ void SceneShop::Exit()
 	SceneBase::Exit();
 }
 
+void SceneShop::CreateBullet(Vector3 pos, Vector3 direction)
+{
+}
+
 void SceneShop::renderEnvironment()
 {
 	//top

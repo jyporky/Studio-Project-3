@@ -54,6 +54,7 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
+
 	player->SetWeapon(new Sword());
 	GameObject* weapon = FetchGO();
 	weapon->type = GameObject::GO_SWORD;
@@ -302,6 +303,11 @@ void SceneCollision::Update(double dt)
 			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
 			delete m_enemyList[idx];
 			m_enemyList.erase(m_enemyList.begin() + idx);
+			continue;
+		}
+		if (m_enemyList[idx]->IsSpawningBullet())
+		{
+			//spawn bullet
 		}
 		//if (dealdamage)
 		//{
@@ -320,6 +326,33 @@ void SceneCollision::Update(double dt)
 	player->SetEnemyVector(m_enemyList);
 	player->Update(dt, mousePos);
 	Checkborder(player->getPlayer());
+	if (player->IsSpawningBullet())
+	{
+		//spawn bullet for player
+		Bullet* bullet = new Bullet;
+		GameObject* bulletgo = FetchGO();
+		bulletgo->type = GameObject::GO_BULLET;
+		bulletgo->pos = player->GetWeapon()->GetGameObject()->pos;
+		bulletgo->vel.SetZero();
+		bulletgo->scale.Set(10, 10, 1);
+		bulletgo->color.Set(1, 1, 1);
+		bulletgo->angle = player->GetWeapon()->GetGameObject()->angle;
+		bullet->SetGameObject(bulletgo);
+		bullet->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), player->GetWeapon()->GetPiercing(), player->GetWeapon()->GetRange(), (mousePos - player->GetWeapon()->GetGameObject()->pos).Normalize());
+		m_pbulletList.push_back(bullet);
+	}
+	//update bullets
+	for (unsigned idx = 0; idx < m_pbulletList.size(); idx++)
+	{
+		m_pbulletList[idx]->Update(dt);
+		//check collision
+	}
+	for (unsigned idx = 0; idx < m_ebulletList.size(); idx++)
+	{
+		m_ebulletList[idx]->Update(dt);
+		//check collision
+	}
+
 
 	static bool bLButtonState = false;
 	if(!bLButtonState && Application::IsMousePressed(0))
@@ -702,6 +735,14 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_BULLET:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		meshList[GEO_BULLET]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+		RenderMesh(meshList[GEO_BULLET], true);
+		modelStack.PopMatrix();
 	case GameObject::GO_WALL:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -818,11 +859,51 @@ void SceneCollision::Exit()
 		delete go;
 		m_enemyList.pop_back();
 	}
+	while (m_pbulletList.size() > 0)
+	{
+		Bullet* go = m_pbulletList.back();
+		delete go;
+		m_pbulletList.pop_back();
+	}
+	while (m_ebulletList.size() > 0)
+	{
+		Bullet* go = m_ebulletList.back();
+		delete go;
+		m_ebulletList.pop_back();
+	}
+
+	if (player)
+	{
+		delete player;
+		player = nullptr;
+	}
+	if (cGameManager)
+	{
+		delete cGameManager;
+		cGameManager = nullptr;
+	}
 
 	if (HackSkill)
 	{
-
+		delete HackSkill;
+		HackSkill = nullptr;
 	}
+	if (HealSkill)
+	{
+		delete HealSkill;
+		HealSkill = nullptr;
+	}
+	if (StrengthPotion)
+	{
+		delete StrengthPotion;
+		StrengthPotion = nullptr;
+	}
+	if (HealthPotion)
+	{
+		delete HealthPotion;
+		HealthPotion = nullptr;
+	}
+
 }
 
 GameObject* SceneCollision::Checkborder(GameObject* go)

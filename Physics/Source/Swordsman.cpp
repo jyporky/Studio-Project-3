@@ -61,6 +61,13 @@ bool Swordsman::Update(double dt)
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;
     
+    Entity* Target = PlayerPointer;
+    if (turned)
+    {
+        //find an enemy to target
+    }
+
+
     switch (sCurrState)
     {
     case IDLE:
@@ -68,28 +75,28 @@ bool Swordsman::Update(double dt)
         break;
     case CHASE:
         //chase the player
-        gameobject->pos += (PlayerPointer->getPlayer()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
-        if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
+        gameobject->pos += (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
+        if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
         {
             sCurrState = ATTACK;
         }
         break;
     case ATTACK:
-        if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
+        if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
             sCurrState = CHASE;
         //Attack the player
         if (attackdt <= 0)
         {
             //deal damage to the player
             CurrWeapon->attack();
-            PlayerPointer->ChangeHealth(-attackDamage);
+            Target->ChangeHealth(-attackDamage);
             attackdt = attackSpeed;
         }
         break;
     }
 
     // Make the sword point to the player
-    CurrWeapon->Update(dt, PlayerPointer->getPlayer()->pos, 0, gameobject);
+    CurrWeapon->Update(dt, Target->GetGameObject()->pos, 0, gameobject);
     return false;
 }
 

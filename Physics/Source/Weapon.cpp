@@ -84,6 +84,24 @@ void Weapon::SetGameObject(GameObject* newGameObject)
 	gameobject = newGameObject;
 }
 
+bool Weapon::GetPiercing()
+{
+	return false;
+}
+
+void Weapon::SetPiercing(bool pierce)
+{
+}
+
+float Weapon::GetBulletSpeed()
+{
+	return 0.0f;
+}
+
+void Weapon::SetBulletSpeed(float bs)
+{
+}
+
 GameObject* Weapon::GetGameObject()
 {
 	return gameobject;
