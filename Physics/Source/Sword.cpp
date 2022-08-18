@@ -84,13 +84,13 @@ bool Sword::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 		{
 			if (userGO->angle == 0)
 			{
-				gameobject->leftwep = true;
+				gameobject->leftwep = false;
 				userGO->angle = 180;
 				offset = Vector3(gameobject->scale.x * 0.2, -gameobject->scale.y * 0.4);
 			}
 			else if (userGO->angle == 180)
 			{
-				gameobject->leftwep = false;
+				gameobject->leftwep = true;
 				userGO->angle = 0;
 				offset = -Vector3(gameobject->scale.x * 0.2, -gameobject->scale.y * 0.4);
 			}
