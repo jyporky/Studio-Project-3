@@ -35,13 +35,15 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-
+	//load sound
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\sword_swing.ogg"), 2, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyHurt.ogg"), 3, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyDeath.ogg"), 4, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\playerDash.ogg"), 5, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 6, false);
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
@@ -759,6 +761,21 @@ void SceneCollision::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 57);
 	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_BASE], 12, 58.75, 10, 2);
 	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], 7 + (double)player->GetHealth() / (double)player->GetMaxHealth() * 5.0f, 58.75, (double)player->GetHealth() / (double)player->GetMaxHealth() * 10.0f, 2);
+
+	//render money
+	modelStack.PushMatrix();
+	modelStack.Translate(170, 97, 1);
+	modelStack.Scale(13, 5, 1);
+	RenderMesh(meshList[GEO_SHOPMENUBG], false);
+	modelStack.PopMatrix();
+
+	ss.str("");
+	ss << "$";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 74, 56.7);
+
+	ss.str("");
+	ss << player->getMoney();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 75.5, 56.7);
 
 	if (cGameManager->dDebug)
 	{

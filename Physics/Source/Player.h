@@ -24,6 +24,8 @@ public:
 	~Player();
 	GameObject* getPlayer();
 	bool iFrame;
+	int getMoney();
+	void changeMoney(float moneyChange);
 private:
 	std::vector<Entity*> m_enemyList;
 	int health;
@@ -34,5 +36,6 @@ private:
 	float blueTimer;
 	GameManger* cGameManager;
 	CSoundController* cSoundController;
+	int money;
 };
 

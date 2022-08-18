@@ -206,7 +206,6 @@ void SceneShop::Update(double dt)
 			if (Application::IsKeyPressed('E') && !eButtonState)
 			{
 				eButtonState = true;
-
 				switch (shopbuttonhighlight)
 				{
 				case 0:
@@ -647,6 +646,24 @@ void SceneShop::Render()
 	modelStack.PopMatrix();
 
 	renderEnvironment();
+
+	//render money
+	modelStack.PushMatrix();
+	modelStack.Translate(170, 97, 1);
+	modelStack.Scale(13, 5, 1);
+	RenderMesh(meshList[GEO_SHOPMENUBG], false);
+	modelStack.PopMatrix();
+
+	std::ostringstream ss;
+
+	ss.str("");
+	ss << "$";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 74, 56.7);
+
+	ss.str("");
+	ss << player->getMoney();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 75.5, 56.7);
+
 	//player
 	modelStack.PushMatrix();
 	modelStack.Translate(player->getPlayer()->pos.x, player->getPlayer()->pos.y, player->getPlayer()->pos.z);
@@ -683,9 +700,6 @@ void SceneShop::Render()
 		renderShopMenu4();
 	}
 
-
-	//On screen text
-	std::ostringstream ss;
 
 
 	ss.str("");

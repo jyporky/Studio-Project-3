@@ -78,8 +78,11 @@ bool Rifler::Update(double dt)
         {
             //deal damage to the player
             CurrWeapon->attack();
-            PlayerPointer->ChangeHealth(-attackDamage);
             attackdt = attackSpeed;
+            if (PlayerPointer->iFrame == false)
+            {
+                PlayerPointer->ChangeHealth(-attackDamage);
+            }
         }
         break;
     }

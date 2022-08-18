@@ -13,6 +13,7 @@ Player::Player()
 	cSoundController = CSoundController::GetInstance();
 	movementspeed = 40;
 	iFrame = false;
+	money = 100;
 }
 
 Player::~Player()
@@ -60,6 +61,8 @@ void Player::Update(double dt, Vector3 mousepos)
 	{
 		movementspeed = 700;
 		blueTimer = 0.7;
+		cSoundController->PlaySoundByID(5);
+
 	}
 	else
 	{
@@ -213,6 +216,14 @@ void Player::Attack(Vector3 mousepos)
 	}
 }
 
+int Player::getMoney()
+{
+	return money;
+}
+void Player::changeMoney(float moneyChange)
+{
+	money += moneyChange;
+}
 Weapon* Player::GetWeapon()
 {
 	return CurrWeapon;
@@ -223,3 +234,4 @@ GameObject* Player::getPlayer()
 {
 	return gameobject;
 }
+

@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include <vector>
 #include "SceneBase.h"
+#include "SoundController.h"
+
 #include "Player.h"
 
 #include "Potions.h"
