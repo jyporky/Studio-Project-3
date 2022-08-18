@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "GameManger.h"
 #include "Weapon.h"
+#include "SoundController.h"
 
 class Enemy : public Entity
 {
@@ -31,5 +32,6 @@ protected:
 	bool affectedByKnockback;
 	static Player* PlayerPointer;
 	static GameManger* cGameManager;
+	static CSoundController* cSoundController;
 };
 

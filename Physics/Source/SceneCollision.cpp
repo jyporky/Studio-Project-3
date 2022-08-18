@@ -40,6 +40,9 @@ void SceneCollision::Init()
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\sword_swing.ogg"), 2, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyHurt.ogg"), 3, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyDeath.ogg"), 4, false);
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;

@@ -6,7 +6,7 @@
 #include "Weapon.h"
 #include <cmath>
 #include <iostream>
-
+#include "SoundController.h"
 class Player : public Entity ,public CSingletonTemplate<Player>
 {
 public:
@@ -31,5 +31,6 @@ private:
 	float redTimer;
 	float greenTimer;
 	GameManger* cGameManager;
+	CSoundController* cSoundController;
 };
 

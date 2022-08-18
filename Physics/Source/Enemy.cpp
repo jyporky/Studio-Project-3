@@ -2,6 +2,7 @@
 
 Player* Enemy::PlayerPointer = Player::GetInstance();
 GameManger* Enemy::cGameManager = GameManger::GetInstance();
+CSoundController* Enemy::cSoundController = CSoundController::GetInstance();
 
 Enemy::Enemy()
 {
@@ -54,7 +55,6 @@ bool Enemy::ChangeHealth(int changeInHealth)
         greenTimer = 0.5;
 
     health += changeInHealth;
-    std::cout << health << "\n";
     if (health <= 0)
     {
         return true;
