@@ -5,7 +5,7 @@ Swordsman::Swordsman()
     health = 20;
     redTimer = 0;
     attackdt = 0;
-    movementSpeed = 6;
+    movementSpeed = 20;
     energyDropped = 2;
     moneyDropped = 2;
     attackDamage = 5;

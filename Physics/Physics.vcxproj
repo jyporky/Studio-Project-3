@@ -181,6 +181,7 @@
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\MovementSpeedUpgrade.cpp" />
     <ClCompile Include="Source\OverdriveSkill.cpp" />
+    <ClCompile Include="Source\PiercingBulletMod.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Potions.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Source\Swordsman.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />
+    <ClCompile Include="Source\WeaponModifiers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -235,6 +237,7 @@
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MovementSpeedUpgrade.h" />
     <ClInclude Include="Source\OverdriveSkill.h" />
+    <ClInclude Include="Source\PiercingBulletMod.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Potions.h" />
     <ClInclude Include="Source\Projectile.h" />
@@ -261,6 +264,7 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Weapon.h" />
+    <ClInclude Include="Source\WeaponModifiers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -118,6 +118,7 @@ void SceneCollision::Init()
 	ewep2->leftwep = false;
 	enemy2->GetWeapon()->SetGameObject(ewep2);
 
+	timer = 0;
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
@@ -184,6 +185,7 @@ void SceneCollision::ResetLevel()
 
 void SceneCollision::Update(double dt)
 {
+	timer += dt;
 
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
@@ -248,15 +250,48 @@ void SceneCollision::Update(double dt)
 		}
 	}
 
-	/*static bool ubutton;
+	// Spawn enemy
+	//if (timer > 1)
+	//{
+	//	//spawn one enemy
+	//	Enemy* enemy = new Swordsman();
+	//	enemy->Init();
+	//	GameObject* enemyGO = FetchGO();
+	//	enemyGO->type = GameObject::GO_SWORDSMAN;
+	//	enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
+	//	enemyGO->vel.SetZero();
+	//	enemyGO->scale.Set(10, 10, 1);
+	//	enemyGO->color.Set(1, 1, 1);
+	//	enemyGO->angle = 0;
+	//	enemy->SetWeapon(new Sword());
+	//	enemy->SetGameObject(enemyGO);
+	//	m_enemyList.push_back(enemy);
+
+
+	//	GameObject* ewep = FetchGO();
+	//	ewep->type = GameObject::GO_SWORD;
+	//	ewep->vel.SetZero();
+	//	ewep->scale.Set(10, 10, 1);
+	//	ewep->pos = enemyGO->pos;
+	//	ewep->color.Set(1, 1, 1);
+	//	ewep->angle = 0;
+	//	ewep->active = true;
+	//	ewep->leftwep = false;
+	//	enemy->GetWeapon()->SetGameObject(ewep);
+	//	timer = 0;
+	//}
+
+	static bool ubutton;
 	bool dealdamage = false;
 	if (Application::IsKeyPressed('U') && !ubutton)
 	{
 		ubutton = true;
 		dealdamage = true;
+		HealSkill->UseSkill();
 	}
 	else if (!Application::IsKeyPressed('U') && ubutton)
-		ubutton = false;*/
+		ubutton = false;
+
 	//update enemy
 	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 	{

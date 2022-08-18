@@ -73,6 +73,7 @@ protected:
 	Skill* HealSkill = new Heal();
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
+	float timer;
 
 	WeaponMods* PierceMod = new PiercingBulletMod();
 	//Auditing
