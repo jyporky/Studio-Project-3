@@ -4,6 +4,7 @@
 class HealthUpgrade : public SelfUpgrades {
 public:
 	virtual void receiveUpgrade();
+	virtual int getUpgradeLevel();
 	virtual std::string getDescription();
 	virtual int getMoneyCost();
 	HealthUpgrade();

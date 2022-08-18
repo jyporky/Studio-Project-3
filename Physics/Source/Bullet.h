@@ -9,6 +9,8 @@ public:
     ~Bullet();
     virtual bool Update(double dt);
     void SetBullet(float bulletspeed, unsigned damage, bool pen, float range, Vector3 direction);
+    unsigned GetDamage();
+    bool GetPenetrationValue();
 private:
     Vector3 direction;
     float bulletspeed;

@@ -3,7 +3,6 @@
 #include "Application.h"
 #include <sstream>
 
-
 SceneCollision::SceneCollision()
 {
 
@@ -36,7 +35,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-
+	//load sound
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
@@ -44,6 +43,8 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyHurt.ogg"), 3, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyDeath.ogg"), 4, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\shoot.ogg"), 5, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\playerDash.ogg"), 5, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 6, false);
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
@@ -346,7 +347,18 @@ void SceneCollision::Update(double dt)
 		}
 		if (m_enemyList[idx]->IsSpawningBullet())
 		{
-			//spawn bullet
+			Vector3 shootPlayer = player->getPlayer()->pos - m_enemyList[idx]->GetGameObject()->pos;
+			Bullet* bullet = new Bullet;
+			GameObject* bulletgo = FetchGO();
+			bulletgo->type = GameObject::GO_BULLET;
+			bulletgo->pos = m_enemyList[idx]->GetGameObject()->pos;
+			bulletgo->vel.SetZero();
+			bulletgo->scale.Set(2, 2, 1);
+			bulletgo->color.Set(1, 1, 1);
+			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
+			bullet->SetGameObject(bulletgo);
+			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage(), m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer.Normalize());
+			m_ebulletList.push_back(bullet);
 		}
 		//if (dealdamage)
 		//{
@@ -360,7 +372,7 @@ void SceneCollision::Update(double dt)
 		//	}
 		//}
 	}
-
+	
 	//update the player
 	player->SetEnemyVector(m_enemyList);
 	player->Update(dt, mousePos);
@@ -373,7 +385,7 @@ void SceneCollision::Update(double dt)
 		Bullet* bullet = new Bullet;
 		GameObject* bulletgo = FetchGO();
 		bulletgo->type = GameObject::GO_BULLET;
-		bulletgo->pos = player->GetWeapon()->GetGameObject()->pos;
+		bulletgo->pos = player->GetGameObject()->pos;
 		bulletgo->vel.SetZero();
 		bulletgo->scale.Set(2, 2, 1);
 		bulletgo->color.Set(1, 1, 1);
@@ -396,7 +408,21 @@ void SceneCollision::Update(double dt)
 			continue;
 		}
 		//check collision
-
+		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
+		{
+			if (CheckCollision(m_pbulletList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
+			{
+				m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage());
+				if (!m_pbulletList[idx]->GetPenetrationValue())
+				{
+					//delete the bullet
+					ReturnGO(m_pbulletList[idx]->GetGameObject());
+					delete m_pbulletList[idx];
+					m_pbulletList.erase(m_pbulletList.begin() + idx);
+					break;
+				}
+			}
+		}
 	}
 	for (unsigned idx = 0; idx < m_ebulletList.size(); idx++)
 	{
@@ -433,82 +459,12 @@ void SceneCollision::Update(double dt)
 		bRButtonState = false;
 	}
 
-	//Physics Simulation Section
-	unsigned size = m_goList.size();
-	for (unsigned i = 0; i < size; ++i)
-	{
-		GameObject *go = m_goList[i];
-		if(go->active)
-		{
-			go->pos += go->vel * dt * m_speed;
-
-
-			if (((go->pos.x - go->scale.x < 0) && go->vel.x < 0 ) || ((go->pos.x + go->scale.x > m_worldWidth) && go->vel.x > 0))
-			{
-				go->vel.x = -go->vel.x;
-			}
-			if ((go->pos.y + go->scale.y> m_worldHeight) && go->vel.y > 0)
-			{
-				go->vel.y = -go->vel.y;
-			}
-
-			if (go->pos.y + go->scale.y < 0)
-			{
-				ReturnGO(go);
-				continue;
-			}
-			
-			GameObject* go2 = nullptr;
-			for (int j = i; j < size; ++j)
-			{
-				go2 = m_goList[j];
-				if (!go2->checkCollision || !go->checkCollision)
-					continue;
-				GameObject* actor(go);
-				GameObject* actee(go2);
-
-				
-
-				if (go->type != GameObject::GO_BALL)
-				{
-					actor = go2;
-					actee = go;
-				}
-
-
-				
-				if (go2->active && CheckCollision(actor, actee))
-				{
-					//reduce the velocity of the ball when it hits something
-					if (actor->type == GameObject::GO_BALL)
-						actor->vel *= 0.8;
-
-
-
-					CollisionResponse(actor, actee);
-					if (actee->disappearWhenHit)
-					{
-
-						ReturnGO(actee);
-						if (actee->otherGameObjects.size() != 0)
-						{
-							for (unsigned idx = 0; idx < actee->otherGameObjects.size(); idx++)
-							{
-								ReturnGO(actee->otherGameObjects[idx]);
-							}
-							actee->otherGameObjects.clear();
-						}
-					}
-				}
-			}		
-		}
-	}
 }
 
 bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 {
 	// Prevent non ball vs non ball code
-	if (go1->type != GameObject::GO_BALL)
+	if (!(go1->type == GameObject::GO_BALL || go1->type == GameObject::GO_BULLET))
 	{
 		return false;
 	}
@@ -517,13 +473,24 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 	{
 	case GameObject::GO_PILLAR:
 	case GameObject::GO_BALL:
-	{
+	case GameObject::GO_BULLET:
+		{
 		Vector3 relativeVel = go1->vel - go2->vel;
 		Vector3 disDiff = go2->pos - go1->pos;
 
 		if (relativeVel.Dot(disDiff) <= 0)
 			return false;
 		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
+	}
+	case GameObject::GO_SWORDSMAN:
+	case GameObject::GO_RIFLER:
+	{
+		Vector3 relativeVel = go1->vel - go2->vel;
+		Vector3 disDiff = go2->pos - go1->pos;
+
+		if (relativeVel.Dot(disDiff) <= 0)
+			return false;
+		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x) * 0.4;
 	}
 
 	case GameObject::GO_WALL:
@@ -835,7 +802,7 @@ void SceneCollision::Render()
 	//render the sand bg
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, 0);
-	modelStack.Scale(1000,1000,1000);
+	modelStack.Scale(360,240,1);
 	RenderMesh(meshList[GEO_SANDBG], false);
 	modelStack.PopMatrix();
 
@@ -859,6 +826,29 @@ void SceneCollision::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 57);
 	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_BASE], 12, 58.75, 10, 2);
 	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], 7 + (double)player->GetHealth() / (double)player->GetMaxHealth() * 5.0f, 58.75, (double)player->GetHealth() / (double)player->GetMaxHealth() * 10.0f, 2);
+
+	//render money
+	modelStack.PushMatrix();
+	modelStack.Translate(170, 97, 1);
+	modelStack.Scale(13, 5, 1);
+	RenderMesh(meshList[GEO_SHOPMENUBG], false);
+	modelStack.PopMatrix();
+
+	ss.str("");
+	ss << "$";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 74, 56.7);
+
+	ss.str("");
+	ss << player->getMoney();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 75.5, 56.7);
+
+	ss.str("");
+	ss << "Energy:";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 53);
+
+	ss.str("");
+	ss << player->getEnergy();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
 
 	if (cGameManager->dDebug)
 	{

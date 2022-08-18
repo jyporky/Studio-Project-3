@@ -4,6 +4,7 @@ Player::Player()
 {
 	greenTimer = 0;
 	redTimer = 0;
+	blueTimer = 0;
 	maxHealth = 100;
 	health = maxHealth;
 	gameobject = nullptr;
@@ -11,6 +12,9 @@ Player::Player()
 	cGameManager = GameManger::GetInstance();
 	cSoundController = CSoundController::GetInstance();
 	movementspeed = 40;
+	iFrame = false;
+	money = 100;
+	energy = 0;
 	isSpawningBullet = false;
 }
 
@@ -34,6 +38,7 @@ void Player::Update(double dt, Vector3 mousepos)
 	//deal with the player movement
 	Vector3 movementDirection;
 	movementDirection.SetZero();
+
 	if (Application::IsKeyPressed('W'))
 	{
 		movementDirection.y += 1;
@@ -52,6 +57,19 @@ void Player::Update(double dt, Vector3 mousepos)
 	if (Application::IsKeyPressed('D'))
 	{
 		movementDirection.x += 1;
+	}
+
+	//dashing
+	if ((Application::IsKeyPressed(' ')) && (blueTimer <= 0))
+	{
+		movementspeed = 700;
+		blueTimer = 0.7;
+		cSoundController->PlaySoundByID(5);
+
+	}
+	else
+	{
+		movementspeed = 40;
 	}
 
 	if (movementDirection.x > 0)
@@ -113,6 +131,23 @@ void Player::Update(double dt, Vector3 mousepos)
 	}
 	else if (redTimer <= 0)
 		gameobject->color.Set(1, 1, 1);
+	else if (redTimer <= 0)
+		gameobject->color.Set(1, 1, 1);
+
+	//for dashing and i frame
+	if (blueTimer > 0)
+	{
+		blueTimer -= dt;
+	}
+	if (blueTimer > 0.4)
+	{
+		gameobject->color.Set(0.6, 0.6, 1);
+		iFrame = true;
+	}
+	else
+	{
+		iFrame = false;
+	}
 }
 
 bool Player::ChangeHealth(int ChangeAmount)
@@ -218,6 +253,25 @@ bool Player::IsSpawningBullet()
 	return isSpawningBullet;
 }
 
+int Player::getMoney()
+{
+	return money;
+}
+
+void Player::changeMoney(float moneyChange)
+{
+	money += moneyChange;
+}
+
+int Player::getEnergy()
+{
+	return energy;
+}
+
+void Player::changeEnergy(float energyChange)
+{
+	energy = energyChange;
+}
 Weapon* Player::GetWeapon()
 {
 	return CurrWeapon;
@@ -228,3 +282,4 @@ GameObject* Player::getPlayer()
 {
 	return gameobject;
 }
+

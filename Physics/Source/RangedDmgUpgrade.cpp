@@ -15,3 +15,8 @@ std::string RangedDmgUpgrade::getDescription() {
 int RangedDmgUpgrade::getMoneyCost() {
 	return 75 +(25 * noOfTimesUpgraded);
 }
+
+int RangedDmgUpgrade::getUpgradeLevel()
+{
+	return noOfTimesUpgraded;
+}

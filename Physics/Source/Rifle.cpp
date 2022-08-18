@@ -6,7 +6,7 @@ Rifle::Rifle() {
 	damage = 3;
 	range = 1000;
 	attack_speed = 0.3;
-	attack_cast = 0.1;
+	attack_cast = attack_speed * 0.5;
 	attackdt = attack_speed * 2;
 	IsMelee = false;
 	description = "RATATATATATATATA";
@@ -57,12 +57,12 @@ bool Rifle::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 	if (userGO->angle == 0)
 	{
 		gameobject->leftwep = false;
-		offset = Vector3(gameobject->scale.x * 0.2, -gameobject->scale.y * 1);
+		offset = Vector3(0, -gameobject->scale.y * 1);
 	}
 	else if (userGO->angle == 180)
 	{
 		gameobject->leftwep = true;
-		offset = Vector3(-gameobject->scale.x * 0.2, -gameobject->scale.y * 1);
+		offset = Vector3(0, -gameobject->scale.y * 1);
 	}
 
 	//do the weapon animation
@@ -84,6 +84,7 @@ bool Rifle::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 	}
 
 	gameobject->pos = userGO->pos;
+
 	gameobject->pos += offset;
 
 

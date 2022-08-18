@@ -78,9 +78,24 @@ public:
 		GEO_STRENGTHPOT,
 		GEO_HEALTHPOT,
 
+		//self upgrades
+		GEO_SPEEDUP,
+		GEO_HEALTHUP,
+		GEO_MELEEUP,
+		GEO_RANGEDUP,
+
+		//weapon upgrades
+		GEO_PIERCINGBULLETS,
+		GEO_FASTERFIRING,
+		GEO_FASTERBULLET,
+		GEO_EXPLOSIVEBULLET,
+		GEO_BETTERFUEL,
+		GEO_ACCURATEARROWS,
+		GEO_FASTERMELEE,
+
 		//NPCs
 		GEO_BLACKSMITH, //sell weapon upgrades
-		GEO_PARTDEALER, //sell upgrades to player
+		GEO_PARTDEALER, //sell upgrades to player and skills
 		GEO_ALCHEMIST, //sell potions
 		GEO_WEAPONDEALER, //sell weapons
 		

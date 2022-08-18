@@ -25,6 +25,12 @@ public:
 	Weapon* GetWeapon();
 	~Player();
 	GameObject* getPlayer();
+	bool iFrame;
+	int getMoney();
+	void changeMoney(float moneyChange);
+	int getEnergy();
+	void changeEnergy(float energyChange);
+
 private:
 	std::vector<Entity*> m_enemyList;
 	std::vector<Entity*> hitlist;
@@ -35,7 +41,10 @@ private:
 	unsigned maxHealth;
 	float redTimer;
 	float greenTimer;
+	float blueTimer;
 	GameManger* cGameManager;
 	CSoundController* cSoundController;
+	int money;
+	int energy;
 };
 

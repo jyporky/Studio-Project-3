@@ -11,6 +11,7 @@ SceneShop::SceneShop()
 
 SceneShop::~SceneShop()
 {
+	
 }
 
 static Vector3 RotateVector(const Vector3& vec, float radian)
@@ -50,7 +51,7 @@ void SceneShop::Init()
 
 	weaponType = 'm'; // m -> melee 
 	playerUpgradeType = 'u'; //u -> upgrade
-
+	weaponUpgradePage = 1;
 }
 
 
@@ -107,6 +108,7 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
+			shopbuttonhighlight = 0;
 			inShop = true;
 			ShopMenu1 = true;
 		}
@@ -117,8 +119,7 @@ void SceneShop::Update(double dt)
 		if (Application::IsKeyPressed('E'))
 		{
 			inShop = true;
-			
-			
+			shopbuttonhighlight = 0;
 			ShopMenu2 = true;
 		}
 	}
@@ -127,6 +128,7 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
+			shopbuttonhighlight = 0;
 			inShop = true;
 			ShopMenu3 = true;
 		}
@@ -136,6 +138,7 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
+			shopbuttonhighlight = 0;
 			inShop = true;
 			ShopMenu4 = true;
 		}
@@ -162,11 +165,124 @@ void SceneShop::Update(double dt)
 	{
 		if (Application::IsKeyPressed('Z'))
 		{
+			shopbuttonhighlight = 0;
 			playerUpgradeType = 'u'; //upgrade (for player)
 		}
 		else if (Application::IsKeyPressed('X'))
 		{
+			shopbuttonhighlight = 0;
 			playerUpgradeType = 's'; //skills
+		}
+
+		if (playerUpgradeType == 'u')
+		{
+			static bool w = false, s = false;
+			if (Application::IsKeyPressed('W') && !w)
+			{
+				w = true;
+				if (shopbuttonhighlight == 0)
+				{
+					shopbuttonhighlight = 3;
+				}
+				else
+					shopbuttonhighlight--;
+			}
+			else if (!Application::IsKeyPressed('W') && w)
+				w = false;
+
+			if (Application::IsKeyPressed('S') && !s)
+			{
+				s = true;
+				if (shopbuttonhighlight == 3)
+				{
+					shopbuttonhighlight = 0;
+				}
+				else
+					shopbuttonhighlight++;
+			}
+			else if (!Application::IsKeyPressed('S') && s)
+				s = false;
+
+			if (Application::IsKeyPressed('E') && !eButtonState)
+			{
+				eButtonState = true;
+				switch (shopbuttonhighlight)
+				{
+				case 0:
+					//buy speed
+					break;
+				case 1:
+					//buy health
+					break;
+				case 2:
+					//buy melee up
+					break;
+				case 3:
+					//buy ranged up
+					break;
+				}
+			}
+			else if (!Application::IsKeyPressed('E') && eButtonState)
+			{
+				eButtonState = false;
+			}
+		}
+		else if (playerUpgradeType == 's')
+		{
+			static bool w = false, s = false;
+			if (Application::IsKeyPressed('W') && !w)
+			{
+				w = true;
+				if (shopbuttonhighlight == 0)
+				{
+					shopbuttonhighlight = 4;
+				}
+				else
+					shopbuttonhighlight--;
+			}
+			else if (!Application::IsKeyPressed('W') && w)
+				w = false;
+
+			if (Application::IsKeyPressed('S') && !s)
+			{
+				s = true;
+				if (shopbuttonhighlight == 4)
+				{
+					shopbuttonhighlight = 0;
+				}
+				else
+					shopbuttonhighlight++;
+			}
+			else if (!Application::IsKeyPressed('S') && s)
+				s = false;
+
+			if (Application::IsKeyPressed('E') && !eButtonState)
+			{
+				eButtonState = true;
+
+				switch (shopbuttonhighlight)
+				{
+				case 0:
+					//buy emp
+					break;
+				case 1:
+					//buy hack
+					break;
+				case 2:
+					//buy heal
+					break;
+				case 3:
+					//buy immortal
+					break;
+				case 4:
+					//buy overdrive
+					break;
+				}
+			}
+			else if (!Application::IsKeyPressed('E') && eButtonState)
+			{
+				eButtonState = false;
+			}
 		}
 	}
 	//weapons dealer to switch between ranged and melee
@@ -271,17 +387,16 @@ void SceneShop::Update(double dt)
 			{
 				eButtonState = true;
 
-				//if shop menu == 4 
 				switch (shopbuttonhighlight)
 				{
 				case 0:
-					//buy health pot
+					//buy rifle
 					break;
 				case 1:
-					//buy strength pot
+					//buy flamethrower
 					break;
 				case 2:
-					//buy speed pot
+					//buy crossbow
 					break;
 				}
 			}
@@ -292,6 +407,128 @@ void SceneShop::Update(double dt)
 		}
 	}
 
+	//weapon upgrades
+	if (ShopMenu3)
+	{
+		if (Application::IsKeyPressed('Z'))
+		{
+			weaponUpgradePage = 1; //page 1
+			shopbuttonhighlight = 0;
+		}
+		else if (Application::IsKeyPressed('X'))
+		{
+			weaponUpgradePage = 2; //page 2
+			shopbuttonhighlight = 0;
+		}
+
+		if (weaponUpgradePage == 1)
+		{
+			static bool w = false, s = false;
+			if (Application::IsKeyPressed('W') && !w)
+			{
+				w = true;
+				if (shopbuttonhighlight == 0)
+				{
+					shopbuttonhighlight = 3;
+				}
+				else
+					shopbuttonhighlight--;
+			}
+			else if (!Application::IsKeyPressed('W') && w)
+				w = false;
+
+			if (Application::IsKeyPressed('S') && !s)
+			{
+				s = true;
+				if (shopbuttonhighlight == 3)
+				{
+					shopbuttonhighlight = 0;
+				}
+				else
+					shopbuttonhighlight++;
+			}
+			else if (!Application::IsKeyPressed('S') && s)
+				s = false;
+
+			if (Application::IsKeyPressed('E') && !eButtonState)
+			{
+				eButtonState = true;
+
+				switch (shopbuttonhighlight)
+				{
+				case 0:
+					//buy piercing bullet
+					break;
+				case 1:
+					//buy faster firign
+					break;
+				case 2:
+					//buy faster bullet
+					break;
+				case 3:
+					//buy explosive bullet
+					break;
+				}
+			}
+			else if (!Application::IsKeyPressed('E') && eButtonState)
+			{
+				eButtonState = false;
+			}
+		}
+		else if (weaponUpgradePage == 2)
+		{
+			static bool w = false, s = false;
+			if (Application::IsKeyPressed('W') && !w)
+			{
+				w = true;
+				if (shopbuttonhighlight == 0)
+				{
+					shopbuttonhighlight = 2;
+				}
+				else
+					shopbuttonhighlight--;
+			}
+			else if (!Application::IsKeyPressed('W') && w)
+				w = false;
+
+			if (Application::IsKeyPressed('S') && !s)
+			{
+				s = true;
+				if (shopbuttonhighlight == 2)
+				{
+					shopbuttonhighlight = 0;
+				}
+				else
+					shopbuttonhighlight++;
+			}
+			else if (!Application::IsKeyPressed('S') && s)
+				s = false;
+
+			if (Application::IsKeyPressed('E') && !eButtonState)
+			{
+				eButtonState = true;
+
+				switch (shopbuttonhighlight)
+				{
+				case 0:
+					//buy better fuel
+					break;
+				case 1:
+					//buy accurate arrows
+					break;
+				case 2:
+					//buy faster melee
+					break;
+				}
+			}
+			else if (!Application::IsKeyPressed('E') && eButtonState)
+			{
+				eButtonState = false;
+			}
+		}
+	}
+
+	//potion shop
 	if (ShopMenu4)
 	{
 		static bool w = false, s = false;
@@ -372,10 +609,10 @@ void SceneShop::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 	
-
+	//sand background
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, 0);
-	modelStack.Scale(1000, 1000, 1000);
+	modelStack.Scale(360, 240, 1);
 	RenderMesh(meshList[GEO_SANDBG], false);
 	modelStack.PopMatrix();
 
@@ -409,6 +646,25 @@ void SceneShop::Render()
 	modelStack.PopMatrix();
 
 	renderEnvironment();
+
+	//render money
+	modelStack.PushMatrix();
+	modelStack.Translate(170, 97, 1);
+	modelStack.Scale(13, 5, 1);
+	RenderMesh(meshList[GEO_SHOPMENUBG], false);
+	modelStack.PopMatrix();
+
+	std::ostringstream ss;
+
+
+	ss.str("");
+	ss << "$";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 74, 56.7);
+
+	ss.str("");
+	ss << player->getMoney();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 75.5, 56.7);
+
 	//player
 	modelStack.PushMatrix();
 	modelStack.Translate(player->getPlayer()->pos.x, player->getPlayer()->pos.y, player->getPlayer()->pos.z);
@@ -445,9 +701,6 @@ void SceneShop::Render()
 		renderShopMenu4();
 	}
 
-
-	//On screen text
-	std::ostringstream ss;
 
 
 	ss.str("");
@@ -488,7 +741,6 @@ void SceneShop::Render()
 
 
 }
-
 
 
 void SceneShop::Exit()
@@ -581,6 +833,91 @@ void SceneShop::renderShopMenu1()
 		ss.str("");
 		ss << "Level";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 57, 37);
+
+		//speed up 
+		modelStack.PushMatrix();
+		modelStack.Translate(46, 53.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_SPEEDUP], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Speed Upgrade";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 31);
+		ss.str("");
+		ss << movementspeedupgrade->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 28, 31);
+		ss.str("");
+		ss << movementspeedupgrade->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 31);
+		ss.str("");
+		ss << movementspeedupgrade->getUpgradeLevel();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 31);
+
+		//health up
+		modelStack.PushMatrix();
+		modelStack.Translate(46, 43.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_HEALTHUP], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Health Upgrade";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 25);
+		ss.str("");
+		ss << healthupgrade->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 28, 25);
+		ss.str("");
+		ss << healthupgrade->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 25);
+		ss.str("");
+		ss << healthupgrade->getUpgradeLevel();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 25);
+
+		//melee upgrade
+		modelStack.PushMatrix();
+		modelStack.Translate(46, 33.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_MELEEUP], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Melee Upgrade";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 19);
+		ss.str("");
+		ss << meleedmgupgrade->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 28, 19);
+		ss.str("");
+		ss << meleedmgupgrade->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 19);
+		ss.str("");
+		ss << meleedmgupgrade->getUpgradeLevel();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 19);
+
+		//range upgrade
+		modelStack.PushMatrix();
+		modelStack.Translate(47, 23.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_RANGEDUP], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Ranged Upgrade";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 13);
+		ss.str("");
+		ss << rangeddmgupgrade->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 28, 13);
+		ss.str("");
+		ss << rangeddmgupgrade->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 13);
+		ss.str("");
+		ss << rangeddmgupgrade->getUpgradeLevel();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 13);
+
+		//selctor
+		ss.str("");
+		ss << ">";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 8, 30 - shopbuttonhighlight * 6);
 	}
 	else if (playerUpgradeType == 's') //skills
 	{
@@ -599,7 +936,6 @@ void SceneShop::renderShopMenu1()
 		ss.str("");
 		ss << "Energy Cost";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 57, 37);
-
 
 
 		modelStack.PushMatrix();
@@ -698,6 +1034,11 @@ void SceneShop::renderShopMenu1()
 		ss.str("");
 		ss << overdrive->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 12);
+
+		//selctor
+		ss.str("");
+		ss << ">";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 8, 31 - shopbuttonhighlight * 5);
 	}
 
 
@@ -882,7 +1223,7 @@ void SceneShop::renderShopMenu2()
 
 		//flamethrower
 		modelStack.PushMatrix();
-		modelStack.Translate(45, 38.5, 1);
+		modelStack.Translate(45, 39.5, 1);
 		modelStack.Scale(10, 6, 1);
 		RenderMesh(meshList[GEO_FLAMETHROWER], false);
 		modelStack.PopMatrix();
@@ -953,24 +1294,191 @@ void SceneShop::renderShopMenu2()
 void SceneShop::renderShopMenu3()
 {
 	modelStack.PushMatrix();
-	modelStack.Translate(m_worldWidth / 2, 30, 1);
-	modelStack.Scale(m_worldWidth - 5, 55, 1);
+	modelStack.Translate(m_worldWidth / 2, 40, 1);
+	modelStack.Scale(m_worldWidth - 30, 55, 1);
 	RenderMesh(meshList[GEO_SHOPMENUBG], false);
 	modelStack.PopMatrix();
 
 	std::ostringstream ss;
 
 	ss.str("");
-	ss << "Weapon Upgrades";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 4, 30.5);
-
-	ss.str("");
 	ss << "[R]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 75, 31);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 69, 37);
 
 	ss.str("");
 	ss << "X";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 77, 30.5);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 71, 36.5);
+
+	ss.str("");
+	ss << "Weapon Upgrades [Z]/[X]";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 37);
+
+	ss.str("");
+	ss << "Cost";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 37);
+
+	ss.str("");
+	ss << "Description";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 36, 37);
+
+	ss.str("");
+	ss << "Applies to";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 57, 37);
+
+	if (weaponUpgradePage == 1)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(46, 53.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_PIERCINGBULLETS], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Piercing bullets";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 31);
+
+		ss.str("");
+		ss << PierceMod->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 31);
+		ss.str("");
+		ss << PierceMod->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 31);
+		ss.str("");
+		ss << "Rifle, Crossbow";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 31);
+
+		modelStack.PushMatrix();
+		modelStack.Translate(46, 43.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_FASTERFIRING], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Faster firing";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 25);
+
+		ss.str("");
+		ss << FasterFiringMod->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 25);
+		ss.str("");
+		ss << FasterFiringMod->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 25);
+		ss.str("");
+		ss << "Rifle, Crossbow";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 25);
+
+		modelStack.PushMatrix();
+		modelStack.Translate(46, 33.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_FASTERBULLET], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Faster bullets";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 19);
+
+		ss.str("");
+		ss << FasterBulletMod->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 19);
+		ss.str("");
+		ss << FasterBulletMod->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 19);
+		ss.str("");
+		ss << "Rifle, Crossbow";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 19);
+
+		modelStack.PushMatrix();
+		modelStack.Translate(46, 23.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_EXPLOSIVEBULLET], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Explosive bullets";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 13);
+
+		ss.str("");
+		ss << ExplosiveMod->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 13);
+		ss.str("");
+		ss << ExplosiveMod->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 13);
+		ss.str("");
+		ss << "Rifle, Crossbow";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 13);
+
+		//selctor
+		ss.str("");
+		ss << ">";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 8, 30 - shopbuttonhighlight * 6);
+	}
+	else if (weaponUpgradePage == 2)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(40, 53.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_BETTERFUEL], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Better Fuel";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 31);
+
+		ss.str("");
+		ss << betterFuelMod->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 31);
+		ss.str("");
+		ss << betterFuelMod->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 31);
+		ss.str("");
+		ss << "Flamethrower";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 31);
+
+		modelStack.PushMatrix();
+		modelStack.Translate(49, 40.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_ACCURATEARROWS], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Accurate Arrows";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 23);
+
+		ss.str("");
+		ss << accurateArrowsMod->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 23);
+		ss.str("");
+		ss << accurateArrowsMod->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 23);
+		ss.str("");
+		ss << "Crossbow";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 23);
+
+		modelStack.PushMatrix();
+		modelStack.Translate(52, 26.5, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_FASTERMELEE], false);
+		modelStack.PopMatrix();
+
+		ss.str("");
+		ss << "Faster Melee Attacks";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 15);
+
+		ss.str("");
+		ss << fasterMeleeMod->getMoneyCost();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 27, 15);
+		ss.str("");
+		ss << fasterMeleeMod->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.6, 0.7, 1), 2, 35, 15);
+		ss.str("");
+		ss << "Melee weapons";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 15);
+
+		//selector
+		ss.str("");
+		ss << ">";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 8, 30 - shopbuttonhighlight * 8.2);
+	}
 }
 void SceneShop::renderShopMenu4()
 {

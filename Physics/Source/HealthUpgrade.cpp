@@ -15,3 +15,8 @@ std::string HealthUpgrade::getDescription() {
 int HealthUpgrade::getMoneyCost() {
 	return 50 + (25 * noOfTimesUpgraded);
 }
+
+int HealthUpgrade::getUpgradeLevel()
+{
+	return noOfTimesUpgraded;
+}

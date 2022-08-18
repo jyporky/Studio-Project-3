@@ -151,7 +151,7 @@ void SceneBase::Init()
 	}
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_BALL] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.3, 0.4, 0.4), 1.f);
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.4, 0.4, 0.3), 1.f);
 	
 	meshList[GEO_SHOPMENUBG] = MeshBuilder::GenerateCube("shopmenubg", Color(0.3, 0.3, 0.3), 1.f);
 
@@ -224,6 +224,41 @@ void SceneBase::Init()
 
 	meshList[GEO_OVERDRIVE] = MeshBuilder::GenerateQuad("overdrive", Color(1, 1, 1));
 	meshList[GEO_OVERDRIVE]->textureID = LoadTexture("Image//overdrive.png");
+
+	//self upgrades
+	meshList[GEO_SPEEDUP] = MeshBuilder::GenerateQuad("speedup", Color(1, 1, 1));
+	meshList[GEO_SPEEDUP]->textureID = LoadTexture("Image//speedup.png");
+
+	meshList[GEO_HEALTHUP] = MeshBuilder::GenerateQuad("healthup", Color(1, 1, 1));
+	meshList[GEO_HEALTHUP]->textureID = LoadTexture("Image//healthup.png");
+
+	meshList[GEO_MELEEUP] = MeshBuilder::GenerateQuad("melee up", Color(1, 1, 1));
+	meshList[GEO_MELEEUP]->textureID = LoadTexture("Image//meleeup.png");
+
+	meshList[GEO_RANGEDUP] = MeshBuilder::GenerateQuad("ranged up", Color(1, 1, 1));
+	meshList[GEO_RANGEDUP]->textureID = LoadTexture("Image//rangedup.png");
+
+	//weapon upgrades
+	meshList[GEO_PIERCINGBULLETS] = MeshBuilder::GenerateQuad("piercing bullets", Color(1, 1, 1));
+	meshList[GEO_PIERCINGBULLETS]->textureID = LoadTexture("Image//piercing_bullets.png");
+
+	meshList[GEO_FASTERFIRING] = MeshBuilder::GenerateQuad("faster firing rate", Color(1, 1, 1));
+	meshList[GEO_FASTERFIRING]->textureID = LoadTexture("Image//faster_firing_rate.png");
+
+	meshList[GEO_FASTERBULLET] = MeshBuilder::GenerateQuad("faster bullet speed", Color(1, 1, 1));
+	meshList[GEO_FASTERBULLET]->textureID = LoadTexture("Image//faster_bullet_speed.png");
+
+	meshList[GEO_EXPLOSIVEBULLET] = MeshBuilder::GenerateQuad("explosive bullet", Color(1, 1, 1));
+	meshList[GEO_EXPLOSIVEBULLET]->textureID = LoadTexture("Image//explosive_bullets.png");
+
+	meshList[GEO_BETTERFUEL] = MeshBuilder::GenerateQuad("better fuel", Color(1, 1, 1));
+	meshList[GEO_BETTERFUEL]->textureID = LoadTexture("Image//better_fuel.png");
+
+	meshList[GEO_ACCURATEARROWS] = MeshBuilder::GenerateQuad("accurate arrows", Color(1, 1, 1));
+	meshList[GEO_ACCURATEARROWS]->textureID = LoadTexture("Image//accurate_arrows.png");
+
+	meshList[GEO_FASTERMELEE] = MeshBuilder::GenerateQuad("faster melee", Color(1, 1, 1));
+	meshList[GEO_FASTERMELEE]->textureID = LoadTexture("Image//faster_melee_speed.png");
 
 	//NPCs
 	meshList[GEO_BLACKSMITH] = MeshBuilder::GenerateQuad("blacksmith", Color(1, 1, 1));

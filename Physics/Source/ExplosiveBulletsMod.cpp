@@ -1,8 +1,9 @@
 #include "ExplosiveBulletsMod.h"
-ExplosiveBulletsMods::ExplosiveBulletsMods() {
+
+ExplosiveBulletsMod::ExplosiveBulletsMod() {
 	moneyCost = 350;
-	description = "Bullets explode and deal damage to nearby enemies";
+	description = "Bullets explode and deal AOE damage";
 }
-ExplosiveBulletsMods::~ExplosiveBulletsMods() {
+ExplosiveBulletsMod::~ExplosiveBulletsMod() {
 
 }

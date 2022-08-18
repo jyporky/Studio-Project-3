@@ -14,8 +14,9 @@ Rifler::Rifler()
     PlayerPointer = nullptr;
     CurrWeapon = nullptr;
     sCurrState = CHASE;
-    attackRange = 12;
+    attackRange = 50;
     attackSpeed = 1.5;
+    isSpawningBullet = false;
 }
 
 Rifler::~Rifler()
@@ -28,9 +29,12 @@ Rifler::~Rifler()
         CurrWeapon = nullptr;
     }
 }
-
+bool Rifler::IsSpawningBullet() {
+    return isSpawningBullet;
+}
 bool Rifler::Update(double dt)
 {
+    isSpawningBullet = false;
     //check if the enemy is dead
     if (health <= 0)
         return true;
@@ -64,6 +68,7 @@ bool Rifler::Update(double dt)
         break;
     case CHASE:
         //chase the player
+        isSpawningBullet = false;
         gameobject->pos += (PlayerPointer->getPlayer()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
         if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
         {
@@ -71,16 +76,14 @@ bool Rifler::Update(double dt)
         }
         break;
     case ATTACK:
-        if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
+        if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange) {
             sCurrState = CHASE;
-        //Attack the player
-        if (attackdt <= 0)
-        {
-            //deal damage to the player
-            CurrWeapon->attack();
-            PlayerPointer->ChangeHealth(-attackDamage);
-            attackdt = attackSpeed;
+           
         }
+       // Attack the player
+       if(CurrWeapon->attack())
+         isSpawningBullet = true;
+        
         break;
     }
 
@@ -93,14 +96,4 @@ void Rifler::Init()
 {
     //get the revelant pointers
     PlayerPointer = Player::GetInstance();
-}
-
-void Rifler::SetWeapon(Weapon* weapon)
-{
-    CurrWeapon = weapon;
-}
-
-Weapon* Rifler::GetWeapon()
-{
-    return CurrWeapon;
 }
