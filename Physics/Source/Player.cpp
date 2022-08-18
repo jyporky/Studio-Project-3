@@ -14,6 +14,7 @@ Player::Player()
 	movementspeed = 40;
 	iFrame = false;
 	money = 100;
+	isSpawningBullet = false;
 }
 
 Player::~Player()
@@ -32,6 +33,7 @@ void Player::SetGameObject(GameObject* player)
 
 void Player::Update(double dt, Vector3 mousepos)
 {
+	isSpawningBullet = false;
 	//deal with the player movement
 	Vector3 movementDirection;
 	movementDirection.SetZero();
@@ -84,20 +86,34 @@ void Player::Update(double dt, Vector3 mousepos)
 	//check if the player is holding a weapon
 	if (CurrWeapon)
 	{
-		static bool attack = false;
-		if (Application::IsMousePressed(0) && !attack)
+		//if the weapon is animating and is a melee weapon
+		if (CurrWeapon->Animate && CurrWeapon->IsMelee)
 		{
+			Attack(clickMousePos);
+		}
+
+		static bool attack = false;
+		if (Application::IsMousePressed(0) && (!attack || !CurrWeapon->IsMelee))
+		{
+			//do the damage to the enemies
 			if (CurrWeapon->attack())
 			{
-				//do the damage to the enemies
-				Attack(mousepos);
-				attack = true;
+				clickMousePos = mousepos;
+				if (CurrWeapon->IsMelee)
+					hitlist.clear();
+				else
+				{
+					//spawn a bullet
+					isSpawningBullet = true;
+				}
 			}
+			attack = true;
 		}
 		else if (!Application::IsMousePressed(0) && attack)
 			attack = false;
 		CurrWeapon->Update(dt, mousepos, movementDirection, gameobject);
 	}
+
 
 	if (redTimer > 0)
 	{
@@ -192,15 +208,29 @@ void Player::Attack(Vector3 mousepos)
 {
 	if (CurrWeapon->IsMelee)
 	{
+		//for melee weapons
 		for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 		{
+			//check if the enemy has been hit before
+			bool hitb4 = false;
+			for (unsigned idx1 = 0; idx1 < hitlist.size(); idx1++)
+			{
+				if (m_enemyList[idx] == hitlist[idx1])
+				{
+					hitb4 = true;
+					break;
+				}
+			}
+			if (hitb4)
+				continue;
+
 			//check through each enemy for distance
 			if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(gameobject->pos) > CurrWeapon->GetRange() * CurrWeapon->GetRange())
 			{
 				continue;
 			}
 			Vector3 enemy2player = m_enemyList[idx]->GetGameObject()->pos - gameobject->pos;
-			Vector3 mouse2player = mousepos - gameobject->pos;
+			Vector3 mouse2player = clickMousePos - gameobject->pos;
 			float dotproduct = enemy2player.Dot(mouse2player);
 			//check if the angles are pointing in the same direction
 			if (dotproduct < 0)
@@ -212,8 +242,14 @@ void Player::Attack(Vector3 mousepos)
 				continue;
 
 			m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage());
+			hitlist.push_back(m_enemyList[idx]);
 		}
 	}
+}
+
+bool Player::IsSpawningBullet()
+{
+	return isSpawningBullet;
 }
 
 int Player::getMoney()

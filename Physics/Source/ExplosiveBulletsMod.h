@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "WeaponModifiers.h"
-class ExplosiveBulletsMod : public WeaponMods {
+class ExplosiveBulletsMods : public WeaponMods {
 public:
 	ExplosiveBulletsMod();
 	~ExplosiveBulletsMod();

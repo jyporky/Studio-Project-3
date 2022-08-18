@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "GameManger.h"
+#include "Bullet.h"
 #include "Weapon.h"
 #include <cmath>
 #include <iostream>
@@ -20,6 +21,7 @@ public:
 	void SetMaxHealth(unsigned newMaxHealth);
 	void SetWeapon(Weapon* weapon);
 	void Attack(Vector3 mousepos);
+	virtual bool IsSpawningBullet();
 	Weapon* GetWeapon();
 	~Player();
 	GameObject* getPlayer();
@@ -28,6 +30,9 @@ public:
 	void changeMoney(float moneyChange);
 private:
 	std::vector<Entity*> m_enemyList;
+	std::vector<Entity*> hitlist;
+	Vector3 clickMousePos;
+	bool isSpawningBullet;
 	int health;
 	unsigned movementspeed;
 	unsigned maxHealth;

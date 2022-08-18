@@ -15,6 +15,8 @@
 #include "Fist.h"
 #include "Sword.h"
 #include "Swordsman.h"
+#include "Bullet.h"
+#include "Rifle.h"
 #include "RiflerEnemy.h"
 #include "Rifle.h"
 
@@ -61,6 +63,8 @@ protected:
 	//Physics
 	std::vector<GameObject *> m_goList;
 	std::vector<Entity*> m_enemyList;
+	std::vector<Bullet*> m_ebulletList;
+	std::vector<Bullet*> m_pbulletList;
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;

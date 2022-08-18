@@ -266,3 +266,7 @@ void SceneOptions::Exit()
 {
 	SceneBase::Exit();
 }
+
+void SceneOptions::CreateBullet(Vector3 pos, Vector3 direction)
+{
+}

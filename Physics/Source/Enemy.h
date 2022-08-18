@@ -18,8 +18,12 @@ public:
 	virtual Weapon* GetWeapon();
 	virtual GameObject* GetGameObject();
 	void SetGO(GameObject* newGameObject);
+	virtual bool IsSpawningBullet();
 	virtual bool ChangeHealth(int changeInHealth);
 protected:
+	static std::vector<Entity*> m_enemyList;
+	bool turned;
+	bool isSpawningBullet;
 	int health;
 	float redTimer;
 	float greenTimer;

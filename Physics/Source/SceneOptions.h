@@ -16,6 +16,7 @@ public:
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
+	virtual void CreateBullet(Vector3 pos, Vector3 direction);
 protected:
 
 	CSoundController *cSoundController;

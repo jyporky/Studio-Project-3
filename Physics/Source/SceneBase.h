@@ -50,6 +50,7 @@ public:
 		GEO_BALL,
 		GEO_CUBE,
 
+		GEO_BULLET,
 		GEO_SHOPMENUBG,
 		GEO_SANDBG,
 

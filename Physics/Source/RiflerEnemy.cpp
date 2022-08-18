@@ -14,7 +14,7 @@ Rifler::Rifler()
     PlayerPointer = nullptr;
     CurrWeapon = nullptr;
     sCurrState = CHASE;
-    attackRange = 12;
+    attackRange = 50;
     attackSpeed = 1.5;
 }
 
@@ -74,16 +74,13 @@ bool Rifler::Update(double dt)
         if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
             sCurrState = CHASE;
         //Attack the player
-        if (attackdt <= 0)
-        {
-            //deal damage to the player
-            CurrWeapon->attack();
-            attackdt = attackSpeed;
-            if (PlayerPointer->iFrame == false)
-            {
-                PlayerPointer->ChangeHealth(-attackDamage);
-            }
-        }
+        //if (attackdt <= 0)
+        //{
+        //    //deal damage to the player
+        //    CurrWeapon->attack();
+        //    PlayerPointer->ChangeHealth(-attackDamage);
+        //    attackdt = attackSpeed;
+        //}
         break;
     }
 
