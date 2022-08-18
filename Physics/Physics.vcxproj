@@ -167,7 +167,6 @@
     <ClCompile Include="Source\ExplosiveBulletsMod.cpp" />
     <ClCompile Include="Source\FasterBulletSpeedMod.cpp" />
     <ClCompile Include="Source\FasterFiringRateMod.cpp" />
-    <ClCompile Include="Source\FasterMeleeMod.cpp" />
     <ClCompile Include="Source\Fist.cpp" />
     <ClCompile Include="Source\Flamethrower.cpp" />
     <ClCompile Include="Source\FryingPan.cpp" />
@@ -230,7 +229,6 @@
     <ClInclude Include="Source\ExplosiveBulletsMod.h" />
     <ClInclude Include="Source\FasterBulletSpeedMod.h" />
     <ClInclude Include="Source\FasterFiringRateMod.h" />
-    <ClInclude Include="Source\FasterMeleeMod.h" />
     <ClInclude Include="Source\Fist.h" />
     <ClInclude Include="Source\Flamethrower.h" />
     <ClInclude Include="Source\FryingPan.h" />

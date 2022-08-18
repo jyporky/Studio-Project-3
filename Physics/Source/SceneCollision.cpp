@@ -334,7 +334,7 @@ void SceneCollision::Update(double dt)
 		Bullet* bullet = new Bullet;
 		GameObject* bulletgo = FetchGO();
 		bulletgo->type = GameObject::GO_BULLET;
-		bulletgo->pos = player->GetWeapon()->GetGameObject()->pos;
+		bulletgo->pos = player->GetGameObject()->pos;
 		bulletgo->vel.SetZero();
 		bulletgo->scale.Set(2, 2, 1);
 		bulletgo->color.Set(1, 1, 1);
@@ -357,7 +357,21 @@ void SceneCollision::Update(double dt)
 			continue;
 		}
 		//check collision
-
+		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
+		{
+			if (CheckCollision(m_pbulletList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
+			{
+				m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage());
+				if (!m_pbulletList[idx]->GetPenetrationValue())
+				{
+					//delete the bullet
+					ReturnGO(m_pbulletList[idx]->GetGameObject());
+					delete m_pbulletList[idx];
+					m_pbulletList.erase(m_pbulletList.begin() + idx);
+					break;
+				}
+			}
+		}
 	}
 	for (unsigned idx = 0; idx < m_ebulletList.size(); idx++)
 	{
@@ -394,82 +408,12 @@ void SceneCollision::Update(double dt)
 		bRButtonState = false;
 	}
 
-	//Physics Simulation Section
-	unsigned size = m_goList.size();
-	for (unsigned i = 0; i < size; ++i)
-	{
-		GameObject *go = m_goList[i];
-		if(go->active)
-		{
-			go->pos += go->vel * dt * m_speed;
-
-
-			if (((go->pos.x - go->scale.x < 0) && go->vel.x < 0 ) || ((go->pos.x + go->scale.x > m_worldWidth) && go->vel.x > 0))
-			{
-				go->vel.x = -go->vel.x;
-			}
-			if ((go->pos.y + go->scale.y> m_worldHeight) && go->vel.y > 0)
-			{
-				go->vel.y = -go->vel.y;
-			}
-
-			if (go->pos.y + go->scale.y < 0)
-			{
-				ReturnGO(go);
-				continue;
-			}
-			
-			GameObject* go2 = nullptr;
-			for (int j = i; j < size; ++j)
-			{
-				go2 = m_goList[j];
-				if (!go2->checkCollision || !go->checkCollision)
-					continue;
-				GameObject* actor(go);
-				GameObject* actee(go2);
-
-				
-
-				if (go->type != GameObject::GO_BALL)
-				{
-					actor = go2;
-					actee = go;
-				}
-
-
-				
-				if (go2->active && CheckCollision(actor, actee))
-				{
-					//reduce the velocity of the ball when it hits something
-					if (actor->type == GameObject::GO_BALL)
-						actor->vel *= 0.8;
-
-
-
-					CollisionResponse(actor, actee);
-					if (actee->disappearWhenHit)
-					{
-
-						ReturnGO(actee);
-						if (actee->otherGameObjects.size() != 0)
-						{
-							for (unsigned idx = 0; idx < actee->otherGameObjects.size(); idx++)
-							{
-								ReturnGO(actee->otherGameObjects[idx]);
-							}
-							actee->otherGameObjects.clear();
-						}
-					}
-				}
-			}		
-		}
-	}
 }
 
 bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 {
 	// Prevent non ball vs non ball code
-	if (go1->type != GameObject::GO_BALL)
+	if (!(go1->type == GameObject::GO_BALL || go1->type == GameObject::GO_BULLET))
 	{
 		return false;
 	}
@@ -478,13 +422,24 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 	{
 	case GameObject::GO_PILLAR:
 	case GameObject::GO_BALL:
-	{
+	case GameObject::GO_BULLET:
+		{
 		Vector3 relativeVel = go1->vel - go2->vel;
 		Vector3 disDiff = go2->pos - go1->pos;
 
 		if (relativeVel.Dot(disDiff) <= 0)
 			return false;
 		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
+	}
+	case GameObject::GO_SWORDSMAN:
+	case GameObject::GO_RIFLER:
+	{
+		Vector3 relativeVel = go1->vel - go2->vel;
+		Vector3 disDiff = go2->pos - go1->pos;
+
+		if (relativeVel.Dot(disDiff) <= 0)
+			return false;
+		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x) * 0.4;
 	}
 
 	case GameObject::GO_WALL:
