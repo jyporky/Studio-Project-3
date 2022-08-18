@@ -9,6 +9,7 @@ Player::Player()
 	m_player = nullptr;
 	weapon = nullptr;
 	cGameManager = GameManger::GetInstance();
+	cSoundController = CSoundController::GetInstance();
 }
 
 Player::~Player()
@@ -96,6 +97,9 @@ void Player::ChangeHealth(int ChangeAmount)
 	if (ChangeAmount > 0 && health != maxHealth)
 		greenTimer = 0.5;
 	else if (ChangeAmount < 0)
+	{
+
+	}
 		redTimer = 0.5;
 
 	if (ChangeAmount > 0 && health == maxHealth)
