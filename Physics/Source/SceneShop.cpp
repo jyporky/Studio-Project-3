@@ -656,6 +656,7 @@ void SceneShop::Render()
 
 	std::ostringstream ss;
 
+
 	ss.str("");
 	ss << "$";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 74, 56.7);

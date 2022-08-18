@@ -836,6 +836,14 @@ void SceneCollision::Render()
 	ss << player->getMoney();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 75.5, 56.7);
 
+	ss.str("");
+	ss << "Energy:";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 53);
+
+	ss.str("");
+	ss << player->getEnergy();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
+
 	if (cGameManager->dDebug)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(1, 1, 1), 3, 0, 12);

@@ -14,6 +14,7 @@ Player::Player()
 	movementspeed = 40;
 	iFrame = false;
 	money = 100;
+	energy = 0;
 	isSpawningBullet = false;
 }
 
@@ -256,9 +257,20 @@ int Player::getMoney()
 {
 	return money;
 }
+
 void Player::changeMoney(float moneyChange)
 {
 	money += moneyChange;
+}
+
+int Player::getEnergy()
+{
+	return energy;
+}
+
+void Player::changeEnergy(float energyChange)
+{
+	energy = energyChange;
 }
 Weapon* Player::GetWeapon()
 {
