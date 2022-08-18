@@ -1,5 +1,14 @@
 #include "Ranged.h"
 
+Ranged::Ranged()
+{
+	IsMelee = false;
+}
+
+Ranged::~Ranged()
+{
+}
+
 bool Ranged::GetPiercing()
 {
 	return piercing;

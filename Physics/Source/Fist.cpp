@@ -10,6 +10,7 @@ Fist::Fist()
 	attack_angle = 10;
 	damage_taken = 1;
 	description = "Whats weapon? Just punch them like a man. But you hurt yourself dumbass.";
+	WeaponType = FIST;
 }
 
 

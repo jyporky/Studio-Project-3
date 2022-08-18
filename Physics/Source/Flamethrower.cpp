@@ -8,6 +8,7 @@ Flamethrower::Flamethrower()
 	range = 5;
 	attack_speed = 0.1;
 	description = "Shoots flames";
+	WeaponType = FLAMETHROWER;
 }
 Flamethrower::~Flamethrower() {
 

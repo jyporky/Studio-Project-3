@@ -2,12 +2,43 @@
 
 Entity::Entity()
 {
+	gameobject = nullptr;
+	CurrWeapon = nullptr;
 }
 
 Entity::~Entity()
 {
 }
 
-void Entity::update()
+bool Entity::Update(double dt)
 {
+	return false;
+}
+
+void Entity::Init()
+{
+}
+
+void Entity::SetGameObject(GameObject* GO)
+{
+}
+
+GameObject* Entity::GetGameObject()
+{
+	return gameobject;
+}
+
+bool Entity::ChangeHealth(int changeInHealth)
+{
+	return CurrWeapon;
+}
+
+Weapon* Entity::GetWeapon()
+{
+	return nullptr;
+}
+
+void Entity::SetWeapon(Weapon* weapon)
+{
+	CurrWeapon = weapon;
 }

@@ -21,10 +21,13 @@ public:
 	GameObject* GetGameObject();
 	virtual float GetAttackAngle();
 	virtual bool Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO);
-	virtual void attack();
+	virtual bool attack();
+
 
 	std::string getDescription();
+	bool IsMelee;
 protected:
+
 	int cost;
 	float damage;
 	float range;

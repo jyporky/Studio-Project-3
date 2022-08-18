@@ -6,6 +6,6 @@ public:
 	Sword();
 	~Sword();
 	virtual bool Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO);
-	virtual void attack();
+	virtual bool attack();
 private:
 };

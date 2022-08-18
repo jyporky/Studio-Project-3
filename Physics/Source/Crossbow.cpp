@@ -9,6 +9,7 @@ Crossbow::Crossbow() {
 	critChance = 0.3;
 	critDamage = 2;
 	description = "30% chance to headshot and CRIT	";
+	WeaponType = CROSSBOW;
 }
 Crossbow::~Crossbow() {
 

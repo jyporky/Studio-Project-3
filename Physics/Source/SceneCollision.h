@@ -28,6 +28,9 @@
 #include "StrengthPotion.h"
 #include "SpeedPotion.h"
 
+#include "WeaponModifiers.h"
+#include "PiercingBulletMod.h"
+
 class SceneCollision : public SceneBase
 {
 public:
@@ -55,7 +58,7 @@ protected:
 
 	//Physics
 	std::vector<GameObject *> m_goList;
-	std::vector<Enemy*> m_enemyList;
+	std::vector<Entity*> m_enemyList;
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;
@@ -68,6 +71,8 @@ protected:
 	Skill* HealSkill = new Heal();
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
+
+	WeaponMods* PierceMod = new PiercingBulletMod();
 	//Auditing
 	float m1, m2;
 	Vector3 u1, u2, v1, v2;

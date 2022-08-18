@@ -149,6 +149,12 @@
     <ClCompile Include="Source\FryingPan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
+    <ClCompile Include="Source\HealthUpgrade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+>>>>>>> a7ac3a2c422a209078d03e18f20d05dbcad31a6e
     <ClCompile Include="Source\MeleeDmgUpgrade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -161,9 +167,12 @@
     <ClCompile Include="Source\SelfUpgrades.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\HealthUpgrade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+>>>>>>> a7ac3a2c422a209078d03e18f20d05dbcad31a6e
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -316,13 +325,21 @@
     <ClInclude Include="Source\HealthUpgrade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\RangedDmgUpgrade.h">
+=======
+    <ClInclude Include="Source\MeleeDmgUpgrade.h">
+>>>>>>> a7ac3a2c422a209078d03e18f20d05dbcad31a6e
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\MovementSpeedUpgrade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\MeleeDmgUpgrade.h">
+=======
+    <ClInclude Include="Source\RangedDmgUpgrade.h">
+>>>>>>> a7ac3a2c422a209078d03e18f20d05dbcad31a6e
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\SelfUpgrades.h">

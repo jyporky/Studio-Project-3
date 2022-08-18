@@ -37,4 +37,5 @@ void GameObject::ResetValues()
 	otherGameObjects.clear();
 	checkCollision = true;
 	disappearWhenHit = false;
+	leftwep = false;
 }
