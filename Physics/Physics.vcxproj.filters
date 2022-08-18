@@ -191,6 +191,9 @@
     <ClCompile Include="Source\AccurateArrowsMod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FasterMeleeMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -380,6 +383,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\FasterBulletSpeedMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FasterMeleeMod.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
