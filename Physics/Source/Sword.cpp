@@ -4,10 +4,11 @@ Sword::Sword()
 {
 	cost = 100;
 	damage = 10;
-	range = 10;
+	range = 18;
 	attack_speed = 1.2;
 	attack_angle = 75;
 	attack_cast = 0.4;
+	attackdt = attack_speed * 2;
 	description = "SAMURAI TIME!";
 	Animate = false;
 }
@@ -67,12 +68,12 @@ bool Sword::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 		float angle_offset;
 		if (userGO->angle == 0)
 		{
-			angle_offset = -40;
+			angle_offset = -10;
 			direction = (mousepos - userGO->pos);
 		}
 		else if (userGO->angle == 180)
 		{
-			angle_offset = 40;
+			angle_offset = 10;
 			direction = -(mousepos - userGO->pos);
 		}
 
@@ -108,6 +109,7 @@ bool Sword::attack()
 	{
 		attackdt = 0;
 		Animate = true;
+		cSoundController->PlaySoundByID(2);
 		return true;
 	}
 	return false;

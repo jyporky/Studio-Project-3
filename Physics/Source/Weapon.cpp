@@ -1,5 +1,7 @@
 #include "Weapon.h"
 
+CSoundController* Weapon::cSoundController = CSoundController::GetInstance();
+
 Weapon::Weapon()
 {
 	gameobject = nullptr;

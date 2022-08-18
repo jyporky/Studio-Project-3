@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Vector3.h"
 #include <string>
+#include "SoundController.h"
 
 class Weapon
 {
@@ -37,4 +38,5 @@ protected:
 	double attackdt;
 	GameObject* gameobject;
 	std::string description;
+	static CSoundController* cSoundController;
 };
