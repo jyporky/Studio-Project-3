@@ -11,6 +11,7 @@ Sword::Sword()
 	attackdt = attack_speed * 2;
 	description = "SAMURAI TIME!";
 	Animate = false;
+	WeaponType = SWORD;
 }
 
 

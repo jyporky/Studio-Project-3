@@ -7,6 +7,7 @@ RubberChicken::RubberChicken() {
 	attack_angle = 60;
 	attack_cast = 0.4;
 	description = "Stuns enemies in a radius for 1s";
+	WeaponType = RUBBER_CHICKEN;
 }
 RubberChicken::~RubberChicken() {
 
