@@ -4,7 +4,7 @@ Sword::Sword()
 {
 	cost = 100;
 	damage = 10;
-	range = 5;
+	range = 10;
 	attack_speed = 1.2;
 	attack_angle = 75;
 	attack_cast = 0.4;
@@ -21,7 +21,7 @@ Sword::~Sword()
 bool Sword::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO)
 {
 	attackdt += dt;
-	Vector3 offset(0,0,0);
+	Vector3 offset(0, 0, 0);
 
 	// offset the sword
 	if (userGO->angle == 0)
@@ -102,11 +102,13 @@ bool Sword::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 	return false;
 }
 
-void Sword::attack()
+bool Sword::attack()
 {
 	if (attackdt >= attack_speed)
 	{
 		attackdt = 0;
 		Animate = true;
+		return true;
 	}
+	return false;
 }

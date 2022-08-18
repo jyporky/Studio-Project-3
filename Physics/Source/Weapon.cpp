@@ -9,6 +9,7 @@ Weapon::Weapon()
 	damage = 0;
 	range = 5;
 	attackdt = 0;
+	IsMelee = false;
 }
 
 Weapon::~Weapon()
@@ -61,8 +62,9 @@ bool Weapon::Update(double dt, Vector3 mousepos, Vector3 movementdirection, Game
 	return false;
 }
 
-void Weapon::attack()
+bool Weapon::attack()
 {
+	return false;
 }
 
 float Weapon::GetAttackCast()

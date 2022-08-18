@@ -75,7 +75,7 @@ void SceneCollision::Init()
 	enemyGO->color.Set(1, 1, 1);
 	enemyGO->angle = 0;
 	enemy->SetWeapon(new Sword());
-	enemy->SetEnemyGameObject(enemyGO);
+	enemy->SetGameObject(enemyGO);
 	m_enemyList.push_back(enemy);
 
 
@@ -171,10 +171,10 @@ void SceneCollision::Update(double dt)
 	SceneBase::Update(dt);
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
-		if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
+		/*if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
 		{
-			//ResetLevel();
-		}
+			ResetLevel();
+		}*/
 		if (Application::IsKeyPressed(VK_OEM_3))
 		{
 			Application::SetState(1);
@@ -221,47 +221,41 @@ void SceneCollision::Update(double dt)
 		}
 	}
 
-	//update enemy
-	static bool ubutton;
+	/*static bool ubutton;
 	bool dealdamage = false;
 	if (Application::IsKeyPressed('U') && !ubutton)
 	{
-		HealSkill->UseSkill();
 		ubutton = true;
 		dealdamage = true;
 	}
 	else if (!Application::IsKeyPressed('U') && ubutton)
-		ubutton = false;
+		ubutton = false;*/
+	//update enemy
 	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 	{
-		m_enemyList[idx]->Update(dt);
-		if (dealdamage)
+		if (m_enemyList[idx]->Update(dt))
 		{
-			if (m_enemyList[idx]->ChangeHealth(-1))
-			{
-				//delete the enemy
-				ReturnGO(m_enemyList[idx]->GetEnemyGameObject());
-				ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
-				delete m_enemyList[idx];
-				m_enemyList.erase(m_enemyList.begin() + idx);
-			}
+			//delete the enemy
+			ReturnGO(m_enemyList[idx]->GetGameObject());
+			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+			delete m_enemyList[idx];
+			m_enemyList.erase(m_enemyList.begin() + idx);
 		}
-	}
-	
-	// Moving of player
-	Vector3 movementDirection;
-	movementDirection.SetZero();
-	if (Application::IsKeyPressed('W'))
-	{
-		movementDirection.y += 1;
+		//if (dealdamage)
+		//{
+		//	if (m_enemyList[idx]->ChangeHealth(-1))
+		//	{
+		//		//delete the enemy
+		//		ReturnGO(m_enemyList[idx]->GetGameObject());
+		//		ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+		//		delete m_enemyList[idx];
+		//		m_enemyList.erase(m_enemyList.begin() + idx);
+		//	}
+		//}
 	}
 
-	//else if (movementDirection.x < 0)
-	//{
-	//	player->getPlayer()->angle = 180;
-	//	offset.x = -(weapon->scale.x * 0.2);
-	//}
-
+	//update the player
+	player->SetEnemyVector(m_enemyList);
 	player->Update(dt, mousePos);
 	Checkborder(player->getPlayer());
 
@@ -721,9 +715,14 @@ void SceneCollision::Exit()
 	}
 	while (m_enemyList.size() > 0)
 	{
-		Enemy* go = m_enemyList.back();
+		Entity* go = m_enemyList.back();
 		delete go;
 		m_enemyList.pop_back();
+	}
+
+	if (HackSkill)
+	{
+
 	}
 }
 
