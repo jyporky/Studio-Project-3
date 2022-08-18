@@ -39,6 +39,9 @@ void SceneCollision::Init()
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\damage.ogg"), 1, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\sword_swing.ogg"), 2, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyHurt.ogg"), 3, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyDeath.ogg"), 4, false);
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
@@ -89,6 +92,32 @@ void SceneCollision::Init()
 	ewep->leftwep = false;
 	enemy->GetWeapon()->SetGameObject(ewep);
 
+	//spawn rifler enemy
+	Enemy* enemy2 = new Rifler();
+	enemy2->Init();
+	GameObject* enemy2GO = FetchGO();
+	enemy2GO->type = GameObject::GO_RIFLER;
+	enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
+	enemy2GO->vel.SetZero();
+	enemy2GO->scale.Set(13, 13, 1);
+	enemy2GO->color.Set(1, 1, 1);
+	enemy2GO->angle = 0;
+	enemy2->SetWeapon(new Rifle());
+	enemy2->SetGameObject(enemy2GO);
+	m_enemyList.push_back(enemy2);
+
+	GameObject* ewep2 = FetchGO();
+	ewep2->type = GameObject::GO_RIFLE;
+	ewep2->vel.SetZero();
+	ewep2->scale.Set(8, 3, 1);
+	ewep2->pos = enemy2GO->pos;
+	ewep2->color.Set(1, 1, 1);
+	ewep2->angle = 0;
+	ewep2->active = true;
+	ewep2->leftwep = false;
+	enemy2->GetWeapon()->SetGameObject(ewep2);
+
+	timer = 0;
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
@@ -155,6 +184,7 @@ void SceneCollision::ResetLevel()
 
 void SceneCollision::Update(double dt)
 {
+	timer += dt;
 
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
@@ -219,15 +249,48 @@ void SceneCollision::Update(double dt)
 		}
 	}
 
-	/*static bool ubutton;
+	// Spawn enemy
+	//if (timer > 1)
+	//{
+	//	//spawn one enemy
+	//	Enemy* enemy = new Swordsman();
+	//	enemy->Init();
+	//	GameObject* enemyGO = FetchGO();
+	//	enemyGO->type = GameObject::GO_SWORDSMAN;
+	//	enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
+	//	enemyGO->vel.SetZero();
+	//	enemyGO->scale.Set(10, 10, 1);
+	//	enemyGO->color.Set(1, 1, 1);
+	//	enemyGO->angle = 0;
+	//	enemy->SetWeapon(new Sword());
+	//	enemy->SetGameObject(enemyGO);
+	//	m_enemyList.push_back(enemy);
+
+
+	//	GameObject* ewep = FetchGO();
+	//	ewep->type = GameObject::GO_SWORD;
+	//	ewep->vel.SetZero();
+	//	ewep->scale.Set(10, 10, 1);
+	//	ewep->pos = enemyGO->pos;
+	//	ewep->color.Set(1, 1, 1);
+	//	ewep->angle = 0;
+	//	ewep->active = true;
+	//	ewep->leftwep = false;
+	//	enemy->GetWeapon()->SetGameObject(ewep);
+	//	timer = 0;
+	//}
+
+	static bool ubutton;
 	bool dealdamage = false;
 	if (Application::IsKeyPressed('U') && !ubutton)
 	{
 		ubutton = true;
 		dealdamage = true;
+		HealSkill->UseSkill();
 	}
 	else if (!Application::IsKeyPressed('U') && ubutton)
-		ubutton = false;*/
+		ubutton = false;
+
 	//update enemy
 	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 	{
@@ -577,7 +640,23 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_RIFLER:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_RIFLER], true);
+		}
 
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_RIFLER], true);
+		}
+		modelStack.PopMatrix();
+		break;
 	case GameObject::GO_SWORD:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -600,7 +679,28 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_RIFLE:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
 
+		if (go->leftwep == false)
+		{
+			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_RIFLE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIFLE_LEFT], true);
+		}
+
+		else
+		{
+			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
+		}
+		modelStack.PopMatrix();
+		break;
 	case GameObject::GO_WALL:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);

@@ -15,6 +15,8 @@
 #include "Fist.h"
 #include "Sword.h"
 #include "Swordsman.h"
+#include "RiflerEnemy.h"
+#include "Rifle.h"
 
 #include "Skill.h"
 #include "HackSkill.h"
@@ -71,6 +73,7 @@ protected:
 	Skill* HealSkill = new Heal();
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
+	float timer;
 
 	WeaponMods* PierceMod = new PiercingBulletMod();
 	//Auditing

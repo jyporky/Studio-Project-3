@@ -10,6 +10,7 @@ Player::Player()
 	gameobject = nullptr;
 	CurrWeapon = nullptr;
 	cGameManager = GameManger::GetInstance();
+	cSoundController = CSoundController::GetInstance();
 	movementspeed = 40;
 	iFrame = false;
 }
@@ -83,10 +84,12 @@ void Player::Update(double dt, Vector3 mousepos)
 		static bool attack = false;
 		if (Application::IsMousePressed(0) && !attack)
 		{
-			CurrWeapon->attack();
-			//do the damage to the enemies
-			Attack(mousepos);
-			attack = true;
+			if (CurrWeapon->attack())
+			{
+				//do the damage to the enemies
+				Attack(mousepos);
+				attack = true;
+			}
 		}
 		else if (!Application::IsMousePressed(0) && attack)
 			attack = false;
@@ -135,7 +138,10 @@ bool Player::ChangeHealth(int ChangeAmount)
 	if (ChangeAmount > 0 && health != maxHealth)
 		greenTimer = 0.5;
 	else if (ChangeAmount < 0)
+	{
 		redTimer = 0.5;
+		cSoundController->PlaySoundByID(1);
+	}
 
 	if (ChangeAmount > 0 && health == maxHealth)
 		return false;

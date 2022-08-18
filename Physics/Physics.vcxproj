@@ -194,6 +194,7 @@
     <ClCompile Include="Source\Ranged.cpp" />
     <ClCompile Include="Source\RangedDmgUpgrade.cpp" />
     <ClCompile Include="Source\Rifle.cpp" />
+    <ClCompile Include="Source\RiflerEnemy.cpp" />
     <ClCompile Include="Source\RubberChicken.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneCollision.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="Source\Ranged.h" />
     <ClInclude Include="Source\RangedDmgUpgrade.h" />
     <ClInclude Include="Source\Rifle.h" />
+    <ClInclude Include="Source\RiflerEnemy.h" />
     <ClInclude Include="Source\RubberChicken.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />

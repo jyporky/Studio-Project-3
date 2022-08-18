@@ -161,6 +161,7 @@
     <ClCompile Include="Source\SelfUpgrades.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\HealthUpgrade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -173,12 +174,15 @@
     <ClCompile Include="Source\FasterFiringRateMod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+>>>>>>> 60ecd5b2d009f9764cca326e2ad968b7602950bf
     <ClCompile Include="Source\PiercingBulletMod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\WeaponModifiers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\AccurateArrowsMod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -186,6 +190,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\FasterMeleeMod.cpp">
+=======
+    <ClCompile Include="Source\RiflerEnemy.cpp">
+>>>>>>> 60ecd5b2d009f9764cca326e2ad968b7602950bf
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -358,6 +365,7 @@
     <ClInclude Include="Source\WeaponModifiers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\AccurateArrowsMod.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -374,6 +382,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\FasterMeleeMod.h">
+=======
+    <ClInclude Include="Source\RiflerEnemy.h">
+>>>>>>> 60ecd5b2d009f9764cca326e2ad968b7602950bf
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

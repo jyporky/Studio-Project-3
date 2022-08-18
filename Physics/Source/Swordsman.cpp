@@ -5,7 +5,7 @@ Swordsman::Swordsman()
     health = 20;
     redTimer = 0;
     attackdt = 0;
-    movementSpeed = 6;
+    movementSpeed = 20;
     energyDropped = 2;
     moneyDropped = 2;
     attackDamage = 5;
@@ -33,10 +33,14 @@ bool Swordsman::Update(double dt)
 {
     //check if the enemy is dead
     if (health <= 0)
+    {
+        cSoundController->PlaySoundByID(4);
         return true;
+    }
 
     if (redTimer > 0)
     {
+        cSoundController->PlaySoundByID(3);
         gameobject->color.Set(1, 0, 0);
         redTimer -= dt;
     }
