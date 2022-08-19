@@ -280,6 +280,14 @@ void Player::changeEnergy(float energyChange)
 {
 	energy += energyChange;
 }
+
+void Player::SwapWeapon()
+{
+	Weapon* tempwep = CurrWeapon;
+	CurrWeapon = SideWeapon;
+	SideWeapon = tempwep;
+}
+
 Weapon* Player::GetWeapon()
 {
 	return CurrWeapon;

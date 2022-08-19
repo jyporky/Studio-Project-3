@@ -34,6 +34,7 @@
 
 #include "WeaponModifiers.h"
 #include "PiercingBulletMod.h"
+#include "InventoryManager.h"
 
 class SceneCollision : public SceneBase
 {
@@ -65,6 +66,7 @@ protected:
 	std::vector<Entity*> m_enemyList;
 	std::vector<Bullet*> m_ebulletList;
 	std::vector<Bullet*> m_pbulletList;
+	std::vector<Weapon*> m_weaponList;
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;
@@ -72,6 +74,8 @@ protected:
 	CSoundController* cSoundController;
 	Player* player;
 	GameManger* cGameManager;
+	CInventoryManager* cInventoryManager;
+	CInventoryItem* cInventoryItem;
 
 	Skill* HackSkill = new Hack();
 	Skill* HealSkill = new Heal();

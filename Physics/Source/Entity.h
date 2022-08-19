@@ -21,5 +21,6 @@ public:
 protected:
 	GameObject* gameobject;
 	Weapon* CurrWeapon;
+	Weapon* SideWeapon;
 };
 
