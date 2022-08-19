@@ -35,6 +35,7 @@
 #include "WeaponModifiers.h"
 #include "PiercingBulletMod.h"
 #include "InventoryManager.h"
+#include "MyMath.h"
 
 class SceneCollision : public SceneBase
 {
@@ -76,7 +77,14 @@ protected:
 	GameManger* cGameManager;
 	CInventoryManager* cInventoryManager;
 	CInventoryItem* cInventoryItem;
-
+	void RenderWall();
+	int wave;
+	float rate;
+	int totalEnemy;
+	int enemyLeft;
+	void SpawnEnemy(float rate);
+	float SetRate();
+	bool NearShop();
 	Skill* HackSkill = new Hack();
 	Skill* HealSkill = new Heal();
 	Potions* StrengthPotion = new StrengthPot();

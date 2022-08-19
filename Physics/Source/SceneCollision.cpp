@@ -35,6 +35,12 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
+	wave = 11;
+
+	rate = SetRate();
+
+	timer = -3;
+
 	//load sound
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
@@ -108,58 +114,58 @@ void SceneCollision::Init()
 
 
 	cGameManager = GameManger::GetInstance();
-	//spawn one enemy
-	Enemy* enemy = new Swordsman();
-	enemy->Init();
-	GameObject* enemyGO = FetchGO();
-	enemyGO->type = GameObject::GO_SWORDSMAN;
-	enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
-	enemyGO->vel.SetZero();
-	enemyGO->scale.Set(10, 10, 1);
-	enemyGO->color.Set(1, 1, 1);
-	enemyGO->angle = 0;
-	enemy->SetWeapon(new Sword());
-	enemy->SetGameObject(enemyGO);
-	m_enemyList.push_back(enemy);
+	////spawn one enemy
+	//Enemy* enemy = new Swordsman();
+	//enemy->Init();
+	//GameObject* enemyGO = FetchGO();
+	//enemyGO->type = GameObject::GO_SWORDSMAN;
+	//enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
+	//enemyGO->vel.SetZero();
+	//enemyGO->scale.Set(10, 10, 1);
+	//enemyGO->color.Set(1, 1, 1);
+	//enemyGO->angle = 0;
+	//enemy->SetWeapon(new Sword());
+	//enemy->SetGameObject(enemyGO);
+	//m_enemyList.push_back(enemy);
 
 
-	GameObject* ewep = FetchGO();
-	ewep->type = GameObject::GO_SWORD;
-	ewep->vel.SetZero();
-	ewep->scale.Set(10, 10, 1);
-	ewep->pos = enemyGO->pos;
-	ewep->color.Set(1, 1, 1);
-	ewep->angle = 0;
-	ewep->active = true;
-	ewep->leftwep = false;
-	enemy->GetWeapon()->SetGameObject(ewep);
+	//GameObject* ewep = FetchGO();
+	//ewep->type = GameObject::GO_SWORD;
+	//ewep->vel.SetZero();
+	//ewep->scale.Set(10, 10, 1);
+	//ewep->pos = enemyGO->pos;
+	//ewep->color.Set(1, 1, 1);
+	//ewep->angle = 0;
+	//ewep->active = true;
+	//ewep->leftwep = false;
+	//enemy->GetWeapon()->SetGameObject(ewep);
 
-	//spawn rifler enemy
-	Enemy* enemy2 = new Rifler();
-	enemy2->Init();
-	GameObject* enemy2GO = FetchGO();
-	enemy2GO->type = GameObject::GO_RIFLER;
-	enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
-	enemy2GO->vel.SetZero();
-	enemy2GO->scale.Set(13, 13, 1);
-	enemy2GO->color.Set(1, 1, 1);
-	enemy2GO->angle = 0;
-	enemy2->SetWeapon(new Rifle());
-	enemy2->SetGameObject(enemy2GO);
-	m_enemyList.push_back(enemy2);
+	////spawn rifler enemy
+	//Enemy* enemy2 = new Rifler();
+	//enemy2->Init();
+	//GameObject* enemy2GO = FetchGO();
+	//enemy2GO->type = GameObject::GO_RIFLER;
+	//enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
+	//enemy2GO->vel.SetZero();
+	//enemy2GO->scale.Set(13, 13, 1);
+	//enemy2GO->color.Set(1, 1, 1);
+	//enemy2GO->angle = 0;
+	//enemy2->SetWeapon(new Rifle());
+	//enemy2->SetGameObject(enemy2GO);
+	//m_enemyList.push_back(enemy2);
 
-	GameObject* ewep2 = FetchGO();
-	ewep2->type = GameObject::GO_RIFLE;
-	ewep2->vel.SetZero();
-	ewep2->scale.Set(8, 3, 1);
-	ewep2->pos = enemy2GO->pos;
-	ewep2->color.Set(1, 1, 1);
-	ewep2->angle = 0;
-	ewep2->active = true;
-	ewep2->leftwep = false;
-	enemy2->GetWeapon()->SetGameObject(ewep2);
+	//GameObject* ewep2 = FetchGO();
+	//ewep2->type = GameObject::GO_RIFLE;
+	//ewep2->vel.SetZero();
+	//ewep2->scale.Set(8, 3, 1);
+	//ewep2->pos = enemy2GO->pos;
+	//ewep2->color.Set(1, 1, 1);
+	//ewep2->angle = 0;
+	//ewep2->active = true;
+	//ewep2->leftwep = false;
+	//enemy2->GetWeapon()->SetGameObject(ewep2);
 
-	timer = 0;
+
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 }
@@ -251,6 +257,24 @@ void SceneCollision::Update(double dt)
 		}
 		return;
 	}
+
+	if (cGameManager->outShop)
+	{
+		cGameManager->outShop = false;
+		rate = SetRate();
+		wave++;
+		player->GetGameObject()->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
+		timer = -3;
+	}
+
+	if (totalEnemy > 0 && timer > 0)
+		SpawnEnemy(rate);
+
+	if (enemyLeft <= 0)
+	{
+		cGameManager->waveClear = true;
+	}
+
 	static bool oem_5 = false;
 	if (Application::IsKeyPressed(VK_OEM_5) && !oem_5)
 	{
@@ -276,8 +300,6 @@ void SceneCollision::Update(double dt)
 	}
 	else if (!Application::IsKeyPressed('E') && e)
 		e = false;
-
-
 	
 	if (cGameManager->bDebug)
 	{
@@ -334,36 +356,6 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsMousePressed(1) && switch_weapon)
 		switch_weapon = false;
 
-	//Spawn enemy
-	//if (timer > 1)
-	//{
-	//	//spawn one enemy
-	//	Enemy* enemy = new Swordsman();
-	//	enemy->Init();
-	//	GameObject* enemyGO = FetchGO();
-	//	enemyGO->type = GameObject::GO_SWORDSMAN;
-	//	enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
-	//	enemyGO->vel.SetZero();
-	//	enemyGO->scale.Set(10, 10, 1);
-	//	enemyGO->color.Set(1, 1, 1);
-	//	enemyGO->angle = 0;
-	//	enemy->SetWeapon(new Sword());
-	//	enemy->SetGameObject(enemyGO);
-	//	m_enemyList.push_back(enemy);
-
-
-	//	GameObject* ewep = FetchGO();
-	//	ewep->type = GameObject::GO_SWORD;
-	//	ewep->vel.SetZero();
-	//	ewep->scale.Set(10, 10, 1);
-	//	ewep->pos = enemyGO->pos;
-	//	ewep->color.Set(1, 1, 1);
-	//	ewep->angle = 0;
-	//	ewep->active = true;
-	//	ewep->leftwep = false;
-	//	enemy->GetWeapon()->SetGameObject(ewep);
-	//	timer = 0;
-	//}
 
 	static bool ubutton;
 	bool dealdamage = false;
@@ -389,6 +381,7 @@ void SceneCollision::Update(double dt)
 			cGameManager->dPlayerScore += 100;
 			delete m_enemyList[idx];
 			m_enemyList.erase(m_enemyList.begin() + idx);
+			enemyLeft--;
 			continue;
 		}
 		if (m_enemyList[idx]->IsSpawningBullet())
@@ -861,6 +854,7 @@ void SceneCollision::Render()
 		}
 	}
 
+	RenderWall();
 
 	//On screen text
 	std::ostringstream ss;
@@ -922,9 +916,22 @@ void SceneCollision::Render()
 	
 	}
 
-	ss.str("");
-	ss << "Press r to go shop";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 40);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 0, 18);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0, 15);
+
+	if (cGameManager->waveClear)
+	{
+		if (NearShop())
+		{
+			ss.str("");
+			ss << "Press r to go shop";
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 40);
+		}
+
+		ss.str("");
+		ss << "Wave Cleared!";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 8, 30);
+	}
 
 
 	if (cGameManager->bPlayerLost)
@@ -1020,25 +1027,259 @@ void SceneCollision::Exit()
 
 GameObject* SceneCollision::Checkborder(GameObject* go)
 {
-	if (go->pos.x + go->scale.x / 2 > m_worldWidth)
+	float offset = 5;
+	if (go->pos.x + go->scale.x / 2 > m_worldWidth - offset)
 	{
-		go->pos.x = m_worldWidth - go->scale.x / 2;
+		go->pos.x = m_worldWidth - go->scale.x / 2 - offset;
 	}	
 	
-	if (go->pos.x - go->scale.x / 2 < 0)
+	if (go->pos.x - go->scale.x / 2 < 0 + offset)
 	{
-		go->pos.x = 0 + go->scale.x / 2;
+		go->pos.x = 0 + go->scale.x / 2 + offset;
 	}	
 	
-	if (go->pos.y + go->scale.y / 2 > m_worldHeight)
+	if (go->pos.y + go->scale.y / 2 > m_worldHeight - offset)
 	{
-		go->pos.y = m_worldHeight - go->scale.y / 2;
+		go->pos.y = m_worldHeight - go->scale.y / 2 - offset;
 	}	
 	
-	if (go->pos.y - go->scale.y / 2 < 0)
+	if (go->pos.y - go->scale.y / 2 < 0 + offset)
 	{
-		go->pos.y = 0 + go->scale.y / 2;
+		go->pos.y = 0 + go->scale.y / 2 + offset;
 	}
 
 	return go;
+}
+
+void SceneCollision::RenderWall()
+{
+	if (cGameManager->waveClear)
+	{
+		//top left
+		modelStack.PushMatrix();
+		modelStack.Translate(30, m_worldHeight - 3, 1);
+		modelStack.Scale(m_worldWidth / 2 - 10, 6, 1);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
+
+		//top right
+		modelStack.PushMatrix();
+		modelStack.Translate(140, m_worldHeight - 3, 1);
+		modelStack.Scale(m_worldWidth / 2 - 10, 6, 1);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
+
+		//bottom
+		modelStack.PushMatrix();
+		modelStack.Translate(m_worldWidth/2, 3, 1);
+		modelStack.Scale(m_worldWidth, 6, 1);
+		meshList[GEO_CUBE]->material.kAmbient.Set(1, 0, 0);
+		RenderMesh(meshList[GEO_CUBE], true);
+		modelStack.PopMatrix();
+
+		//left
+		modelStack.PushMatrix();
+		modelStack.Translate(3, m_worldHeight/2, 1);
+		modelStack.Scale(6, m_worldHeight, 1);
+		RenderMesh(meshList[GEO_CUBE], true);
+		modelStack.PopMatrix();
+
+		//right
+		modelStack.PushMatrix();
+		modelStack.Translate(m_worldWidth - 3, m_worldHeight / 2, 1);
+		modelStack.Scale(6, m_worldHeight, 1);
+		RenderMesh(meshList[GEO_CUBE], true);
+		modelStack.PopMatrix();
+	}
+
+	else
+	{
+		//top
+		modelStack.PushMatrix();
+		modelStack.Translate(m_worldWidth/2, m_worldHeight - 3, 1);
+		modelStack.Scale(m_worldWidth, 6, 1);
+		meshList[GEO_CUBE]->material.kAmbient.Set(1, 0, 0);
+		RenderMesh(meshList[GEO_CUBE], true);
+		modelStack.PopMatrix();
+
+
+		//bottom left
+		modelStack.PushMatrix();
+		modelStack.Translate(30, 3, 1);
+		modelStack.Scale(m_worldWidth / 2 - 10, 6, 1);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
+
+		//bottom right
+		modelStack.PushMatrix();
+		modelStack.Translate(140, 3, 1);
+		modelStack.Scale(m_worldWidth / 2 - 10, 6, 1);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
+
+
+		//right top
+		modelStack.PushMatrix();
+		modelStack.Translate(m_worldWidth - 3, 85, 1);
+		modelStack.Scale(6, m_worldHeight / 2 - 15, 1);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
+
+		//right bottom
+		modelStack.PushMatrix();
+		modelStack.Translate(m_worldWidth - 3, 20, 1);
+		modelStack.Scale(6, m_worldHeight / 2 - 15, 1);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
+
+
+		//left top
+		modelStack.PushMatrix();
+		modelStack.Translate(3, 85, 1);
+		modelStack.Scale(6, m_worldHeight / 2 - 15, 1);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
+
+		//left bottom
+		modelStack.PushMatrix();
+		modelStack.Translate(3, 20, 1);
+		modelStack.Scale(6, m_worldHeight / 2 - 15, 1);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
+	}
+}
+
+void SceneCollision::SpawnEnemy(float rate)
+{
+	if (timer > rate)
+	{
+		int type = Math::RandIntMinMax(1, 2);
+		int location = Math::RandIntMinMax(1, 3);
+		Vector3 pos;
+
+		switch (location)
+		{
+			float x, y;
+		case 1:
+			x = 10;
+			y = Math::RandFloatMinMax(45, 55);
+			pos.Set(x, y, 1);
+			break;
+		case 2:
+			x = Math::RandFloatMinMax(m_worldWidth/2 - 10, m_worldWidth/2 + 10);
+			y = 10;
+			pos.Set(x, y, 1);
+			break;
+		case 3:
+			x = m_worldWidth - 10;
+			y = Math::RandFloatMinMax(45, 55);
+			pos.Set(x, y, 1);
+			break;
+		}
+
+		Enemy* enemy;
+		GameObject* enemyGO;
+		GameObject* ewep;
+		switch (type)
+		{
+		case 1:
+			enemy = new Swordsman();
+			enemy->Init();
+			enemyGO = FetchGO();
+			enemyGO->type = GameObject::GO_SWORDSMAN;
+			enemyGO->pos = pos;
+			enemyGO->vel.SetZero();
+			enemyGO->scale.Set(10, 10, 1);
+			enemyGO->color.Set(1, 1, 1);
+			enemyGO->angle = 0;
+			enemy->SetWeapon(new Sword());
+			enemy->SetGameObject(enemyGO);
+			m_enemyList.push_back(enemy);
+
+			ewep = FetchGO();
+			ewep->type = GameObject::GO_SWORD;
+			ewep->vel.SetZero();
+			ewep->scale.Set(10, 10, 1);
+			ewep->color.Set(1, 1, 1);
+			ewep->angle = 0;
+			ewep->active = true;
+			ewep->leftwep = false;
+			enemy->GetWeapon()->SetGameObject(ewep);
+
+			break;
+		case 2:
+			enemy = new Rifler();
+			enemy->Init();
+			enemyGO = FetchGO();
+			enemyGO->type = GameObject::GO_RIFLER;
+			enemyGO->pos = pos;
+			enemyGO->vel.SetZero();
+			enemyGO->scale.Set(10, 10, 1);
+			enemyGO->color.Set(1, 1, 1);
+			enemyGO->angle = 0;
+			enemy->SetWeapon(new Rifle());
+			enemy->SetGameObject(enemyGO);
+			m_enemyList.push_back(enemy);
+
+			ewep = FetchGO();
+			ewep->type = GameObject::GO_RIFLE;
+			ewep->vel.SetZero();
+			ewep->scale.Set(8, 3, 1);
+			ewep->color.Set(1, 1, 1);
+			ewep->angle = 0;
+			ewep->active = true;
+			ewep->leftwep = false;
+			enemy->GetWeapon()->SetGameObject(ewep);
+			break;
+		}
+		totalEnemy--;
+		timer = 0;
+	}
+}
+
+float SceneCollision::SetRate()
+{
+	float frequency;
+
+	if (wave < 3)
+	{
+		frequency = 3;
+		totalEnemy = Math::RandIntMinMax(8, 12);
+		enemyLeft = totalEnemy;
+	}
+
+	else if (wave < 6)
+	{
+		frequency = 2.5;
+		totalEnemy = Math::RandIntMinMax(13, 18);
+		enemyLeft = totalEnemy;
+	}
+	else if (wave < 10)
+	{
+		frequency = 2;
+		totalEnemy = Math::RandIntMinMax(22, 30);
+		enemyLeft = totalEnemy;
+	}
+
+	else
+	{
+		frequency = 1;
+		totalEnemy = Math::RandIntMinMax(45, 80);
+		enemyLeft = totalEnemy;
+	}
+
+	return frequency;
+}
+
+bool SceneCollision::NearShop()
+{
+	if (player->GetGameObject()->pos.y >= 85)
+	{
+		if (player->GetGameObject()->pos.x > m_worldWidth / 2 - 20 && player->GetGameObject()->pos.x < m_worldWidth / 2 + 20)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

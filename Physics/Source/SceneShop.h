@@ -7,6 +7,7 @@
 #include "SoundController.h"
 #include "InventoryManager.h"
 #include "Player.h"
+#include "GameManger.h"
 
 #include "Potions.h"
 #include "StrengthPotion.h"
@@ -86,8 +87,9 @@ protected:
 	unsigned shopbuttonhighlight = 0;
 
 	//inventory
-	CInventoryManager* cInventoryManager;
+	CInventoryManager * cInventoryManager;
 	CInventoryItem* cInventoryItem;
+	GameManger* cGameManager;
 
 	//potions
 	Potions* StrengthPotion = new StrengthPot();
