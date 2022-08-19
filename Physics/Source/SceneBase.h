@@ -134,7 +134,7 @@ protected:
 	unsigned m_parameters[U_TOTAL];
 
 	Camera camera;
-
+	Vector3 color;
 	MS modelStack;
 	MS viewStack;
 	MS projectionStack;

@@ -44,7 +44,10 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyDeath.ogg"), 4, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\shoot.ogg"), 5, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\playerDash.ogg"), 6, false);
-	//cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 6, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 7, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\menuBGM.ogg"), 8, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, false);
+
 
 	cInventoryManager = CInventoryManager::GetInstance();
 	//weapons
@@ -65,7 +68,7 @@ void SceneCollision::Init()
 
 	//skills
 	cInventoryItem = cInventoryManager->Add("emp", 1, 0);
-	cInventoryItem = cInventoryManager->Add("hack", 1, 1);
+	cInventoryItem = cInventoryManager->Add("hack", 1, 0);
 	cInventoryItem = cInventoryManager->Add("heal", 1, 0);
 	cInventoryItem = cInventoryManager->Add("immortal", 1, 0);
 	cInventoryItem = cInventoryManager->Add("overdrive", 1, 0);
@@ -238,6 +241,7 @@ void SceneCollision::Update(double dt)
 	Application::GetCursorPos(&x, &y);
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
 
+
 	SceneBase::Update(dt);
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
@@ -273,6 +277,7 @@ void SceneCollision::Update(double dt)
 		Application::SetState(3);
 		player->getPlayer()->pos.x = m_worldWidth / 2;
 		player->getPlayer()->pos.y = 12;
+
 	}
 	else if (!Application::IsKeyPressed('E') && e)
 		e = false;
@@ -290,8 +295,7 @@ void SceneCollision::Update(double dt)
 			m_speed += 0.1f;
 		}
 	}
-
-
+	cSoundController->PlaySoundByID(9);
 	static bool switch_weapon = false;
 	if (Application::IsMousePressed(1) && !switch_weapon)
 	{
@@ -861,55 +865,11 @@ void SceneCollision::Render()
 		}
 	}
 
+	renderUI();
 
 	//On screen text
 	std::ostringstream ss;
-
-	//render the player health
-	ss.str("");
-	ss << "Health:";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 57);
-	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_BASE], 12, 58.75, 10, 2);
-	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], 7 + (double)player->GetHealth() / (double)player->GetMaxHealth() * 5.0f, 58.75, (double)player->GetHealth() / (double)player->GetMaxHealth() * 10.0f, 2);
-
-	//render money
-	modelStack.PushMatrix();
-	modelStack.Translate(170, 97, 1);
-	modelStack.Scale(13, 5, 1);
-	RenderMesh(meshList[GEO_SHOPMENUBG], false);
-	modelStack.PopMatrix();
-
-	ss.str("");
-	ss << "$";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 74, 56.7);
-
-	ss.str("");
-	ss << player->getMoney();
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 75.5, 56.7);
-
-
-	//render score
-	ss.str("");
-	ss << "Score:" << cGameManager->dPlayerScore;
-	modelStack.PushMatrix();
-	modelStack.Translate(177 - ss.str().size() * 1.2, 90, 1);
-	modelStack.Scale(18 + ss.str().size() * 0.7, 5, 1);
-	RenderMesh(meshList[GEO_SHOPMENUBG], false);
-	modelStack.PopMatrix();
-
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 80 - ss.str().size(), 52.5);
-
-
-
-
-	ss.str("");
-	ss << "Energy:";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 53);
-
-	ss.str("");
-	ss << player->getEnergy();
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
-
+	
 	if (cGameManager->bDebug)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(1, 1, 1), 3, 0, 12);
@@ -951,6 +911,96 @@ void SceneCollision::Render()
 	}
 }
 
+void SceneCollision::renderUI()
+{
+	//On screen text
+	std::ostringstream ss;
+
+	//render the player health
+	ss.str("");
+	ss << "Health:";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 57);
+	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_BASE], 12, 58.75, 10, 2);
+	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], 7 + (double)player->GetHealth() / (double)player->GetMaxHealth() * 5.0f, 58.75, (double)player->GetHealth() / (double)player->GetMaxHealth() * 10.0f, 2);
+
+	//render money
+	modelStack.PushMatrix();
+	modelStack.Translate(169, 97, 1);
+	modelStack.Scale(14, 5, 1);
+	RenderMesh(meshList[GEO_SHOPMENUBG], false);
+	modelStack.PopMatrix();
+
+	ss.str("");
+	ss << "$";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 73, 56.7);
+
+	ss.str("");
+	ss << player->getMoney();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 74.5, 56.7);
+
+
+	//render score
+	ss.str("");
+	ss << "Score:" << cGameManager->dPlayerScore;
+	modelStack.PushMatrix();
+	modelStack.Translate(177 - ss.str().size() * 1.2, 90, 1);
+	modelStack.Scale(18 + ss.str().size() * 0.7, 5, 1);
+	RenderMesh(meshList[GEO_SHOPMENUBG], false);
+	modelStack.PopMatrix();
+
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 80 - ss.str().size(), 52.5);
+
+	//render energy
+	ss.str("");
+	ss << "Energy:";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 53);
+
+	ss.str("");
+	ss << player->getEnergy();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
+
+	//add equipped skill code
+	if (player->getEnergy() >= 100)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(26, 90, 1);
+		modelStack.Scale(7, 7, 1);
+		RenderMesh(meshList[GEO_EMP], false);
+		modelStack.PopMatrix();
+	}
+	//if (player->getEnergy() >= 150)
+	//{
+	//	modelStack.PushMatrix();
+	//	modelStack.Translate(26, 90, 1);
+	//	modelStack.Scale(7, 7, 1);
+	//	RenderMesh(meshList[GEO_HACK], false);
+	//	modelStack.PopMatrix();
+	//}
+	//if (player->getEnergy() >= 150)
+	//{
+	//	modelStack.PushMatrix();
+	//	modelStack.Translate(26, 90, 1);
+	//	modelStack.Scale(7, 7, 1);
+	//	RenderMesh(meshList[GEO_HEAL], false);
+	//	modelStack.PopMatrix();
+	//}
+	//if (player->getEnergy() >= 200)
+	//{
+	//	modelStack.PushMatrix();
+	//	modelStack.Translate(26, 90, 1);
+	//	modelStack.Scale(7, 7, 1);
+	//	RenderMesh(meshList[GEO_IMMORTAL], false);
+	//	modelStack.PopMatrix();
+	//}
+	//if (player->getEnergy() >= 80)
+	//{
+	//	modelStack.PushMatrix();
+	//	modelStack.Translate(26, 90, 1);
+	//	modelStack.Scale(7, 7, 1);
+	//	RenderMesh(meshList[GEO_OVERDRIVE], false);
+	//	modelStack.PopMatrix();
+	//}
+}
 void SceneCollision::Exit()
 {
 	SceneBase::Exit();

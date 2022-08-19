@@ -27,6 +27,7 @@ void SceneMenu::Init()
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
 	bLightEnabled = true;
+	cSoundController = CSoundController::GetInstance();
 
 	Math::InitRNG();
 
@@ -38,6 +39,7 @@ void SceneMenu::Update(double dt)
 {
 	SceneBase::Update(dt);
 	
+	cSoundController->PlaySoundByID(8);
 
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
@@ -77,6 +79,7 @@ void SceneMenu::Update(double dt)
 		{
 		case 0:
 			Application::SetState(2);
+			cSoundController->StopPlayByID(8);
 			break;
 		case 1:
 			Application::SetState(4);

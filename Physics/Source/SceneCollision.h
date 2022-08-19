@@ -59,6 +59,7 @@ public:
 	void MakeThickWall(float width, float height, const Vector3& normal, const Vector3& pos, const Vector3& color);
 	GameObject* Checkborder(GameObject* go);
 
+	void renderUI();
 protected:
 
 	//Physics

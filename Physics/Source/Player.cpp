@@ -68,7 +68,7 @@ void Player::Update(double dt, Vector3 mousepos)
 	{
 		movementspeed += dashBoost;
 		blueTimer = 0.7;
-		cSoundController->PlaySoundByID(5);
+		cSoundController->PlaySoundByID(6);
 	}
 	else if(movementspeed > 700)
 	{
