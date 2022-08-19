@@ -1,1 +1,233 @@
-﻿
+﻿  AccurateArrowsMod.cpp
+  Application.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  BetterFuelMod.cpp
+  BoxingGloves.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\BoxingGloves.cpp(7,19): warning C4305: '=': truncation from 'double' to 'float'
+  Bullet.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Bullet.cpp(19,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Camera.cpp
+  Crossbow.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Crossbow.cpp(9,18): warning C4305: '=': truncation from 'double' to 'float'
+  EMPSkill.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Enemy.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Entity.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  ExplosiveBulletsMod.cpp
+  FasterBulletSpeedMod.cpp
+  FasterFiringRateMod.cpp
+  FasterMeleeMod.cpp
+  Fist.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Fist.cpp(9,19): warning C4305: '=': truncation from 'double' to 'float'
+  Flamethrower.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Flamethrower.cpp(9,20): warning C4305: '=': truncation from 'double' to 'float'
+  FryingPan.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\FryingPan.cpp(8,21): warning C4305: '=': truncation from 'double' to 'float'
+  GameManger.cpp
+  GameObject.cpp
+  HackSkill.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+  Compiling...
+  HealSkill.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  HealthPotion.cpp
+  HealthUpgrade.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  ImmortalSkill.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  LoadOBJ.cpp
+  LoadTexture.cpp
+  LoadTGA.cpp
+  main.cpp
+  Melee.cpp
+  MeleeDmgUpgrade.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Mesh.cpp
+  MeshBuilder.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(59,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(119,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(260,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(322,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(366,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(394,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(447,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+  MovementSpeedUpgrade.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  OverdriveSkill.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  PiercingBulletMod.cpp
+  Player.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(66,18): warning C4305: '=': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(85,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(85,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(122,17): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(130,19): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(140,18): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(144,36): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(175,18): warning C4018: '>': signed/unsigned mismatch
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(245,35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(263,22): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(273,11): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Potions.cpp
+  Projectile.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Ranged.cpp
+  RangedDmgUpgrade.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+  Compiling...
+  Rifle.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(8,20): warning C4305: '=': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(9,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(45,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(45,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(52,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(52,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(71,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(75,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(75,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(77,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(77,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  RiflerEnemy.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(45,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(53,25): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(59,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(72,94): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(72,99): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  RubberChicken.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RubberChicken.cpp(8,19): warning C4305: '=': truncation from 'double' to 'float'
+  SceneBase.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(154,76): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(156,88): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(435,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(435,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(436,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(436,19): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  SceneCollision.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(140,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(190,13): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(197,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(198,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(200,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(200,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(360,111): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(383,82): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(383,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(394,90): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(415,37): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(544,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(550,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(725,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(725,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(733,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(733,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(747,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(747,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(755,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(755,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(839,68): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(839,82): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(843,80): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(851,77): warning C4305: 'argument': truncation from 'double' to 'float'
+  SceneMenu.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneMenu.cpp(121,76): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  SceneOptions.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneOptions.cpp(46,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneOptions.cpp(234,76): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  SceneShop.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(73,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(74,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(76,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(76,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(583,67): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(662,68): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(662,82): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(666,80): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(729,71): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(739,71): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(852,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(872,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(892,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(912,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(920,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(920,81): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(955,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(975,71): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(994,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1014,71): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1033,67): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1041,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1041,81): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1189,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1189,81): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1281,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1281,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1345,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1365,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1385,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1405,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1413,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1413,81): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1432,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1452,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1472,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1480,69): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1480,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1552,68): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1572,68): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1580,68): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1580,80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  SelfUpgrades.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  shader.cpp
+  Skill.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  SoundController.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(176,31): warning C4244: 'argument': conversion from 'double' to 'irrklang::ik_f32', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(190,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(204,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(318,29): warning C4018: '<=': signed/unsigned mismatch
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(326,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(329,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(426,24): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  SoundInfo.cpp
+  SpeedPotion.cpp
+  SpriteAnimation.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SpriteAnimation.cpp(72,64): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  StrengthPotion.cpp
+  Sword.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(8,20): warning C4305: '=': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(10,19): warning C4305: '=': truncation from 'double' to 'float'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(32,68): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(32,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(37,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(37,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(43,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(89,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(89,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(95,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(95,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Swordsman.cpp
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(45,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(53,25): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(59,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(78,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(78,96): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(95,45): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  Utility.cpp
+  Weapon.cpp
+  Generating Code...
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(521): warning C4715: 'SceneCollision::CheckCollision': not all control paths return a value
+  Compiling...
+  WeaponModifiers.cpp
+  Generating Code...
+LINK : fatal error LNK1104: cannot open file 'irrKlang.lib'
