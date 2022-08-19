@@ -47,9 +47,28 @@ void SceneCollision::Init()
 	//cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 6, false);
 
 	cInventoryManager = CInventoryManager::GetInstance();
+	//weapons
+	cInventoryItem = cInventoryManager->Add("Fist", 1, 1);
 	cInventoryItem = cInventoryManager->Add("sword", 1, 1);
+	cInventoryItem = cInventoryManager->Add("boxingglove", 1, 0);	
+	cInventoryItem = cInventoryManager->Add("rubberchicken", 1, 0);
+	cInventoryItem = cInventoryManager->Add("fryingpan", 1, 0);
+	
 	cInventoryItem = cInventoryManager->Add("rifle", 1, 1);
+	cInventoryItem = cInventoryManager->Add("flamethrower", 1, 0);
+	cInventoryItem = cInventoryManager->Add("crossbow", 1, 0);
 
+	//potions
+	cInventoryItem = cInventoryManager->Add("healthpotion", 10, 0);
+	cInventoryItem = cInventoryManager->Add("strengthpotion", 10, 0);
+	cInventoryItem = cInventoryManager->Add("speedpotion", 10, 0);
+
+	//skills
+	cInventoryItem = cInventoryManager->Add("emp", 1, 0);
+	cInventoryItem = cInventoryManager->Add("hack", 1, 1);
+	cInventoryItem = cInventoryManager->Add("heal", 1, 0);
+	cInventoryItem = cInventoryManager->Add("immortal", 1, 0);
+	cInventoryItem = cInventoryManager->Add("overdrive", 1, 0);
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;

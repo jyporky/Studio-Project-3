@@ -42,8 +42,8 @@ void SceneShop::Init()
 	bLightEnabled = true;
 
 
+	cInventoryManager = CInventoryManager::GetInstance();
 
-	
 	player = Player::GetInstance();
 	
 	player->getPlayer();
@@ -63,6 +63,21 @@ void SceneShop::Init()
 	weaponType = 'm'; // m -> melee 
 	playerUpgradeType = 'u'; //u -> upgrade
 	weaponUpgradePage = 1;
+
+	empBought = false;
+	hackBought = false;
+	healBought = false;
+	immortalBought = false;
+	overdriveBought = false;
+
+	swordBought = false;
+	boxingGloveBought = false;
+	rubberchickenBought = false;
+	panBought = false;
+	
+	rifleBought = false;
+	flamethrowerBought = false;
+	crossbowBought = false;
 }
 
 
@@ -119,7 +134,14 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
-			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+			if (playerUpgradeType == 'u')
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+			}
+			else if (playerUpgradeType == 's')
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
+			}
 			inShop = true;
 			ShopMenu1 = true;
 		}
@@ -129,8 +151,15 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
+			if (weaponType == 'm')
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+			}
+			else if (weaponType == 'r')
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
+			}
 			inShop = true;
-			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
 			ShopMenu2 = true;
 		}
 	}
@@ -139,7 +168,14 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
-			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+			if (weaponUpgradePage == 1)
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+			}
+			else if (weaponUpgradePage == 2)
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
+			}
 
 			inShop = true;
 			ShopMenu3 = true;
@@ -170,7 +206,7 @@ void SceneShop::Update(double dt)
 		ShopMenu3 = false;
 		ShopMenu4 = false;
 	}
-
+	std::cout << player->GetMaxHealth() << std::endl;
 	//parts dealer to switch between upgrades and skills
 	if (ShopMenu1 == true)
 	{
@@ -234,7 +270,7 @@ void SceneShop::Update(double dt)
 					{
 						player->changeMoney(-healthupgrade->getMoneyCost());
 						healthupgrade->receiveUpgrade();
-						player->SetMaxHealth(5);
+						
 					}
 					break;
 				case 2:
@@ -299,18 +335,53 @@ void SceneShop::Update(double dt)
 				{
 				case 0:
 					//buy emp
+					if ((player->getMoney() >= emp->getMoneyCost()) && (empBought == false))
+					{
+						player->changeMoney(-emp->getMoneyCost());
+						empBought = true;
+						cInventoryItem = cInventoryManager->GetItem("emp");
+						cInventoryItem->Add(1);
+					}
 					break;
 				case 1:
 					//buy hack
+					if ((player->getMoney() >= hack->getMoneyCost()) && (hackBought == false))
+					{
+						player->changeMoney(-hack->getMoneyCost());
+						hackBought = true;
+						cInventoryItem = cInventoryManager->GetItem("hack");
+						cInventoryItem->Add(1);
+					}
 					break;
 				case 2:
 					//buy heal
+					if ((player->getMoney() >= heal->getMoneyCost()) && (healBought == false))
+					{
+						player->changeMoney(-heal->getMoneyCost());
+						healBought = true;
+						cInventoryItem = cInventoryManager->GetItem("heal");
+						cInventoryItem->Add(1);
+					}
 					break;
 				case 3:
 					//buy immortal
+					if ((player->getMoney() >= immortal->getMoneyCost()) && (immortalBought == false))
+					{
+						player->changeMoney(-immortal->getMoneyCost());
+						immortalBought = true;
+						cInventoryItem = cInventoryManager->GetItem("immortal");
+						cInventoryItem->Add(1);
+					}
 					break;
 				case 4:
 					//buy overdrive
+					if ((player->getMoney() >= overdrive->getMoneyCost()) && (overdriveBought == false))
+					{
+						player->changeMoney(-overdrive->getMoneyCost());
+						overdriveBought = true;
+						cInventoryItem = cInventoryManager->GetItem("overdrive");
+						cInventoryItem->Add(1);
+					}
 					break;
 				}
 			}
@@ -372,15 +443,43 @@ void SceneShop::Update(double dt)
 				{
 				case 0:
 					//buy sword
+					/*if ((player->getMoney() >= sword->GetCost()) && (swordBought == false))
+					{
+						player->changeMoney(-sword->GetCost());
+						swordBought = true;
+						cInventoryItem = cInventoryManager->GetItem("sword");
+						cInventoryItem->Add(1);
+					}*/
 					break;
 				case 1:
 					//buy boxing glove
+					if ((player->getMoney() >= boxingGlove->GetCost()) && (boxingGloveBought == false))
+					{
+						player->changeMoney(-boxingGlove->GetCost());
+						boxingGloveBought = true;
+						cInventoryItem = cInventoryManager->GetItem("boxingglove");
+						cInventoryItem->Add(1);
+					}
 					break;
 				case 2:
 					//buy chicken
+					if ((player->getMoney() >= rubberchicken->GetCost()) && (rubberchickenBought == false))
+					{
+						player->changeMoney(-rubberchicken->GetCost());
+						rubberchickenBought = true;
+						cInventoryItem = cInventoryManager->GetItem("rubberchicken");
+						cInventoryItem->Add(1);
+					}
 					break;
 				case 3:
 					//buy frying pan
+					if ((player->getMoney() >= pan->GetCost()) && (panBought == false))
+					{
+						player->changeMoney(-pan->GetCost());
+						panBought = true;
+						cInventoryItem = cInventoryManager->GetItem("fryingpan");
+						cInventoryItem->Add(1);
+					}
 					break;
 				}
 			}
@@ -426,12 +525,33 @@ void SceneShop::Update(double dt)
 				{
 				case 0:
 					//buy rifle
+					/*if ((player->getMoney() >= rifle->GetCost()) && (rifleBought == false))
+					{
+						player->changeMoney(-rifle->GetCost());
+						rifleBought = true;
+						cInventoryItem = cInventoryManager->GetItem("rifle");
+						cInventoryItem->Add(1);
+					}*/
 					break;
 				case 1:
 					//buy flamethrower
+					if ((player->getMoney() >= flamethrower->GetCost()) && (flamethrowerBought == false))
+					{
+						player->changeMoney(-flamethrower->GetCost());
+						flamethrowerBought = true;
+						cInventoryItem = cInventoryManager->GetItem("flamethrower");
+						cInventoryItem->Add(1);
+					}
 					break;
 				case 2:
 					//buy crossbow
+					if ((player->getMoney() >= crossbow->GetCost()) && (crossbowBought == false))
+					{
+						player->changeMoney(-crossbow->GetCost());
+						crossbowBought = true;
+						cInventoryItem = cInventoryManager->GetItem("crossbow");
+						cInventoryItem->Add(1);
+					}
 					break;
 				}
 			}

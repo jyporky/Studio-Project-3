@@ -5,7 +5,7 @@
 #include <vector>
 #include "SceneBase.h"
 #include "SoundController.h"
-
+#include "InventoryManager.h"
 #include "Player.h"
 
 #include "Potions.h"
@@ -85,6 +85,10 @@ protected:
 
 	unsigned shopbuttonhighlight = 0;
 
+	//inventory
+	CInventoryManager* cInventoryManager;
+	CInventoryItem* cInventoryItem;
+
 	//potions
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
@@ -100,12 +104,27 @@ protected:
 	Weapon* flamethrower = new Flamethrower();
 	Weapon* crossbow = new Crossbow();
 
+	bool swordBought;
+	bool boxingGloveBought;
+	bool rubberchickenBought;
+	bool panBought;
+
+	bool rifleBought;
+	bool flamethrowerBought;
+	bool crossbowBought;
+
 	//skills
 	Skill* emp = new EMP();
 	Skill* hack = new Hack();
 	Skill* heal = new Heal();
 	Skill* immortal = new Immortal();
 	Skill* overdrive = new Overdrive();
+
+	bool empBought;
+	bool hackBought;
+	bool healBought;
+	bool immortalBought;
+	bool overdriveBought;
 
 	//self upgrades
 	SelfUpgrades* movementspeedupgrade = new MovementSpeedUpgrade();

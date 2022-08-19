@@ -199,7 +199,8 @@ unsigned Player::GetMaxHealth()
 
 void Player::SetMaxHealth(unsigned changedMaxHealth)
 {
-	maxHealth += changedMaxHealth;
+	maxHealth = changedMaxHealth;
+	health = maxHealth;
 }
 
 void Player::SetWeapon(Weapon* weapon)

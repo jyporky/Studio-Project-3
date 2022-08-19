@@ -6,7 +6,6 @@ RangedDmgUpgrade::~RangedDmgUpgrade() {
 
 }
 void RangedDmgUpgrade::receiveUpgrade() {
-	//player->rangeddamage + 5;
 	noOfTimesUpgraded++;
 }
 std::string RangedDmgUpgrade::getDescription() {

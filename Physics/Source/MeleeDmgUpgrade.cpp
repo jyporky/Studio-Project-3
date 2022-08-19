@@ -6,7 +6,6 @@ MeleeDmgUpgrade::~MeleeDmgUpgrade() {
 
 }
 void MeleeDmgUpgrade::receiveUpgrade() {
-	//player->meleedamage + 5
 	noOfTimesUpgraded++;
 }
 std::string MeleeDmgUpgrade::getDescription() {
