@@ -17,6 +17,7 @@ Rifler::Rifler()
     attackRange = 50;
     attackSpeed = 1.5;
     isSpawningBullet = false;
+    iFrameTimer = 0;
 }
 
 Rifler::~Rifler()
@@ -35,6 +36,11 @@ bool Rifler::IsSpawningBullet() {
 bool Rifler::Update(double dt)
 {
     isSpawningBullet = false;
+
+    if (iFrameTimer > 0)
+    {
+        iFrameTimer -= dt;
+    }
     //check if the enemy is dead
     if (health <= 0)
         return true;

@@ -19,6 +19,8 @@
 #include "Rifle.h"
 #include "RiflerEnemy.h"
 #include "Rifle.h"
+#include "FlameParticle.h"
+#include "Flamethrower.h"
 
 #include "Skill.h"
 #include "HackSkill.h"
@@ -68,6 +70,7 @@ protected:
 	std::vector<Bullet*> m_ebulletList;
 	std::vector<Bullet*> m_pbulletList;
 	std::vector<Weapon*> m_weaponList;
+	std::vector<FlameParticle*> m_FlameParticle;
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;

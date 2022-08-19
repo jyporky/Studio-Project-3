@@ -16,6 +16,7 @@ Swordsman::Swordsman()
     sCurrState = CHASE;
     attackRange = 12;
     attackSpeed = 1.5;
+    iFrameTimer = 0;
 }
 
 Swordsman::~Swordsman()
@@ -31,16 +32,20 @@ Swordsman::~Swordsman()
 
 bool Swordsman::Update(double dt)
 {
+    if (iFrameTimer > 0)
+    {
+        iFrameTimer -= dt;
+    }
     //check if the enemy is dead
     if (health <= 0)
     {
+        cSoundController->StopPlayByID(4);
         cSoundController->PlaySoundByID(4);
         return true;
     }
 
     if (redTimer > 0)
     {
-        cSoundController->PlaySoundByID(3);
         gameobject->color.Set(1, 0, 0);
         redTimer -= dt;
     }

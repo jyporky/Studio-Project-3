@@ -27,6 +27,7 @@ protected:
 	bool turned;
 	bool isSpawningBullet;
 	int health;
+	double iFrameTimer;
 	float redTimer;
 	float greenTimer;
 	float attackdt;

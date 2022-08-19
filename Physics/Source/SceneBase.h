@@ -51,6 +51,7 @@ public:
 		GEO_CUBE,
 
 		GEO_BULLET,
+		GEO_FLAME,
 		GEO_SHOPMENUBG,
 		GEO_SANDBG,
 

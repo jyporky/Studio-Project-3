@@ -68,7 +68,9 @@ void Player::Update(double dt, Vector3 mousepos)
 	{
 		movementspeed += dashBoost;
 		blueTimer = 0.7;
+		cSoundController->StopPlayByID(6);
 		cSoundController->PlaySoundByID(6);
+
 	}
 	else if(movementspeed > 700)
 	{
@@ -155,7 +157,7 @@ void Player::Update(double dt, Vector3 mousepos)
 
 bool Player::ChangeHealth(int ChangeAmount)
 {
-	bool godmode = false;
+	bool godmode = true;
 	if (godmode)
 		return false;
 	if (ChangeAmount > 0 && health != maxHealth)
@@ -163,6 +165,7 @@ bool Player::ChangeHealth(int ChangeAmount)
 	else if (ChangeAmount < 0)
 	{
 		redTimer = 0.5;
+		cSoundController->StopPlayByID(1);
 		cSoundController->PlaySoundByID(1);
 	}
 

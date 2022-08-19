@@ -182,6 +182,9 @@ void SceneBase::Init()
 	meshList[GEO_BULLET] = MeshBuilder::GenerateQuad("bullet", Color(1, 1, 1));
 	meshList[GEO_BULLET]->textureID = LoadTGA("Image//bullet.tga");
 
+	meshList[GEO_FLAME] = MeshBuilder::GenerateQuad("flame", Color(1, 1, 1));
+	meshList[GEO_FLAME]->textureID = LoadTGA("Image//FlameParticle.tga");
+
 	//weapons
 	meshList[GEO_SWORDL] = MeshBuilder::GenerateQuad("sword", Color(1, 1, 1));
 	meshList[GEO_SWORDL]->textureID = LoadTGA("Image//swordleft.tga");	
