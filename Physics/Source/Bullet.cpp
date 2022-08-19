@@ -17,6 +17,7 @@ bool Bullet::Update(double dt)
 {
 	//move the bullet 
 	gameobject->pos += (direction * bulletspeed * dt);
+	gameobject->vel = direction;
 	return false;
 }
 
@@ -27,4 +28,14 @@ void Bullet::SetBullet(float bulletspeed, unsigned damage, bool pen, float range
 	penetrationValue = pen;
 	this->range = range;
 	this->direction = direction;
+}
+
+unsigned Bullet::GetDamage()
+{
+	return damage;
+}
+
+bool Bullet::GetPenetrationValue()
+{
+	return penetrationValue;
 }

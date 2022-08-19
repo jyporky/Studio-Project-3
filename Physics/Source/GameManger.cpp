@@ -5,8 +5,9 @@ GameManger::GameManger()
 	bGameWin = false;
 	bWaveClear = false;
 	bPlayerLost = false;
-	dDebug = false;
+	bDebug = false;
 	dWaveNo = 1;
+	dPlayerScore = 1000;
 }
 
 GameManger::~GameManger()

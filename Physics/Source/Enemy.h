@@ -20,6 +20,8 @@ public:
 	void SetGO(GameObject* newGameObject);
 	virtual bool IsSpawningBullet();
 	virtual bool ChangeHealth(int changeInHealth);
+	virtual unsigned GetMoneyDrop();
+	virtual unsigned GetEnergyDrop();
 protected:
 	static std::vector<Entity*> m_enemyList;
 	bool turned;

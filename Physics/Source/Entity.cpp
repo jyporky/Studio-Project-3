@@ -8,6 +8,11 @@ Entity::Entity()
 
 Entity::~Entity()
 {
+	if (CurrWeapon)
+	{
+		delete CurrWeapon;
+		CurrWeapon = nullptr;
+	}
 }
 
 bool Entity::Update(double dt)
@@ -47,4 +52,14 @@ bool Entity::IsSpawningBullet()
 void Entity::SetWeapon(Weapon* weapon)
 {
 	CurrWeapon = weapon;
+}
+
+unsigned Entity::GetMoneyDrop()
+{
+	return 0;
+}
+
+unsigned Entity::GetEnergyDrop()
+{
+	return 0;
 }

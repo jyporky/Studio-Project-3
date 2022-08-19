@@ -16,11 +16,10 @@ public:
     ~Rifler();
     bool Update(double dt);
     void Init();
-    void SetWeapon(Weapon* weapon);
-    Weapon* GetWeapon();
-
+    bool IsSpawningBullet();
 
 private:
+    bool isSpawningBullet;
     unsigned sCurrState;
     unsigned attackRange;
 };
