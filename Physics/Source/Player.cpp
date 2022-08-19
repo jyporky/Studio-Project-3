@@ -157,7 +157,7 @@ void Player::Update(double dt, Vector3 mousepos)
 
 bool Player::ChangeHealth(int ChangeAmount)
 {
-	bool godmode = true;
+	bool godmode = false;
 	if (godmode)
 		return false;
 	if (ChangeAmount > 0 && health != maxHealth)

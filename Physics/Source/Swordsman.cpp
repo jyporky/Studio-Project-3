@@ -39,8 +39,6 @@ bool Swordsman::Update(double dt)
     //check if the enemy is dead
     if (health <= 0)
     {
-        cSoundController->StopPlayByID(4);
-        cSoundController->PlaySoundByID(4);
         return true;
     }
 

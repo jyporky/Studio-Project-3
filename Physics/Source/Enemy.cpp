@@ -76,6 +76,8 @@ bool Enemy::ChangeHealth(int changeInHealth)
     health += changeInHealth;
     if (health <= 0)
     {
+        cSoundController->StopPlayByID(4);
+        cSoundController->PlaySoundByID(4);
         return true;
     }
     return false;
