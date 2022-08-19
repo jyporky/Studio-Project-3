@@ -110,6 +110,7 @@ bool Sword::attack()
 	{
 		attackdt = 0;
 		Animate = true;
+		cSoundController->StopPlayByID(2);
 		cSoundController->PlaySoundByID(2);
 		return true;
 	}

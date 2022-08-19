@@ -17,6 +17,8 @@ struct GameObject
 		GO_SWORD,
 		GO_SWORDSMAN,
 		GO_BULLET,
+		GO_FLAME,
+		GO_FLAMETHROWER,
 		GO_RIFLER,
 		GO_RIFLE,
 		GO_TOTAL, //must be last

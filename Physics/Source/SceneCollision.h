@@ -19,6 +19,8 @@
 #include "Rifle.h"
 #include "RiflerEnemy.h"
 #include "Rifle.h"
+#include "FlameParticle.h"
+#include "Flamethrower.h"
 
 #include "Skill.h"
 #include "HackSkill.h"
@@ -60,6 +62,7 @@ public:
 	void MakeThickWall(float width, float height, const Vector3& normal, const Vector3& pos, const Vector3& color);
 	GameObject* Checkborder(GameObject* go);
 
+	void renderUI();
 protected:
 
 	//Physics
@@ -68,6 +71,7 @@ protected:
 	std::vector<Bullet*> m_ebulletList;
 	std::vector<Bullet*> m_pbulletList;
 	std::vector<Weapon*> m_weaponList;
+	std::vector<FlameParticle*> m_FlameParticle;
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;

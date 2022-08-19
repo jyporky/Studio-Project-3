@@ -14,3 +14,13 @@ Crossbow::Crossbow() {
 Crossbow::~Crossbow() {
 
 }
+
+bool Crossbow::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO)
+{
+	return false;
+}
+
+bool Crossbow::attack()
+{
+	return false;
+}

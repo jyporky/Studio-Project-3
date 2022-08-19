@@ -66,6 +66,7 @@ public:
 	void renderShopMenu2(); //weapon dealer
 	void renderShopMenu3(); //blacksmith
 	void renderShopMenu4(); //alchemist
+	void renderUI();
 
 protected:
 	Player* player;
@@ -89,6 +90,10 @@ protected:
 	//inventory
 	CInventoryManager * cInventoryManager;
 	CInventoryItem* cInventoryItem;
+
+	//sound
+	CSoundController* cSoundController;
+	// Handler to GameManager
 	GameManger* cGameManager;
 
 	//potions
@@ -142,6 +147,14 @@ protected:
 	WeaponMods* betterFuelMod = new BetterFuelMod();
 	WeaponMods* accurateArrowsMod = new AccurateArrowsMod();
 	WeaponMods* fasterMeleeMod = new FasterMeleeMod();
+
+	bool pierceBought;
+	bool fastfireBought;
+	bool fastbulletBought;
+	bool explosiveBought;
+	bool betterfuelBought;
+	bool accuratearrowsBought;
+	bool fastmeleeBought;
 };
 
 #endif

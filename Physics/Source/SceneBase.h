@@ -51,6 +51,7 @@ public:
 		GEO_CUBE,
 
 		GEO_BULLET,
+		GEO_FLAME,
 		GEO_SHOPMENUBG,
 		GEO_SANDBG,
 
@@ -134,7 +135,7 @@ protected:
 	unsigned m_parameters[U_TOTAL];
 
 	Camera camera;
-
+	Vector3 color;
 	MS modelStack;
 	MS viewStack;
 	MS projectionStack;
