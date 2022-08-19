@@ -112,7 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration);$(SolutionDir)\glew\lib;$(SolutionDir)\glfw\lib-vc2019;$(SolutionDir)\FreeImage;$(SolutionDir)\SOIL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration);$(SolutionDir)\glew\lib;$(SolutionDir)\glfw\lib-vc2019;$(SolutionDir)\FreeImage;$(SolutionDir)\SOIL\lib;$(SolutionDir)\irrKlang\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -178,6 +178,8 @@
     <ClCompile Include="Source\HealthPotion.cpp" />
     <ClCompile Include="Source\HealthUpgrade.cpp" />
     <ClCompile Include="Source\ImmortalSkill.cpp" />
+    <ClCompile Include="Source\InventoryItem.cpp" />
+    <ClCompile Include="Source\InventoryManager.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTexture.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
@@ -241,6 +243,8 @@
     <ClInclude Include="Source\HealthPotion.h" />
     <ClInclude Include="Source\HealthUpgrade.h" />
     <ClInclude Include="Source\ImmortalSkill.h" />
+    <ClInclude Include="Source\InventoryItem.h" />
+    <ClInclude Include="Source\InventoryManager.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTexture.h" />

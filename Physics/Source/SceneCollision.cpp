@@ -43,8 +43,13 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyHurt.ogg"), 3, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\enemyDeath.ogg"), 4, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\shoot.ogg"), 5, false);
-	cSoundController->LoadSound(FileSystem::getPath("Sound\\playerDash.ogg"), 5, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\playerDash.ogg"), 6, false);
 	//cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 6, false);
+
+	cInventoryManager = CInventoryManager::GetInstance();
+	cInventoryItem = cInventoryManager->Add("sword", 1, 1);
+	cInventoryItem = cInventoryManager->Add("rifle", 1, 1);
+
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
@@ -56,19 +61,34 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	player->SetWeapon(new Rifle());
-	GameObject* weapon = FetchGO();
-	weapon->type = GameObject::GO_RIFLE;
-	weapon->pos.SetZero();
-	weapon->vel.SetZero();
-	weapon->scale.Set(8, 3, 1);
-	weapon->angle = 0;
-	weapon->color.Set(1, 1, 1);
-	weapon->leftwep = false;
-	player->GetWeapon()->SetGameObject(weapon);
+
+	Rifle* rifle = new Rifle();
+	player->SetWeapon(rifle);
+	GameObject* weapon1 = FetchGO();
+	weapon1->type = GameObject::GO_RIFLE;
+	weapon1->pos.SetZero();
+	weapon1->vel.SetZero();
+	weapon1->scale.Set(8, 3, 1);
+	weapon1->angle = 0;
+	weapon1->color.Set(1, 1, 1);
+	weapon1->leftwep = false;
+	player->GetWeapon()->SetGameObject(weapon1);
+	player->SwapWeapon();
+
+	Sword* sword = new Sword();
+	player->SetWeapon(sword);
+	GameObject* weapon2 = FetchGO();
+	weapon2->type = GameObject::GO_SWORD;
+	weapon2->pos.SetZero();
+	weapon2->vel.SetZero();
+	weapon2->scale.Set(10, 10, 1);
+	weapon2->angle = 0;
+	weapon2->color.Set(1, 1, 1);
+	weapon2->leftwep = false;
+	player->GetWeapon()->SetGameObject(weapon2);
+
 
 	cGameManager = GameManger::GetInstance();
-
 	//spawn one enemy
 	Enemy* enemy = new Swordsman();
 	enemy->Init();
@@ -256,35 +276,38 @@ void SceneCollision::Update(double dt)
 	static bool switch_weapon = false;
 	if (Application::IsMousePressed(1) && !switch_weapon)
 	{
-		if (player->GetWeapon()->IsMelee)
-		{
-			ReturnGO(player->GetWeapon()->GetGameObject());
-			player->SetWeapon(new Rifle());
-			GameObject* weapon = FetchGO();
-			weapon->type = GameObject::GO_RIFLE;
-			weapon->pos.SetZero();
-			weapon->vel.SetZero();
-			weapon->scale.Set(8, 3, 1);
-			weapon->angle = 0;
-			weapon->color.Set(1, 1, 1);
-			weapon->leftwep = false;
-			player->GetWeapon()->SetGameObject(weapon);
-		}
+		player->GetWeapon()->GetGameObject()->active = false;
+		player->SwapWeapon();
+		player->GetWeapon()->GetGameObject()->active = true;
+		//if (player->GetWeapon()->IsMelee)
+		//{
+		//	ReturnGO(player->GetWeapon()->GetGameObject());
+		//	player->SetWeapon(new Rifle());
+		//	GameObject* weapon = FetchGO();
+		//	weapon->type = GameObject::GO_RIFLE;
+		//	weapon->pos.SetZero();
+		//	weapon->vel.SetZero();
+		//	weapon->scale.Set(8, 3, 1);
+		//	weapon->angle = 0;
+		//	weapon->color.Set(1, 1, 1);
+		//	weapon->leftwep = false;
+		//	player->GetWeapon()->SetGameObject(weapon);
+		//}
 
-		else
-		{
-			ReturnGO(player->GetWeapon()->GetGameObject());
-			player->SetWeapon(new Sword());
-			GameObject* weapon = FetchGO();
-			weapon->type = GameObject::GO_SWORD;
-			weapon->pos.SetZero();
-			weapon->vel.SetZero();
-			weapon->scale.Set(10, 10, 1);
-			weapon->angle = 0;
-			weapon->color.Set(1, 1, 1);
-			weapon->leftwep = false;
-			player->GetWeapon()->SetGameObject(weapon);
-		}
+		//else
+		//{
+		//	ReturnGO(player->GetWeapon()->GetGameObject());
+		//	player->SetWeapon(new Sword());
+		//	GameObject* weapon = FetchGO();
+		//	weapon->type = GameObject::GO_SWORD;
+		//	weapon->pos.SetZero();
+		//	weapon->vel.SetZero();
+		//	weapon->scale.Set(10, 10, 1);
+		//	weapon->angle = 0;
+		//	weapon->color.Set(1, 1, 1);
+		//	weapon->leftwep = false;
+		//	player->GetWeapon()->SetGameObject(weapon);
+		//}
 		switch_weapon = true;
 	}
 
@@ -292,35 +315,35 @@ void SceneCollision::Update(double dt)
 		switch_weapon = false;
 
 	//Spawn enemy
-	if (timer > 1)
-	{
-		//spawn one enemy
-		Enemy* enemy = new Swordsman();
-		enemy->Init();
-		GameObject* enemyGO = FetchGO();
-		enemyGO->type = GameObject::GO_SWORDSMAN;
-		enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
-		enemyGO->vel.SetZero();
-		enemyGO->scale.Set(10, 10, 1);
-		enemyGO->color.Set(1, 1, 1);
-		enemyGO->angle = 0;
-		enemy->SetWeapon(new Sword());
-		enemy->SetGameObject(enemyGO);
-		m_enemyList.push_back(enemy);
+	//if (timer > 1)
+	//{
+	//	//spawn one enemy
+	//	Enemy* enemy = new Swordsman();
+	//	enemy->Init();
+	//	GameObject* enemyGO = FetchGO();
+	//	enemyGO->type = GameObject::GO_SWORDSMAN;
+	//	enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
+	//	enemyGO->vel.SetZero();
+	//	enemyGO->scale.Set(10, 10, 1);
+	//	enemyGO->color.Set(1, 1, 1);
+	//	enemyGO->angle = 0;
+	//	enemy->SetWeapon(new Sword());
+	//	enemy->SetGameObject(enemyGO);
+	//	m_enemyList.push_back(enemy);
 
 
-		GameObject* ewep = FetchGO();
-		ewep->type = GameObject::GO_SWORD;
-		ewep->vel.SetZero();
-		ewep->scale.Set(10, 10, 1);
-		ewep->pos = enemyGO->pos;
-		ewep->color.Set(1, 1, 1);
-		ewep->angle = 0;
-		ewep->active = true;
-		ewep->leftwep = false;
-		enemy->GetWeapon()->SetGameObject(ewep);
-		timer = 0;
-	}
+	//	GameObject* ewep = FetchGO();
+	//	ewep->type = GameObject::GO_SWORD;
+	//	ewep->vel.SetZero();
+	//	ewep->scale.Set(10, 10, 1);
+	//	ewep->pos = enemyGO->pos;
+	//	ewep->color.Set(1, 1, 1);
+	//	ewep->angle = 0;
+	//	ewep->active = true;
+	//	ewep->leftwep = false;
+	//	enemy->GetWeapon()->SetGameObject(ewep);
+	//	timer = 0;
+	//}
 
 	static bool ubutton;
 	bool dealdamage = false;

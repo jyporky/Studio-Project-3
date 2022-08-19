@@ -30,6 +30,7 @@ public:
 	void changeMoney(float moneyChange);
 	int getEnergy();
 	void changeEnergy(float energyChange);
+	void SwapWeapon();
 
 private:
 	std::vector<Entity*> m_enemyList;

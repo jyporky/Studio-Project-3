@@ -1,233 +1,228 @@
-﻿  AccurateArrowsMod.cpp
-  Application.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  BetterFuelMod.cpp
-  BoxingGloves.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\BoxingGloves.cpp(7,19): warning C4305: '=': truncation from 'double' to 'float'
-  Bullet.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Bullet.cpp(19,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Camera.cpp
-  Crossbow.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Crossbow.cpp(9,18): warning C4305: '=': truncation from 'double' to 'float'
-  EMPSkill.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Enemy.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Entity.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  ExplosiveBulletsMod.cpp
-  FasterBulletSpeedMod.cpp
-  FasterFiringRateMod.cpp
-  FasterMeleeMod.cpp
-  Fist.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Fist.cpp(9,19): warning C4305: '=': truncation from 'double' to 'float'
-  Flamethrower.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Flamethrower.cpp(9,20): warning C4305: '=': truncation from 'double' to 'float'
-  FryingPan.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\FryingPan.cpp(8,21): warning C4305: '=': truncation from 'double' to 'float'
-  GameManger.cpp
-  GameObject.cpp
-  HackSkill.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Generating Code...
-  Compiling...
-  HealSkill.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  HealthPotion.cpp
-  HealthUpgrade.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  ImmortalSkill.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  LoadOBJ.cpp
-  LoadTexture.cpp
-  LoadTGA.cpp
-  main.cpp
-  Melee.cpp
-  MeleeDmgUpgrade.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Mesh.cpp
-  MeshBuilder.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(59,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(119,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(260,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(322,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(366,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(394,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\MeshBuilder.cpp(447,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-  MovementSpeedUpgrade.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  OverdriveSkill.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  PiercingBulletMod.cpp
-  Player.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(66,18): warning C4305: '=': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(85,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(85,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(122,17): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(130,19): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(140,18): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(144,36): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(175,18): warning C4018: '>': signed/unsigned mismatch
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(245,35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(263,22): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Player.cpp(273,11): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Potions.cpp
-  Projectile.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Ranged.cpp
-  RangedDmgUpgrade.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Generating Code...
-  Compiling...
-  Rifle.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(8,20): warning C4305: '=': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(9,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(45,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(45,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(52,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(52,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(71,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(75,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(75,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(77,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Rifle.cpp(77,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  RiflerEnemy.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(45,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(53,25): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(59,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(72,94): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RiflerEnemy.cpp(72,99): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  RubberChicken.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\RubberChicken.cpp(8,19): warning C4305: '=': truncation from 'double' to 'float'
-  SceneBase.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(154,76): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(156,88): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(435,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(435,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(436,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneBase.cpp(436,19): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  SceneCollision.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(140,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(190,13): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(197,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(198,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(200,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(200,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(360,111): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(383,82): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(383,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(394,90): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(415,37): warning C4146: unary minus operator applied to unsigned type, result still unsigned
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(544,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(550,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(725,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(725,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(733,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(733,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(747,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(747,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(755,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(755,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(839,68): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(839,82): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(843,80): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(851,77): warning C4305: 'argument': truncation from 'double' to 'float'
-  SceneMenu.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneMenu.cpp(121,76): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  SceneOptions.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneOptions.cpp(46,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneOptions.cpp(234,76): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  SceneShop.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(73,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(74,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(76,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(76,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(583,67): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(662,68): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(662,82): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(666,80): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(729,71): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(739,71): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(852,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(872,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(892,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(912,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(920,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(920,81): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(955,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(975,71): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(994,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1014,71): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1033,67): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1041,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1041,81): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1189,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1189,81): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1281,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1281,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1345,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1365,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1385,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1405,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1413,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1413,81): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1432,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1452,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1472,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1480,69): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1480,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1552,68): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1572,68): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1580,68): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneShop.cpp(1580,80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  SelfUpgrades.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  shader.cpp
-  Skill.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  SoundController.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(176,31): warning C4244: 'argument': conversion from 'double' to 'irrklang::ik_f32', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(190,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(204,14): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(318,29): warning C4018: '<=': signed/unsigned mismatch
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(326,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(329,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SoundController.cpp(426,24): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  SoundInfo.cpp
-  SpeedPotion.cpp
-  SpriteAnimation.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SpriteAnimation.cpp(72,64): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  StrengthPotion.cpp
-  Sword.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(8,20): warning C4305: '=': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(10,19): warning C4305: '=': truncation from 'double' to 'float'
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(32,68): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(32,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(37,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(37,41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(43,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(89,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(89,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(95,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Sword.cpp(95,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Swordsman.cpp
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(45,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(53,25): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(59,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(78,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(78,96): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\Swordsman.cpp(95,45): warning C4146: unary minus operator applied to unsigned type, result still unsigned
-  Utility.cpp
-  Weapon.cpp
-  Generating Code...
-D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\Physics\Source\SceneCollision.cpp(521): warning C4715: 'SceneCollision::CheckCollision': not all control paths return a value
-  Compiling...
-  WeaponModifiers.cpp
-  Generating Code...
-LINK : fatal error LNK1104: cannot open file 'irrKlang.lib'
+﻿Application.obj : error LNK2019: unresolved external symbol "public: __cdecl StopWatch::StopWatch(void)" (??0StopWatch@@QEAA@XZ) referenced in function "private: __cdecl Application::Application(void)" (??0Application@@AEAA@XZ)
+Application.obj : error LNK2019: unresolved external symbol "public: __cdecl StopWatch::~StopWatch(void)" (??1StopWatch@@QEAA@XZ) referenced in function "private: __cdecl Application::~Application(void)" (??1Application@@AEAA@XZ)
+Application.obj : error LNK2019: unresolved external symbol "public: void __cdecl StopWatch::startTimer(void)" (?startTimer@StopWatch@@QEAAXXZ) referenced in function "public: void __cdecl Application::Run(void)" (?Run@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol "public: double __cdecl StopWatch::getElapsedTime(void)" (?getElapsedTime@StopWatch@@QEAANXZ) referenced in function "public: void __cdecl Application::Run(void)" (?Run@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol "public: void __cdecl StopWatch::waitUntil(__int64)" (?waitUntil@StopWatch@@QEAAX_J@Z) referenced in function "public: void __cdecl Application::Run(void)" (?Run@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol __imp_glViewport referenced in function "void __cdecl resize_callback(struct GLFWwindow *,int,int)" (?resize_callback@@YAXPEAUGLFWwindow@@HH@Z)
+Application.obj : error LNK2019: unresolved external symbol __imp_glewInit referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol __imp_glewGetErrorString referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwInit referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwTerminate referenced in function "public: void __cdecl Application::Exit(void)" (?Exit@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwSetErrorCallback referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwWindowHint referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwDestroyWindow referenced in function "public: void __cdecl Application::Exit(void)" (?Exit@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwWindowShouldClose referenced in function "public: void __cdecl Application::Run(void)" (?Run@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwSetWindowSizeCallback referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwPollEvents referenced in function "public: void __cdecl Application::Run(void)" (?Run@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwGetMouseButton referenced in function "public: static bool __cdecl Application::IsMousePressed(unsigned short)" (?IsMousePressed@Application@@SA_NG@Z)
+Application.obj : error LNK2019: unresolved external symbol glfwGetCursorPos referenced in function "public: static void __cdecl Application::GetCursorPos(double *,double *)" (?GetCursorPos@Application@@SAXPEAN0@Z)
+Application.obj : error LNK2019: unresolved external symbol glfwMakeContextCurrent referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol glfwSwapBuffers referenced in function "public: void __cdecl Application::Run(void)" (?Run@Application@@QEAAXXZ)
+Application.obj : error LNK2019: unresolved external symbol __imp_glewExperimental referenced in function "public: void __cdecl Application::Init(void)" (?Init@Application@@QEAAXXZ)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+SceneBase.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+Sword.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+MeshBuilder.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+Player.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+Rifle.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+RiflerEnemy.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+Bullet.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+Camera.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+GameObject.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+LoadOBJ.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(float,float,float)" (??0Vector3@@QEAA@MMM@Z)
+Weapon.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+SceneOptions.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+Sword.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+RiflerEnemy.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+SceneBase.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+SceneMenu.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+Melee.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+MeshBuilder.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+Player.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+Rifle.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+Bullet.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+Camera.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+GameObject.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+LoadOBJ.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::~Vector3(void)" (??1Vector3@@QEAA@XZ)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::SetZero(void)" (?SetZero@Vector3@@QEAAXXZ)
+Bullet.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::SetZero(void)" (?SetZero@Vector3@@QEAAXXZ)
+GameObject.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::SetZero(void)" (?SetZero@Vector3@@QEAAXXZ)
+Player.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::SetZero(void)" (?SetZero@Vector3@@QEAAXXZ)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::SetZero(void)" (?SetZero@Vector3@@QEAAXXZ)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator+=(struct Vector3 const &)" (??YVector3@@QEAAAEAU0@AEBU0@@Z)
+Sword.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator+=(struct Vector3 const &)" (??YVector3@@QEAAAEAU0@AEBU0@@Z)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator+=(struct Vector3 const &)" (??YVector3@@QEAAAEAU0@AEBU0@@Z)
+Bullet.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator+=(struct Vector3 const &)" (??YVector3@@QEAAAEAU0@AEBU0@@Z)
+Player.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator+=(struct Vector3 const &)" (??YVector3@@QEAAAEAU0@AEBU0@@Z)
+Rifle.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator+=(struct Vector3 const &)" (??YVector3@@QEAAAEAU0@AEBU0@@Z)
+RiflerEnemy.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator+=(struct Vector3 const &)" (??YVector3@@QEAAAEAU0@AEBU0@@Z)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator*(float)const " (??DVector3@@QEBA?AU0@M@Z)
+Bullet.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator*(float)const " (??DVector3@@QEBA?AU0@M@Z)
+Player.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator*(float)const " (??DVector3@@QEBA?AU0@M@Z)
+RiflerEnemy.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator*(float)const " (??DVector3@@QEBA?AU0@M@Z)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator*(float)const " (??DVector3@@QEBA?AU0@M@Z)
+Rifle.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator=(struct Vector3 const &)" (??4Vector3@@QEAAAEAU0@AEBU0@@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator=(struct Vector3 const &)" (??4Vector3@@QEAAAEAU0@AEBU0@@Z)
+Sword.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator=(struct Vector3 const &)" (??4Vector3@@QEAAAEAU0@AEBU0@@Z)
+Bullet.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator=(struct Vector3 const &)" (??4Vector3@@QEAAAEAU0@AEBU0@@Z)
+Camera.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator=(struct Vector3 const &)" (??4Vector3@@QEAAAEAU0@AEBU0@@Z)
+MeshBuilder.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator=(struct Vector3 const &)" (??4Vector3@@QEAAAEAU0@AEBU0@@Z)
+Player.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::operator=(struct Vector3 const &)" (??4Vector3@@QEAAAEAU0@AEBU0@@Z)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+Player.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+RiflerEnemy.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+SceneBase.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+Camera.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+GameObject.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+LoadOBJ.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+MeshBuilder.obj : error LNK2001: unresolved external symbol "public: void __cdecl Vector3::Set(float,float,float)" (?Set@Vector3@@QEAAXMMM@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(struct Vector3 const &)" (??0Vector3@@QEAA@AEBU0@@Z)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(struct Vector3 const &)" (??0Vector3@@QEAA@AEBU0@@Z)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(struct Vector3 const &)" (??0Vector3@@QEAA@AEBU0@@Z)
+LoadOBJ.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(struct Vector3 const &)" (??0Vector3@@QEAA@AEBU0@@Z)
+MeshBuilder.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(struct Vector3 const &)" (??0Vector3@@QEAA@AEBU0@@Z)
+Player.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(struct Vector3 const &)" (??0Vector3@@QEAA@AEBU0@@Z)
+RiflerEnemy.obj : error LNK2001: unresolved external symbol "public: __cdecl Vector3::Vector3(struct Vector3 const &)" (??0Vector3@@QEAA@AEBU0@@Z)
+LoadTexture.obj : error LNK2019: unresolved external symbol __imp_glBindTexture referenced in function "unsigned int __cdecl LoadTexture(char const *,bool)" (?LoadTexture@@YAIPEBD_N@Z)
+LoadTGA.obj : error LNK2001: unresolved external symbol __imp_glBindTexture
+SceneBase.obj : error LNK2001: unresolved external symbol __imp_glBindTexture
+LoadTexture.obj : error LNK2019: unresolved external symbol __imp_glGenTextures referenced in function "unsigned int __cdecl LoadTexture(char const *,bool)" (?LoadTexture@@YAIPEBD_N@Z)
+LoadTGA.obj : error LNK2001: unresolved external symbol __imp_glGenTextures
+LoadTexture.obj : error LNK2019: unresolved external symbol __imp_glPixelStorei referenced in function "unsigned int __cdecl LoadTexture(char const *,bool)" (?LoadTexture@@YAIPEBD_N@Z)
+LoadTexture.obj : error LNK2019: unresolved external symbol __imp_glTexImage2D referenced in function "unsigned int __cdecl LoadTexture(char const *,bool)" (?LoadTexture@@YAIPEBD_N@Z)
+LoadTGA.obj : error LNK2001: unresolved external symbol __imp_glTexImage2D
+LoadTexture.obj : error LNK2019: unresolved external symbol __imp_glTexParameteri referenced in function "unsigned int __cdecl LoadTexture(char const *,bool)" (?LoadTexture@@YAIPEBD_N@Z)
+LoadTGA.obj : error LNK2001: unresolved external symbol __imp_glTexParameteri
+LoadTexture.obj : error LNK2019: unresolved external symbol __imp___glewGenerateMipmap referenced in function "unsigned int __cdecl LoadTexture(char const *,bool)" (?LoadTexture@@YAIPEBD_N@Z)
+LoadTGA.obj : error LNK2001: unresolved external symbol __imp___glewGenerateMipmap
+LoadTGA.obj : error LNK2019: unresolved external symbol __imp_glGetFloatv referenced in function "unsigned int __cdecl LoadTGA(char const *)" (?LoadTGA@@YAIPEBD@Z)
+Mesh.obj : error LNK2019: unresolved external symbol __imp_glDeleteTextures referenced in function "public: __cdecl Mesh::~Mesh(void)" (??1Mesh@@QEAA@XZ)
+Mesh.obj : error LNK2019: unresolved external symbol __imp_glDrawElements referenced in function "public: void __cdecl Mesh::Render(unsigned int,unsigned int)" (?Render@Mesh@@QEAAXII@Z)
+SpriteAnimation.obj : error LNK2001: unresolved external symbol __imp_glDrawElements
+Mesh.obj : error LNK2019: unresolved external symbol __imp___glewBindBuffer referenced in function "public: void __cdecl Mesh::Render(unsigned int,unsigned int)" (?Render@Mesh@@QEAAXII@Z)
+MeshBuilder.obj : error LNK2001: unresolved external symbol __imp___glewBindBuffer
+SpriteAnimation.obj : error LNK2001: unresolved external symbol __imp___glewBindBuffer
+Mesh.obj : error LNK2019: unresolved external symbol __imp___glewDeleteBuffers referenced in function "public: __cdecl Mesh::~Mesh(void)" (??1Mesh@@QEAA@XZ)
+Mesh.obj : error LNK2019: unresolved external symbol __imp___glewGenBuffers referenced in function "public: __cdecl Mesh::Mesh(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0Mesh@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Mesh.obj : error LNK2019: unresolved external symbol __imp___glewDisableVertexAttribArray referenced in function "public: void __cdecl Mesh::Render(unsigned int,unsigned int)" (?Render@Mesh@@QEAAXII@Z)
+SpriteAnimation.obj : error LNK2001: unresolved external symbol __imp___glewDisableVertexAttribArray
+Mesh.obj : error LNK2019: unresolved external symbol __imp___glewEnableVertexAttribArray referenced in function "public: void __cdecl Mesh::Render(unsigned int,unsigned int)" (?Render@Mesh@@QEAAXII@Z)
+SpriteAnimation.obj : error LNK2001: unresolved external symbol __imp___glewEnableVertexAttribArray
+Mesh.obj : error LNK2019: unresolved external symbol __imp___glewVertexAttribPointer referenced in function "public: void __cdecl Mesh::Render(unsigned int,unsigned int)" (?Render@Mesh@@QEAAXII@Z)
+SpriteAnimation.obj : error LNK2001: unresolved external symbol __imp___glewVertexAttribPointer
+SceneShop.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::Normalize(void)" (?Normalize@Vector3@@QEAAAEAU1@XZ)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::Normalize(void)" (?Normalize@Vector3@@QEAAAEAU1@XZ)
+MeshBuilder.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::Normalize(void)" (?Normalize@Vector3@@QEAAAEAU1@XZ)
+Player.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::Normalize(void)" (?Normalize@Vector3@@QEAAAEAU1@XZ)
+RiflerEnemy.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::Normalize(void)" (?Normalize@Vector3@@QEAAAEAU1@XZ)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: struct Vector3 & __cdecl Vector3::Normalize(void)" (?Normalize@Vector3@@QEAAAEAU1@XZ)
+MeshBuilder.obj : error LNK2019: unresolved external symbol __imp___glewBufferData referenced in function "public: static class Mesh * __cdecl MeshBuilder::GenerateAxes(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,float,float,float)" (?GenerateAxes@MeshBuilder@@SAPEAVMesh@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@MMM@Z)
+Sword.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(struct Vector3 const &)const " (??GVector3@@QEBA?AU0@AEBU0@@Z)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(struct Vector3 const &)const " (??GVector3@@QEBA?AU0@AEBU0@@Z)
+Player.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(struct Vector3 const &)const " (??GVector3@@QEBA?AU0@AEBU0@@Z)
+Rifle.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(struct Vector3 const &)const " (??GVector3@@QEBA?AU0@AEBU0@@Z)
+RiflerEnemy.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(struct Vector3 const &)const " (??GVector3@@QEBA?AU0@AEBU0@@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(struct Vector3 const &)const " (??GVector3@@QEBA?AU0@AEBU0@@Z)
+Player.obj : error LNK2019: unresolved external symbol "public: float __cdecl Vector3::Distance(struct Vector3 const &)const " (?Distance@Vector3@@QEBAMAEBU1@@Z) referenced in function "public: void __cdecl Player::Attack(struct Vector3)" (?Attack@Player@@QEAAXUVector3@@@Z)
+Player.obj : error LNK2019: unresolved external symbol "public: float __cdecl Vector3::DistanceSquared(struct Vector3 const &)const " (?DistanceSquared@Vector3@@QEBAMAEBU1@@Z) referenced in function "public: void __cdecl Player::Attack(struct Vector3)" (?Attack@Player@@QEAAXUVector3@@@Z)
+Player.obj : error LNK2019: unresolved external symbol "public: float __cdecl Vector3::Dot(struct Vector3 const &)const " (?Dot@Vector3@@QEBAMAEBU1@@Z) referenced in function "public: void __cdecl Player::Attack(struct Vector3)" (?Attack@Player@@QEAAXUVector3@@@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: float __cdecl Vector3::Dot(struct Vector3 const &)const " (?Dot@Vector3@@QEBAMAEBU1@@Z)
+Rifle.obj : error LNK2019: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(void)const " (??GVector3@@QEBA?AU0@XZ) referenced in function "public: virtual bool __cdecl Rifle::Update(double,struct Vector3,struct Vector3,struct GameObject *)" (?Update@Rifle@@UEAA_NNUVector3@@0PEAUGameObject@@@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(void)const " (??GVector3@@QEBA?AU0@XZ)
+Sword.obj : error LNK2001: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator-(void)const " (??GVector3@@QEBA?AU0@XZ)
+RiflerEnemy.obj : error LNK2019: unresolved external symbol "public: float __cdecl Vector3::LengthSquared(void)const " (?LengthSquared@Vector3@@QEBAMXZ) referenced in function "public: virtual bool __cdecl Rifler::Update(double)" (?Update@Rifler@@UEAA_NN@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: float __cdecl Vector3::LengthSquared(void)const " (?LengthSquared@Vector3@@QEBAMXZ)
+Swordsman.obj : error LNK2001: unresolved external symbol "public: float __cdecl Vector3::LengthSquared(void)const " (?LengthSquared@Vector3@@QEBAMXZ)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: __cdecl Mtx44::Mtx44(float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float)" (??0Mtx44@@QEAA@MMMMMMMMMMMMMMMM@Z)
+SceneBase.obj : error LNK2001: unresolved external symbol "public: __cdecl Mtx44::Mtx44(float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float)" (??0Mtx44@@QEAA@MMMMMMMMMMMMMMMM@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: __cdecl Mtx44::Mtx44(float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float)" (??0Mtx44@@QEAA@MMMMMMMMMMMMMMMM@Z)
+SceneMenu.obj : error LNK2001: unresolved external symbol "public: __cdecl Mtx44::Mtx44(float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float)" (??0Mtx44@@QEAA@MMMMMMMMMMMMMMMM@Z)
+SceneOptions.obj : error LNK2001: unresolved external symbol "public: __cdecl Mtx44::Mtx44(float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float)" (??0Mtx44@@QEAA@MMMMMMMMMMMMMMMM@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: class Mtx44 __cdecl Mtx44::GetTranspose(void)const " (?GetTranspose@Mtx44@@QEBA?AV1@XZ) referenced in function "public: void __cdecl SceneBase::RenderMesh(class Mesh *,bool)" (?RenderMesh@SceneBase@@QEAAXPEAVMesh@@_N@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: class Mtx44 __cdecl Mtx44::GetInverse(void)const " (?GetInverse@Mtx44@@QEBA?AV1@XZ) referenced in function "public: void __cdecl SceneBase::RenderMesh(class Mesh *,bool)" (?RenderMesh@SceneBase@@QEAAXPEAVMesh@@_N@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: class Mtx44 __cdecl Mtx44::operator*(class Mtx44 const &)const " (??DMtx44@@QEBA?AV0@AEBV0@@Z) referenced in function "public: void __cdecl SceneBase::RenderMesh(class Mesh *,bool)" (?RenderMesh@SceneBase@@QEAAXPEAVMesh@@_N@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: class Mtx44 & __cdecl Mtx44::operator=(class Mtx44 const &)" (??4Mtx44@@QEAAAEAV0@AEBV0@@Z) referenced in function "public: void __cdecl SceneBase::RenderMesh(class Mesh *,bool)" (?RenderMesh@SceneBase@@QEAAXPEAVMesh@@_N@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: void __cdecl Mtx44::SetToTranslation(float,float,float)" (?SetToTranslation@Mtx44@@QEAAXMMM@Z) referenced in function "public: void __cdecl SceneBase::RenderText(class Mesh *,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,struct Color)" (?RenderText@SceneBase@@QEAAXPEAVMesh@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@UColor@@@Z)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl Mtx44::SetToOrtho(double,double,double,double,double,double)" (?SetToOrtho@Mtx44@@QEAAXNNNNNN@Z)
+SceneBase.obj : error LNK2001: unresolved external symbol "public: void __cdecl Mtx44::SetToOrtho(double,double,double,double,double,double)" (?SetToOrtho@Mtx44@@QEAAXNNNNNN@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl Mtx44::SetToOrtho(double,double,double,double,double,double)" (?SetToOrtho@Mtx44@@QEAAXNNNNNN@Z)
+SceneMenu.obj : error LNK2001: unresolved external symbol "public: void __cdecl Mtx44::SetToOrtho(double,double,double,double,double,double)" (?SetToOrtho@Mtx44@@QEAAXNNNNNN@Z)
+SceneOptions.obj : error LNK2001: unresolved external symbol "public: void __cdecl Mtx44::SetToOrtho(double,double,double,double,double,double)" (?SetToOrtho@Mtx44@@QEAAXNNNNNN@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: __cdecl MS::MS(void)" (??0MS@@QEAA@XZ) referenced in function "public: __cdecl SceneBase::SceneBase(void)" (??0SceneBase@@QEAA@XZ)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: __cdecl MS::~MS(void)" (??1MS@@QEAA@XZ) referenced in function "int `public: __cdecl SceneBase::SceneBase(void)'::`1'::dtor$2" (?dtor$2@?0???0SceneBase@@QEAA@XZ@4HA)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: class Mtx44 const & __cdecl MS::Top(void)const " (?Top@MS@@QEBAAEBVMtx44@@XZ) referenced in function "public: void __cdecl SceneBase::RenderMesh(class Mesh *,bool)" (?RenderMesh@SceneBase@@QEAAXPEAVMesh@@_N@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: void __cdecl MS::PopMatrix(void)" (?PopMatrix@MS@@QEAAXXZ) referenced in function "public: void __cdecl SceneBase::RenderMeshOnScreen(class Mesh *,double,double,double,double)" (?RenderMeshOnScreen@SceneBase@@QEAAXPEAVMesh@@NNNN@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::PopMatrix(void)" (?PopMatrix@MS@@QEAAXXZ)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::PopMatrix(void)" (?PopMatrix@MS@@QEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: void __cdecl MS::PushMatrix(void)" (?PushMatrix@MS@@QEAAXXZ) referenced in function "public: void __cdecl SceneBase::RenderMeshOnScreen(class Mesh *,double,double,double,double)" (?RenderMeshOnScreen@SceneBase@@QEAAXPEAVMesh@@NNNN@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::PushMatrix(void)" (?PushMatrix@MS@@QEAAXXZ)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::PushMatrix(void)" (?PushMatrix@MS@@QEAAXXZ)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadIdentity(void)" (?LoadIdentity@MS@@QEAAXXZ)
+SceneBase.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadIdentity(void)" (?LoadIdentity@MS@@QEAAXXZ)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadIdentity(void)" (?LoadIdentity@MS@@QEAAXXZ)
+SceneMenu.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadIdentity(void)" (?LoadIdentity@MS@@QEAAXXZ)
+SceneOptions.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadIdentity(void)" (?LoadIdentity@MS@@QEAAXXZ)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadMatrix(class Mtx44 const &)" (?LoadMatrix@MS@@QEAAXAEBVMtx44@@@Z)
+SceneBase.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadMatrix(class Mtx44 const &)" (?LoadMatrix@MS@@QEAAXAEBVMtx44@@@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadMatrix(class Mtx44 const &)" (?LoadMatrix@MS@@QEAAXAEBVMtx44@@@Z)
+SceneMenu.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadMatrix(class Mtx44 const &)" (?LoadMatrix@MS@@QEAAXAEBVMtx44@@@Z)
+SceneOptions.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LoadMatrix(class Mtx44 const &)" (?LoadMatrix@MS@@QEAAXAEBVMtx44@@@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: void __cdecl MS::Scale(float,float,float)" (?Scale@MS@@QEAAXMMM@Z) referenced in function "public: void __cdecl SceneBase::RenderMeshOnScreen(class Mesh *,double,double,double,double)" (?RenderMeshOnScreen@SceneBase@@QEAAXPEAVMesh@@NNNN@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::Scale(float,float,float)" (?Scale@MS@@QEAAXMMM@Z)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::Scale(float,float,float)" (?Scale@MS@@QEAAXMMM@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol "public: void __cdecl MS::Translate(float,float,float)" (?Translate@MS@@QEAAXMMM@Z) referenced in function "public: void __cdecl SceneBase::RenderMeshOnScreen(class Mesh *,double,double,double,double)" (?RenderMeshOnScreen@SceneBase@@QEAAXPEAVMesh@@NNNN@Z)
+SceneCollision.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::Translate(float,float,float)" (?Translate@MS@@QEAAXMMM@Z)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::Translate(float,float,float)" (?Translate@MS@@QEAAXMMM@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp_glBlendFunc referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneShop.obj : error LNK2001: unresolved external symbol __imp_glClear
+SceneBase.obj : error LNK2001: unresolved external symbol __imp_glClear
+SceneCollision.obj : error LNK2001: unresolved external symbol __imp_glClear
+SceneMenu.obj : error LNK2001: unresolved external symbol __imp_glClear
+SceneOptions.obj : error LNK2001: unresolved external symbol __imp_glClear
+SceneBase.obj : error LNK2019: unresolved external symbol __imp_glClearColor referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp_glDepthFunc referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp_glDisable referenced in function "public: void __cdecl SceneBase::RenderMesh(class Mesh *,bool)" (?RenderMesh@SceneBase@@QEAAXPEAVMesh@@_N@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp_glEnable referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp_glPolygonMode referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewActiveTexture referenced in function "public: void __cdecl SceneBase::RenderMesh(class Mesh *,bool)" (?RenderMesh@SceneBase@@QEAAXPEAVMesh@@_N@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewDeleteProgram referenced in function "public: virtual void __cdecl SceneBase::Exit(void)" (?Exit@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewGetUniformLocation referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewUniform1f referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewUniform1i referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewUniform3fv referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewUniformMatrix4fv referenced in function "public: void __cdecl SceneBase::RenderMesh(class Mesh *,bool)" (?RenderMesh@SceneBase@@QEAAXPEAVMesh@@_N@Z)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewUseProgram referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewBindVertexArray referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewDeleteVertexArrays referenced in function "public: virtual void __cdecl SceneBase::Exit(void)" (?Exit@SceneBase@@UEAAXXZ)
+SceneBase.obj : error LNK2019: unresolved external symbol __imp___glewGenVertexArrays referenced in function "public: virtual void __cdecl SceneBase::Init(void)" (?Init@SceneBase@@UEAAXXZ)
+SceneCollision.obj : error LNK2019: unresolved external symbol "public: struct Vector3 __cdecl Vector3::operator+(struct Vector3 const &)const " (??HVector3@@QEBA?AU0@AEBU0@@Z) referenced in function "public: void __cdecl SceneCollision::MakeThickWall(float,float,struct Vector3 const &,struct Vector3 const &,struct Vector3 const &)" (?MakeThickWall@SceneCollision@@QEAAXMMAEBUVector3@@00@Z)
+SceneCollision.obj : error LNK2019: unresolved external symbol "struct Vector3 __cdecl operator*(float,struct Vector3 const &)" (??D@YA?AUVector3@@MAEBU0@@Z) referenced in function "public: void __cdecl SceneCollision::CollisionResponse(struct GameObject *,struct GameObject *)" (?CollisionResponse@SceneCollision@@QEAAXPEAUGameObject@@0@Z)
+SceneCollision.obj : error LNK2019: unresolved external symbol "public: void __cdecl MS::Rotate(float,float,float,float)" (?Rotate@MS@@QEAAXMMMM@Z) referenced in function "public: void __cdecl SceneCollision::RenderGO(struct GameObject *)" (?RenderGO@SceneCollision@@QEAAXPEAUGameObject@@@Z)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::Rotate(float,float,float,float)" (?Rotate@MS@@QEAAXMMMM@Z)
+SceneCollision.obj : error LNK2019: unresolved external symbol "public: void __cdecl MS::LookAt(double,double,double,double,double,double,double,double,double)" (?LookAt@MS@@QEAAXNNNNNNNNN@Z) referenced in function "public: virtual void __cdecl SceneCollision::Render(void)" (?Render@SceneCollision@@UEAAXXZ)
+SceneMenu.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LookAt(double,double,double,double,double,double,double,double,double)" (?LookAt@MS@@QEAAXNNNNNNNNN@Z)
+SceneOptions.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LookAt(double,double,double,double,double,double,double,double,double)" (?LookAt@MS@@QEAAXNNNNNNNNN@Z)
+SceneShop.obj : error LNK2001: unresolved external symbol "public: void __cdecl MS::LookAt(double,double,double,double,double,double,double,double,double)" (?LookAt@MS@@QEAAXNNNNNNNNN@Z)
+SceneCollision.obj : error LNK2019: unresolved external symbol "protected: __cdecl CSettings::CSettings(void)" (??0CSettings@@IEAA@XZ) referenced in function "public: static class CSettings * __cdecl CSingletonTemplate<class CSettings>::GetInstance(void)" (?GetInstance@?$CSingletonTemplate@VCSettings@@@@SAPEAVCSettings@@XZ)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewAttachShader referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewCompileShader referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewCreateProgram referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewCreateShader referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewDeleteShader referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewGetProgramInfoLog referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewGetProgramiv referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewGetShaderInfoLog referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewGetShaderiv referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewLinkProgram referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+shader.obj : error LNK2019: unresolved external symbol __imp___glewShaderSource referenced in function "unsigned int __cdecl LoadShaders(char const *,char const *)" (?LoadShaders@@YAIPEBD0@Z)
+SoundController.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) class irrklang::ISoundEngine * __cdecl irrklang::createIrrKlangDevice(enum irrklang::E_SOUND_OUTPUT_DRIVER,int,char const *,char const *)" (__imp_?createIrrKlangDevice@irrklang@@YAPEAVISoundEngine@1@W4E_SOUND_OUTPUT_DRIVER@1@HPEBD1@Z) referenced in function "public: bool __cdecl CSoundController::Init(void)" (?Init@CSoundController@@QEAA_NXZ)
+Sword.obj : error LNK2019: unresolved external symbol "public: bool __cdecl Vector3::operator==(struct Vector3 const &)const " (??8Vector3@@QEBA_NAEBU0@@Z) referenced in function "public: virtual bool __cdecl Sword::Update(double,struct Vector3,struct Vector3,struct GameObject *)" (?Update@Sword@@UEAA_NNUVector3@@0PEAUGameObject@@@Z)
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\\irrKlang\lib\irrKlang.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+D:\Visual Studio\C++ Projects\Sp3\Studio-Project-3\x64\Debug\Physics.exe : fatal error LNK1120: 105 unresolved externals

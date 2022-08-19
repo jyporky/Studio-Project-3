@@ -4,6 +4,7 @@ Entity::Entity()
 {
 	gameobject = nullptr;
 	CurrWeapon = nullptr;
+	SideWeapon = nullptr;
 }
 
 Entity::~Entity()
@@ -12,6 +13,12 @@ Entity::~Entity()
 	{
 		delete CurrWeapon;
 		CurrWeapon = nullptr;
+	}
+
+	if (SideWeapon)
+	{
+		delete SideWeapon;
+		SideWeapon = nullptr;
 	}
 }
 
