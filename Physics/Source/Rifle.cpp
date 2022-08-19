@@ -84,7 +84,6 @@ bool Rifle::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 	}
 
 	gameobject->pos = userGO->pos;
-
 	gameobject->pos += offset;
 
 
