@@ -43,8 +43,8 @@ public:
 		FLAMETHROWER,
 	};
 	bool Animate;
-protected:
 	unsigned WeaponType;
+protected:
 	int cost;
 	float damage;
 	float range;

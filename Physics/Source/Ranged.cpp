@@ -28,3 +28,13 @@ void Ranged::SetBulletSpeed(float bs)
 {
 	bullet_speed = bs;
 }
+
+bool Ranged::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO)
+{
+	return false;
+}
+
+bool Ranged::attack()
+{
+	return false;
+}

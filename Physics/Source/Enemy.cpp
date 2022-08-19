@@ -18,6 +18,7 @@ Enemy::Enemy()
     gameobject = nullptr;
     PlayerPointer = nullptr;
     attackSpeed = 0;
+    iFrameTimer = 0;
     greenTimer = 0;
     isSpawningBullet = false;
 }
@@ -29,6 +30,7 @@ Enemy::~Enemy()
 
 bool Enemy::Update(double dt)
 {
+
     return false;
 }
 
@@ -59,7 +61,15 @@ bool Enemy::IsSpawningBullet()
 bool Enemy::ChangeHealth(int changeInHealth)
 {
     if (changeInHealth < 0)
+    {
+        if (iFrameTimer > 0)
+        {
+            return false;
+        }
+        cSoundController->PlaySoundByID(3);
         redTimer = 0.5;
+        iFrameTimer = 0.15;
+    }
     else if (changeInHealth > 0)
         greenTimer = 0.5;
 

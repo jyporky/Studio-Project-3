@@ -194,6 +194,9 @@
     <ClCompile Include="Source\FasterMeleeMod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FlameParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source\InventoryItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -392,6 +395,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\FasterMeleeMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FlameParticle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\InventoryManager.h">

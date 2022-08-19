@@ -17,7 +17,12 @@ bool Bullet::Update(double dt)
 {
 	//move the bullet 
 	gameobject->pos += (direction * bulletspeed * dt);
+	distanceTravelled += (direction * bulletspeed * dt).Length();
 	gameobject->vel = direction;
+	if (distanceTravelled > range)
+	{
+		return true;
+	}
 	return false;
 }
 
