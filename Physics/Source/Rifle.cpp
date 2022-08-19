@@ -87,7 +87,6 @@ bool Rifle::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameO
 	gameobject->pos += offset;
 
 
-	attackdt += dt;
 	return false;
 }
 
