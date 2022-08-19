@@ -360,7 +360,7 @@ void SceneCollision::Update(double dt)
 			bulletgo->color.Set(1, 1, 1);
 			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
 			bullet->SetGameObject(bulletgo);
-			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage(), m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer.Normalize());
+			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage() + player->rangeDmgBoost, m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer.Normalize());
 			m_ebulletList.push_back(bullet);
 		}
 		//if (dealdamage)
@@ -477,7 +477,7 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 	case GameObject::GO_PILLAR:
 	case GameObject::GO_BALL:
 	case GameObject::GO_BULLET:
-		{
+	{
 		Vector3 relativeVel = go1->vel - go2->vel;
 		Vector3 disDiff = go2->pos - go1->pos;
 

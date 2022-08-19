@@ -14,6 +14,17 @@ SceneShop::~SceneShop()
 	
 }
 
+
+float Clamp2(float value, float minvalue, float maxvalue)
+{
+	if (value > maxvalue)
+		return maxvalue;
+	else if (value < minvalue)
+		return minvalue;
+	else
+		return value;
+}
+
 static Vector3 RotateVector(const Vector3& vec, float radian)
 {
 	return Vector3(vec.x * cos(radian) + vec.y * -sin(radian),
@@ -108,7 +119,7 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
-			shopbuttonhighlight = 0;
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
 			inShop = true;
 			ShopMenu1 = true;
 		}
@@ -119,7 +130,7 @@ void SceneShop::Update(double dt)
 		if (Application::IsKeyPressed('E'))
 		{
 			inShop = true;
-			shopbuttonhighlight = 0;
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
 			ShopMenu2 = true;
 		}
 	}
@@ -128,7 +139,8 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
-			shopbuttonhighlight = 0;
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+
 			inShop = true;
 			ShopMenu3 = true;
 		}
@@ -138,7 +150,8 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
-			shopbuttonhighlight = 0;
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
+
 			inShop = true;
 			ShopMenu4 = true;
 		}
@@ -157,8 +170,6 @@ void SceneShop::Update(double dt)
 		ShopMenu3 = false;
 		ShopMenu4 = false;
 	}
-
-
 
 	//parts dealer to switch between upgrades and skills
 	if (ShopMenu1 == true)
@@ -210,15 +221,39 @@ void SceneShop::Update(double dt)
 				{
 				case 0:
 					//buy speed
+					if ((player->getMoney() >= movementspeedupgrade->getMoneyCost()) && (movementspeedupgrade->getUpgradeLevel() < 3))
+					{
+						player->changeMoney(-movementspeedupgrade->getMoneyCost());
+						movementspeedupgrade->receiveUpgrade();
+						player->changeMovementSpeed(10);
+					}
 					break;
 				case 1:
 					//buy health
+					if ((player->getMoney() >= healthupgrade->getMoneyCost()) && (healthupgrade->getUpgradeLevel() < 6))
+					{
+						player->changeMoney(-healthupgrade->getMoneyCost());
+						healthupgrade->receiveUpgrade();
+						player->SetMaxHealth(5);
+					}
 					break;
 				case 2:
 					//buy melee up
+					if ((player->getMoney() >= meleedmgupgrade->getMoneyCost()) && (meleedmgupgrade->getUpgradeLevel() < 5))
+					{
+						player->changeMoney(-meleedmgupgrade->getMoneyCost());
+						meleedmgupgrade->receiveUpgrade();
+						player->meleeDmgBoost += 2;
+					}
 					break;
 				case 3:
 					//buy ranged up
+					if ((player->getMoney() >= rangeddmgupgrade->getMoneyCost()) && (rangeddmgupgrade->getUpgradeLevel() < 5))
+					{
+						player->changeMoney(-rangeddmgupgrade->getMoneyCost());
+						rangeddmgupgrade->receiveUpgrade();
+						player->rangeDmgBoost += 2;
+					}
 					break;
 				}
 			}
@@ -913,6 +948,7 @@ void SceneShop::renderShopMenu1()
 		ss.str("");
 		ss << rangeddmgupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 13);
+
 
 		//selctor
 		ss.str("");

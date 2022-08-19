@@ -18,7 +18,7 @@ public:
 	void SetEnemyVector(std::vector<Entity*> m_enemyList);
 	unsigned GetHealth();
 	unsigned GetMaxHealth();
-	void SetMaxHealth(unsigned newMaxHealth);
+	void SetMaxHealth(unsigned changedMaxHealth);
 	void SetWeapon(Weapon* weapon);
 	void Attack(Vector3 mousepos);
 	virtual bool IsSpawningBullet();
@@ -30,6 +30,10 @@ public:
 	void changeMoney(float moneyChange);
 	int getEnergy();
 	void changeEnergy(float energyChange);
+	void changeMovementSpeed(float change);
+
+	int meleeDmgBoost;
+	int rangeDmgBoost;
 
 private:
 	std::vector<Entity*> m_enemyList;
@@ -38,6 +42,7 @@ private:
 	bool isSpawningBullet;
 	int health;
 	unsigned movementspeed;
+	unsigned dashBoost; // increase of movement speed due to dash
 	unsigned maxHealth;
 	float redTimer;
 	float greenTimer;
@@ -46,5 +51,6 @@ private:
 	CSoundController* cSoundController;
 	int money;
 	int energy;
+
 };
 

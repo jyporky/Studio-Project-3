@@ -1,6 +1,6 @@
 #include "RangedDmgUpgrade.h"
 RangedDmgUpgrade::RangedDmgUpgrade() {
-	noOfTimesUpgraded = 1;
+	noOfTimesUpgraded = 0;
 }
 RangedDmgUpgrade::~RangedDmgUpgrade() {
 
@@ -10,7 +10,7 @@ void RangedDmgUpgrade::receiveUpgrade() {
 	noOfTimesUpgraded++;
 }
 std::string RangedDmgUpgrade::getDescription() {
-	return "Increase ranged weapon damage by 1";
+	return "Increase ranged weapon damage by 2";
 }
 int RangedDmgUpgrade::getMoneyCost() {
 	return 75 +(25 * noOfTimesUpgraded);

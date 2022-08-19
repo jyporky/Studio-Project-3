@@ -1,6 +1,6 @@
 #include "HealthUpgrade.h"
 HealthUpgrade::HealthUpgrade() {
-	noOfTimesUpgraded = 1;
+	noOfTimesUpgraded = 0;
 }
 HealthUpgrade::~HealthUpgrade() {
 
@@ -10,7 +10,7 @@ void HealthUpgrade::receiveUpgrade() {
 	noOfTimesUpgraded++;
 }
 std::string HealthUpgrade::getDescription() {
-	return "Increases max health by 3";
+	return "Increases max health by 5";
 }
 int HealthUpgrade::getMoneyCost() {
 	return 50 + (25 * noOfTimesUpgraded);

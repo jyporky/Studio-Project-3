@@ -1,5 +1,6 @@
 #pragma once
 #include "Melee.h"
+
 class Sword : public Melee
 {
 public:
@@ -8,4 +9,5 @@ public:
 	virtual bool Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO);
 	virtual bool attack();
 private:
+
 };

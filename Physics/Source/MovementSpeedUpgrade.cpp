@@ -1,6 +1,6 @@
 #include "MovementSpeedUpgrade.h"
 MovementSpeedUpgrade::MovementSpeedUpgrade() {
-	noOfTimesUpgraded = 1;
+	noOfTimesUpgraded = 0;
 }
 MovementSpeedUpgrade::~MovementSpeedUpgrade() {
 
@@ -10,7 +10,7 @@ void MovementSpeedUpgrade::receiveUpgrade() {
 	noOfTimesUpgraded++;
 }
 std::string MovementSpeedUpgrade::getDescription() {
-	return "Increases movement speed by 1";
+	return "Increases movement speed by 10";
 }
 int MovementSpeedUpgrade::getMoneyCost() {
 	return 30 + (20 * noOfTimesUpgraded);

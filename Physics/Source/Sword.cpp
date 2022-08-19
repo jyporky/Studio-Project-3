@@ -17,7 +17,7 @@ Sword::Sword()
 
 Sword::~Sword()
 {
-
+	
 }
 
 bool Sword::Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO)

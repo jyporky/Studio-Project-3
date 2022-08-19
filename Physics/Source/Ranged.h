@@ -1,5 +1,6 @@
 #pragma once
 #include "Weapon.h"
+#include "Player.h"
 class Ranged : public Weapon
 {
 public:
@@ -13,4 +14,5 @@ public:
 protected:
 	bool piercing;
 	float bullet_speed;
+	Player* player;
 };

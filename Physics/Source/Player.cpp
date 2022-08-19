@@ -12,10 +12,14 @@ Player::Player()
 	cGameManager = GameManger::GetInstance();
 	cSoundController = CSoundController::GetInstance();
 	movementspeed = 40;
+	dashBoost = 700;
 	iFrame = false;
-	money = 100;
+	money = 2000;
 	energy = 0;
 	isSpawningBullet = false;
+
+	meleeDmgBoost = 0;
+	rangeDmgBoost = 0;
 }
 
 Player::~Player()
@@ -62,14 +66,13 @@ void Player::Update(double dt, Vector3 mousepos)
 	//dashing
 	if ((Application::IsKeyPressed(' ')) && (blueTimer <= 0))
 	{
-		movementspeed = 700;
+		movementspeed += dashBoost;
 		blueTimer = 0.7;
 		cSoundController->PlaySoundByID(5);
-
 	}
-	else
+	else if(movementspeed > 700)
 	{
-		movementspeed = 40;
+		movementspeed -= dashBoost;
 	}
 
 	if (movementDirection.x > 0)
@@ -194,9 +197,9 @@ unsigned Player::GetMaxHealth()
 	return maxHealth;
 }
 
-void Player::SetMaxHealth(unsigned newMaxHealth)
+void Player::SetMaxHealth(unsigned changedMaxHealth)
 {
-	maxHealth = newMaxHealth;
+	maxHealth += changedMaxHealth;
 }
 
 void Player::SetWeapon(Weapon* weapon)
@@ -242,7 +245,7 @@ void Player::Attack(Vector3 mousepos)
 			if (dotproduct > CurrWeapon->GetAttackAngle() * 0.5f)
 				continue;
 
-			m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage());
+			m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage() - meleeDmgBoost);
 			hitlist.push_back(m_enemyList[idx]);
 		}
 	}
@@ -266,6 +269,11 @@ void Player::changeMoney(float moneyChange)
 int Player::getEnergy()
 {
 	return energy;
+}
+
+void Player::changeMovementSpeed(float change)
+{
+	movementspeed += change;
 }
 
 void Player::changeEnergy(float energyChange)

@@ -1,6 +1,6 @@
 #pragma once
 #include "Weapon.h"
-
+#include "Player.h"
 class Melee :public Weapon
 {
 public:
@@ -11,4 +11,5 @@ public:
 	virtual bool attack();
 protected:
 	float attack_angle;
+	Player* player;
 };
