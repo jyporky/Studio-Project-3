@@ -276,9 +276,10 @@ void SceneCollision::Update(double dt)
 	static bool switch_weapon = false;
 	if (Application::IsMousePressed(1) && !switch_weapon)
 	{
-		player->GetWeapon()->GetGameObject()->active = false;
+		player->GetWeapon()->GetGameObject()->visible = false;
 		player->SwapWeapon();
-		player->GetWeapon()->GetGameObject()->active = true;
+		player->GetWeapon()->GetGameObject()->visible = true;
+
 		//if (player->GetWeapon()->IsMelee)
 		//{
 		//	ReturnGO(player->GetWeapon()->GetGameObject());
@@ -484,7 +485,6 @@ void SceneCollision::Update(double dt)
 	{
 		bRButtonState = false;
 	}
-
 }
 
 bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
