@@ -16,6 +16,8 @@ public:
 	virtual Weapon* GetWeapon();
 	virtual bool IsSpawningBullet();
 	virtual void SetWeapon(Weapon* weapon);
+	virtual unsigned GetMoneyDrop();
+	virtual unsigned GetEnergyDrop();
 protected:
 	GameObject* gameobject;
 	Weapon* CurrWeapon;

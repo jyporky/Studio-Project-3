@@ -24,6 +24,7 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+    
 }
 
 bool Enemy::Update(double dt)
@@ -68,6 +69,16 @@ bool Enemy::ChangeHealth(int changeInHealth)
         return true;
     }
     return false;
+}
+
+unsigned Enemy::GetMoneyDrop()
+{
+    return moneyDropped;
+}
+
+unsigned Enemy::GetEnergyDrop()
+{
+    return energyDropped;
 }
 
 void Enemy::SetWeapon(Weapon* weapon)

@@ -215,7 +215,7 @@ void SceneCollision::Update(double dt)
 	static bool oem_5 = false;
 	if (Application::IsKeyPressed(VK_OEM_5) && !oem_5)
 	{
-		cGameManager->dDebug = !cGameManager->dDebug;
+		cGameManager->bDebug = !cGameManager->bDebug;
 		oem_5 = true;
 	}
 	else if (!Application::IsKeyPressed(VK_OEM_5) && oem_5)
@@ -240,7 +240,7 @@ void SceneCollision::Update(double dt)
 
 
 	
-	if (cGameManager->dDebug)
+	if (cGameManager->bDebug)
 	{
 		if(Application::IsKeyPressed('9'))
 		{
@@ -341,6 +341,9 @@ void SceneCollision::Update(double dt)
 			//delete the enemy
 			ReturnGO(m_enemyList[idx]->GetGameObject());
 			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+			player->changeEnergy(m_enemyList[idx]->GetEnergyDrop());
+			player->changeMoney(m_enemyList[idx]->GetMoneyDrop());
+			cGameManager->dPlayerScore += 100;
 			delete m_enemyList[idx];
 			m_enemyList.erase(m_enemyList.begin() + idx);
 			continue;
@@ -687,14 +690,14 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 		if (go->angle == 180)
 		{
-			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+			meshList[GEO_LEFT_SWORDSMAN]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_SWORDSMAN], true);
 		}
 
 		else if (go->angle == 0)
 		{
-			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+			meshList[GEO_RIGHT_SWORDSMAN]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_SWORDSMAN], true);
 		}
 		modelStack.PopMatrix();
 		break;
@@ -842,6 +845,21 @@ void SceneCollision::Render()
 	ss << player->getMoney();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 75.5, 56.7);
 
+
+	//render score
+	ss.str("");
+	ss << "Score:" << cGameManager->dPlayerScore;
+	modelStack.PushMatrix();
+	modelStack.Translate(177 - ss.str().size() * 1.2, 90, 1);
+	modelStack.Scale(18 + ss.str().size() * 0.7, 5, 1);
+	RenderMesh(meshList[GEO_SHOPMENUBG], false);
+	modelStack.PopMatrix();
+
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 1, 0.1), 3, 80 - ss.str().size(), 52.5);
+
+
+
+
 	ss.str("");
 	ss << "Energy:";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 53);
@@ -850,7 +868,7 @@ void SceneCollision::Render()
 	ss << player->getEnergy();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
 
-	if (cGameManager->dDebug)
+	if (cGameManager->bDebug)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(1, 1, 1), 3, 0, 12);
 
@@ -870,7 +888,7 @@ void SceneCollision::Render()
 	if (cGameManager->bPlayerLost)
 	{
 		ss.str("");
-		ss << "You ran out of balls, You Lose";
+		ss << "You Died";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 24);
 		ss.str("");
 		ss << "Press 'R' to restart";
@@ -951,7 +969,11 @@ void SceneCollision::Exit()
 		delete HealthPotion;
 		HealthPotion = nullptr;
 	}
-
+	if (PierceMod)
+	{
+		delete PierceMod;
+		PierceMod = nullptr;
+	}
 }
 
 GameObject* SceneCollision::Checkborder(GameObject* go)
