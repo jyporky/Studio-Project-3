@@ -45,10 +45,9 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\shoot.ogg"), 5, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\playerDash.ogg"), 6, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\flamethrower.ogg"), 7, true);
-	//cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 6, false);
-	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 7, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\menuBGM.ogg"), 8, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 10, false);
 
 
 	cInventoryManager = CInventoryManager::GetInstance();

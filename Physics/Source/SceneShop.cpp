@@ -271,7 +271,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-movementspeedupgrade->getMoneyCost());
 						movementspeedupgrade->receiveUpgrade();
 						player->changeMovementSpeed(10); 
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 					}
 					break;
 				case 1:
@@ -280,7 +280,7 @@ void SceneShop::Update(double dt)
 					{
 						player->changeMoney(-healthupgrade->getMoneyCost());
 						healthupgrade->receiveUpgrade();
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 
 					}
 					break;
@@ -290,7 +290,7 @@ void SceneShop::Update(double dt)
 					{
 						player->changeMoney(-meleedmgupgrade->getMoneyCost());
 						meleedmgupgrade->receiveUpgrade();
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						player->meleeDmgBoost += 2;
 					}
 					break;
@@ -300,7 +300,7 @@ void SceneShop::Update(double dt)
 					{
 						player->changeMoney(-rangeddmgupgrade->getMoneyCost());
 						rangeddmgupgrade->receiveUpgrade();
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						player->rangeDmgBoost += 2;
 					}
 					break;
@@ -353,7 +353,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-emp->getMoneyCost());
 						empBought = true;
 						cInventoryItem = cInventoryManager->GetItem("emp");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -364,7 +364,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-hack->getMoneyCost());
 						hackBought = true;
 						cInventoryItem = cInventoryManager->GetItem("hack");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -375,7 +375,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-heal->getMoneyCost());
 						healBought = true;
 						cInventoryItem = cInventoryManager->GetItem("heal");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -386,7 +386,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-immortal->getMoneyCost());
 						immortalBought = true;
 						cInventoryItem = cInventoryManager->GetItem("immortal");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -397,7 +397,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-overdrive->getMoneyCost());
 						overdriveBought = true;
 						cInventoryItem = cInventoryManager->GetItem("overdrive");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -466,7 +466,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-sword->GetCost());
 						swordBought = true;
 						cInventoryItem = cInventoryManager->GetItem("sword");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}*/
 					break;
@@ -477,7 +477,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-boxingGlove->GetCost());
 						boxingGloveBought = true;
 						cInventoryItem = cInventoryManager->GetItem("boxingglove");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -488,7 +488,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-rubberchicken->GetCost());
 						rubberchickenBought = true;
 						cInventoryItem = cInventoryManager->GetItem("rubberchicken");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -499,7 +499,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-pan->GetCost());
 						panBought = true;
 						cInventoryItem = cInventoryManager->GetItem("fryingpan");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -552,7 +552,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-rifle->GetCost());
 						rifleBought = true;
 						cInventoryItem = cInventoryManager->GetItem("rifle");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}*/
 					break;
@@ -563,7 +563,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-flamethrower->GetCost());
 						flamethrowerBought = true;
 						cInventoryItem = cInventoryManager->GetItem("flamethrower");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -574,7 +574,7 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-crossbow->GetCost());
 						crossbowBought = true;
 						cInventoryItem = cInventoryManager->GetItem("crossbow");
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
 					break;
@@ -641,7 +641,7 @@ void SceneShop::Update(double dt)
 					if ((player->getMoney() >= PierceMod->getMoneyCost()) && (pierceBought == false))
 					{
 						player->changeMoney(-PierceMod->getMoneyCost());
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						pierceBought = true;
 					}
 					break;
@@ -650,7 +650,7 @@ void SceneShop::Update(double dt)
 					if ((player->getMoney() >= FasterFiringMod->getMoneyCost()) && (fastfireBought == false))
 					{
 						player->changeMoney(-FasterFiringMod->getMoneyCost());
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						fastfireBought = true;
 					}
 					break;
@@ -659,7 +659,7 @@ void SceneShop::Update(double dt)
 					if ((player->getMoney() >= FasterBulletMod->getMoneyCost()) && (fastbulletBought == false))
 					{
 						player->changeMoney(-FasterBulletMod->getMoneyCost());
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						fastbulletBought = true;
 					}
 					break;
@@ -668,7 +668,7 @@ void SceneShop::Update(double dt)
 					if ((player->getMoney() >= ExplosiveMod->getMoneyCost()) && (explosiveBought == false))
 					{
 						player->changeMoney(-ExplosiveMod->getMoneyCost());
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						explosiveBought = true;
 					}
 					break;
@@ -719,7 +719,7 @@ void SceneShop::Update(double dt)
 					if ((player->getMoney() >= betterFuelMod->getMoneyCost()) && (betterfuelBought == false))
 					{
 						player->changeMoney(-betterFuelMod->getMoneyCost());
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						betterfuelBought = true;
 					}
 					break;
@@ -728,7 +728,7 @@ void SceneShop::Update(double dt)
 					if ((player->getMoney() >= accurateArrowsMod->getMoneyCost()) && (accuratearrowsBought== false))
 					{
 						player->changeMoney(-accurateArrowsMod->getMoneyCost());
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						accuratearrowsBought = true;
 					}
 					break;
@@ -737,7 +737,7 @@ void SceneShop::Update(double dt)
 					if ((player->getMoney() >= fasterMeleeMod->getMoneyCost()) && (fastmeleeBought == false))
 					{
 						player->changeMoney(-fasterMeleeMod->getMoneyCost());
-						cSoundController->PlaySoundByID(7);
+						cSoundController->PlaySoundByID(10);
 						fastmeleeBought = true;
 					}
 					break;
@@ -793,7 +793,7 @@ void SceneShop::Update(double dt)
 				{
 					player->changeMoney(-HealthPotion->getMoneyCost());
 					cInventoryItem = cInventoryManager->GetItem("healthpotion");
-					cSoundController->PlaySoundByID(7);
+					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
 				}
 				break;
@@ -803,7 +803,7 @@ void SceneShop::Update(double dt)
 				{
 					player->changeMoney(-StrengthPotion->getMoneyCost());
 					cInventoryItem = cInventoryManager->GetItem("strengthpotion");
-					cSoundController->PlaySoundByID(7);
+					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
 				}
 				break;
@@ -813,7 +813,7 @@ void SceneShop::Update(double dt)
 				{
 					player->changeMoney(-SpeedPotion->getMoneyCost());
 					cInventoryItem = cInventoryManager->GetItem("speedpotion");
-					cSoundController->PlaySoundByID(7);
+					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
 				}
 				break;
