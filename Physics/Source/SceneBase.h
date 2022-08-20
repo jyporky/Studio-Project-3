@@ -54,6 +54,8 @@ public:
 		GEO_FLAME,
 		GEO_SHOPMENUBG,
 		GEO_SANDBG,
+		GEO_HOTBAR,
+		GEO_HOTBAR_SELECTED,
 
 		// Weapons
 		GEO_SWORDL,

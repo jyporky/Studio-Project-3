@@ -320,41 +320,11 @@ void SceneCollision::Update(double dt)
 	}
 	cSoundController->PlaySoundByID(9);
 	static bool switch_weapon = false;
-	if (Application::IsMousePressed(1) && !switch_weapon)
+	if (Application::IsMousePressed(1) && !switch_weapon && player->GetSideWeapon() != nullptr)
 	{
 		player->GetWeapon()->GetGameObject()->visible = false;
 		player->SwapWeapon();
 		player->GetWeapon()->GetGameObject()->visible = true;
-
-		//if (player->GetWeapon()->IsMelee)
-		//{
-		//	ReturnGO(player->GetWeapon()->GetGameObject());
-		//	player->SetWeapon(new Rifle());
-		//	GameObject* weapon = FetchGO();
-		//	weapon->type = GameObject::GO_RIFLE;
-		//	weapon->pos.SetZero();
-		//	weapon->vel.SetZero();
-		//	weapon->scale.Set(8, 3, 1);
-		//	weapon->angle = 0;
-		//	weapon->color.Set(1, 1, 1);
-		//	weapon->leftwep = false;
-		//	player->GetWeapon()->SetGameObject(weapon);
-		//}
-
-		//else
-		//{
-		//	ReturnGO(player->GetWeapon()->GetGameObject());
-		//	player->SetWeapon(new Sword());
-		//	GameObject* weapon = FetchGO();
-		//	weapon->type = GameObject::GO_SWORD;
-		//	weapon->pos.SetZero();
-		//	weapon->vel.SetZero();
-		//	weapon->scale.Set(10, 10, 1);
-		//	weapon->angle = 0;
-		//	weapon->color.Set(1, 1, 1);
-		//	weapon->leftwep = false;
-		//	player->GetWeapon()->SetGameObject(weapon);
-		//}
 		switch_weapon = true;
 	}
 
@@ -947,7 +917,19 @@ void SceneCollision::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, 0);
 	modelStack.Scale(360,240,1);
-	RenderMesh(meshList[GEO_SANDBG], false);
+	float reduce_red = 0;
+	float reduce = 0;
+	if (player->GetHealth() <= player->GetMaxHealth() * 0.6)
+	{
+		reduce_red = player->GetMaxHealth() - player->GetHealth();
+		reduce_red /= player->GetMaxHealth();
+		reduce = reduce_red;
+		reduce_red /= 8;
+		reduce /= 2;
+	}
+
+	meshList[GEO_SANDBG]->material.kAmbient.Set(1 - reduce_red, 1 - reduce, 1 - reduce);
+	RenderMesh(meshList[GEO_SANDBG], true);
 	modelStack.PopMatrix();
 
 
@@ -968,18 +950,18 @@ void SceneCollision::Render()
 	
 	if (cGameManager->bDebug)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(1, 1, 1), 3, 0, 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Object Count:" + std::to_string(m_objectCount), Color(1, 1, 1), 3, 0, 9);
 
 		ss.precision(3);
 		ss.str("");
 		ss << "Speed: " << m_speed;
 		ss << " FPS: " << fps;
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0, 9);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0, 6);
 	
 	}
 
-	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 0, 18);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0, 15);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 0, 21);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0, 18);
 
 	if (cGameManager->waveClear)
 	{
@@ -992,21 +974,37 @@ void SceneCollision::Render()
 
 		ss.str("");
 		ss << "Wave Cleared!";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 8, 30);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 6, 30, 30);
+		ss.str("");
+		ss << "Enter the top door to go to shop";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 5, 20, 24);
 	}
 
+	if (timer < 0)
+	{
+		ss.str("");
+		ss.precision(1);
+		int countdown = timer * -1 + 1;
+		ss << countdown;
+		if (timer > -1)
+		{
+			ss.str("");
+			ss << "GAME START!";
+		}
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 6, 30, 30);
+	}
 
 	if (cGameManager->bPlayerLost)
 	{
 		ss.str("");
 		ss << "You Died";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 24);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 30, 24);
 		ss.str("");
 		ss << "Press 'R' to restart";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 10, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 20);
 		ss.str("");
 		ss << "Press '~' to return to main menu";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 10, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 16);
 	}
 
 	if (cGameManager->bGameWin)
@@ -1064,10 +1062,42 @@ void SceneCollision::renderUI()
 	ss << "Energy:";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 53);
 
+	if (player->GetHealth() <= player->GetMaxHealth() * 0.3)
+	{
+		if (timer > 0.5)
+		{
+			ss.str("");
+			ss << "Low HP!";
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.9, 0, 0.1), 3, 0.5, 49);
+		}
+	}
+
 	ss.str("");
 	ss << player->getEnergy();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
 
+
+	Vector3 wep1 = Vector3(6, 24, 1);
+	Vector3 wep2 = Vector3(16, 24, 1);
+	Vector3 scale = Vector3(10, 10, 1);
+	// render hotbar
+	modelStack.PushMatrix();
+	modelStack.Translate(wep1.x, wep1.y, wep1.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR_SELECTED], false);
+	modelStack.PopMatrix();
+
+
+	modelStack.PushMatrix();
+	modelStack.Translate(wep2.x, wep2.y, wep2.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	if (player->GetWeapon() != nullptr)
+		renderWeaponUI(wep1, scale, player->GetWeapon()->GetGameObject());
+	if (player->GetSideWeapon() != nullptr)
+		renderWeaponUI(wep2, scale, player->GetSideWeapon()->GetGameObject());
 	//add equipped skill code
 	//if (player->getEnergy() >= 100)
 	//{
@@ -1440,4 +1470,32 @@ bool SceneCollision::NearShop()
 	}
 
 	return false;
+}
+
+void SceneCollision::renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* object)
+{
+	switch (object->type)
+	{
+	case GameObject::GO_SWORD:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		RenderMesh(meshList[GEO_SWORDR], true);
+		modelStack.PopMatrix();
+		break;
+	case GameObject::GO_RIFLE:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x - 2, scale.y/3, scale.z);
+		RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
+		modelStack.PopMatrix();
+		break;
+	case GameObject::GO_FLAMETHROWER:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x - 2, scale.y/3, scale.z);
+		RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
+		modelStack.PopMatrix();
+		break;
+	}
 }

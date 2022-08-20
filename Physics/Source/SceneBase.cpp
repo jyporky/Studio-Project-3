@@ -159,7 +159,13 @@ void SceneBase::Init()
 	meshList[GEO_HEALTH_UI_RED] = MeshBuilder::GenerateQuad("healthuired", Color(1, 0, 0));
 
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
-	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");
+	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");	
+
+	meshList[GEO_HOTBAR] = MeshBuilder::GenerateQuad("hotbar", Color(1, 1, 1));
+	meshList[GEO_HOTBAR]->textureID = LoadTGA("Image//hotbar.tga");	
+
+	meshList[GEO_HOTBAR_SELECTED] = MeshBuilder::GenerateQuad("hotbar selected", Color(1, 1, 1));
+	meshList[GEO_HOTBAR_SELECTED]->textureID = LoadTGA("Image//hotbar_selected.tga");
 
 	meshList[GEO_LEFT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
 	meshList[GEO_LEFT_PLAYER]->textureID = LoadTGA("Image//playerleft.tga");	

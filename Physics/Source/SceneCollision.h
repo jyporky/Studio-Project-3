@@ -63,6 +63,7 @@ public:
 	GameObject* Checkborder(GameObject* go);
 
 	void renderUI();
+	void renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* object);
 protected:
 
 	//Physics

@@ -9,6 +9,7 @@ Player::Player()
 	health = maxHealth;
 	gameobject = nullptr;
 	CurrWeapon = nullptr;
+	SideWeapon = nullptr;
 	cGameManager = GameManger::GetInstance();
 	cSoundController = CSoundController::GetInstance();
 	movementspeed = 40;
@@ -295,6 +296,11 @@ void Player::SwapWeapon()
 Weapon* Player::GetWeapon()
 {
 	return CurrWeapon;
+}
+
+Weapon* Player::GetSideWeapon()
+{
+	return SideWeapon;
 }
 
 

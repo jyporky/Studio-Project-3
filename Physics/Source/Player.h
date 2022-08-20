@@ -23,6 +23,7 @@ public:
 	void Attack(Vector3 mousepos);
 	virtual bool IsSpawningBullet();
 	Weapon* GetWeapon();
+	Weapon* GetSideWeapon();
 	~Player();
 	GameObject* getPlayer();
 	bool iFrame;
