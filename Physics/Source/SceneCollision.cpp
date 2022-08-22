@@ -54,6 +54,8 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\menuBGM.ogg"), 8, false, CSoundInfo::BGM);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, false, CSoundInfo::BGM);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 10, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\Shieldblock.ogg"), 11, false);
+	//cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 6, false);
 
 
 	cInventoryManager = CInventoryManager::GetInstance();
@@ -428,6 +430,7 @@ void SceneCollision::Update(double dt)
 			m_pbulletList.push_back(bullet);
 		}
 	}
+
 	//update bullets
 	for (unsigned idx = 0; idx < m_pbulletList.size(); idx++)
 	{
@@ -451,6 +454,19 @@ void SceneCollision::Update(double dt)
 		//check collision
 		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
 		{
+			//for shield enemy
+			if (m_enemyList[idx1]->GetEnemyType() == Enemy::SHIELDMAN)
+			{
+				//check if the attack is blocked
+				if (Entity::CheckShieldCollision(m_pbulletList[idx], m_enemyList[idx1]))
+				{
+					//delete the bullet
+					ReturnGO(m_pbulletList[idx]->GetGameObject());
+					delete m_pbulletList[idx];
+					m_pbulletList.erase(m_pbulletList.begin() + idx);
+					break;
+				}
+			}
 			if (CheckCollision(m_pbulletList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
 				m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage());
@@ -496,9 +512,23 @@ void SceneCollision::Update(double dt)
 			m_FlameParticle.erase(m_FlameParticle.begin() + idx);
 			continue;
 		}
-		bool hit = false;
+		bool hit = false, deleted = false;
 		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
 		{
+			//for shield enemy
+			if (m_enemyList[idx1]->GetEnemyType() == Enemy::SHIELDMAN)
+			{
+				//check if the attack is blocked
+				if (Entity::CheckShieldCollision(m_FlameParticle[idx], m_enemyList[idx1]))
+				{
+					//delete the bullet
+					ReturnGO(m_FlameParticle[idx]->GetGameObject());
+					delete m_FlameParticle[idx];
+					m_FlameParticle.erase(m_FlameParticle.begin() + idx);
+					deleted = true;
+					break;
+				}
+			}
 			if (CheckCollision(m_FlameParticle[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
 				m_enemyList[idx1]->ChangeHealth(-m_FlameParticle[idx]->GetDamage());
@@ -509,14 +539,18 @@ void SceneCollision::Update(double dt)
 					ReturnGO(m_FlameParticle[idx]->GetGameObject());
 					delete m_FlameParticle[idx];
 					m_FlameParticle.erase(m_FlameParticle.begin() + idx);
+					deleted = true;
 					break;
 				}
 			}
 		}
 		//reduce range of the flame particles
-		if (hit && m_FlameParticle[idx])
+		if (deleted == false)
 		{
-			m_FlameParticle[idx]->HalfRange();
+			if (hit && m_FlameParticle[idx])
+			{
+				m_FlameParticle[idx]->HalfRange();
+			}
 		}
 	}
 
@@ -566,13 +600,14 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 	}
 	case GameObject::GO_SWORDSMAN:
 	case GameObject::GO_RIFLER:
+	case GameObject::GO_SHIELDMAN:
 	{
 		Vector3 relativeVel = go1->vel - go2->vel;
 		Vector3 disDiff = go2->pos - go1->pos;
 
 		if (relativeVel.Dot(disDiff) <= 0)
 			return false;
-		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x) * 0.4;
+		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x) * 0.35;
 	}
 
 	case GameObject::GO_WALL:
@@ -600,6 +635,7 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 			go2->scale.y * 0.5 > fabs(diff.Dot(axisY)); // Check 3: Length Check
 	}
 	}
+	return false;
 }
 
 void SceneCollision::CollisionResponse(GameObject* go1, GameObject* go2)
@@ -797,6 +833,32 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_SHIELDMAN:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_RIFLER], true);
+		}
+
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_RIFLER], true);
+		}
+		modelStack.PopMatrix();
+		break;
+	case GameObject::GO_SHIELD:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		meshList[GEO_SHIELD]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+		RenderMesh(meshList[GEO_SHIELD], true);
+		modelStack.PopMatrix();
+		break;
 	case GameObject::GO_SWORD:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -850,16 +912,16 @@ void SceneCollision::RenderGO(GameObject *go)
 		{
 			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-			meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
+			meshList[GEO_FLAMETHROWER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_FLAMETHROWER], true);
 		}
 
 		else
 		{
 			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-			meshList[GEO_RIFLE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIFLE_LEFT], true);
+			meshList[GEO_FLAMETHROWER_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_FLAMETHROWER_LEFT], true);
 		}
 		modelStack.PopMatrix();
 		break;

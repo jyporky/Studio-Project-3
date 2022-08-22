@@ -69,6 +69,13 @@ bool Weapon::attack()
 	return false;
 }
 
+bool Weapon::attacktest()
+{
+	if (attackdt >= attack_speed)
+		return true;
+	return false;
+}
+
 float Weapon::GetAttackCast()
 {
 	return attack_cast;

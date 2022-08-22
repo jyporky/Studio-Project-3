@@ -50,7 +50,6 @@ private:
 	float greenTimer;
 	float blueTimer;
 	GameManger* cGameManager;
-	CSoundController* cSoundController;
 	int money;
 	int energy;
 

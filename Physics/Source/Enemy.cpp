@@ -2,14 +2,12 @@
 
 Player* Enemy::PlayerPointer = Player::GetInstance();
 GameManger* Enemy::cGameManager = GameManger::GetInstance();
-CSoundController* Enemy::cSoundController = CSoundController::GetInstance();
 
 Enemy::Enemy()
 {
     health = 0;
     turned = false;
     redTimer = 0;
-    attackdt = 0;
     movementSpeed = 0;
     energyDropped = 0;
     moneyDropped = 0;
@@ -91,6 +89,16 @@ unsigned Enemy::GetMoneyDrop()
 unsigned Enemy::GetEnergyDrop()
 {
     return energyDropped;
+}
+
+unsigned Enemy::GetEnemyType()
+{
+    return enemytype;
+}
+
+float Enemy::GetAngle()
+{
+    return 0.0f;
 }
 
 void Enemy::SetWeapon(Weapon* weapon)
