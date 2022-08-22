@@ -3,7 +3,6 @@
 Rifler::Rifler()
 {
     health = 15;
-    attackdt = 0;
     movementSpeed = 14;
     energyDropped = 2;
     moneyDropped = 5;

@@ -1,6 +1,6 @@
 #include "ImmortalSkill.h"
 Immortal::Immortal() {
-	
+	immortalState = false;
 }
 Immortal::~Immortal() {
 

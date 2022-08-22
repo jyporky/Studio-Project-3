@@ -12,5 +12,7 @@ public:
 	virtual void UseSkill();
 	virtual void resetImmortality();
 	virtual bool getState();
+protected:
+	bool immortalState;
 };
 

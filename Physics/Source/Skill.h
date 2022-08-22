@@ -14,8 +14,6 @@ public:
 	virtual bool getState();
 protected:
 	Player* player;
-	bool immortalState;
-private:
-	
+
 };
 

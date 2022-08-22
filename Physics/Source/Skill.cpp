@@ -7,7 +7,6 @@ void Skill::UseSkill()
 
 Skill::Skill()
 {
-	immortalState = false;
 	player = Player::GetInstance();
 }
 
@@ -30,5 +29,5 @@ void Skill::resetImmortality() {
 	return;
 }
 bool Skill::getState() {
-	return immortalState;
+	return false;
 }

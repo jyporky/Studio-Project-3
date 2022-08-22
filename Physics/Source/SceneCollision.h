@@ -103,7 +103,6 @@ protected:
 	Skill* HackSkill = new Hack();
 	Skill* HealSkill = new Heal();
 	Skill* ImmortalitySkill = new Immortal();
-	Immortal* Immortality;
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
 	float timer;

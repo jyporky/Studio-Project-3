@@ -21,7 +21,7 @@ static Vector3 RotateVector(const Vector3& vec, float radian)
 void SceneCollision::Init()
 {
 	SceneBase::Init();
-
+	
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
@@ -249,9 +249,10 @@ void SceneCollision::Update(double dt)
 	float height = Application::GetWindowHeight();
 	Application::GetCursorPos(&x, &y);
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
-
+	
 
 	SceneBase::Update(dt);
+	std::cout << ImmortalitySkill->getState() << std::endl;
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
 		/*if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
@@ -513,7 +514,12 @@ void SceneCollision::Update(double dt)
 		}
 		//check collision
 		if (CheckCollision(m_ebulletList[idx]->GetGameObject(), player->GetGameObject())) {
-			player->ChangeHealth(-m_ebulletList[idx]->GetDamage());
+			if (ImmortalitySkill->getState() == true) {
+				player->ChangeHealth(m_ebulletList[idx]->GetDamage());
+			}
+			else {
+				player->ChangeHealth(-m_ebulletList[idx]->GetDamage());
+			}
 			if (!m_ebulletList[idx]->GetPenetrationValue()) {
 				ReturnGO(m_ebulletList[idx]->GetGameObject());
 				delete m_ebulletList[idx];
@@ -590,10 +596,7 @@ void SceneCollision::Update(double dt)
 		{
 			if (CheckCollision(m_parrowList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
-				if (Immortality->getState() == true) {
-					m_enemyList[idx1]->ChangeHealth(m_parrowList[idx]->GetDamage());
-				}
-				else if (m_parrowList[idx]->getCrit() == 1) {
+				if (m_parrowList[idx]->getCrit() == 1) {
 					m_enemyList[idx1]->ChangeHealth(-m_parrowList[idx]->GetDamage() * 2);
 				}
 				else {
