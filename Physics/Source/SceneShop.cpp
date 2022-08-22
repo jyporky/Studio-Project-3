@@ -46,6 +46,8 @@ void SceneShop::Init()
 	cSoundController = CSoundController::GetInstance();
 
 	player = Player::GetInstance();
+
+	cGameManager = GameManger::GetInstance();
 	
 	player->getPlayer();
 
@@ -131,6 +133,8 @@ void SceneShop::Update(double dt)
 		canLeave = true;
 		if (Application::IsKeyPressed('E'))
 		{
+			cGameManager->waveClear = false;
+			cGameManager->outShop = true;
 			Application::SetState(2);
 		}
 	}

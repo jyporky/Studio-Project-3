@@ -4,7 +4,6 @@ Swordsman::Swordsman()
 {
     health = 20;
     redTimer = 0;
-    attackdt = 0;
     movementSpeed = 20;
     energyDropped = 2;
     moneyDropped = 2;
@@ -17,6 +16,7 @@ Swordsman::Swordsman()
     attackRange = 12;
     attackSpeed = 1.5;
     iFrameTimer = 0;
+    enemytype = SWORDMAN;
 }
 
 Swordsman::~Swordsman()
@@ -39,8 +39,6 @@ bool Swordsman::Update(double dt)
     //check if the enemy is dead
     if (health <= 0)
     {
-        cSoundController->StopPlayByID(4);
-        cSoundController->PlaySoundByID(4);
         return true;
     }
 
@@ -59,9 +57,6 @@ bool Swordsman::Update(double dt)
     }
     else if (redTimer <= 0)
         gameobject->color.Set(1, 1, 1);
-
-    if (attackdt > 0)
-        attackdt -= dt;
 
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;
@@ -88,22 +83,35 @@ bool Swordsman::Update(double dt)
         break;
     case ATTACK:
         if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
+        {
             sCurrState = CHASE;
+            break;
+        }
         //Attack the player
-        if (attackdt <= 0)
+        if (CurrWeapon->attack())
         {
             //deal damage to the player
-            CurrWeapon->attack();
-            attackdt = attackSpeed;
             if (PlayerPointer->iFrame == false)
             {
                 PlayerPointer->ChangeHealth(-attackDamage);
             }
-            
+            sCurrState = BACK_OFF;
         }
+        break;
+    case BACK_OFF:
+        //check if the enemy can attack or not
+        if (CurrWeapon->attacktest())
+        {
+            sCurrState = CHASE;
+            break;
+        }
+
+        //move the enemy away from the target
+        gameobject->pos -= (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
         break;
     }
 
+    gameobject->pos.z = 0;
     // Make the sword point to the player
     CurrWeapon->Update(dt, Target->GetGameObject()->pos, 0, gameobject);
     return false;

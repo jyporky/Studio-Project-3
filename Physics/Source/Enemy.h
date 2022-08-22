@@ -8,6 +8,7 @@
 class Enemy : public Entity
 {
 public:
+	
 	Enemy();
 	~Enemy();
 	//enemy returns true if the enemy dies
@@ -22,15 +23,17 @@ public:
 	virtual bool ChangeHealth(int changeInHealth);
 	virtual unsigned GetMoneyDrop();
 	virtual unsigned GetEnergyDrop();
+	unsigned GetEnemyType();
+	virtual float GetAngle();
 protected:
 	static std::vector<Entity*> m_enemyList;
+	unsigned enemytype;
 	bool turned;
 	bool isSpawningBullet;
 	int health;
 	double iFrameTimer;
 	float redTimer;
 	float greenTimer;
-	float attackdt;
 	float attackSpeed;
 	unsigned movementSpeed;
 	unsigned energyDropped;
@@ -39,6 +42,5 @@ protected:
 	bool affectedByKnockback;
 	static Player* PlayerPointer;
 	static GameManger* cGameManager;
-	static CSoundController* cSoundController;
 };
 

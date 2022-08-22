@@ -12,5 +12,7 @@ public:
 	bool bDebug;
 	unsigned dWaveNo;
 	unsigned dPlayerScore;
+	bool waveClear;
+	bool outShop;
 };
 

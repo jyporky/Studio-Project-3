@@ -2,14 +2,12 @@
 
 Player* Enemy::PlayerPointer = Player::GetInstance();
 GameManger* Enemy::cGameManager = GameManger::GetInstance();
-CSoundController* Enemy::cSoundController = CSoundController::GetInstance();
 
 Enemy::Enemy()
 {
     health = 0;
     turned = false;
     redTimer = 0;
-    attackdt = 0;
     movementSpeed = 0;
     energyDropped = 0;
     moneyDropped = 0;
@@ -76,6 +74,8 @@ bool Enemy::ChangeHealth(int changeInHealth)
     health += changeInHealth;
     if (health <= 0)
     {
+        cSoundController->StopPlayByID(4);
+        cSoundController->PlaySoundByID(4);
         return true;
     }
     return false;
@@ -89,6 +89,16 @@ unsigned Enemy::GetMoneyDrop()
 unsigned Enemy::GetEnergyDrop()
 {
     return energyDropped;
+}
+
+unsigned Enemy::GetEnemyType()
+{
+    return enemytype;
+}
+
+float Enemy::GetAngle()
+{
+    return 0.0f;
 }
 
 void Enemy::SetWeapon(Weapon* weapon)

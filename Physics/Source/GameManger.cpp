@@ -8,6 +8,8 @@ GameManger::GameManger()
 	bDebug = false;
 	dWaveNo = 1;
 	dPlayerScore = 1000;
+	waveClear = false;
+	outShop = false;
 }
 
 GameManger::~GameManger()

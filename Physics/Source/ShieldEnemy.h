@@ -1,27 +1,30 @@
 #pragma once
 #include "Enemy.h"
 
-
-class Swordsman :
-    public Enemy
+class ShieldEnemy : public Enemy
 {
 public:
-    enum SWORDSMAN_STATES {
+    enum SHEILDSTATES {
         IDLE,
         CHASE,
         ATTACK,
-        BACK_OFF,
-        NUM_SM_STATES,
     };
-    Swordsman();
-    ~Swordsman();
+    ShieldEnemy();
+    ~ShieldEnemy();
     bool Update(double dt);
     void Init();
     void SetWeapon(Weapon* weapon);
     Weapon* GetWeapon();
-
-
+    float GetAngle()
+    {
+        return angle;
+    }
+    
+    
 private:
     unsigned sCurrState;
     unsigned attackRange;
+    float angle;
+    float shieldturningrate;
 };
+
