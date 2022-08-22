@@ -227,6 +227,15 @@ void SceneBase::Init()
 	meshList[GEO_CROSSBOW] = MeshBuilder::GenerateQuad("crossbow", Color(1, 1, 1));
 	meshList[GEO_CROSSBOW]->textureID = LoadTexture("Image//crossbow.png");
 
+	meshList[GEO_CROSSBOW_LEFT] = MeshBuilder::GenerateQuad("crossbowL", Color(1, 1, 1));
+	meshList[GEO_CROSSBOW_LEFT]->textureID = LoadTGA("Image//crossbow_left.tga");
+
+	meshList[GEO_CROSSBOW_RIGHT] = MeshBuilder::GenerateQuad("crossbowR", Color(1, 1, 1));
+	meshList[GEO_CROSSBOW_RIGHT]->textureID = LoadTGA("Image//crossbow_right.tga");
+
+	meshList[GEO_ARROW] = MeshBuilder::GenerateQuad("arrow", Color(1, 1, 1));
+	meshList[GEO_ARROW]->textureID = LoadTGA("Image//arrow.tga");
+
 	//skills
 	meshList[GEO_EMP] = MeshBuilder::GenerateQuad("emp", Color(1, 1, 1));
 	meshList[GEO_EMP]->textureID = LoadTexture("Image//emp.png");

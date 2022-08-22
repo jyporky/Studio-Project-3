@@ -21,7 +21,7 @@ static Vector3 RotateVector(const Vector3& vec, float radian)
 void SceneCollision::Init()
 {
 	SceneBase::Init();
-
+	
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
@@ -94,12 +94,12 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	player->SetWeapon(new Flamethrower());
+	player->SetWeapon(new Crossbow());
 	GameObject* weapon1 = FetchGO();
-	weapon1->type = GameObject::GO_FLAMETHROWER;
+	weapon1->type = GameObject::GO_CROSSBOW;
 	weapon1->pos.SetZero();
 	weapon1->vel.SetZero();
-	weapon1->scale.Set(8, 3, 1);
+	weapon1->scale.Set(6, 6, 1);
 	weapon1->angle = 0;
 	weapon1->color.Set(1, 1, 1);
 	weapon1->leftwep = false;
@@ -133,41 +133,41 @@ void SceneCollision::Init()
 	//m_enemyList.push_back(enemy);
 
 
-	//GameObject* ewep = FetchGO();
-	//ewep->type = GameObject::GO_SWORD;
-	//ewep->vel.SetZero();
-	//ewep->scale.Set(10, 10, 1);
-	//ewep->pos = enemyGO->pos;
-	//ewep->color.Set(1, 1, 1);
-	//ewep->angle = 0;
-	//ewep->active = true;
-	//ewep->leftwep = false;
-	//enemy->GetWeapon()->SetGameObject(ewep);
+	GameObject* ewep = FetchGO();
+	ewep->type = GameObject::GO_SWORD;
+	ewep->vel.SetZero();
+	ewep->scale.Set(10, 10, 1);
+	ewep->pos = enemyGO->pos;
+	ewep->color.Set(1, 1, 1);
+	ewep->angle = 0;
+	ewep->active = true;
+	ewep->leftwep = false;
+	enemy->GetWeapon()->SetGameObject(ewep);
 
-	////spawn rifler enemy
-	//Enemy* enemy2 = new Rifler();
-	//enemy2->Init();
-	//GameObject* enemy2GO = FetchGO();
-	//enemy2GO->type = GameObject::GO_RIFLER;
-	//enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
-	//enemy2GO->vel.SetZero();
-	//enemy2GO->scale.Set(13, 13, 1);
-	//enemy2GO->color.Set(1, 1, 1);
-	//enemy2GO->angle = 0;
-	//enemy2->SetWeapon(new Rifle());
-	//enemy2->SetGameObject(enemy2GO);
-	//m_enemyList.push_back(enemy2);
+	spawn rifler enemy
+	Enemy* enemy2 = new Rifler();
+	enemy2->Init();
+	GameObject* enemy2GO = FetchGO();
+	enemy2GO->type = GameObject::GO_RIFLER;
+	enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
+	enemy2GO->vel.SetZero();
+	enemy2GO->scale.Set(13, 13, 1);
+	enemy2GO->color.Set(1, 1, 1);
+	enemy2GO->angle = 0;
+	enemy2->SetWeapon(new Rifle());
+	enemy2->SetGameObject(enemy2GO);
+	m_enemyList.push_back(enemy2);
 
-	//GameObject* ewep2 = FetchGO();
-	//ewep2->type = GameObject::GO_RIFLE;
-	//ewep2->vel.SetZero();
-	//ewep2->scale.Set(8, 3, 1);
-	//ewep2->pos = enemy2GO->pos;
-	//ewep2->color.Set(1, 1, 1);
-	//ewep2->angle = 0;
-	//ewep2->active = true;
-	//ewep2->leftwep = false;
-	//enemy2->GetWeapon()->SetGameObject(ewep2);
+	GameObject* ewep2 = FetchGO();
+	ewep2->type = GameObject::GO_RIFLE;
+	ewep2->vel.SetZero();
+	ewep2->scale.Set(8, 3, 1);
+	ewep2->pos = enemy2GO->pos;
+	ewep2->color.Set(1, 1, 1);
+	ewep2->angle = 0;
+	ewep2->active = true;
+	ewep2->leftwep = false;
+	enemy2->GetWeapon()->SetGameObject(ewep2);*/
 
 
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
@@ -255,9 +255,10 @@ void SceneCollision::Update(double dt)
 	float height = Application::GetWindowHeight();
 	Application::GetCursorPos(&x, &y);
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
-
+	
 
 	SceneBase::Update(dt);
+	std::cout << ImmortalitySkill->getState() << std::endl;
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
 		/*if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
@@ -339,7 +340,6 @@ void SceneCollision::Update(double dt)
 		player->GetWeapon()->GetGameObject()->visible = true;
 		switch_weapon = true;
 	}
-
 	else if (!Application::IsMousePressed(1) && switch_weapon)
 		switch_weapon = false;
 
@@ -422,6 +422,19 @@ void SceneCollision::Update(double dt)
 			flame->SetGameObject(flamego);
 			flame->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), player->GetWeapon()->GetPiercing(), player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize());
 			m_FlameParticle.push_back(flame);
+		}
+		else if (player->GetWeapon()->WeaponType == Weapon::CROSSBOW) {
+			Arrow* arrow = new Arrow;
+			GameObject* arrowgo = FetchGO();
+			arrowgo->type = GameObject::GO_ARROW;
+			arrowgo->pos = player->GetGameObject()->pos;
+			arrowgo->vel.SetZero();
+			arrowgo->scale.Set(4, 4, 1);
+			arrowgo->color.Set(1, 1, 1);
+			arrowgo->angle = player->GetWeapon()->GetGameObject()->angle;
+			arrow->SetGameObject(arrowgo);
+			arrow->SetArrow(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), player->GetWeapon()->GetPiercing(), player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize());
+			m_parrowList.push_back(arrow);
 		}
 		else
 		{
@@ -510,6 +523,20 @@ void SceneCollision::Update(double dt)
 			continue;
 		}
 		//check collision
+		if (CheckCollision(m_ebulletList[idx]->GetGameObject(), player->GetGameObject())) {
+			if (ImmortalitySkill->getState() == true) {
+				player->ChangeHealth(m_ebulletList[idx]->GetDamage());
+			}
+			else {
+				player->ChangeHealth(-m_ebulletList[idx]->GetDamage());
+			}
+			if (!m_ebulletList[idx]->GetPenetrationValue()) {
+				ReturnGO(m_ebulletList[idx]->GetGameObject());
+				delete m_ebulletList[idx];
+				m_ebulletList.erase(m_ebulletList.begin() + idx);
+
+			}
+		}
 	}
 	//update the flame particles
 	for (unsigned idx = 0; idx < m_FlameParticle.size(); idx++)
@@ -565,6 +592,39 @@ void SceneCollision::Update(double dt)
 	}
 
 
+	for (unsigned idx = 0; idx < m_parrowList.size(); idx++) {
+		m_parrowList[idx]->Update(dt);
+		if (m_parrowList[idx]->GetGameObject()->pos.x > m_worldWidth || m_parrowList[idx]->GetGameObject()->pos.x < 0 || m_parrowList[idx]->GetGameObject()->pos.y > m_worldHeight || m_parrowList[idx]->GetGameObject()->pos.y < 0)
+		{
+			//delete the arrow
+			ReturnGO(m_parrowList[idx]->GetGameObject());
+			delete m_parrowList[idx];
+			m_parrowList.erase(m_parrowList.begin() + idx);
+			continue;
+		}
+		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
+		{
+			if (CheckCollision(m_parrowList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
+			{
+				if (m_parrowList[idx]->getCrit() == 1) {
+					m_enemyList[idx1]->ChangeHealth(-m_parrowList[idx]->GetDamage() * 2);
+				}
+				else {
+					m_enemyList[idx1]->ChangeHealth(-m_parrowList[idx]->GetDamage());
+				}
+				if (!m_parrowList[idx]->GetPenetrationValue())
+				{
+					//delete the bullet
+					ReturnGO(m_parrowList[idx]->GetGameObject());
+					delete m_parrowList[idx];
+					m_parrowList.erase(m_parrowList.begin() + idx);
+					break;
+				}
+			}
+		}
+	}
+
+
 	static bool bLButtonState = false;
 	if(!bLButtonState && Application::IsMousePressed(0))
 	{
@@ -589,7 +649,7 @@ void SceneCollision::Update(double dt)
 bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 {
 	// Prevent non ball vs non ball code
-	if (!(go1->type == GameObject::GO_BALL || go1->type == GameObject::GO_BULLET || go1->type == GameObject::GO_FLAME))
+	if (!(go1->type == GameObject::GO_BALL || go1->type == GameObject::GO_BULLET || go1->type == GameObject::GO_FLAME || go1->type == GameObject::GO_ARROW))
 	{
 		return false;
 	}
@@ -599,6 +659,7 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 	case GameObject::GO_PILLAR:
 	case GameObject::GO_BALL:
 	case GameObject::GO_BULLET:
+	case GameObject::GO_ARROW:
 	case GameObject::GO_FLAME:
 	{
 		Vector3 relativeVel = go1->vel - go2->vel;
@@ -608,6 +669,7 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 			return false;
 		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
 	}
+	case GameObject::GO_PLAYER:
 	case GameObject::GO_SWORDSMAN:
 	case GameObject::GO_RIFLER:
 	case GameObject::GO_SHIELDMAN:
@@ -790,7 +852,6 @@ void SceneCollision::RenderGO(GameObject *go)
 		meshList[GEO_BALL]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 		RenderMesh(meshList[GEO_BALL], true);
 		modelStack.PopMatrix();
-
 		break;
 	case GameObject::GO_PLAYER:
 		modelStack.PushMatrix();
@@ -913,6 +974,28 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_CROSSBOW:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
+
+		if (go->leftwep == false)
+		{
+			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.6, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_CROSSBOW_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_CROSSBOW_RIGHT], true);
+		}
+
+		else
+		{
+			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.6, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_CROSSBOW_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_CROSSBOW_LEFT], true);
+		}
+		modelStack.PopMatrix();
+		break;
 	case GameObject::GO_FLAMETHROWER:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -942,6 +1025,15 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 		meshList[GEO_BULLET]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 		RenderMesh(meshList[GEO_BULLET], true);
+		modelStack.PopMatrix();
+		break;
+	case GameObject::GO_ARROW:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		meshList[GEO_ARROW]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+		RenderMesh(meshList[GEO_ARROW], true);
 		modelStack.PopMatrix();
 		break;
 

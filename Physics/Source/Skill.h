@@ -10,8 +10,10 @@ public:
 	virtual int getEnergyCost();
 	Skill();
 	~Skill();
-
+	virtual void resetImmortality();
+	virtual bool getState();
 protected:
 	Player* player;
+
 };
 
