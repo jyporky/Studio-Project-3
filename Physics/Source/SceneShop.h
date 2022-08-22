@@ -46,6 +46,7 @@
 #include "FasterFiringRateMod.h"
 #include "PiercingBulletMod.h"
 #include "FasterMeleeMod.h"
+#include "SceneCollision.h"
 
 
 class SceneShop : public SceneBase
@@ -100,6 +101,8 @@ protected:
 	CSoundController* cSoundController;
 	// Handler to GameManager
 	GameManger* cGameManager;
+	// Handler to Scenecollision
+	SceneCollision* cSceneCollision;
 
 	//potions
 	Potions* StrengthPotion = new StrengthPot();
@@ -160,6 +163,9 @@ protected:
 	bool betterfuelBought;
 	bool accuratearrowsBought;
 	bool fastmeleeBought;
+
+	void renderWeaponUI(Vector3 pos, Vector3 scale, int object);
+	bool CheckEquip(Weapon::WEAPONTYPE wep);
 };
 
 #endif

@@ -46,6 +46,8 @@ void SceneShop::Init()
 	cSoundController = CSoundController::GetInstance();
 
 	cGameManager = GameManger::GetInstance();
+
+	cSceneCollision = SceneCollision::GetInstance();
 	
 	player = Player::GetInstance();
 	player->getPlayer();
@@ -301,7 +303,11 @@ void SceneShop::Update(double dt)
 				switch (shopbuttonhighlight)
 				{
 				case 0:
-					
+					cInventoryItem = cInventoryManager->GetItem("sword");
+					if (CheckEquip(Weapon::SWORD) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->weptype = Weapon::SWORD;
+					}
 					break;
 				case 1:
 					
@@ -313,13 +319,25 @@ void SceneShop::Update(double dt)
 					
 					break;
 				case 4:
-
+					cInventoryItem = cInventoryManager->GetItem("rifle");
+					if (CheckEquip(Weapon::RIFLE) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->weptype = Weapon::RIFLE;
+					}
 					break;
 				case 5:
-
+					cInventoryItem = cInventoryManager->GetItem("flamethrower");
+					if (CheckEquip(Weapon::FLAMETHROWER) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->weptype = Weapon::FLAMETHROWER;
+					}
 					break;
 				case 6:
-
+					cInventoryItem = cInventoryManager->GetItem("crossbow");
+					if (CheckEquip(Weapon::CROSSBOW) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->weptype = Weapon::CROSSBOW;
+					}
 					break;
 				}
 			}
@@ -1162,6 +1180,12 @@ void SceneShop::Render()
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 43);
 			}
 
+			if (!CheckEquip(Weapon::SWORD))
+			{
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 43);
+			}
+
 			cInventoryItem = cInventoryManager->GetItem("boxingglove");
 			if (cInventoryItem->GetCount() == 1)
 			{
@@ -1174,6 +1198,12 @@ void SceneShop::Render()
 				ss.str("");
 				ss << "Not Owned";
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 38);
+			}
+
+			if (!CheckEquip(Weapon::BOXING_GLOVES))
+			{
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 38);
 			}
 
 			cInventoryItem = cInventoryManager->GetItem("rubberchicken");
@@ -1190,6 +1220,12 @@ void SceneShop::Render()
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 33);
 			}
 
+			if (!CheckEquip(Weapon::RUBBER_CHICKEN))
+			{
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 33);
+			}
+
 			cInventoryItem = cInventoryManager->GetItem("fryingpan");
 			if (cInventoryItem->GetCount() == 1)
 			{
@@ -1202,6 +1238,12 @@ void SceneShop::Render()
 				ss.str("");
 				ss << "Not Owned";
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 28);
+			}
+
+			if (!CheckEquip(Weapon::FRYING_PAN))
+			{
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 28);
 			}
 
 			cInventoryItem = cInventoryManager->GetItem("rifle");
@@ -1218,6 +1260,12 @@ void SceneShop::Render()
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 23);
 			}
 
+			if (!CheckEquip(Weapon::RIFLE))
+			{
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 23);
+			}
+
 			cInventoryItem = cInventoryManager->GetItem("flamethrower");
 			if (cInventoryItem->GetCount() == 1)
 			{
@@ -1232,6 +1280,12 @@ void SceneShop::Render()
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 18);
 			}
 
+			if (!CheckEquip(Weapon::FLAMETHROWER))
+			{
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 18);
+			}
+
 			cInventoryItem = cInventoryManager->GetItem("crossbow");
 			if (cInventoryItem->GetCount() == 1)
 			{
@@ -1244,6 +1298,12 @@ void SceneShop::Render()
 				ss.str("");
 				ss << "Not Owned";
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 13);
+			}
+
+			if (!CheckEquip(Weapon::CROSSBOW))
+			{
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 13);
 			}
 	
 		}
@@ -2381,6 +2441,30 @@ void SceneShop::renderUI()
 	ss.str("");
 	ss << player->getMoney();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 74.5, 56.7);
+
+
+	Vector3 wep1 = Vector3(6, 24, 1);
+	Vector3 wep2 = Vector3(16, 24, 1);
+	Vector3 scale = Vector3(10, 10, 1);
+
+	// render hotbar
+	modelStack.PushMatrix();
+	modelStack.Translate(wep1.x, wep1.y, wep1.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR_SELECTED], false);
+	modelStack.PopMatrix();
+
+
+	modelStack.PushMatrix();
+	modelStack.Translate(wep2.x, wep2.y, wep2.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	if (player->GetWeapon() != nullptr)
+		renderWeaponUI(wep1, scale, cGameManager->weptype);
+	if (player->GetSideWeapon() != nullptr)
+		renderWeaponUI(wep2, scale, cGameManager->sideweptype);
 }
 
 GameObject* SceneShop::Checkborder(GameObject* go)
@@ -2406,4 +2490,53 @@ GameObject* SceneShop::Checkborder(GameObject* go)
 	}
 
 	return go;
+}
+
+void SceneShop::renderWeaponUI(Vector3 pos, Vector3 scale, int object)
+{
+	switch (object)
+	{
+	case Weapon::SWORD:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		meshList[GEO_SWORDR]->material.kAmbient.Set(1,1,1);
+		RenderMesh(meshList[GEO_SWORDR], true);
+		modelStack.PopMatrix();
+		break;
+	case Weapon::RIFLE:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x - 2, scale.y / 3, scale.z);
+		meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
+		modelStack.PopMatrix();
+		break;
+	case Weapon::FLAMETHROWER:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x - 2, scale.y / 3, scale.z);
+		meshList[GEO_FLAMETHROWER]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_FLAMETHROWER], true);
+		modelStack.PopMatrix();
+		break;
+	case Weapon::CROSSBOW:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x - 2, scale.y - 2, scale.z);
+		meshList[GEO_CROSSBOW]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_CROSSBOW], true);
+		modelStack.PopMatrix();
+		break;
+	}
+}
+
+
+bool SceneShop::CheckEquip(Weapon::WEAPONTYPE wep)
+{
+	if ((cGameManager->weptype == wep) || (cGameManager->sideweptype == wep))
+	{
+		return false;
+	}
+	return true;
 }

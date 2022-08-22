@@ -35,7 +35,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 1;
+	wave = 5;
 
 	rate = SetRate();
 
@@ -66,8 +66,8 @@ void SceneCollision::Init()
 	cInventoryItem = cInventoryManager->Add("fryingpan", 1, 0);
 	
 	cInventoryItem = cInventoryManager->Add("rifle", 1, 1);
-	cInventoryItem = cInventoryManager->Add("flamethrower", 1, 0);
-	cInventoryItem = cInventoryManager->Add("crossbow", 1, 0);
+	cInventoryItem = cInventoryManager->Add("flamethrower", 1, 1);
+	cInventoryItem = cInventoryManager->Add("crossbow", 1, 1);
 
 	//potions
 	cInventoryItem = cInventoryManager->Add("healthpotion", 10, 0);
@@ -102,6 +102,8 @@ void SceneCollision::Init()
 	weapon1->angle = 0;
 	weapon1->color.Set(1, 1, 1);
 	weapon1->leftwep = false;
+	cGameManager->sideweptype = Weapon::FLAMETHROWER;
+	cGameManager->weptype = 0;
 	player->GetWeapon()->SetGameObject(weapon1);
 	player->SwapWeapon();
 
@@ -115,6 +117,7 @@ void SceneCollision::Init()
 	weapon2->angle = 0;
 	weapon2->color.Set(1, 1, 1);
 	weapon2->leftwep = false;
+	cGameManager->weptype = Weapon::SWORD;
 	player->GetWeapon()->SetGameObject(weapon2);
 
 	////spawn one enemy
@@ -256,7 +259,7 @@ void SceneCollision::Update(double dt)
 	
 
 	SceneBase::Update(dt);
-	std::cout << ImmortalitySkill->getState() << std::endl;
+	//std::cout << ImmortalitySkill->getState() << std::endl;
 	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
 	{
 		/*if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
@@ -273,6 +276,7 @@ void SceneCollision::Update(double dt)
 	if (cGameManager->outShop)
 	{
 		cGameManager->outShop = false;
+		SetWeapon();
 		rate = SetRate();
 		wave++;
 		player->GetGameObject()->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
@@ -952,6 +956,7 @@ void SceneCollision::RenderGO(GameObject *go)
 			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 			meshList[GEO_SWORDR]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			meshList[GEO_SWORDR]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_SWORDR], true);
 		}
 
@@ -959,6 +964,7 @@ void SceneCollision::RenderGO(GameObject *go)
 		{
 			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_SWORDL]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			meshList[GEO_SWORDL]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_SWORDL], true);
 		}
@@ -974,6 +980,7 @@ void SceneCollision::RenderGO(GameObject *go)
 			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 			meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
 		}
 
@@ -981,6 +988,7 @@ void SceneCollision::RenderGO(GameObject *go)
 		{
 			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_RIFLE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			meshList[GEO_RIFLE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_RIFLE_LEFT], true);
 		}
@@ -996,6 +1004,7 @@ void SceneCollision::RenderGO(GameObject *go)
 			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.6, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 			meshList[GEO_CROSSBOW_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			meshList[GEO_CROSSBOW_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_CROSSBOW_RIGHT], true);
 		}
 
@@ -1003,6 +1012,7 @@ void SceneCollision::RenderGO(GameObject *go)
 		{
 			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.6, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_CROSSBOW_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			meshList[GEO_CROSSBOW_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_CROSSBOW_LEFT], true);
 		}
@@ -1018,6 +1028,7 @@ void SceneCollision::RenderGO(GameObject *go)
 			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 			meshList[GEO_FLAMETHROWER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			meshList[GEO_FLAMETHROWER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_FLAMETHROWER], true);
 		}
 
@@ -1025,6 +1036,7 @@ void SceneCollision::RenderGO(GameObject *go)
 		{
 			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
 			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_FLAMETHROWER_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			meshList[GEO_FLAMETHROWER_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 			RenderMesh(meshList[GEO_FLAMETHROWER_LEFT], true);
 		}
@@ -1349,6 +1361,13 @@ void SceneCollision::Exit()
 		FlameParticle* go = m_FlameParticle.back();
 		delete go;
 		m_FlameParticle.pop_back();
+	}
+
+	while (m_parrowList.size() > 0)
+	{
+		Arrow* go = m_parrowList.back();
+		delete go;
+		m_parrowList.pop_back();
 	}
 
 	if (player)
@@ -1689,34 +1708,11 @@ void SceneCollision::SpawnEnemy(float rate)
 float SceneCollision::SetRate()
 {
 	float frequency;
+	totalEnemy = wave * 1;
+	frequency = 3 / (wave * 0.5);
+	std::cout << "Frequency: " << frequency << std::endl;
 
-	if (wave < 3)
-	{
-		frequency = 3;
-		totalEnemy = Math::RandIntMinMax(8, 12);
-		enemyLeft = totalEnemy;
-	}
-
-	else if (wave < 6)
-	{
-		frequency = 2.5;
-		totalEnemy = Math::RandIntMinMax(13, 18);
-		enemyLeft = totalEnemy;
-	}
-	else if (wave < 10)
-	{
-		frequency = 2;
-		totalEnemy = Math::RandIntMinMax(22, 30);
-		enemyLeft = totalEnemy;
-	}
-
-	else
-	{
-		frequency = 1;
-		totalEnemy = Math::RandIntMinMax(45, 80);
-		enemyLeft = totalEnemy;
-	}
-
+	enemyLeft = totalEnemy;
 	return frequency;
 }
 
@@ -1741,6 +1737,7 @@ void SceneCollision::renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* obje
 		modelStack.PushMatrix();
 		modelStack.Translate(pos.x, pos.y, pos.z);
 		modelStack.Scale(scale.x, scale.y, scale.z);
+		meshList[GEO_SWORDR]->material.kAmbient.Set(1, 1, 1);
 		RenderMesh(meshList[GEO_SWORDR], true);
 		modelStack.PopMatrix();
 		break;
@@ -1748,6 +1745,7 @@ void SceneCollision::renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* obje
 		modelStack.PushMatrix();
 		modelStack.Translate(pos.x, pos.y, pos.z);
 		modelStack.Scale(scale.x - 2, scale.y/3, scale.z);
+		meshList[GEO_RIFLE_RIGHT]->material.kAmbient.Set(1, 1, 1);
 		RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
 		modelStack.PopMatrix();
 		break;
@@ -1755,8 +1753,84 @@ void SceneCollision::renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* obje
 		modelStack.PushMatrix();
 		modelStack.Translate(pos.x, pos.y, pos.z);
 		modelStack.Scale(scale.x - 2, scale.y/3, scale.z);
+		meshList[GEO_FLAMETHROWER]->material.kAmbient.Set(1, 1, 1);
 		RenderMesh(meshList[GEO_FLAMETHROWER], true);
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_CROSSBOW:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x - 2, scale.y - 2, scale.z);
+		meshList[GEO_CROSSBOW]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_CROSSBOW], true);
+		modelStack.PopMatrix();
+		break;
+	}
+}
+
+void SceneCollision::SetWeapon()
+{
+	if (player->GetWeapon()->WeaponType != cGameManager->weptype)
+	{
+		ReturnGO(player->GetWeapon()->GetGameObject());
+		NewWeapon(cGameManager->weptype, true);
+		cGameManager->weptype = player->GetWeapon()->WeaponType;
+	}
+
+	if (player->GetSideWeapon()->WeaponType != cGameManager->sideweptype)
+	{
+		ReturnGO(player->GetSideWeapon()->GetGameObject());
+		NewWeapon(cGameManager->sideweptype, false);
+		cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
+	}
+}
+
+void SceneCollision::NewWeapon(int weptype, bool MainWep)
+{
+	Weapon* wep;
+	GameObject* weapon = FetchGO();
+	switch (weptype)
+	{
+	case Weapon::SWORD:
+		wep = new Sword;
+		weapon->type = GameObject::GO_SWORD;
+		weapon->scale.Set(10, 10, 1);
+		break;
+	case Weapon::RIFLE:
+		wep = new Rifle;
+		weapon->type = GameObject::GO_RIFLE;
+		weapon->scale.Set(8, 3, 1);
+		break;
+	case Weapon::FLAMETHROWER:
+		wep = new Flamethrower;
+		weapon->type = GameObject::GO_FLAMETHROWER;
+		weapon->scale.Set(8, 3, 1);
+		break;
+	case Weapon::CROSSBOW:
+		wep = new Crossbow;
+		weapon->type = GameObject::GO_CROSSBOW;
+		weapon->scale.Set(8, 8, 1);
+		break;
+	}
+
+
+	weapon->angle = 0;
+	weapon->pos.SetZero();
+	weapon->vel.SetZero();
+	weapon->color.Set(1, 1, 1);
+	weapon->leftwep = false;
+
+	if (MainWep)
+	{
+		player->SetWeapon(wep);
+		player->GetWeapon()->SetGameObject(weapon);
+	}
+
+	else
+	{
+		player->SwapWeapon();
+		player->SetWeapon(wep);
+		player->GetWeapon()->SetGameObject(weapon);
+		player->SwapWeapon();
 	}
 }

@@ -34,6 +34,7 @@ public:
 	bool IsMelee;
 
 	enum WEAPONTYPE{
+		NONE,
 		SWORD,
 		FIST,
 		BOXING_GLOVES,
@@ -56,4 +57,5 @@ protected:
 	GameObject* gameobject;
 	std::string description;
 	static CSoundController* cSoundController;
+
 };

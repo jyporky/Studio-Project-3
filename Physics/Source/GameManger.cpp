@@ -11,6 +11,9 @@ GameManger::GameManger()
 	waveClear = true;
 	outShop = false;
 	eButtonState = false;
+	switchWeapon = false;
+	int weptype = Weapon::NONE;
+	int sideweptype = Weapon::NONE;
 }
 
 GameManger::~GameManger()
