@@ -12,6 +12,7 @@ class Player : public Entity ,public CSingletonTemplate<Player>
 {
 public:
 	Player();
+	~Player();
 	void SetGameObject(GameObject* player);
 	void Update(double dt, Vector3 mousepos);
 	bool ChangeHealth(int ChangeAmount);
@@ -24,7 +25,6 @@ public:
 	virtual bool IsSpawningBullet();
 	Weapon* GetWeapon();
 	Weapon* GetSideWeapon();
-	~Player();
 	GameObject* getPlayer();
 	bool iFrame;
 	int getMoney();
@@ -36,7 +36,8 @@ public:
 
 	int meleeDmgBoost;
 	int rangeDmgBoost;
-
+	bool dashing;
+	float rotate;
 private:
 	std::vector<Entity*> m_enemyList;
 	std::vector<Entity*> hitlist;
@@ -52,6 +53,7 @@ private:
 	GameManger* cGameManager;
 	int money;
 	int energy;
-
+	Vector3 dashDirection;
+	float dashcd;
 };
 

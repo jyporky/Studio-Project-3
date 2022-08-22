@@ -180,6 +180,12 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
 	meshList[GEO_RIGHT_PLAYER]->textureID = LoadTGA("Image//playerright.tga");
 
+	meshList[GEO_RIGHT_DASH] = MeshBuilder::GenerateQuad("playerdash", Color(1, 1, 1));
+	meshList[GEO_RIGHT_DASH]->textureID = LoadTGA("Image//DashAnimation.tga");
+
+	meshList[GEO_LEFT_DASH] = MeshBuilder::GenerateQuad("playerdash", Color(1, 1, 1));
+	meshList[GEO_LEFT_DASH]->textureID = LoadTGA("Image//DashAnimation_left.tga");
+
 	meshList[GEO_LEFT_SWORDSMAN] = MeshBuilder::GenerateQuad("swordmanL", Color(1, 1, 1));
 	meshList[GEO_LEFT_SWORDSMAN]->textureID = LoadTGA("Image//swordsmanL.tga");
 
