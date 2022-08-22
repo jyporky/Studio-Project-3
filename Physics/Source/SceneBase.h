@@ -113,6 +113,8 @@ public:
 		//player
 		GEO_LEFT_PLAYER,
 		GEO_RIGHT_PLAYER,
+		GEO_LEFT_DASH,
+		GEO_RIGHT_DASH,
 
 		//enemies
 		GEO_LEFT_SWORDSMAN,

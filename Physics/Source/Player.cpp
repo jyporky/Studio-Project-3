@@ -13,14 +13,17 @@ Player::Player()
 	cGameManager = GameManger::GetInstance();
 	cSoundController = CSoundController::GetInstance();
 	movementspeed = 40;
-	dashBoost = 700;
+	dashBoost = 80;
 	iFrame = false;
 	money = 2000;
 	energy = 0;
 	isSpawningBullet = false;
+	dashDirection.Set(1, 0, 0);
 
 	meleeDmgBoost = 0;
 	rangeDmgBoost = 0;
+	dashing = false;
+	rotate = 0;
 }
 
 Player::~Player()
@@ -39,6 +42,37 @@ void Player::SetGameObject(GameObject* player)
 
 void Player::Update(double dt, Vector3 mousepos)
 {
+	if (redTimer > 0)
+	{
+		gameobject->color.Set(1, 0, 0);
+		redTimer -= dt;
+	}
+	else
+		gameobject->color.Set(1, 1, 1);
+
+	if (greenTimer > 0)
+	{
+		gameobject->color.Set(0, 1, 0);
+		greenTimer -= dt;
+	}
+	else if (redTimer <= 0)
+		gameobject->color.Set(1, 1, 1);
+	else if (redTimer <= 0)
+		gameobject->color.Set(1, 1, 1);
+
+	//for dashing and i frame
+	if (blueTimer > 0)
+	{
+		blueTimer -= dt;
+		gameobject->color.Set(0.6, 0.6, 1);
+		iFrame = true;
+	}
+	else
+		iFrame = false;
+
+	if (dashcd > 0)
+		dashcd -= dt;
+
 	isSpawningBullet = false;
 	//deal with the player movement
 	Vector3 movementDirection;
@@ -64,95 +98,106 @@ void Player::Update(double dt, Vector3 mousepos)
 		movementDirection.x += 1;
 	}
 
-	//dashing
-	if ((Application::IsKeyPressed(' ')) && (blueTimer <= 0))
-	{
-		movementspeed += dashBoost;
-		blueTimer = 0.7;
-		cSoundController->StopPlayByID(6);
-		cSoundController->PlaySoundByID(6);
+	if (movementDirection != Vector3(0, 0, 0) && !dashing)
+		dashDirection = movementDirection;
 
+	if (!dashing)
+	{
+		if (movementDirection.x > 0)
+		{
+			gameobject->angle = 0;
+		}
+		else if (movementDirection.x < 0)
+		{
+			gameobject->angle = 180;
+		}
+		rotate = 0;
 	}
-	else if(movementspeed > 700)
+	else
+	{
+		if (dashDirection.x > 0)
+		{
+			gameobject->angle = 0;
+			rotate -= 1800 * dt;
+		}
+		else if (dashDirection.x < 0)
+		{
+			gameobject->angle = 180;
+			rotate += 1800 * dt;
+		}
+		else
+		{
+			rotate += 1800 * dt;
+		}
+	}
+	//dashing
+	if(movementspeed > dashBoost && blueTimer <= 0)
 	{
 		movementspeed -= dashBoost;
+		blueTimer = 0;
+		dashing = false;
+		CurrWeapon->GetGameObject()->visible = true;
 	}
-
-	if (movementDirection.x > 0)
+	if (Application::IsKeyPressed(' ') && blueTimer <= 0 && dashcd <= 0)
 	{
-		gameobject->angle = 0;
+		movementspeed += dashBoost;
+		blueTimer = 0.2;
+		cSoundController->StopPlayByID(6);
+		cSoundController->PlaySoundByID(6);
+		dashing = true;
+		CurrWeapon->GetGameObject()->visible = false;
+		dashcd = 1;
 	}
 
-	else if (movementDirection.x < 0)
+	static bool switch_weapon = false;
+	if (Application::IsMousePressed(1) && !switch_weapon && SideWeapon != nullptr && !dashing)
 	{
-		gameobject->angle = 180;
+		CurrWeapon->GetGameObject()->visible = false;
+		SwapWeapon();
+		CurrWeapon->GetGameObject()->visible = true;
+		switch_weapon = true;
 	}
+	else if (!Application::IsMousePressed(1) && switch_weapon)
+		switch_weapon = false;
 
-	gameobject->pos += movementDirection.Normalize() * movementspeed * dt;
+
+	if (!dashing)
+		gameobject->pos += movementDirection.Normalize() * movementspeed * dt;
+	else
+		gameobject->pos += dashDirection.Normalize() * movementspeed * dt;
 
 	//check if the player is holding a weapon
 	if (CurrWeapon)
 	{
-		//if the weapon is animating and is a melee weapon
-		if (CurrWeapon->Animate && CurrWeapon->IsMelee)
+		if (!dashing)
 		{
-			Attack(clickMousePos);
-		}
-
-		static bool attack = false;
-		if (Application::IsMousePressed(0) && (!attack || !CurrWeapon->IsMelee))
-		{
-			//do the damage to the enemies
-			if (CurrWeapon->attack())
+			//if the weapon is animating and is a melee weapon
+			if (CurrWeapon->Animate && CurrWeapon->IsMelee)
 			{
-				clickMousePos = mousepos;
-				if (CurrWeapon->IsMelee)
-					hitlist.clear();
-				else
-				{
-					//spawn a bullet
-					isSpawningBullet = true;
-				}
+				Attack(clickMousePos);
 			}
-			attack = true;
+
+			static bool attack = false;
+			if (Application::IsMousePressed(0) && (!attack || !CurrWeapon->IsMelee))
+			{
+				//do the damage to the enemies
+				if (CurrWeapon->attack())
+				{
+					clickMousePos = mousepos;
+					if (CurrWeapon->IsMelee)
+						hitlist.clear();
+					else
+					{
+						//spawn a bullet
+						isSpawningBullet = true;
+					}
+				}
+				attack = true;
+			}
+			else if (!Application::IsMousePressed(0) && attack)
+				attack = false;
 		}
-		else if (!Application::IsMousePressed(0) && attack)
-			attack = false;
 		CurrWeapon->Update(dt, mousepos, movementDirection, gameobject);
-	}
-
-
-	if (redTimer > 0)
-	{
-		gameobject->color.Set(1, 0, 0);
-		redTimer -= dt;
-	}
-	else
-		gameobject->color.Set(1, 1, 1);
-
-	if (greenTimer > 0)
-	{
-		gameobject->color.Set(0, 1, 0);
-		greenTimer -= dt;
-	}
-	else if (redTimer <= 0)
-		gameobject->color.Set(1, 1, 1);
-	else if (redTimer <= 0)
-		gameobject->color.Set(1, 1, 1);
-
-	//for dashing and i frame
-	if (blueTimer > 0)
-	{
-		blueTimer -= dt;
-	}
-	if (blueTimer > 0.4)
-	{
-		gameobject->color.Set(0.6, 0.6, 1);
-		iFrame = true;
-	}
-	else
-	{
-		iFrame = false;
 	}
 }
 
