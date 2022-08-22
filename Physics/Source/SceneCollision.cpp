@@ -312,6 +312,10 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
+	if (Application::IsKeyPressed('R')) //for debug
+	{
+		Application::SetState(3);
+	}
 	if (Application::IsKeyPressed('E') && cGameManager->waveClear && !e && NearShop()) //go shop
 	{
 		Application::SetState(3);
@@ -346,6 +350,7 @@ void SceneCollision::Update(double dt)
 		switch_weapon = false;
 
 
+	//skills
 	static bool ubutton;
 	bool dealdamage = false;
 	if (Application::IsKeyPressed('U') && !ubutton)
@@ -355,7 +360,61 @@ void SceneCollision::Update(double dt)
 		HealSkill->UseSkill();
 	}
 	else if (!Application::IsKeyPressed('U') && ubutton)
+	{
 		ubutton = false;
+	}
+
+	//use potions
+	static bool button1;
+	if (Application::IsKeyPressed('1') && !button1)
+	{
+		cInventoryItem = cInventoryManager->GetItem("healthpotion");
+		if (cInventoryItem->GetCount() > 0)
+		{
+			button1 = true;
+			dealdamage = true;
+			HealthPotion->usePotion();
+			cInventoryItem->Remove(1);
+		}	
+	}
+	else if (!Application::IsKeyPressed('1') && button1)
+	{
+		button1 = false;
+	}
+
+	static bool button2;
+	if (Application::IsKeyPressed('2') && !button2)
+	{
+		cInventoryItem = cInventoryManager->GetItem("strengthpotion");
+		if (cInventoryItem->GetCount() > 0)
+		{
+			button2 = true;
+			dealdamage = true;
+			StrengthPotion->usePotion();
+			cInventoryItem->Remove(1);
+		}
+	}
+	else if (!Application::IsKeyPressed('2') && button2)
+	{
+		button2 = false;
+	}
+
+	static bool button3;
+	if (Application::IsKeyPressed('3') && !button3)
+	{
+		cInventoryItem = cInventoryManager->GetItem("speedpotion");
+		if (cInventoryItem->GetCount() > 0)
+		{
+			button3 = true;
+			dealdamage = true;
+			SpeedPotion->usePotion();
+			cInventoryItem->Remove(1);
+		}
+	}
+	else if (!Application::IsKeyPressed('3') && button3)
+	{
+		button3 = false;
+	}
 
 	//update enemy
 	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
@@ -1126,8 +1185,8 @@ void SceneCollision::Render()
 	
 	}
 
-	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 0, 21);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0, 18);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 37, 57);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0.5, 49);
 
 	if (cGameManager->waveClear && timer < 3)
 	{
@@ -1243,8 +1302,8 @@ void SceneCollision::renderUI()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
 
 
-	Vector3 wep1 = Vector3(6, 24, 1);
-	Vector3 wep2 = Vector3(16, 24, 1);
+	Vector3 wep1 = Vector3(10, 15, 1);
+	Vector3 wep2 = Vector3(20, 15, 1);
 	Vector3 scale = Vector3(10, 10, 1);
 	// render hotbar
 	modelStack.PushMatrix();
@@ -1305,6 +1364,70 @@ void SceneCollision::renderUI()
 	//	RenderMesh(meshList[GEO_OVERDRIVE], false);
 	//	modelStack.PopMatrix();
 	//}
+
+	//potions
+	modelStack.PushMatrix();
+	modelStack.Translate(140, wep1.y, 1);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(150, wep1.y, 1);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(160, wep1.y, 1);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(140, wep1.y, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_HEALTHPOT], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(150, wep1.y, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_STRENGTHPOT], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(160, wep1.y, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_SPEEDPOT], false);
+	modelStack.PopMatrix();
+
+	ss.str("");
+	ss << "[1]";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 61, 10);
+
+	ss.str("");
+	ss << "[2]";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 65.5, 10);
+
+	ss.str("");
+	ss << "[3]";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 70, 10);
+
+	ss.str("");
+	cInventoryItem = cInventoryManager->GetItem("healthpotion");
+	ss << cInventoryItem->GetCount();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 62.7, 5.7);
+
+	ss.str("");
+	cInventoryItem = cInventoryManager->GetItem("strengthpotion");
+	ss << cInventoryItem->GetCount();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 67.2, 5.7);
+
+	ss.str("");
+	cInventoryItem = cInventoryManager->GetItem("speedpotion");
+	ss << cInventoryItem->GetCount();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 71.7, 5.7);
 }
 void SceneCollision::Exit()
 {

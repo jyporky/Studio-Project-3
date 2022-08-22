@@ -106,6 +106,7 @@ protected:
 	Skill* ImmortalitySkill = new Immortal();
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
+	Potions* SpeedPotion = new SpeedPot();
 	float timer;
 	Vector3 color[3];
 	int colorsize = 3;
