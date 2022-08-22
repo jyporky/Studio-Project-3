@@ -57,6 +57,7 @@ public:
 		GEO_SANDBG,
 		GEO_HOTBAR,
 		GEO_HOTBAR_SELECTED,
+		GEO_COMPUTER,
 
 		// Weapons
 		GEO_SWORDL,

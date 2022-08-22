@@ -62,6 +62,7 @@ public:
 	GameObject* Checkborder(GameObject* go);
 	void renderEnvironment();
 
+	void renderComputerMenu();
 	void renderShopMenu1(); //part dealer
 	void renderShopMenu2(); //weapon dealer
 	void renderShopMenu3(); //blacksmith
@@ -75,6 +76,9 @@ protected:
 	GameObject* m_player;
 	unsigned menubuttonhighlight = 0;
 
+	bool canInteractComputer;
+	bool inComputer;
+
 	bool canInteract;
 	bool canLeave;
 	bool inShop;
@@ -82,6 +86,7 @@ protected:
 	char weaponType;
 	char playerUpgradeType;
 	int weaponUpgradePage;
+	int computerPage;
 
 	bool ShopMenu1, ShopMenu2, ShopMenu3, ShopMenu4;
 

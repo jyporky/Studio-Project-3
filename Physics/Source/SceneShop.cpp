@@ -41,20 +41,21 @@ void SceneShop::Init()
 
 	bLightEnabled = true;
 
-
 	cInventoryManager = CInventoryManager::GetInstance();
-	cSoundController = CSoundController::GetInstance();
 
-	player = Player::GetInstance();
+	cSoundController = CSoundController::GetInstance();
 
 	cGameManager = GameManger::GetInstance();
 	
+	player = Player::GetInstance();
 	player->getPlayer();
 
 	Math::InitRNG();
 
 	canInteract = false; //with shop
 	canLeave = false; //the shop scene
+	canInteractComputer = false;
+	inComputer = false;
 
 	inShop = false;
 
@@ -65,7 +66,8 @@ void SceneShop::Init()
 
 	weaponType = 'm'; // m -> melee 
 	playerUpgradeType = 'u'; //u -> upgrade
-	weaponUpgradePage = 1;
+	weaponUpgradePage = 1; //shop 1
+	computerPage = 1; //computer
 
 	empBought = false;
 	hackBought = false;
@@ -113,7 +115,7 @@ void SceneShop::Update(double dt)
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
 
 
-	if (inShop == false)
+	if ((inShop == false) && (inComputer == false))
 	{
 		player->Update(dt, mousePos); //movement
 
@@ -211,13 +213,177 @@ void SceneShop::Update(double dt)
 		canInteract = false;
 	}
 
-	if((inShop) && (Application::IsKeyPressed('R')))
+	if ((player->getPlayer()->pos.x >= 10) && (player->getPlayer()->pos.x <= 20) && (player->getPlayer()->pos.y >= 66))
 	{
-		inShop = false;
-		ShopMenu1 = false;
-		ShopMenu2 = false;
-		ShopMenu3 = false;
-		ShopMenu4 = false;
+		canInteractComputer = true;
+		if (Application::IsKeyPressed('E'))
+		{
+			if (computerPage == 1)
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 6);
+			}
+			else if (computerPage == 2)
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
+			}
+			inComputer = true;		
+		}
+	}
+	else
+	{
+		canInteractComputer = false;
+	}
+
+	if(Application::IsKeyPressed('R'))
+	{
+		if (inShop)
+		{
+			inShop = false;
+			ShopMenu1 = false;
+			ShopMenu2 = false;
+			ShopMenu3 = false;
+			ShopMenu4 = false;
+		}
+		if (inComputer)
+		{
+			inComputer = false;
+		}
+	}
+
+	if (inComputer)
+	{
+		if (Application::IsKeyPressed('Z'))
+		{
+			shopbuttonhighlight = 0;
+			computerPage = 1;
+		}
+		else if (Application::IsKeyPressed('X'))
+		{
+			shopbuttonhighlight = 0;
+			computerPage = 2;
+		}
+	}
+
+	if (inComputer == true)
+	{
+		if (computerPage == 1)
+		{
+			static bool w = false, s = false;
+			if (Application::IsKeyPressed('W') && !w)
+			{
+				w = true;
+				if (shopbuttonhighlight == 0)
+				{
+					shopbuttonhighlight = 6;
+				}
+				else
+					shopbuttonhighlight--;
+			}
+			else if (!Application::IsKeyPressed('W') && w)
+				w = false;
+
+			if (Application::IsKeyPressed('S') && !s)
+			{
+				s = true;
+				if (shopbuttonhighlight == 6)
+				{
+					shopbuttonhighlight = 0;
+				}
+				else
+					shopbuttonhighlight++;
+			}
+			else if (!Application::IsKeyPressed('S') && s)
+				s = false;
+
+			if (Application::IsKeyPressed('E') && !eButtonState)
+			{
+				eButtonState = true;
+				switch (shopbuttonhighlight)
+				{
+				case 0:
+					
+					break;
+				case 1:
+					
+					break;
+				case 2:
+				
+					break;
+				case 3:
+					
+					break;
+				case 4:
+
+					break;
+				case 5:
+
+					break;
+				case 6:
+
+					break;
+				}
+			}
+			else if (!Application::IsKeyPressed('E') && eButtonState)
+			{
+				eButtonState = false;
+			}
+		}
+		else if (computerPage == 2)
+		{
+			static bool w = false, s = false;
+			if (Application::IsKeyPressed('W') && !w)
+			{
+				w = true;
+				if (shopbuttonhighlight == 0)
+				{
+					shopbuttonhighlight = 4;
+				}
+				else
+					shopbuttonhighlight--;
+			}
+			else if (!Application::IsKeyPressed('W') && w)
+				w = false;
+
+			if (Application::IsKeyPressed('S') && !s)
+			{
+				s = true;
+				if (shopbuttonhighlight == 4)
+				{
+					shopbuttonhighlight = 0;
+				}
+				else
+					shopbuttonhighlight++;
+			}
+			else if (!Application::IsKeyPressed('S') && s)
+				s = false;
+
+			if (Application::IsKeyPressed('E') && !eButtonState)
+			{
+				eButtonState = true;
+				switch (shopbuttonhighlight)
+				{
+				case 0:
+
+					break;
+				case 1:
+
+					break;
+				case 2:
+
+					break;
+				case 3:
+
+					break;
+				case 4:
+
+					break;
+				}
+			}
+			else if (!Application::IsKeyPressed('E') && eButtonState)
+			{
+				eButtonState = false;
+			}
+		}
 	}
 
 	//parts dealer to switch between upgrades and skills
@@ -870,6 +1036,8 @@ void SceneShop::Render()
 	RenderMesh(meshList[GEO_SANDBG], false);
 	modelStack.PopMatrix();
 
+
+
 	//NPCs
 	modelStack.PushMatrix();
 	modelStack.Translate(m_worldWidth / 5, 80, 1);
@@ -901,7 +1069,13 @@ void SceneShop::Render()
 
 	renderEnvironment();
 
-	//render money
+	//computer
+	modelStack.PushMatrix();
+	modelStack.Translate(15, 75, 1);
+	modelStack.Scale(9, 9, 1);
+	RenderMesh(meshList[GEO_COMPUTER], false);
+	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(170, 97, 1);
 	modelStack.Scale(13, 5, 1);
@@ -948,7 +1122,187 @@ void SceneShop::Render()
 		renderShopMenu4();
 	}
 
+	if (inComputer)
+	{
+		renderComputerMenu();
+	}
 
+	if (inComputer)
+	{
+		if (computerPage == 1)
+		{
+			cInventoryItem = cInventoryManager->GetItem("sword");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 43);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 43);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("boxingglove");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 38);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 38);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("rubberchicken");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 33);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 33);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("fryingpan");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 28);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 28);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("rifle");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 23);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 23);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("flamethrower");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 18);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 18);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("crossbow");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 13);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 13);
+			}
+	
+		}
+		else if (computerPage == 2)
+		{
+			cInventoryItem = cInventoryManager->GetItem("emp");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 43);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 43);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("hack");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 36);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 36);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("heal");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 29);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 29);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("immortal");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 22);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 22);
+			}
+
+			cInventoryItem = cInventoryManager->GetItem("overdrive");
+			if (cInventoryItem->GetCount() == 1)
+			{
+				ss.str("");
+				ss << "Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 15);
+			}
+			else
+			{
+				ss.str("");
+				ss << "Not Owned";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 15);
+			}
+		}
+	}
 
 	ss.str("");
 	ss << "Parts Dealer ";
@@ -974,6 +1328,16 @@ void SceneShop::Render()
 		ss.str("");
 		ss << "Press [E] to interact";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.2, 0.2, 0.2), 3, 30, 8);
+	}
+
+	if ((canInteractComputer) && (inComputer == false))
+	{
+		//On screen text
+		std::ostringstream ss;
+
+		ss.str("");
+		ss << "Press [E] to access weapons/skills";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.2, 0.2, 0.2), 3, 25, 8);
 	}
 
 	if (canLeave)
@@ -1827,6 +2191,159 @@ void SceneShop::renderShopMenu4()
 	ss << ">";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 8, 29 - shopbuttonhighlight * 8.2);
 
+}
+
+void SceneShop::renderComputerMenu()
+{
+	modelStack.PushMatrix();
+	modelStack.Translate(m_worldWidth / 2, 50, 1);
+	modelStack.Scale(m_worldWidth - 40, 75, 1);
+	RenderMesh(meshList[GEO_SHOPMENUBG], false);
+	modelStack.PopMatrix();
+
+	std::ostringstream ss;
+	ss.str("");
+	ss << "[R]";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 66, 49);
+
+	ss.str("");
+	ss << "X";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 3, 68, 48.5);
+
+	if (computerPage == 1)
+	{
+		ss.str("");
+		ss << "Weapons [Z]/[X]";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 12, 48);
+
+		ss.str("");
+		ss << "Owned";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 32, 48);
+
+		ss.str("");
+		ss << "Damage";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 52, 48);
+
+		ss.str("");
+		ss << "Sword";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 43);
+
+		ss.str("");
+		ss << "Boxing Glove";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 38);
+
+		ss.str("");
+		ss << "Rubber Chicken";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 33);
+
+		ss.str("");
+		ss << "Mom's Frying Pan";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 28);
+
+		ss.str("");
+		ss << "Rifle";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 23);
+
+		ss.str("");
+		ss << "Flamethrower";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 18);
+
+		ss.str("");
+		ss << "Crossbow";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 13);
+
+		ss.str("");
+		ss << sword->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 43);
+
+		ss.str("");
+		ss << boxingGlove->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 38);
+
+		ss.str("");
+		ss << rubberchicken->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 33);
+
+		ss.str("");
+		ss << pan->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 28);
+
+		ss.str("");
+		ss << rifle->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 23);
+
+		ss.str("");
+		ss << flamethrower->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 18);
+
+		ss.str("");
+		ss << crossbow->GetDamage();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 13);
+		//selctor
+		ss.str("");
+		ss << ">";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 13, 42 - shopbuttonhighlight * 5);
+	}
+	else if (computerPage == 2)
+	{
+		ss.str("");
+		ss << "Skills [Z]/[X]";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 12, 48);
+
+		ss.str("");
+		ss << "Owned";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 32, 48);
+
+		ss.str("");
+		ss << "Description";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 47, 48);
+
+		ss.str("");
+		ss << "EMP Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 43);
+
+		ss.str("");
+		ss << "Hack Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 36);
+
+		ss.str("");
+		ss << "Heal Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 29);
+
+		ss.str("");
+		ss << "Immortal Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 22);
+
+		ss.str("");
+		ss << "Overdrive Skill";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 15);
+
+
+		ss.str("");
+		ss << emp->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 43.5);
+
+		ss.str("");
+		ss << hack->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 36.5);
+
+		ss.str("");
+		ss << heal->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 29.5);
+
+		ss.str("");
+		ss << immortal->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 22.5);
+
+		ss.str("");
+		ss << overdrive->getDescription();
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 15.5);
+
+		//selctor
+		ss.str("");
+		ss << ">";
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 13, 42 - shopbuttonhighlight * 7);
+	}
 }
 
 void SceneShop::renderUI()
