@@ -165,7 +165,10 @@ void SceneBase::Init()
 	meshList[GEO_HOTBAR]->textureID = LoadTGA("Image//hotbar.tga");	
 
 	meshList[GEO_HOTBAR_SELECTED] = MeshBuilder::GenerateQuad("hotbar selected", Color(1, 1, 1));
-	meshList[GEO_HOTBAR_SELECTED]->textureID = LoadTGA("Image//hotbar_selected.tga");
+	meshList[GEO_HOTBAR_SELECTED]->textureID = LoadTGA("Image//hotbar_selected.tga");	
+	
+	meshList[GEO_TELEPORT_PAD] = MeshBuilder::GenerateQuad("teleport pad", Color(1, 1, 1));
+	meshList[GEO_TELEPORT_PAD]->textureID = LoadTGA("Image//teleport_pad.tga");
 
 	meshList[GEO_LEFT_PLAYER] = MeshBuilder::GenerateQuad("player", Color(1, 1, 1));
 	meshList[GEO_LEFT_PLAYER]->textureID = LoadTGA("Image//playerleft.tga");	

@@ -57,6 +57,8 @@ public:
 		GEO_HOTBAR,
 		GEO_HOTBAR_SELECTED,
 
+		GEO_TELEPORT_PAD,
+
 		// Weapons
 		GEO_SWORDL,
 		GEO_SWORDR,

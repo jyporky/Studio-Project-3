@@ -1,5 +1,6 @@
 #pragma once
 #include "SingletonTemplate.h"
+#include "SpriteAnimation.h"
 
 class GameManger : public CSingletonTemplate<GameManger>
 {

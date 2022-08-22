@@ -2,6 +2,7 @@
 #define SCENE_COLLISION_H
 
 #include "GameObject.h"
+#include "MeshBuilder.h"
 #include <vector>
 #include "SceneBase.h"
 #include "SoundController.h"
@@ -97,6 +98,8 @@ protected:
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
 	float timer;
+	Vector3 color[3];
+	int colorsize = 3;
 
 	WeaponMods* PierceMod = new PiercingBulletMod();
 	//Auditing

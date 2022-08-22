@@ -82,6 +82,8 @@ void SceneCollision::Init()
 	cInventoryItem = cInventoryManager->Add("immortal", 1, 0);
 	cInventoryItem = cInventoryManager->Add("overdrive", 1, 0);
 
+	cGameManager = GameManger::GetInstance();
+
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
 	m_player->pos.Set(m_worldWidth/2, m_worldHeight/2, 1);
@@ -104,8 +106,6 @@ void SceneCollision::Init()
 	player->GetWeapon()->SetGameObject(weapon1);
 	player->SwapWeapon();
 
-	cGameManager = GameManger::GetInstance();
-
 	Sword* sword = new Sword();
 	player->SetWeapon(sword);
 	GameObject* weapon2 = FetchGO();
@@ -118,8 +118,6 @@ void SceneCollision::Init()
 	weapon2->leftwep = false;
 	player->GetWeapon()->SetGameObject(weapon2);
 
-
-	cGameManager = GameManger::GetInstance();
 	////spawn one enemy
 	//Enemy* enemy = new Swordsman();
 	//enemy->Init();
@@ -174,6 +172,14 @@ void SceneCollision::Init()
 
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
+
+	colorsize = 3;
+	for (unsigned i = 0; i < colorsize; ++i)
+	{
+		color[i] = Vector3(1,1,1);
+	}
+
+	meshList[GEO_TELEPORT_PAD]->material.kAmbient.Set(1, 1, 1);
 }
 
 GameObject* SceneCollision::FetchGO()
@@ -1281,7 +1287,7 @@ void SceneCollision::Exit()
 
 GameObject* SceneCollision::Checkborder(GameObject* go)
 {
-	float offset = 5;
+	float offset = 10;
 	if (go->pos.x + go->scale.x / 2 > m_worldWidth - offset)
 	{
 		go->pos.x = m_worldWidth - go->scale.x / 2 - offset;
@@ -1359,14 +1365,14 @@ void SceneCollision::RenderWall()
 
 		//bottom left
 		modelStack.PushMatrix();
-		modelStack.Translate(30, 3, 1);
+		modelStack.Translate(35, 3, 1);
 		modelStack.Scale(m_worldWidth / 2 - 10, 6, 1);
 		RenderMesh(meshList[GEO_CUBE], false);
 		modelStack.PopMatrix();
 
 		//bottom right
 		modelStack.PushMatrix();
-		modelStack.Translate(140, 3, 1);
+		modelStack.Translate(145, 3, 1);
 		modelStack.Scale(m_worldWidth / 2 - 10, 6, 1);
 		RenderMesh(meshList[GEO_CUBE], false);
 		modelStack.PopMatrix();
@@ -1400,36 +1406,82 @@ void SceneCollision::RenderWall()
 		modelStack.Scale(6, m_worldHeight / 2 - 15, 1);
 		RenderMesh(meshList[GEO_CUBE], false);
 		modelStack.PopMatrix();
+
+		// Teleport pad left
+		modelStack.PushMatrix();
+		modelStack.Translate(4, m_worldHeight/2, 1);
+		modelStack.Scale(8, 8, 1);
+		meshList[GEO_TELEPORT_PAD]->material.kAmbient.Set(color[0].x, color[0].y, color[0].z);
+		RenderMesh(meshList[GEO_TELEPORT_PAD], true);
+		modelStack.PopMatrix();
+
+		// Teleport pad bottom
+		modelStack.PushMatrix();
+		modelStack.Translate(m_worldWidth / 2, 4, 1);
+		modelStack.Scale(8, 8, 1);
+		meshList[GEO_TELEPORT_PAD]->material.kAmbient.Set(color[1].x, color[1].y, color[1].z);
+		RenderMesh(meshList[GEO_TELEPORT_PAD], true);
+		modelStack.PopMatrix();
+
+		// Teleport pad right
+		modelStack.PushMatrix();
+		modelStack.Translate(m_worldWidth - 4, m_worldHeight / 2, 1);
+		modelStack.Scale(8, 8, 1);
+		meshList[GEO_TELEPORT_PAD]->material.kAmbient.Set(color[2].x, color[2].y, color[2].z);
+		RenderMesh(meshList[GEO_TELEPORT_PAD], true);
+		modelStack.PopMatrix();
 	}
 }
 
 void SceneCollision::SpawnEnemy(float rate)
 {
-	if (timer > rate)
-	{
-		int type = Math::RandIntMinMax(3, 3);
-		int location = Math::RandIntMinMax(1, 3);
-		Vector3 pos;
+	static bool loc = false;
+	static int location;
+	static Vector3 pos;
 
+	if (totalEnemy <= 0)
+	{
+		for (unsigned i = 0; i < colorsize; ++i)
+		{
+			color[i].Set(1, 1, 1);
+		}
+	}
+
+	else if (!loc && timer > rate/3)
+	{
+		location = Math::RandIntMinMax(1, 3);
 		switch (location)
 		{
 			float x, y;
 		case 1:
 			x = 10;
-			y = Math::RandFloatMinMax(45, 55);
+			y = m_worldHeight / 2;
 			pos.Set(x, y, 1);
 			break;
 		case 2:
-			x = Math::RandFloatMinMax(m_worldWidth/2 - 10, m_worldWidth/2 + 10);
-			y = 10;
+			x = m_worldWidth / 2;
+			y = 4;
 			pos.Set(x, y, 1);
 			break;
 		case 3:
 			x = m_worldWidth - 10;
-			y = Math::RandFloatMinMax(45, 55);
+			y = m_worldHeight / 2;
 			pos.Set(x, y, 1);
 			break;
 		}
+
+		for (unsigned i = 0; i < colorsize; ++i)
+		{
+			color[i].Set(1, 1, 1);
+		}
+		color[location - 1].Set(1, 0, 1);
+
+		loc = true;
+	}
+
+	else if (timer > rate)
+	{
+		int type = Math::RandIntMinMax(3, 3);
 
 		Enemy* enemy;
 		GameObject* enemyGO;
@@ -1512,7 +1564,22 @@ void SceneCollision::SpawnEnemy(float rate)
 		}
 		totalEnemy--;
 		timer = 0;
+		loc = false;
+		for (unsigned i = 0; i < colorsize; ++i)
+		{
+			color[i].Set(1, 1, 1);
+		}
+
+		color[location - 1].Set(1, 0, 0);
 	}
+
+	//else if (timer > rate/3)
+	//{
+	//	for (unsigned i = 0; i < colorsize; ++i)
+	//	{
+	//		color[i].Set(1, 1, 1);
+	//	}
+	//}
 }
 
 float SceneCollision::SetRate()

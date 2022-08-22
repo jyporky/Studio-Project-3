@@ -15,4 +15,5 @@ GameManger::GameManger()
 
 GameManger::~GameManger()
 {
+	// Delete the animated sprites
 }
