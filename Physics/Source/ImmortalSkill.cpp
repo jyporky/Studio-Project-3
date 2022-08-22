@@ -1,6 +1,6 @@
 #include "ImmortalSkill.h"
 Immortal::Immortal() {
-
+	
 }
 Immortal::~Immortal() {
 
@@ -15,5 +15,11 @@ int Immortal::getEnergyCost() {
 	return 200;
 }
 void Immortal::UseSkill() {
-	return;
+	immortalState = true;
+}
+void Immortal::resetImmortality() {
+	immortalState = false;
+}
+bool Immortal::getState() {
+	return immortalState;
 }

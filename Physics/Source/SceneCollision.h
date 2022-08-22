@@ -19,8 +19,12 @@
 #include "Rifle.h"
 #include "RiflerEnemy.h"
 #include "Rifle.h"
+
 #include "FlameParticle.h"
 #include "Flamethrower.h"
+#include "Crossbow.h"
+#include "Arrow.h"
+
 
 #include "Skill.h"
 #include "HackSkill.h"
@@ -70,8 +74,12 @@ protected:
 	std::vector<Entity*> m_enemyList;
 	std::vector<Bullet*> m_ebulletList;
 	std::vector<Bullet*> m_pbulletList;
+
 	std::vector<Weapon*> m_weaponList;
 	std::vector<FlameParticle*> m_FlameParticle;
+
+	std::vector<Arrow*> m_parrowList;
+
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;
@@ -91,6 +99,8 @@ protected:
 	bool NearShop();
 	Skill* HackSkill = new Hack();
 	Skill* HealSkill = new Heal();
+	Skill* ImmortalitySkill = new Immortal();
+	Immortal* Immortality;
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
 	float timer;

@@ -7,6 +7,7 @@ void Skill::UseSkill()
 
 Skill::Skill()
 {
+	immortalState = false;
 	player = Player::GetInstance();
 }
 
@@ -24,4 +25,10 @@ int Skill::getEnergyCost() {
 
 int Skill::getMoneyCost() {
 	return 0;
+}
+void Skill::resetImmortality() {
+	return;
+}
+bool Skill::getState() {
+	return immortalState;
 }

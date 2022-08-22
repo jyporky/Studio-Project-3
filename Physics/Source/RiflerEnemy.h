@@ -10,6 +10,7 @@ public:
         IDLE,
         CHASE,
         ATTACK,
+        RUN,
         NUM_SM_STATES,
     };
     Rifler();
@@ -22,4 +23,5 @@ private:
     bool isSpawningBullet;
     unsigned sCurrState;
     unsigned attackRange;
+    unsigned runRange;
 };
