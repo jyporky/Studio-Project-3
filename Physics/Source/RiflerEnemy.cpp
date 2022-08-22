@@ -4,7 +4,6 @@ Rifler::Rifler()
 {
     health = 15;
     redTimer = 0;
-    attackdt = 0;
     movementSpeed = 4;
     energyDropped = 2;
     moneyDropped = 5;
@@ -18,6 +17,7 @@ Rifler::Rifler()
     attackSpeed = 1.5;
     isSpawningBullet = false;
     iFrameTimer = 0;
+    enemytype = RIFER;
 }
 
 Rifler::~Rifler()
@@ -61,8 +61,6 @@ bool Rifler::Update(double dt)
     else if (redTimer <= 0)
         gameobject->color.Set(1, 1, 1);
 
-    if (attackdt > 0)
-        attackdt -= dt;
 
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;
@@ -86,9 +84,9 @@ bool Rifler::Update(double dt)
             sCurrState = CHASE;
            
         }
-       // Attack the player
-       if(CurrWeapon->attack())
-         isSpawningBullet = true;
+        // Attack the player
+        if(CurrWeapon->attack())
+            isSpawningBullet = true;
         
         break;
     }

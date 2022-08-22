@@ -215,6 +215,12 @@ void SceneBase::Init()
 	meshList[GEO_FLAMETHROWER] = MeshBuilder::GenerateQuad("flamethrower", Color(1, 1, 1));
 	meshList[GEO_FLAMETHROWER]->textureID = LoadTexture("Image//flamethrower.png");
 
+	meshList[GEO_FLAMETHROWER_LEFT] = MeshBuilder::GenerateQuad("flamethrower left", Color(1, 1, 1));
+	meshList[GEO_FLAMETHROWER_LEFT]->textureID = LoadTexture("Image//flamethrowerleft.png");
+
+	meshList[GEO_SHIELD] = MeshBuilder::GenerateQuad("shield", Color(1, 1, 1));
+	meshList[GEO_SHIELD]->textureID = LoadTexture("Image//shield.png");
+
 	meshList[GEO_CROSSBOW] = MeshBuilder::GenerateQuad("crossbow", Color(1, 1, 1));
 	meshList[GEO_CROSSBOW]->textureID = LoadTexture("Image//crossbow.png");
 

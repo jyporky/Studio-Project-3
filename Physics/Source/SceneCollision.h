@@ -21,6 +21,8 @@
 #include "Rifle.h"
 #include "FlameParticle.h"
 #include "Flamethrower.h"
+#include "ShieldEnemy.h"
+#include "Shield.h"
 
 #include "Skill.h"
 #include "HackSkill.h"
