@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="Source\AccurateArrowsMod.cpp" />
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\Arrow.cpp" />
     <ClCompile Include="Source\BetterFuelMod.cpp" />
     <ClCompile Include="Source\BoxingGloves.cpp" />
     <ClCompile Include="Source\Bullet.cpp" />
@@ -224,6 +225,7 @@
   <ItemGroup>
     <ClInclude Include="Source\AccurateArrowsMod.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\Arrow.h" />
     <ClInclude Include="Source\BetterFuelMod.h" />
     <ClInclude Include="Source\BoxingGloves.h" />
     <ClInclude Include="Source\Bullet.h" />

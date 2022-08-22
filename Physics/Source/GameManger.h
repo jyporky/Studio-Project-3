@@ -1,5 +1,6 @@
 #pragma once
 #include "SingletonTemplate.h"
+#include "SpriteAnimation.h"
 
 class GameManger : public CSingletonTemplate<GameManger>
 {
@@ -14,5 +15,6 @@ public:
 	unsigned dPlayerScore;
 	bool waveClear;
 	bool outShop;
+	bool eButtonState;
 };
 

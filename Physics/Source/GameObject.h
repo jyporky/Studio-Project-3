@@ -23,6 +23,8 @@ struct GameObject
 		GO_FLAMETHROWER,
 		GO_RIFLER,
 		GO_RIFLE,
+		GO_CROSSBOW,
+		GO_ARROW,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;

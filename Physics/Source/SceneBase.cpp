@@ -166,7 +166,10 @@ void SceneBase::Init()
 	meshList[GEO_HOTBAR]->textureID = LoadTGA("Image//hotbar.tga");	
 
 	meshList[GEO_HOTBAR_SELECTED] = MeshBuilder::GenerateQuad("hotbar selected", Color(1, 1, 1));
-	meshList[GEO_HOTBAR_SELECTED]->textureID = LoadTGA("Image//hotbar_selected.tga");
+	meshList[GEO_HOTBAR_SELECTED]->textureID = LoadTGA("Image//hotbar_selected.tga");	
+	
+	meshList[GEO_TELEPORT_PAD] = MeshBuilder::GenerateQuad("teleport pad", Color(1, 1, 1));
+	meshList[GEO_TELEPORT_PAD]->textureID = LoadTGA("Image//teleport_pad.tga");
 
 	meshList[GEO_COMPUTER] = MeshBuilder::GenerateQuad("computer", Color(1, 1, 1));
 	meshList[GEO_COMPUTER]->textureID = LoadTGA("Image//computer.tga");
@@ -227,6 +230,15 @@ void SceneBase::Init()
 
 	meshList[GEO_CROSSBOW] = MeshBuilder::GenerateQuad("crossbow", Color(1, 1, 1));
 	meshList[GEO_CROSSBOW]->textureID = LoadTexture("Image//crossbow.png");
+
+	meshList[GEO_CROSSBOW_LEFT] = MeshBuilder::GenerateQuad("crossbowL", Color(1, 1, 1));
+	meshList[GEO_CROSSBOW_LEFT]->textureID = LoadTGA("Image//crossbow_left.tga");
+
+	meshList[GEO_CROSSBOW_RIGHT] = MeshBuilder::GenerateQuad("crossbowR", Color(1, 1, 1));
+	meshList[GEO_CROSSBOW_RIGHT]->textureID = LoadTGA("Image//crossbow_right.tga");
+
+	meshList[GEO_ARROW] = MeshBuilder::GenerateQuad("arrow", Color(1, 1, 1));
+	meshList[GEO_ARROW]->textureID = LoadTGA("Image//arrow.tga");
 
 	//skills
 	meshList[GEO_EMP] = MeshBuilder::GenerateQuad("emp", Color(1, 1, 1));

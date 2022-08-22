@@ -17,4 +17,5 @@ int Overdrive::getEnergyCost() {
 void Overdrive::UseSkill() {
 	/*player->getAttack * 1.3;
 	player->getMovementSpeed * 1.2;*/
+	player->changeMovementSpeed(15);
 }

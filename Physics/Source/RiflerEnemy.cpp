@@ -3,8 +3,7 @@
 Rifler::Rifler()
 {
     health = 15;
-    redTimer = 0;
-    movementSpeed = 4;
+    movementSpeed = 14;
     energyDropped = 2;
     moneyDropped = 5;
     attackDamage = 3;
@@ -16,6 +15,7 @@ Rifler::Rifler()
     attackRange = 50;
     attackSpeed = 1.5;
     isSpawningBullet = false;
+    runRange = 20;
     iFrameTimer = 0;
     enemytype = RIFER;
 }
@@ -64,7 +64,10 @@ bool Rifler::Update(double dt)
 
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;
-    
+
+    if (CurrWeapon->attack())
+        isSpawningBullet = true;
+
     switch (sCurrState)
     {
     case IDLE:
@@ -72,7 +75,7 @@ bool Rifler::Update(double dt)
         break;
     case CHASE:
         //chase the player
-        isSpawningBullet = false;
+     
         gameobject->pos += (PlayerPointer->getPlayer()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
         if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
         {
@@ -84,13 +87,24 @@ bool Rifler::Update(double dt)
             sCurrState = CHASE;
            
         }
-        // Attack the player
-        if(CurrWeapon->attack())
-            isSpawningBullet = true;
-        
+        if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() < runRange * runRange) {
+            sCurrState = RUN;
+        }
+       // Attack the player
+     
+        break;
+    case RUN:
+     
+        Vector3 runAway = gameobject->pos - PlayerPointer->getPlayer()->pos;
+        gameobject->pos += runAway.Normalized() * movementSpeed * dt;
+        //gameobject->pos -= (PlayerPointer->getPlayer()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
+        if ((PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() >= runRange * runRange) {
+            sCurrState = ATTACK;
+        }
         break;
     }
-
+    gameobject->pos.z = 0;
+   // std::cout << (PlayerPointer->getPlayer()->pos - gameobject->pos).LengthSquared() << std::endl;
     // Make the sword point to the player
     CurrWeapon->Update(dt, PlayerPointer->getPlayer()->pos, 0, gameobject);
     return false;
