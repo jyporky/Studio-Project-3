@@ -1407,7 +1407,7 @@ void SceneCollision::SpawnEnemy(float rate)
 {
 	if (timer > rate)
 	{
-		int type = Math::RandIntMinMax(1, 2);
+		int type = Math::RandIntMinMax(3, 3);
 		int location = Math::RandIntMinMax(1, 3);
 		Vector3 pos;
 
@@ -1479,6 +1479,30 @@ void SceneCollision::SpawnEnemy(float rate)
 			ewep->type = GameObject::GO_RIFLE;
 			ewep->vel.SetZero();
 			ewep->scale.Set(8, 3, 1);
+			ewep->color.Set(1, 1, 1);
+			ewep->angle = 0;
+			ewep->active = true;
+			ewep->leftwep = false;
+			enemy->GetWeapon()->SetGameObject(ewep);
+			break;
+		case 3:
+			enemy = new ShieldEnemy();
+			enemy->Init();
+			enemyGO = FetchGO();
+			enemyGO->type = GameObject::GO_SHIELDMAN;
+			enemyGO->pos = pos;
+			enemyGO->vel.SetZero();
+			enemyGO->scale.Set(10, 10, 1);
+			enemyGO->color.Set(1, 1, 1);
+			enemyGO->angle = 0;
+			enemy->SetWeapon(new Shield());
+			enemy->SetGameObject(enemyGO);
+			m_enemyList.push_back(enemy);
+
+			ewep = FetchGO();
+			ewep->type = GameObject::GO_SHIELD;
+			ewep->vel.SetZero();
+			ewep->scale.Set(10, 10, 1);
 			ewep->color.Set(1, 1, 1);
 			ewep->angle = 0;
 			ewep->active = true;
@@ -1560,7 +1584,7 @@ void SceneCollision::renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* obje
 		modelStack.PushMatrix();
 		modelStack.Translate(pos.x, pos.y, pos.z);
 		modelStack.Scale(scale.x - 2, scale.y/3, scale.z);
-		RenderMesh(meshList[GEO_RIFLE_RIGHT], true);
+		RenderMesh(meshList[GEO_FLAMETHROWER], true);
 		modelStack.PopMatrix();
 		break;
 	}
