@@ -152,6 +152,7 @@ void SceneBase::Init()
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_BALL] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.4, 0.4, 0.3), 1.f);
+	meshList[GEO_SOLDOUT] = MeshBuilder::GenerateCube("cube", Color(1, 0.3, 0.3), 1.f);
 	
 	meshList[GEO_SHOPMENUBG] = MeshBuilder::GenerateCube("shopmenubg", Color(0.3, 0.3, 0.3), 1.f);
 

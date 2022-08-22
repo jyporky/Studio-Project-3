@@ -1062,14 +1062,14 @@ void SceneCollision::renderUI()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
 
 	//add equipped skill code
-	if (player->getEnergy() >= 100)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(26, 90, 1);
-		modelStack.Scale(7, 7, 1);
-		RenderMesh(meshList[GEO_EMP], false);
-		modelStack.PopMatrix();
-	}
+	//if (player->getEnergy() >= 100)
+	//{
+	//	modelStack.PushMatrix();
+	//	modelStack.Translate(26, 90, 1);
+	//	modelStack.Scale(7, 7, 1);
+	//	RenderMesh(meshList[GEO_EMP], false);
+	//	modelStack.PopMatrix();
+	//}
 	//if (player->getEnergy() >= 150)
 	//{
 	//	modelStack.PushMatrix();
