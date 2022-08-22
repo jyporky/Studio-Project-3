@@ -59,7 +59,7 @@ void SceneCollision::Init()
 
 	cInventoryManager = CInventoryManager::GetInstance();
 	//weapons
-	cInventoryItem = cInventoryManager->Add("Fist", 1, 1);
+	cInventoryItem = cInventoryManager->Add("Fist", 1, 0);
 	cInventoryItem = cInventoryManager->Add("sword", 1, 1);
 	cInventoryItem = cInventoryManager->Add("boxingglove", 1, 0);	
 	cInventoryItem = cInventoryManager->Add("rubberchicken", 1, 0);
