@@ -275,9 +275,13 @@ void SceneCollision::Update(double dt)
 	if (totalEnemy > 0 && timer > 0)
 		SpawnEnemy(rate);
 
-	if (enemyLeft <= 0)
+	if (timer >= 0)
 	{
-		cGameManager->waveClear = true;
+		if (enemyLeft <= 0)
+		{
+			cGameManager->waveClear = true;
+			timer = 0;
+		}
 	}
 
 	static bool oem_5 = false;
@@ -297,15 +301,15 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
-	if (Application::IsKeyPressed('R') && !e) //go shop
-	{
-		Application::SetState(3);
-		player->getPlayer()->pos.x = m_worldWidth / 2;
-		player->getPlayer()->pos.y = 12;
-
-	}
-	else if (!Application::IsKeyPressed('E') && e)
-		e = false;
+	//if (Application::IsKeyPressed('E') && !cGameManager->eButtonState) //go shop
+	//{
+	//	Application::SetState(3);
+	//	player->getPlayer()->pos.x = m_worldWidth / 2;
+	//	player->getPlayer()->pos.y = 12;
+	//	cGameManager->eButtonState;
+	//}
+	//else if (!Application::IsKeyPressed('E') && e)
+	//	e = false;
 	
 	if (cGameManager->bDebug)
 	{
@@ -963,12 +967,12 @@ void SceneCollision::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 0, 21);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0, 18);
 
-	if (cGameManager->waveClear)
+	if (cGameManager->waveClear && timer < 3)
 	{
 		if (NearShop())
 		{
 			ss.str("");
-			ss << "Press r to go shop";
+			ss << "Press e to go shop";
 			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 40);
 		}
 

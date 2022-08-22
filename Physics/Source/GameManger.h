@@ -14,5 +14,6 @@ public:
 	unsigned dPlayerScore;
 	bool waveClear;
 	bool outShop;
+	bool eButtonState;
 };
 

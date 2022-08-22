@@ -10,6 +10,7 @@ GameManger::GameManger()
 	dPlayerScore = 1000;
 	waveClear = false;
 	outShop = false;
+	eButtonState = false;
 }
 
 GameManger::~GameManger()
