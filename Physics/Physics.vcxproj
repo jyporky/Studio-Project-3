@@ -208,6 +208,8 @@
     <ClCompile Include="Source\SceneShop.cpp" />
     <ClCompile Include="Source\SelfUpgrades.cpp" />
     <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\Shield.cpp" />
+    <ClCompile Include="Source\ShieldEnemy.cpp" />
     <ClCompile Include="Source\Skill.cpp" />
     <ClCompile Include="Source\SoundController.cpp" />
     <ClCompile Include="Source\SoundInfo.cpp" />
@@ -277,6 +279,8 @@
     <ClInclude Include="Source\SceneShop.h" />
     <ClInclude Include="Source\SelfUpgrades.h" />
     <ClInclude Include="Source\shader.hpp" />
+    <ClInclude Include="Source\Shield.h" />
+    <ClInclude Include="Source\ShieldEnemy.h" />
     <ClInclude Include="Source\Skill.h" />
     <ClInclude Include="Source\SoundController.h" />
     <ClInclude Include="Source\SoundInfo.h" />

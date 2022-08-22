@@ -6,6 +6,11 @@
 class Entity
 {
 public:
+	enum ENEMYTYPE {
+		SWORDMAN,
+		RIFER,
+		SHIELDMAN,
+	};
 	Entity();
 	~Entity();
 	virtual bool Update(double dt);
@@ -18,9 +23,15 @@ public:
 	virtual void SetWeapon(Weapon* weapon);
 	virtual unsigned GetMoneyDrop();
 	virtual unsigned GetEnergyDrop();
+	virtual unsigned GetEnemyType();
+	virtual float GetAngle();
+
+	static bool CheckShieldCollision(Entity* projectile, Entity* shieldman);
+	static float shieldblockingangle;
 protected:
 	GameObject* gameobject;
 	Weapon* CurrWeapon;
 	Weapon* SideWeapon;
+	static CSoundController* cSoundController;
 };
 

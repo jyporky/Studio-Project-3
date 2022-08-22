@@ -9,6 +9,7 @@ Player::Player()
 	health = maxHealth;
 	gameobject = nullptr;
 	CurrWeapon = nullptr;
+	SideWeapon = nullptr;
 	cGameManager = GameManger::GetInstance();
 	cSoundController = CSoundController::GetInstance();
 	movementspeed = 40;
@@ -219,6 +220,7 @@ void Player::Attack(Vector3 mousepos)
 		//for melee weapons
 		for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 		{
+			
 			//check if the enemy has been hit before
 			bool hitb4 = false;
 			for (unsigned idx1 = 0; idx1 < hitlist.size(); idx1++)
@@ -243,6 +245,26 @@ void Player::Attack(Vector3 mousepos)
 			//check if the angles are pointing in the same direction
 			if (dotproduct < 0)
 				continue;
+			//check if the shield enemy is blocking the attack
+			if (m_enemyList[idx]->GetEnemyType() == Entity::SHIELDMAN)
+			{
+				Bullet* testbullet = new Bullet();
+				testbullet->SetGameObject(new GameObject);
+				testbullet->GetGameObject()->pos = gameobject->pos;
+				//testbullet->GetGameObject()->pos += (m_enemyList[idx]->GetGameObject()->pos - gameobject->pos).Normalize() * 2;
+
+				if (Entity::CheckShieldCollision(testbullet, m_enemyList[idx]))
+				{
+					//attack blocked by the enemy
+					delete testbullet->GetGameObject();
+					delete testbullet;
+					//add enemy to the hit list
+					hitlist.push_back(m_enemyList[idx]);
+					continue;
+				}
+				delete testbullet->GetGameObject();
+				delete testbullet;
+			}
 
 			//check if the angle of vector is less than half the attack angle
 			dotproduct = Math::RadianToDegree(acos(dotproduct / (m_enemyList[idx]->GetGameObject()->pos.Distance(gameobject->pos) * mousepos.Distance(gameobject->pos))));
@@ -295,6 +317,11 @@ void Player::SwapWeapon()
 Weapon* Player::GetWeapon()
 {
 	return CurrWeapon;
+}
+
+Weapon* Player::GetSideWeapon()
+{
+	return SideWeapon;
 }
 
 

@@ -3,7 +3,6 @@
 Rifler::Rifler()
 {
     health = 15;
-    redTimer = 0;
     attackdt = 0;
     movementSpeed = 14;
     energyDropped = 2;
@@ -19,6 +18,7 @@ Rifler::Rifler()
     isSpawningBullet = false;
     runRange = 20;
     iFrameTimer = 0;
+    enemytype = RIFER;
 }
 
 Rifler::~Rifler()
@@ -62,8 +62,6 @@ bool Rifler::Update(double dt)
     else if (redTimer <= 0)
         gameobject->color.Set(1, 1, 1);
 
-    if (attackdt > 0)
-        attackdt -= dt;
 
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;

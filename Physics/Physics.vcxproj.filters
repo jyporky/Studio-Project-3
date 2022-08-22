@@ -206,6 +206,12 @@
     <ClCompile Include="Source\InventoryManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ShieldEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Shield.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -410,6 +416,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\InventoryItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShieldEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Shield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

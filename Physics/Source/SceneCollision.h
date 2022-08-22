@@ -22,6 +22,8 @@
 
 #include "FlameParticle.h"
 #include "Flamethrower.h"
+#include "ShieldEnemy.h"
+#include "Shield.h"
 #include "Crossbow.h"
 #include "Arrow.h"
 
@@ -67,6 +69,7 @@ public:
 	GameObject* Checkborder(GameObject* go);
 
 	void renderUI();
+	void renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* object);
 protected:
 
 	//Physics

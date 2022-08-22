@@ -27,12 +27,13 @@ public:
 	virtual float GetAttackAngle();
 	virtual bool Update(double dt, Vector3 mousepos, Vector3 movementdirection, GameObject* userGO);
 	virtual bool attack();
+	bool attacktest();
 
 
 	std::string getDescription();
 	bool IsMelee;
 
-	enum {
+	enum WEAPONTYPE{
 		SWORD,
 		FIST,
 		BOXING_GLOVES,
@@ -40,6 +41,7 @@ public:
 		RUBBER_CHICKEN,
 		RIFLE,
 		CROSSBOW,
+		SHIELD,
 		FLAMETHROWER,
 	};
 	bool Animate;
