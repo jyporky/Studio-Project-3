@@ -94,12 +94,12 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	player->SetWeapon(new Crossbow());
+	player->SetWeapon(new Flamethrower());
 	GameObject* weapon1 = FetchGO();
-	weapon1->type = GameObject::GO_CROSSBOW;
+	weapon1->type = GameObject::GO_FLAMETHROWER;
 	weapon1->pos.SetZero();
 	weapon1->vel.SetZero();
-	weapon1->scale.Set(6, 6, 1);
+	weapon1->scale.Set(8, 3, 1);
 	weapon1->angle = 0;
 	weapon1->color.Set(1, 1, 1);
 	weapon1->leftwep = false;
@@ -132,42 +132,41 @@ void SceneCollision::Init()
 	//enemy->SetGameObject(enemyGO);
 	//m_enemyList.push_back(enemy);
 
+	//GameObject* ewep = FetchGO();
+	//ewep->type = GameObject::GO_SWORD;
+	//ewep->vel.SetZero();
+	//ewep->scale.Set(10, 10, 1);
+	//ewep->pos = enemyGO->pos;
+	//ewep->color.Set(1, 1, 1);
+	//ewep->angle = 0;
+	//ewep->active = true;
+	//ewep->leftwep = false;
+	//enemy->GetWeapon()->SetGameObject(ewep);
 
-	GameObject* ewep = FetchGO();
-	ewep->type = GameObject::GO_SWORD;
-	ewep->vel.SetZero();
-	ewep->scale.Set(10, 10, 1);
-	ewep->pos = enemyGO->pos;
-	ewep->color.Set(1, 1, 1);
-	ewep->angle = 0;
-	ewep->active = true;
-	ewep->leftwep = false;
-	enemy->GetWeapon()->SetGameObject(ewep);
+	//// spawn rifler enemy
+	//Enemy* enemy2 = new Rifler();
+	//enemy2->Init();
+	//GameObject* enemy2GO = FetchGO();
+	//enemy2GO->type = GameObject::GO_RIFLER;
+	//enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
+	//enemy2GO->vel.SetZero();
+	//enemy2GO->scale.Set(13, 13, 1);
+	//enemy2GO->color.Set(1, 1, 1);
+	//enemy2GO->angle = 0;
+	//enemy2->SetWeapon(new Rifle());
+	//enemy2->SetGameObject(enemy2GO);
+	//m_enemyList.push_back(enemy2);
 
-	spawn rifler enemy
-	Enemy* enemy2 = new Rifler();
-	enemy2->Init();
-	GameObject* enemy2GO = FetchGO();
-	enemy2GO->type = GameObject::GO_RIFLER;
-	enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
-	enemy2GO->vel.SetZero();
-	enemy2GO->scale.Set(13, 13, 1);
-	enemy2GO->color.Set(1, 1, 1);
-	enemy2GO->angle = 0;
-	enemy2->SetWeapon(new Rifle());
-	enemy2->SetGameObject(enemy2GO);
-	m_enemyList.push_back(enemy2);
-
-	GameObject* ewep2 = FetchGO();
-	ewep2->type = GameObject::GO_RIFLE;
-	ewep2->vel.SetZero();
-	ewep2->scale.Set(8, 3, 1);
-	ewep2->pos = enemy2GO->pos;
-	ewep2->color.Set(1, 1, 1);
-	ewep2->angle = 0;
-	ewep2->active = true;
-	ewep2->leftwep = false;
-	enemy2->GetWeapon()->SetGameObject(ewep2);*/
+	//GameObject* ewep2 = FetchGO();
+	//ewep2->type = GameObject::GO_RIFLE;
+	//ewep2->vel.SetZero();
+	//ewep2->scale.Set(8, 3, 1);
+	//ewep2->pos = enemy2GO->pos;
+	//ewep2->color.Set(1, 1, 1);
+	//ewep2->angle = 0;
+	//ewep2->active = true;
+	//ewep2->leftwep = false;
+	//enemy2->GetWeapon()->SetGameObject(ewep2);*/
 
 
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
@@ -279,6 +278,10 @@ void SceneCollision::Update(double dt)
 		wave++;
 		player->GetGameObject()->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
 		timer = -3;
+		for (unsigned i = 0; i < colorsize; ++i)
+		{
+			color[i].Set(1, 1, 1);
+		}
 	}
 
 	if (totalEnemy > 0 && timer > 0)
@@ -310,15 +313,15 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
-	//if (Application::IsKeyPressed('E') && !cGameManager->eButtonState) //go shop
-	//{
-	//	Application::SetState(3);
-	//	player->getPlayer()->pos.x = m_worldWidth / 2;
-	//	player->getPlayer()->pos.y = 12;
-	//	cGameManager->eButtonState;
-	//}
-	//else if (!Application::IsKeyPressed('E') && e)
-	//	e = false;
+	if (Application::IsKeyPressed('E') && cGameManager->waveClear && !e && NearShop()) //go shop
+	{
+		Application::SetState(3);
+		player->getPlayer()->pos.x = m_worldWidth / 2;
+		player->getPlayer()->pos.y = 12;
+		cGameManager->eButtonState;
+	}
+	else if (!Application::IsKeyPressed('E') && e)
+		e = false;
 	
 	if (cGameManager->bDebug)
 	{
@@ -1573,7 +1576,7 @@ void SceneCollision::SpawnEnemy(float rate)
 
 	else if (timer > rate)
 	{
-		int type = Math::RandIntMinMax(3, 3);
+		int type = Math::RandIntMinMax(1, 3);
 
 		Enemy* enemy;
 		GameObject* enemyGO;
