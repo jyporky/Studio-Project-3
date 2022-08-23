@@ -24,6 +24,7 @@ Player::Player()
 	rangeDmgBoost = 0;
 	dashing = false;
 	rotate = 0;
+	dashcd = 0;
 }
 
 Player::~Player()
@@ -347,6 +348,7 @@ int Player::getEnergy()
 void Player::changeMovementSpeed(float change)
 {
 	movementspeed += change;
+	dashBoost = movementspeed * 1.5f;
 }
 
 void Player::changeEnergy(float energyChange)

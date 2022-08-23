@@ -37,6 +37,10 @@ public:
 	{
 		return movementspeed;
 	}
+	unsigned GetDashBoost()
+	{
+		return dashBoost;
+	}
 
 	int meleeDmgBoost;
 	int rangeDmgBoost;

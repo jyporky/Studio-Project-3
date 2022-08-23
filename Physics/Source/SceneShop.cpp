@@ -107,6 +107,17 @@ void SceneShop::Update(double dt)
 	Application::GetCursorPos(&x, &y);
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
 
+	static bool ebuttonstate = false;
+	bool ebuttonpress = false;
+	if (Application::IsKeyPressed('E') && !ebuttonstate)
+	{
+		ebuttonpress = true;
+		ebuttonstate = true;
+	}
+	else if (!Application::IsKeyPressed('E') && ebuttonstate)
+	{
+		ebuttonstate = false;
+	}
 
 	if ((inShop == false) && (inComputer == false))
 	{
@@ -126,7 +137,7 @@ void SceneShop::Update(double dt)
 	if ((player->getPlayer()->pos.x >= 70) && (player->getPlayer()->pos.x <= 100) && (player->getPlayer()->pos.y <= 12))
 	{
 		canLeave = true;
-		if (Application::IsKeyPressed('E'))
+		if (ebuttonpress)
 		{
 			cGameManager->waveClear = false;
 			cGameManager->outShop = true;
@@ -141,7 +152,7 @@ void SceneShop::Update(double dt)
 	if ((player->getPlayer()->pos.x >= 29) && (player->getPlayer()->pos.x <= 43) && (player->getPlayer()->pos.y >= 66)) //part dealer
 	{
 		canInteract = true;
-		if (Application::IsKeyPressed('E'))
+		if (ebuttonpress)
 		{
 			if (playerUpgradeType == 'u')
 			{
@@ -158,7 +169,7 @@ void SceneShop::Update(double dt)
 	else if ((player->getPlayer()->pos.x >= 64) && (player->getPlayer()->pos.x <= 78) && (player->getPlayer()->pos.y >= 66)) //weapon dealer
 	{
 		canInteract = true;
-		if (Application::IsKeyPressed('E'))
+		if (ebuttonpress)
 		{
 			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);	
 			inShop = true;
@@ -168,7 +179,7 @@ void SceneShop::Update(double dt)
 	else if ((player->getPlayer()->pos.x >= 100) && (player->getPlayer()->pos.x <= 114) && (player->getPlayer()->pos.y >= 66)) //blacksmith
 	{
 		canInteract = true;
-		if (Application::IsKeyPressed('E'))
+		if (ebuttonpress)
 		{
 			if (weaponUpgradePage == 1)
 			{
@@ -186,7 +197,7 @@ void SceneShop::Update(double dt)
 	else if ((player->getPlayer()->pos.x >= 135) && (player->getPlayer()->pos.x <= 149) && (player->getPlayer()->pos.y >= 66)) //alchemist
 	{
 		canInteract = true;
-		if (Application::IsKeyPressed('E')) 
+		if (ebuttonpress) 
 		{
 			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
 			inShop = true;
@@ -202,7 +213,7 @@ void SceneShop::Update(double dt)
 	if ((player->getPlayer()->pos.x >= 10) && (player->getPlayer()->pos.x <= 20) && (player->getPlayer()->pos.y >= 66)) //computer
 	{
 		canInteractComputer = true;
-		if (Application::IsKeyPressed('E'))
+		if (ebuttonpress)
 		{
 			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
 			inComputer = true;		
@@ -274,7 +285,7 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (Application::IsKeyPressed('E') && !eButtonState)
+			if (ebuttonpress && !eButtonState)
 			{
 				eButtonState = true;
 				switch (shopbuttonhighlight)
@@ -316,7 +327,7 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!Application::IsKeyPressed('E') && eButtonState)
+			else if (!ebuttonpress && eButtonState)
 			{
 				eButtonState = false;
 			}
@@ -350,7 +361,7 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (Application::IsKeyPressed('E') && !eButtonState)
+			if (ebuttonpress && !eButtonState)
 			{
 				eButtonState = true;
 				switch (shopbuttonhighlight)
@@ -372,7 +383,7 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!Application::IsKeyPressed('E') && eButtonState)
+			else if (!ebuttonpress && eButtonState)
 			{
 				eButtonState = false;
 			}
@@ -422,7 +433,7 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (Application::IsKeyPressed('E') && !eButtonState)
+			if (ebuttonpress && !eButtonState)
 			{
 				eButtonState = true;
 				switch (shopbuttonhighlight)
@@ -468,7 +479,7 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!Application::IsKeyPressed('E') && eButtonState)
+			else if (!ebuttonpress && eButtonState)
 			{
 				eButtonState = false;
 			}
@@ -502,7 +513,7 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (Application::IsKeyPressed('E') && !eButtonState)
+			if (ebuttonpress && !eButtonState)
 			{
 				eButtonState = true;
 
@@ -565,7 +576,7 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!Application::IsKeyPressed('E') && eButtonState)
+			else if (!ebuttonpress && eButtonState)
 			{
 				eButtonState = false;
 			}
@@ -601,7 +612,7 @@ void SceneShop::Update(double dt)
 		else if (!Application::IsKeyPressed('S') && s)
 			s = false;
 
-		if (Application::IsKeyPressed('E') && !eButtonState)
+		if (ebuttonpress && !eButtonState)
 		{
 			eButtonState = true;
 
@@ -653,7 +664,7 @@ void SceneShop::Update(double dt)
 				break;
 			}
 		}
-		else if (!Application::IsKeyPressed('E') && eButtonState)
+		else if (!ebuttonpress && eButtonState)
 		{
 			eButtonState = false;
 		}
@@ -702,7 +713,7 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (Application::IsKeyPressed('E') && !eButtonState)
+			if (ebuttonpress && !eButtonState)
 			{
 				eButtonState = true;
 
@@ -746,7 +757,7 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!Application::IsKeyPressed('E') && eButtonState)
+			else if (!ebuttonpress && eButtonState)
 			{
 				eButtonState = false;
 			}
@@ -780,7 +791,7 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (Application::IsKeyPressed('E') && !eButtonState)
+			if (ebuttonpress && !eButtonState)
 			{
 				eButtonState = true;
 
@@ -815,7 +826,7 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!Application::IsKeyPressed('E') && eButtonState)
+			else if (!ebuttonpress && eButtonState)
 			{
 				eButtonState = false;
 			}
@@ -852,7 +863,7 @@ void SceneShop::Update(double dt)
 		else if (!Application::IsKeyPressed('S') && s)
 			s = false;
 
-		if (Application::IsKeyPressed('E') && !eButtonState)
+		if (ebuttonpress && !eButtonState)
 		{
 			eButtonState = true;
 
@@ -891,13 +902,13 @@ void SceneShop::Update(double dt)
 				break;
 			}
 		}
-		else if (!Application::IsKeyPressed('E') && eButtonState)
+		else if (!ebuttonpress && eButtonState)
 			eButtonState = false;
 	}
 
 	if ((ShopMenu1) || (ShopMenu2))
 	{
-		if (Application::IsKeyPressed('E'))
+		if (ebuttonpress)
 		{
 			
 		}

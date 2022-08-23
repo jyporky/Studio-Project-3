@@ -93,6 +93,7 @@ void SceneCollision::Init()
 	m_objectCount = 0;
 
 	wave = 1;
+	
 
 	rate = SetRate();
 
@@ -496,7 +497,12 @@ void SceneCollision::Update(double dt)
 	player->SetEnemyVector(m_enemyList);
 	player->Update(dt, mousePos);
 	Checkborder(player->getPlayer());
-	player->GetGameObject()->vel = (player->GetGameObject()->pos - temppos).Normalize() * player->GetMovementSpeed();
+	if (!player->dashing)
+		player->GetGameObject()->vel = (player->GetGameObject()->pos - temppos).Normalize() * player->GetMovementSpeed();
+	else
+	{
+		player->GetGameObject()->vel = (player->GetGameObject()->pos - temppos).Normalize() * (player->GetMovementSpeed() - player->GetDashBoost());
+	}
 	if (player->IsSpawningBullet())
 	{
 		Application::GetCursorPos(&x, &y);
