@@ -57,5 +57,4 @@ protected:
 	GameObject* gameobject;
 	std::string description;
 	static CSoundController* cSoundController;
-
 };

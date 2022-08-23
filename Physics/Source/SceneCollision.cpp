@@ -35,7 +35,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 5;
+	wave = 1;
 
 	rate = SetRate();
 
@@ -278,7 +278,6 @@ void SceneCollision::Update(double dt)
 		}
 		return;
 	}
-
 	if (cGameManager->outShop)
 	{
 		cGameManager->outShop = false;
@@ -1237,8 +1236,8 @@ void SceneCollision::Render()
 		if (NearShop())
 		{
 			ss.str("");
-			ss << "Press e to go shop";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 40);
+			ss << "Press [E] to go to shop";
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.2, 0.2, 0.2), 3, 30, 8);
 		}
 
 		ss.str("");
@@ -1291,13 +1290,21 @@ void SceneCollision::renderUI()
 {
 	//On screen text
 	std::ostringstream ss;
+	std::ostringstream ss2;
 
 	//render the player health
 	ss.str("");
 	ss << "Health:";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 0.5, 57);
+	
 	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_BASE], 12, 58.75, 10, 2);
 	RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], 7 + (double)player->GetHealth() / (double)player->GetMaxHealth() * 5.0f, 58.75, (double)player->GetHealth() / (double)player->GetMaxHealth() * 10.0f, 2);
+
+	ss.str("");
+	ss << player->GetHealth();
+	ss2.str("");
+	ss2 << player->GetMaxHealth();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str() + "/" + ss2.str(), Color(0, 0, 0), 2.5, 9, 57.5);
 
 	//render money
 	modelStack.PushMatrix();
@@ -1346,8 +1353,8 @@ void SceneCollision::renderUI()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
 
 
-	Vector3 wep1 = Vector3(10, 15, 1);
-	Vector3 wep2 = Vector3(20, 15, 1);
+	Vector3 wep1 = Vector3(16, 15, 1);
+	Vector3 wep2 = Vector3(26, 15, 1);
 	Vector3 scale = Vector3(10, 10, 1);
 	// render hotbar
 	modelStack.PushMatrix();
@@ -1940,21 +1947,45 @@ void SceneCollision::NewWeapon(int weptype, bool MainWep)
 		wep = new Sword;
 		weapon->type = GameObject::GO_SWORD;
 		weapon->scale.Set(10, 10, 1);
+		if (cGameManager->fastmeleeBought)
+		{
+			wep->SetAttackSpeed(0.6);
+		}
 		break;
 	case Weapon::RIFLE:
 		wep = new Rifle;
 		weapon->type = GameObject::GO_RIFLE;
 		weapon->scale.Set(8, 3, 1);
+		if (cGameManager->fastfireBought)
+		{
+			wep->SetAttackSpeed(0.07);
+		}
+		if (cGameManager->fastbulletBought)
+		{
+			wep->SetBulletSpeed(100);
+		}
 		break;
 	case Weapon::FLAMETHROWER:
 		wep = new Flamethrower;
 		weapon->type = GameObject::GO_FLAMETHROWER;
 		weapon->scale.Set(8, 3, 1);
+		if (cGameManager->betterfuelBought)
+		{
+			wep->SetDamage(6);
+		}
 		break;
 	case Weapon::CROSSBOW:
 		wep = new Crossbow;
 		weapon->type = GameObject::GO_CROSSBOW;
 		weapon->scale.Set(8, 8, 1);
+		if (cGameManager->fastfireBought)
+		{
+			wep->SetAttackSpeed(0.5);
+		}
+		if (cGameManager->fastbulletBought)
+		{
+			wep->SetBulletSpeed(90);
+		}
 		break;
 	}
 

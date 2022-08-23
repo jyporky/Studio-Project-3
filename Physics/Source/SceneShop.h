@@ -69,6 +69,7 @@ public:
 	void renderShopMenu3(); //blacksmith
 	void renderShopMenu4(); //alchemist
 	void renderUI();
+	
 
 protected:
 	Player* player;
@@ -156,13 +157,7 @@ protected:
 	WeaponMods* accurateArrowsMod = new AccurateArrowsMod();
 	WeaponMods* fasterMeleeMod = new FasterMeleeMod();
 
-	bool pierceBought;
-	bool fastfireBought;
-	bool fastbulletBought;
-	bool explosiveBought;
-	bool betterfuelBought;
-	bool accuratearrowsBought;
-	bool fastmeleeBought;
+	
 
 	void renderWeaponUI(Vector3 pos, Vector3 scale, int object);
 	bool CheckEquip(Weapon::WEAPONTYPE wep);

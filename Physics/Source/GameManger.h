@@ -20,5 +20,14 @@ public:
 	bool switchWeapon;
 	int weptype;
 	int sideweptype;
+
+	//weapon upgrades
+	bool pierceBought;
+	bool fastfireBought;
+	bool fastbulletBought;
+	bool explosiveBought;
+	bool betterfuelBought;
+	bool accuratearrowsBought;
+	bool fastmeleeBought;
 };
 

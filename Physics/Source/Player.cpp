@@ -199,6 +199,7 @@ void Player::Update(double dt, Vector3 mousepos)
 		}
 		CurrWeapon->Update(dt, mousepos, movementDirection, gameobject);
 	}
+	
 }
 
 bool Player::ChangeHealth(int ChangeAmount)

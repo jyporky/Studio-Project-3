@@ -86,13 +86,7 @@ void SceneShop::Init()
 	flamethrowerBought = false;
 	crossbowBought = false;
 
-	pierceBought = false;
-	fastfireBought = false;
-	fastbulletBought = false;
-	explosiveBought = false;
-	betterfuelBought = false;
-	accuratearrowsBought = false;
-	fastmeleeBought = false;
+
 }
 
 
@@ -202,14 +196,14 @@ void SceneShop::Update(double dt)
 	else if ((player->getPlayer()->pos.x >= 135) && (player->getPlayer()->pos.x <= 149) && (player->getPlayer()->pos.y >= 66)) //alchemist
 	{
 		canInteract = true;
-		if (Application::IsKeyPressed('E'))
+		if (Application::IsKeyPressed('E')) 
 		{
 			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
-
 			inShop = true;
 			ShopMenu4 = true;
 		}
 	}
+
 	else
 	{
 		canInteract = false;
@@ -826,38 +820,38 @@ void SceneShop::Update(double dt)
 				{
 				case 0:
 					//buy piercing bullet
-					if ((player->getMoney() >= PierceMod->getMoneyCost()) && (pierceBought == false))
+					if ((player->getMoney() >= PierceMod->getMoneyCost()) && (cGameManager->pierceBought == false))
 					{
 						player->changeMoney(-PierceMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
-						pierceBought = true;
+						cGameManager->pierceBought = true;
 					}
 					break;
 				case 1:
 					//buy faster firing
-					if ((player->getMoney() >= FasterFiringMod->getMoneyCost()) && (fastfireBought == false))
+					if ((player->getMoney() >= FasterFiringMod->getMoneyCost()) && (cGameManager->fastfireBought == false))
 					{
 						player->changeMoney(-FasterFiringMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
-						fastfireBought = true;
+						cGameManager->fastfireBought = true;
 					}
 					break;
 				case 2:
 					//buy faster bullet
-					if ((player->getMoney() >= FasterBulletMod->getMoneyCost()) && (fastbulletBought == false))
+					if ((player->getMoney() >= FasterBulletMod->getMoneyCost()) && (cGameManager->fastbulletBought == false))
 					{
 						player->changeMoney(-FasterBulletMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
-						fastbulletBought = true;
+						cGameManager->fastbulletBought = true;
 					}
 					break;
 				case 3:
 					//buy explosive bullet
-					if ((player->getMoney() >= ExplosiveMod->getMoneyCost()) && (explosiveBought == false))
+					if ((player->getMoney() >= ExplosiveMod->getMoneyCost()) && (cGameManager->explosiveBought == false))
 					{
 						player->changeMoney(-ExplosiveMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
-						explosiveBought = true;
+						cGameManager->explosiveBought = true;
 					}
 					break;
 				}
@@ -904,29 +898,29 @@ void SceneShop::Update(double dt)
 				{
 				case 0:
 					//buy better fuel
-					if ((player->getMoney() >= betterFuelMod->getMoneyCost()) && (betterfuelBought == false))
+					if ((player->getMoney() >= betterFuelMod->getMoneyCost()) && (cGameManager->betterfuelBought == false))
 					{
 						player->changeMoney(-betterFuelMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
-						betterfuelBought = true;
+						cGameManager->betterfuelBought = true;
 					}
 					break;
 				case 1:
 					//buy accurate arrows
-					if ((player->getMoney() >= accurateArrowsMod->getMoneyCost()) && (accuratearrowsBought== false))
+					if ((player->getMoney() >= accurateArrowsMod->getMoneyCost()) && (cGameManager->accuratearrowsBought== false))
 					{
 						player->changeMoney(-accurateArrowsMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
-						accuratearrowsBought = true;
+						cGameManager->accuratearrowsBought = true;
 					}
 					break;
 				case 2:
 					//buy faster melee
-					if ((player->getMoney() >= fasterMeleeMod->getMoneyCost()) && (fastmeleeBought == false))
+					if ((player->getMoney() >= fasterMeleeMod->getMoneyCost()) && (cGameManager->fastmeleeBought == false))
 					{
 						player->changeMoney(-fasterMeleeMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
-						fastmeleeBought = true;
+						cGameManager->fastmeleeBought = true;
 					}
 					break;
 				}
@@ -1102,7 +1096,7 @@ void SceneShop::Render()
 
 	std::ostringstream ss;
 
-	renderUI();
+	
 
 	modelStack.PushMatrix();
 	modelStack.Translate(player->GetGameObject()->pos.x, player->GetGameObject()->pos.y, player->GetGameObject()->pos.z);
@@ -1138,7 +1132,7 @@ void SceneShop::Render()
 	}
 	modelStack.PopMatrix();
 
-
+	renderUI();
 
 	if (ShopMenu1)
 	{
@@ -2443,8 +2437,8 @@ void SceneShop::renderUI()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 74.5, 56.7);
 
 
-	Vector3 wep1 = Vector3(6, 24, 1);
-	Vector3 wep2 = Vector3(16, 24, 1);
+	Vector3 wep1 = Vector3(16, 15, 1);
+	Vector3 wep2 = Vector3(26, 15, 1);
 	Vector3 scale = Vector3(10, 10, 1);
 
 	// render hotbar
@@ -2465,6 +2459,70 @@ void SceneShop::renderUI()
 		renderWeaponUI(wep1, scale, cGameManager->weptype);
 	if (player->GetSideWeapon() != nullptr)
 		renderWeaponUI(wep2, scale, cGameManager->sideweptype);
+
+	//potions
+	modelStack.PushMatrix();
+	modelStack.Translate(140, wep1.y, 1);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(150, wep1.y, 1);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(160, wep1.y, 1);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(140, wep1.y, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_HEALTHPOT], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(150, wep1.y, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_STRENGTHPOT], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(160, wep1.y, 1);
+	modelStack.Scale(5, 5, 1);
+	RenderMesh(meshList[GEO_SPEEDPOT], false);
+	modelStack.PopMatrix();
+
+	//ss.str("");
+	//ss << "[1]";
+	//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 61, 10);
+
+	//ss.str("");
+	//ss << "[2]";
+	//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 65.5, 10);
+
+	//ss.str("");
+	//ss << "[3]";
+	//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 70, 10);
+
+	ss.str("");
+	cInventoryItem = cInventoryManager->GetItem("healthpotion");
+	ss << cInventoryItem->GetCount();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 62.7, 5.7);
+
+	ss.str("");
+	cInventoryItem = cInventoryManager->GetItem("strengthpotion");
+	ss << cInventoryItem->GetCount();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 67.2, 5.7);
+
+	ss.str("");
+	cInventoryItem = cInventoryManager->GetItem("speedpotion");
+	ss << cInventoryItem->GetCount();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 71.7, 5.7);
 }
 
 GameObject* SceneShop::Checkborder(GameObject* go)
@@ -2540,3 +2598,4 @@ bool SceneShop::CheckEquip(Weapon::WEAPONTYPE wep)
 	}
 	return true;
 }
+
