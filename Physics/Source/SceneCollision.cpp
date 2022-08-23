@@ -338,17 +338,6 @@ void SceneCollision::Update(double dt)
 		}
 	}
 	cSoundController->PlaySoundByID(9);
-	static bool switch_weapon = false;
-	if (Application::IsMousePressed(1) && !switch_weapon && player->GetSideWeapon() != nullptr)
-	{
-		player->GetWeapon()->GetGameObject()->visible = false;
-		player->SwapWeapon();
-		player->GetWeapon()->GetGameObject()->visible = true;
-		switch_weapon = true;
-	}
-	else if (!Application::IsMousePressed(1) && switch_weapon)
-		switch_weapon = false;
-
 
 	//skills
 	static bool ubutton;
@@ -474,7 +463,10 @@ void SceneCollision::Update(double dt)
 			FlameParticle* flame = new FlameParticle;
 			GameObject* flamego = FetchGO();
 			flamego->type = GameObject::GO_FLAME;
-			flamego->pos = player->GetGameObject()->pos;
+			Vector3 offset;
+			offset.SetZero();
+			
+			flamego->pos = player->GetWeapon()->GetGameObject()->pos;
 			flamego->pos.z = 0;
 			flamego->vel.SetZero();
 			flamego->scale.Set(7, 7, 1);
@@ -918,16 +910,34 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-		if (go->angle == 180)
+		modelStack.Rotate(player->rotate, 0, 0, 1);
+		if (player->dashing)
 		{
-			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
-		}
+			if (go->angle == 180)
+			{
+				meshList[GEO_LEFT_DASH]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+				RenderMesh(meshList[GEO_LEFT_DASH], true);
+			}
 
-		else if (go->angle == 0)
+			else if (go->angle == 0)
+			{
+				meshList[GEO_RIGHT_DASH]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+				RenderMesh(meshList[GEO_RIGHT_DASH], true);
+			}
+		}
+		else
 		{
-			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+			if (go->angle == 180)
+			{
+				meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+				RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+			}
+
+			else if (go->angle == 0)
+			{
+				meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+				RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+			}
 		}
 		modelStack.PopMatrix();
 		break;

@@ -119,10 +119,15 @@ bool ShieldEnemy::Update(double dt)
     case ATTACK:
         if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
             sCurrState = CHASE;
+        //check if the enemy is facing the player
+        if (enemy2player.Dot(enemy2shield) < 0)
+            break;
+
+
         //Attack the player
-        //deal damage to the player
         if (CurrWeapon->attack())
         {
+            //deal damage to the player
             if (PlayerPointer->iFrame == false)
             {
                 PlayerPointer->ChangeHealth(-attackDamage);

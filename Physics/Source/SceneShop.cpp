@@ -1086,20 +1086,37 @@ void SceneShop::Render()
 
 	renderUI();
 
-	//player
 	modelStack.PushMatrix();
-	modelStack.Translate(player->getPlayer()->pos.x, player->getPlayer()->pos.y, player->getPlayer()->pos.z);
-	modelStack.Scale(player->getPlayer()->scale.x, player->getPlayer()->scale.y, player->getPlayer()->scale.z);
-	if (player->getPlayer()->angle == 180)
+	modelStack.Translate(player->GetGameObject()->pos.x, player->GetGameObject()->pos.y, player->GetGameObject()->pos.z);
+	modelStack.Scale(player->GetGameObject()->scale.x, player->GetGameObject()->scale.y, player->GetGameObject()->scale.z);
+	modelStack.Rotate(player->rotate, 0, 0, 1);
+	if (player->dashing)
 	{
-		meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(player->getPlayer()->color.x, player->getPlayer()->color.y, player->getPlayer()->color.z);
-		RenderMesh(meshList[GEO_LEFT_PLAYER], true);
-	}
+		if (player->GetGameObject()->angle == 180)
+		{
+			meshList[GEO_LEFT_DASH]->material.kAmbient.Set(player->GetGameObject()->color.x, player->GetGameObject()->color.y, player->GetGameObject()->color.z);
+			RenderMesh(meshList[GEO_LEFT_DASH], true);
+		}
 
-	else if (player->getPlayer()->angle == 0)
+		else if (player->GetGameObject()->angle == 0)
+		{
+			meshList[GEO_RIGHT_DASH]->material.kAmbient.Set(player->GetGameObject()->color.x, player->GetGameObject()->color.y, player->GetGameObject()->color.z);
+			RenderMesh(meshList[GEO_RIGHT_DASH], true);
+		}
+	}
+	else
 	{
-		meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(player->getPlayer()->color.x, player->getPlayer()->color.y, player->getPlayer()->color.z);
-		RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+		if (player->GetGameObject()->angle == 180)
+		{
+			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(player->GetGameObject()->color.x, player->GetGameObject()->color.y, player->GetGameObject()->color.z);
+			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+		}
+
+		else if (player->GetGameObject()->angle == 0)
+		{
+			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(player->GetGameObject()->color.x, player->GetGameObject()->color.y, player->GetGameObject()->color.z);
+			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+		}
 	}
 	modelStack.PopMatrix();
 
