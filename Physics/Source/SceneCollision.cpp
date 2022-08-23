@@ -203,30 +203,30 @@ void SceneCollision::Init()
 	//ewep->leftwep = false;
 	//enemy->GetWeapon()->SetGameObject(ewep);
 
-	// spawn rifler enemy
-	Enemy* enemy2 = new Rifler();
-	enemy2->Init();
-	GameObject* enemy2GO = FetchGO();
-	enemy2GO->type = GameObject::GO_RIFLER;
-	enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
-	enemy2GO->vel.SetZero();
-	enemy2GO->scale.Set(10, 10, 1);
-	enemy2GO->color.Set(1, 1, 1);
-	enemy2GO->angle = 0;
-	enemy2->SetWeapon(new Rifle());
-	enemy2->SetGameObject(enemy2GO);
-	m_enemyList.push_back(enemy2);
+	//// spawn rifler enemy
+	//Enemy* enemy2 = new Rifler();
+	//enemy2->Init();
+	//GameObject* enemy2GO = FetchGO();
+	//enemy2GO->type = GameObject::GO_RIFLER;
+	//enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
+	//enemy2GO->vel.SetZero();
+	//enemy2GO->scale.Set(10, 10, 1);
+	//enemy2GO->color.Set(1, 1, 1);
+	//enemy2GO->angle = 0;
+	//enemy2->SetWeapon(new Rifle());
+	//enemy2->SetGameObject(enemy2GO);
+	//m_enemyList.push_back(enemy2);
 
-	GameObject* ewep2 = FetchGO();
-	ewep2->type = GameObject::GO_RIFLE;
-	ewep2->vel.SetZero();
-	ewep2->scale.Set(8, 3, 1);
-	ewep2->pos = enemy2GO->pos;
-	ewep2->color.Set(1, 1, 1);
-	ewep2->angle = 0;
-	ewep2->active = true;
-	ewep2->leftwep = false;
-	enemy2->GetWeapon()->SetGameObject(ewep2);
+	//GameObject* ewep2 = FetchGO();
+	//ewep2->type = GameObject::GO_RIFLE;
+	//ewep2->vel.SetZero();
+	//ewep2->scale.Set(8, 3, 1);
+	//ewep2->pos = enemy2GO->pos;
+	//ewep2->color.Set(1, 1, 1);
+	//ewep2->angle = 0;
+	//ewep2->active = true;
+	//ewep2->leftwep = false;
+	//enemy2->GetWeapon()->SetGameObject(ewep2);
 
 
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
