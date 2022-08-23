@@ -13,7 +13,6 @@ public:
 	bool bPlayerLost;
 	bool bDebug;
 	unsigned dWaveNo;
-	unsigned dPlayerScore;
 	bool waveClear;
 	bool outShop;
 	bool eButtonState;
