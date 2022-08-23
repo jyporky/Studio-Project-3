@@ -344,8 +344,8 @@ void SceneCollision::Update(double dt)
 		}
 	}
 
-	/*if (totalEnemy > 0 && timer > 0)
-		SpawnEnemy(rate);*/
+	if (totalEnemy > 0 && timer > 0)
+		SpawnEnemy(rate);
 
 	if (timer >= 0)
 	{
@@ -486,6 +486,8 @@ void SceneCollision::Update(double dt)
 			enemyLeft--;
 			continue;
 		}
+		//ensure that the enemy does not move out of the map
+		Checkborder(m_enemyList[idx]->GetGameObject());
 		if (m_enemyList[idx]->IsSpawningBullet())
 		{
 			Vector3 shootPlayer;
