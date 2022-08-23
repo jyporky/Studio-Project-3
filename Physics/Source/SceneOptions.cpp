@@ -235,17 +235,17 @@ void SceneOptions::Render()
 	
 	ss.str("");
 	ss.precision(3);
-	ss << "Master Volume: " << cSoundController->GetMasterVolume();
+	ss << "Master Volume: " << cSoundController->GetMasterVolume() * 10;
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 44);
 
 	ss.str("");
 	ss.precision(3);
-	ss << "SFX Volume: " << cSoundController->GetSFXVolume();
+	ss << "SFX Volume: " << cSoundController->GetSFXVolume() * 10;
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 40);
 
 	ss.str("");
 	ss.precision(3);
-	ss << "Music Volume: " << cSoundController->GetMusicVolume();
+	ss << "Music Volume: " << cSoundController->GetMusicVolume() * 10;
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 36);
 
 	ss.str("");
