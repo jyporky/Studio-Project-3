@@ -357,6 +357,13 @@ void Player::SwapWeapon()
 	Weapon* tempwep = CurrWeapon;
 	CurrWeapon = SideWeapon;
 	SideWeapon = tempwep;
+
+	if (cGameManager->weptype != 0)
+	{
+		int temptype = cGameManager->weptype;
+		cGameManager->weptype = cGameManager->sideweptype;
+		cGameManager->sideweptype = temptype;
+	}
 }
 
 Weapon* Player::GetWeapon()

@@ -46,7 +46,7 @@
 #include "InventoryManager.h"
 #include "MyMath.h"
 
-class SceneCollision : public SceneBase
+class SceneCollision : public SceneBase, public CSingletonTemplate<SceneCollision>
 {
 public:
 	SceneCollision();
@@ -101,6 +101,8 @@ protected:
 	void SpawnEnemy(float rate);
 	float SetRate();
 	bool NearShop();
+	void SetWeapon();
+	void NewWeapon(int weptype, bool MainWep);
 	Skill* HackSkill = new Hack();
 	Skill* HealSkill = new Heal();
 	Skill* ImmortalitySkill = new Immortal();

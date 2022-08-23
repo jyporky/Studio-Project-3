@@ -8,9 +8,12 @@ GameManger::GameManger()
 	bDebug = false;
 	dWaveNo = 1;
 	dPlayerScore = 1000;
-	waveClear = false;
+	waveClear = true;
 	outShop = false;
 	eButtonState = false;
+	switchWeapon = false;
+	int weptype = Weapon::NONE;
+	int sideweptype = Weapon::NONE;
 }
 
 GameManger::~GameManger()
