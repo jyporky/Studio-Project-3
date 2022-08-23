@@ -24,4 +24,7 @@ public:
 private:
     unsigned sCurrState;
     unsigned attackRange;
+    float switchtime;
+    bool moveleft = true;
+    float leftdt = 0;
 };

@@ -67,8 +67,8 @@ bool Swordsman::Update(double dt)
         //find an enemy to target
     }
 
-    static bool moveleft = true;
-    static float leftdt = 0;
+    
+    
     Vector3 direction;
     direction.SetZero();
     switch (sCurrState)
@@ -83,7 +83,7 @@ bool Swordsman::Update(double dt)
         {
             direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
             direction = Vector3(-direction.y, direction.x, 0);
-            if (leftdt > 1.5)
+            if (leftdt > 2)
             {
                 moveleft = !moveleft;
                 leftdt = 0;
@@ -93,7 +93,7 @@ bool Swordsman::Update(double dt)
         {
             direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
             direction = -(Vector3(-direction.y, direction.x, 0));
-            if (leftdt > 1.5)
+            if (leftdt > 2)
             {
                 moveleft = !moveleft;
                 leftdt = 0;
@@ -129,7 +129,7 @@ bool Swordsman::Update(double dt)
         {
             direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
             direction = Vector3(-direction.y, direction.x, 0);
-            if (leftdt > 1.5)
+            if (leftdt > switchtime)
             {
                 moveleft = !moveleft;
                 leftdt = 0;
@@ -139,7 +139,7 @@ bool Swordsman::Update(double dt)
         {
             direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
             direction = -(Vector3(-direction.y, direction.x, 0));
-            if (leftdt > 1.5)
+            if (leftdt > switchtime)
             {
                 moveleft = !moveleft;
                 leftdt = 0;
@@ -166,7 +166,8 @@ bool Swordsman::Update(double dt)
 
 void Swordsman::Init()
 {
-    //get the revelant pointers
+    switchtime = Math::RandFloatMinMax(0.5, 8);
+    //get the revelant pointer
     PlayerPointer = Player::GetInstance();
 }
 
