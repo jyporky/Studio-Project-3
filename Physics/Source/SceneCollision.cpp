@@ -2,6 +2,7 @@
 #include "GL\glew.h"
 #include "Application.h"
 #include <sstream>
+#include <cmath>
 
 SceneCollision::SceneCollision()
 {
@@ -16,6 +17,62 @@ static Vector3 RotateVector(const Vector3& vec, float radian)
 {
 	return Vector3(vec.x * cos(radian) + vec.y * -sin(radian),
 		vec.x * sin(radian) + vec.y * cos(radian), 0.f);
+}
+
+int SolveQuadratic(float a, float b, float c, float& root1, float& root2)
+{
+	float discriminant = b * b - 4 * a * c;
+	if (discriminant < 0)
+	{
+		root1 = INFINITY;
+		root2 = -root1;
+		return 0;
+	}
+
+	root1 = (-b + sqrt(discriminant)) / (2 * a);
+	root2 = (-b - sqrt(discriminant)) / (2 * a);
+	if (discriminant > 0)
+		return 2;
+	else
+		return 1;
+}
+
+//calculate the angle between vector in radian
+float RadainAngleBetweenVector(Vector3 a, Vector3 b)
+{
+	float a1 = atan2f(a.y, a.x);
+	float a2 = atan2f(b.y, b.x);
+	
+	a1 = a1 - a2;
+	if (a1 > 180)
+		a1 -= 360;
+	else if (a1 < -180)
+		a1 += 360;
+
+	if (a1 >= 0)
+		return a1;
+	else
+		return -a1;
+}
+
+bool InterceptionDirection(Vector3 a, Vector3 b, Vector3 vA, float sB, Vector3& result)
+{
+	Vector3 aToB = b - a;
+	float dC = aToB.Length();
+	float alpha = RadainAngleBetweenVector(aToB, vA);
+	float sA = vA.Length();
+	float r = sA / sB;
+	float root1, root2;
+	if (SolveQuadratic(1 - r * r, 2 * r * dC * cos(alpha), -(dC * dC), root1, root2) == 0)
+	{
+		result = Vector3(0, 0, 0);
+		return false;
+	}
+	float dA = max(root1, root2);
+	float t = dA / sB;
+	Vector3 c = a + vA * t;
+	result = (c - b).Normalize();
+	return true;
 }
 
 void SceneCollision::Init()
@@ -55,6 +112,7 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, false, CSoundInfo::BGM);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 10, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\Shieldblock.ogg"), 11, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\switch_weapon.ogg"), 12, false);
 
 
 	cInventoryManager = CInventoryManager::GetInstance();
@@ -65,9 +123,9 @@ void SceneCollision::Init()
 	cInventoryItem = cInventoryManager->Add("rubberchicken", 1, 0);
 	cInventoryItem = cInventoryManager->Add("fryingpan", 1, 0);
 	
-	cInventoryItem = cInventoryManager->Add("rifle", 1, 1);
-	cInventoryItem = cInventoryManager->Add("flamethrower", 1, 1);
-	cInventoryItem = cInventoryManager->Add("crossbow", 1, 1);
+	cInventoryItem = cInventoryManager->Add("rifle", 1, 0);
+	cInventoryItem = cInventoryManager->Add("flamethrower", 1, 0);
+	cInventoryItem = cInventoryManager->Add("crossbow", 1, 0);
 
 	//potions
 	cInventoryItem = cInventoryManager->Add("healthpotion", 10, 0);
@@ -93,19 +151,19 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	player->SetWeapon(new Flamethrower());
-	GameObject* weapon1 = FetchGO();
-	weapon1->type = GameObject::GO_FLAMETHROWER;
-	weapon1->pos.SetZero();
-	weapon1->vel.SetZero();
-	weapon1->scale.Set(8, 3, 1);
-	weapon1->angle = 0;
-	weapon1->color.Set(1, 1, 1);
-	weapon1->leftwep = false;
-	cGameManager->sideweptype = Weapon::FLAMETHROWER;
-	cGameManager->weptype = 0;
-	player->GetWeapon()->SetGameObject(weapon1);
-	player->SwapWeapon();
+	//player->SetWeapon(new Flamethrower());
+	//GameObject* weapon1 = FetchGO();
+	//weapon1->type = GameObject::GO_FLAMETHROWER;
+	//weapon1->pos.SetZero();
+	//weapon1->vel.SetZero();
+	//weapon1->scale.Set(8, 3, 1);
+	//weapon1->angle = 0;
+	//weapon1->color.Set(1, 1, 1);
+	//weapon1->leftwep = false;
+	//cGameManager->sideweptype = Weapon::FLAMETHROWER;
+	//cGameManager->weptype = 0;
+	//player->GetWeapon()->SetGameObject(weapon1);
+	//player->SwapWeapon();
 
 	Sword* sword = new Sword();
 	player->SetWeapon(sword);
@@ -152,7 +210,7 @@ void SceneCollision::Init()
 	//enemy2GO->type = GameObject::GO_RIFLER;
 	//enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
 	//enemy2GO->vel.SetZero();
-	//enemy2GO->scale.Set(13, 13, 1);
+	//enemy2GO->scale.Set(10, 10, 1);
 	//enemy2GO->color.Set(1, 1, 1);
 	//enemy2GO->angle = 0;
 	//enemy2->SetWeapon(new Rifle());
@@ -168,7 +226,7 @@ void SceneCollision::Init()
 	//ewep2->angle = 0;
 	//ewep2->active = true;
 	//ewep2->leftwep = false;
-	//enemy2->GetWeapon()->SetGameObject(ewep2);*/
+	//enemy2->GetWeapon()->SetGameObject(ewep2);
 
 
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
@@ -282,8 +340,8 @@ void SceneCollision::Update(double dt)
 	{
 		cGameManager->outShop = false;
 		SetWeapon();
-		rate = SetRate();
 		wave++;
+		rate = SetRate();
 		player->GetGameObject()->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
 		timer = -3;
 		for (unsigned i = 0; i < colorsize; ++i)
@@ -350,11 +408,9 @@ void SceneCollision::Update(double dt)
 
 	//skills
 	static bool ubutton;
-	bool dealdamage = false;
 	if (Application::IsKeyPressed('U') && !ubutton)
 	{
 		ubutton = true;
-		dealdamage = true;
 		HealSkill->UseSkill();
 	}
 	else if (!Application::IsKeyPressed('U') && ubutton)
@@ -431,55 +487,12 @@ void SceneCollision::Update(double dt)
 		speedPotUsed = false;
 	}
 
-	//update enemy
-	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
-	{
-		if (m_enemyList[idx]->Update(dt))
-		{
-			//delete the enemy
-			ReturnGO(m_enemyList[idx]->GetGameObject());
-			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
-			player->changeEnergy(m_enemyList[idx]->GetEnergyDrop());
-			player->changeMoney(m_enemyList[idx]->GetMoneyDrop());
-			cGameManager->dPlayerScore += 100;
-			delete m_enemyList[idx];
-			m_enemyList.erase(m_enemyList.begin() + idx);
-			enemyLeft--;
-			continue;
-		}
-		if (m_enemyList[idx]->IsSpawningBullet())
-		{
-			Vector3 shootPlayer = player->getPlayer()->pos - m_enemyList[idx]->GetGameObject()->pos;
-			Bullet* bullet = new Bullet;
-			GameObject* bulletgo = FetchGO();
-			bulletgo->type = GameObject::GO_BULLET;
-			bulletgo->pos = m_enemyList[idx]->GetGameObject()->pos;
-			bulletgo->pos.z = 1;
-			bulletgo->vel.SetZero();
-			bulletgo->scale.Set(2, 2, 1);
-			bulletgo->color.Set(1, 1, 1);
-			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
-			bullet->SetGameObject(bulletgo);
-			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage() + player->rangeDmgBoost, m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer.Normalize());
-			m_ebulletList.push_back(bullet);
-		}
-		//if (dealdamage)
-		//{
-		//	if (m_enemyList[idx]->ChangeHealth(-1))
-		//	{
-		//		//delete the enemy
-		//		ReturnGO(m_enemyList[idx]->GetGameObject());
-		//		ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
-		//		delete m_enemyList[idx];
-		//		m_enemyList.erase(m_enemyList.begin() + idx);
-		//	}
-		//}
-	}
-	
 	//update the player
+	Vector3 temppos = player->GetGameObject()->pos;
 	player->SetEnemyVector(m_enemyList);
 	player->Update(dt, mousePos);
 	Checkborder(player->getPlayer());
+	player->GetGameObject()->vel = (player->GetGameObject()->pos - temppos).Normalize() * player->GetMovementSpeed();
 	if (player->IsSpawningBullet())
 	{
 		Application::GetCursorPos(&x, &y);
@@ -491,8 +504,11 @@ void SceneCollision::Update(double dt)
 			flamego->type = GameObject::GO_FLAME;
 			Vector3 offset;
 			offset.SetZero();
-			
-			flamego->pos = player->GetWeapon()->GetGameObject()->pos;
+			if (player->GetGameObject()->angle == 180)
+				flamego->pos = player->GetWeapon()->GetGameObject()->pos - RotateVector(Vector3(player->GetWeapon()->GetGameObject()->scale.x, -player->GetWeapon()->GetGameObject()->scale.y * 0.5, 0) + Vector3(), Math::DegreeToRadian(player->GetWeapon()->GetGameObject()->angle));
+			else
+				flamego->pos = player->GetWeapon()->GetGameObject()->pos + RotateVector(Vector3(player->GetWeapon()->GetGameObject()->scale.x, player->GetWeapon()->GetGameObject()->scale.y * 0.5, 0), Math::DegreeToRadian(player->GetWeapon()->GetGameObject()->angle));
+
 			flamego->pos.z = 0;
 			flamego->vel.SetZero();
 			flamego->scale.Set(7, 7, 1);
@@ -521,7 +537,11 @@ void SceneCollision::Update(double dt)
 			Bullet* bullet = new Bullet;
 			GameObject* bulletgo = FetchGO();
 			bulletgo->type = GameObject::GO_BULLET;
-			bulletgo->pos = player->GetGameObject()->pos;
+
+			if (player->GetGameObject()->angle == 180)
+				bulletgo->pos = player->GetWeapon()->GetGameObject()->pos - RotateVector(Vector3(player->GetWeapon()->GetGameObject()->scale.x, -player->GetWeapon()->GetGameObject()->scale.y * 0.5, 0) + Vector3(), Math::DegreeToRadian(player->GetWeapon()->GetGameObject()->angle));
+			else
+				bulletgo->pos = player->GetWeapon()->GetGameObject()->pos + RotateVector(Vector3(player->GetWeapon()->GetGameObject()->scale.x, player->GetWeapon()->GetGameObject()->scale.y * 0.5, 0), Math::DegreeToRadian(player->GetWeapon()->GetGameObject()->angle));
 			bulletgo->vel.SetZero();
 			bulletgo->pos.z = 0;
 			bulletgo->scale.Set(2, 2, 1);
@@ -532,6 +552,65 @@ void SceneCollision::Update(double dt)
 			m_pbulletList.push_back(bullet);
 		}
 	}
+
+	//update enemy
+	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
+	{
+		if (m_enemyList[idx]->Update(dt))
+		{
+			//delete the enemy
+			ReturnGO(m_enemyList[idx]->GetGameObject());
+			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+			player->changeEnergy(m_enemyList[idx]->GetEnergyDrop());
+			player->changeMoney(m_enemyList[idx]->GetMoneyDrop());
+			delete m_enemyList[idx];
+			m_enemyList.erase(m_enemyList.begin() + idx);
+			enemyLeft--;
+			continue;
+		}
+		//ensure that the enemy does not move out of the map
+		Checkborder(m_enemyList[idx]->GetGameObject());
+		if (m_enemyList[idx]->IsSpawningBullet())
+		{
+			Vector3 shootPlayer;
+			if (!InterceptionDirection(player->GetGameObject()->pos, m_enemyList[idx]->GetGameObject()->pos, player->GetGameObject()->vel, m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), shootPlayer))
+			{
+				shootPlayer = (player->getPlayer()->pos - m_enemyList[idx]->GetGameObject()->pos).Normalize();
+			}
+
+			Bullet* bullet = new Bullet;
+			GameObject* bulletgo = FetchGO();
+			bulletgo->type = GameObject::GO_BULLET;
+			if (m_enemyList[idx]->GetGameObject()->angle == 180)
+				bulletgo->pos = m_enemyList[idx]->GetWeapon()->GetGameObject()->pos - RotateVector(Vector3(m_enemyList[idx]->GetWeapon()->GetGameObject()->scale.x, -m_enemyList[idx]->GetWeapon()->GetGameObject()->scale.y * 0.5, 0) + Vector3(), Math::DegreeToRadian(m_enemyList[idx]->GetWeapon()->GetGameObject()->angle));
+			else
+				bulletgo->pos = m_enemyList[idx]->GetWeapon()->GetGameObject()->pos + RotateVector(Vector3(m_enemyList[idx]->GetWeapon()->GetGameObject()->scale.x, m_enemyList[idx]->GetWeapon()->GetGameObject()->scale.y * 0.5, 0), Math::DegreeToRadian(m_enemyList[idx]->GetWeapon()->GetGameObject()->angle));
+
+
+			bulletgo->pos = m_enemyList[idx]->GetGameObject()->pos;
+			bulletgo->pos.z = 1;
+			bulletgo->vel.SetZero();
+			bulletgo->scale.Set(2, 2, 1);
+			bulletgo->color.Set(1, 1, 1);
+			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
+			bullet->SetGameObject(bulletgo);
+			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage() + player->rangeDmgBoost, m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer);
+			m_ebulletList.push_back(bullet);
+		}
+		//if (dealdamage)
+		//{
+		//	if (m_enemyList[idx]->ChangeHealth(-1))
+		//	{
+		//		//delete the enemy
+		//		ReturnGO(m_enemyList[idx]->GetGameObject());
+		//		ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+		//		delete m_enemyList[idx];
+		//		m_enemyList.erase(m_enemyList.begin() + idx);
+		//	}
+		//}
+	}
+	
+	
 
 	//update bullets
 	for (unsigned idx = 0; idx < m_pbulletList.size(); idx++)
@@ -607,7 +686,8 @@ void SceneCollision::Update(double dt)
 				player->ChangeHealth(m_ebulletList[idx]->GetDamage());
 			}
 			else {
-				player->ChangeHealth(-m_ebulletList[idx]->GetDamage());
+				if (!player->iFrame)
+					player->ChangeHealth(-m_ebulletList[idx]->GetDamage());
 			}
 			if (!m_ebulletList[idx]->GetPenetrationValue()) {
 				ReturnGO(m_ebulletList[idx]->GetGameObject());
@@ -758,7 +838,7 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 
 		if (relativeVel.Dot(disDiff) <= 0)
 			return false;
-		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x) * 0.35;
+		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x) * 0.4f;
 	}
 
 	case GameObject::GO_WALL:
@@ -1007,14 +1087,14 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 		if (go->angle == 180)
 		{
-			meshList[GEO_LEFT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_LEFT_RIFLER], true);
+			meshList[GEO_LEFT_SHIELDMAN]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_SHIELDMAN], true);
 		}
 
 		else if (go->angle == 0)
 		{
-			meshList[GEO_RIGHT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIGHT_RIFLER], true);
+			meshList[GEO_RIGHT_SHIELDMAN]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_SHIELDMAN], true);
 		}
 		modelStack.PopMatrix();
 		break;
@@ -1322,16 +1402,6 @@ void SceneCollision::renderUI()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 74.5, 56.7);
 
 
-	//render score
-	ss.str("");
-	ss << "Score:" << cGameManager->dPlayerScore;
-	modelStack.PushMatrix();
-	modelStack.Translate(177 - ss.str().size() * 1.2, 90, 1);
-	modelStack.Scale(18 + ss.str().size() * 0.7, 5, 1);
-	RenderMesh(meshList[GEO_SHOPMENUBG], false);
-	modelStack.PopMatrix();
-
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 80 - ss.str().size(), 52.5);
 
 	//render energy
 	ss.str("");
@@ -1756,8 +1826,34 @@ void SceneCollision::SpawnEnemy(float rate)
 
 	else if (timer > rate)
 	{
-		int type = Math::RandIntMinMax(1, 3);
+		int type;
+		if (wave < 4)
+			type = 1;
 
+		else if (wave < 7)
+		{
+			int ran = Math::RandIntMinMax(1, 10);
+			if (ran < 8)
+				type = 1;
+			else
+				type = 3;
+		}
+		
+		else if (wave < 15)
+		{
+			int ran = Math::RandIntMinMax(1, 10);
+			if (ran < 6)
+				type = 1;
+			else if (ran < 8)
+				type = 2;
+			else
+				type = 3;
+		}
+
+		else
+		{
+			type = Math::RandIntMinMax(1, 3);
+		}
 		Enemy* enemy;
 		GameObject* enemyGO;
 		GameObject* ewep;
@@ -1860,9 +1956,18 @@ void SceneCollision::SpawnEnemy(float rate)
 float SceneCollision::SetRate()
 {
 	float frequency;
-	totalEnemy = wave * 1;
+	totalEnemy = wave * 3;
+	if (wave >= 5)
+	{
+		totalEnemy += 3 * (wave - 4);
+	}
+
+	totalEnemy += (wave / 10) * 10;
 	frequency = 3 / (wave * 0.5);
-	std::cout << "Frequency: " << frequency << std::endl;
+	if (frequency < 0.1)
+	{
+		frequency = 0.1;
+	}
 
 	enemyLeft = totalEnemy;
 	return frequency;
@@ -1929,11 +2034,14 @@ void SceneCollision::SetWeapon()
 		cGameManager->weptype = player->GetWeapon()->WeaponType;
 	}
 
-	if (player->GetSideWeapon()->WeaponType != cGameManager->sideweptype)
+	if (player->GetSideWeapon() != nullptr)
 	{
-		ReturnGO(player->GetSideWeapon()->GetGameObject());
-		NewWeapon(cGameManager->sideweptype, false);
-		cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
+		if (player->GetSideWeapon()->WeaponType != cGameManager->sideweptype)
+		{
+			ReturnGO(player->GetSideWeapon()->GetGameObject());
+			NewWeapon(cGameManager->sideweptype, false);
+			cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
+		}
 	}
 }
 

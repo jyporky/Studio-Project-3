@@ -7,7 +7,6 @@ GameManger::GameManger()
 	bPlayerLost = false;
 	bDebug = false;
 	dWaveNo = 1;
-	dPlayerScore = 1000;
 	waveClear = false;
 	outShop = false;
 	eButtonState = false;

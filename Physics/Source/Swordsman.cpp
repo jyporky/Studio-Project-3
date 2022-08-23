@@ -6,7 +6,7 @@ Swordsman::Swordsman()
     redTimer = 0;
     movementSpeed = 20;
     energyDropped = 2;
-    moneyDropped = 2;
+    moneyDropped = 10;
     attackDamage = 5;
     affectedByKnockback = true;
     gameobject = nullptr;
@@ -67,7 +67,10 @@ bool Swordsman::Update(double dt)
         //find an enemy to target
     }
 
-
+    static bool moveleft = true;
+    static float leftdt = 0;
+    Vector3 direction;
+    direction.SetZero();
     switch (sCurrState)
     {
     case IDLE:
@@ -75,13 +78,35 @@ bool Swordsman::Update(double dt)
         break;
     case CHASE:
         //chase the player
-        gameobject->pos += (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
+        leftdt += dt;
+        if (!moveleft)
+        {
+            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+            direction = Vector3(-direction.y, direction.x, 0);
+            if (leftdt > 1.5)
+            {
+                moveleft = !moveleft;
+                leftdt = 0;
+            }
+        }
+        else
+        {
+            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+            direction = -(Vector3(-direction.y, direction.x, 0));
+            if (leftdt > 1.5)
+            {
+                moveleft = !moveleft;
+                leftdt = 0;
+            }
+        }
+        gameobject->pos += ((Target->GetGameObject()->pos - gameobject->pos).Normalize() + direction) * dt * movementSpeed;
         if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
         {
             sCurrState = ATTACK;
         }
         break;
     case ATTACK:
+        leftdt = 0;
         if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
         {
             sCurrState = CHASE;
@@ -99,9 +124,31 @@ bool Swordsman::Update(double dt)
         }
         break;
     case BACK_OFF:
+        leftdt += dt;
+        if (!moveleft)
+        {
+            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+            direction = Vector3(-direction.y, direction.x, 0);
+            if (leftdt > 1.5)
+            {
+                moveleft = !moveleft;
+                leftdt = 0;
+            }
+        }
+        else
+        {
+            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+            direction = -(Vector3(-direction.y, direction.x, 0));
+            if (leftdt > 1.5)
+            {
+                moveleft = !moveleft;
+                leftdt = 0;
+            }
+        }
         //check if the enemy can attack or not
         if (CurrWeapon->attacktest())
         {
+            leftdt = 0;
             sCurrState = CHASE;
             break;
         }

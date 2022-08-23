@@ -8,7 +8,7 @@ ShieldEnemy::ShieldEnemy()
     redTimer = 0;
     movementSpeed = 15;
     energyDropped = 2;
-    moneyDropped = 2;
+    moneyDropped = 15;
     attackDamage = 5;
     affectedByKnockback = true;
     gameobject = nullptr;
@@ -102,6 +102,15 @@ bool ShieldEnemy::Update(double dt)
             tempangle = 0;
     }
     angle += tempangle * dt * shieldturningrate;
+
+    if ((angle >= 0 && angle <= 90) || (angle >= 270 && angle <= 360))
+    {
+        gameobject->angle = 0;
+    }
+    else
+    {
+        gameobject->angle = 180;
+    }
 
     //ai of the enemy
     switch (sCurrState)
