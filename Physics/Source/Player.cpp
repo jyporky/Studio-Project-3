@@ -15,7 +15,7 @@ Player::Player()
 	movementspeed = 40;
 	dashBoost = 80;
 	iFrame = false;
-	money = 2000;
+	money = 0;
 	energy = 0;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
@@ -357,6 +357,8 @@ void Player::SwapWeapon()
 	Weapon* tempwep = CurrWeapon;
 	CurrWeapon = SideWeapon;
 	SideWeapon = tempwep;
+	cSoundController->StopPlayByID(12);
+	cSoundController->PlaySoundByID(12);
 
 	if (cGameManager->weptype != 0)
 	{

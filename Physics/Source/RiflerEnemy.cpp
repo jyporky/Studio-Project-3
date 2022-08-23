@@ -5,7 +5,7 @@ Rifler::Rifler()
     health = 15;
     movementSpeed = 14;
     energyDropped = 2;
-    moneyDropped = 5;
+    moneyDropped = 20;
     attackDamage = 3;
     affectedByKnockback = true;
     gameobject = nullptr;

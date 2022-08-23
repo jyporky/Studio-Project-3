@@ -35,7 +35,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 5;
+	wave = 1;
 
 	rate = SetRate();
 
@@ -55,6 +55,7 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, false, CSoundInfo::BGM);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 10, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\Shieldblock.ogg"), 11, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\switch_weapon.ogg"), 12, false);
 
 
 	cInventoryManager = CInventoryManager::GetInstance();
@@ -65,9 +66,9 @@ void SceneCollision::Init()
 	cInventoryItem = cInventoryManager->Add("rubberchicken", 1, 0);
 	cInventoryItem = cInventoryManager->Add("fryingpan", 1, 0);
 	
-	cInventoryItem = cInventoryManager->Add("rifle", 1, 1);
-	cInventoryItem = cInventoryManager->Add("flamethrower", 1, 1);
-	cInventoryItem = cInventoryManager->Add("crossbow", 1, 1);
+	cInventoryItem = cInventoryManager->Add("rifle", 1, 0);
+	cInventoryItem = cInventoryManager->Add("flamethrower", 1, 0);
+	cInventoryItem = cInventoryManager->Add("crossbow", 1, 0);
 
 	//potions
 	cInventoryItem = cInventoryManager->Add("healthpotion", 10, 0);
@@ -93,19 +94,19 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	player->SetWeapon(new Flamethrower());
-	GameObject* weapon1 = FetchGO();
-	weapon1->type = GameObject::GO_FLAMETHROWER;
-	weapon1->pos.SetZero();
-	weapon1->vel.SetZero();
-	weapon1->scale.Set(8, 3, 1);
-	weapon1->angle = 0;
-	weapon1->color.Set(1, 1, 1);
-	weapon1->leftwep = false;
-	cGameManager->sideweptype = Weapon::FLAMETHROWER;
-	cGameManager->weptype = 0;
-	player->GetWeapon()->SetGameObject(weapon1);
-	player->SwapWeapon();
+	//player->SetWeapon(new Flamethrower());
+	//GameObject* weapon1 = FetchGO();
+	//weapon1->type = GameObject::GO_FLAMETHROWER;
+	//weapon1->pos.SetZero();
+	//weapon1->vel.SetZero();
+	//weapon1->scale.Set(8, 3, 1);
+	//weapon1->angle = 0;
+	//weapon1->color.Set(1, 1, 1);
+	//weapon1->leftwep = false;
+	//cGameManager->sideweptype = Weapon::FLAMETHROWER;
+	//cGameManager->weptype = 0;
+	//player->GetWeapon()->SetGameObject(weapon1);
+	//player->SwapWeapon();
 
 	Sword* sword = new Sword();
 	player->SetWeapon(sword);
@@ -277,8 +278,8 @@ void SceneCollision::Update(double dt)
 	{
 		cGameManager->outShop = false;
 		SetWeapon();
-		rate = SetRate();
 		wave++;
+		rate = SetRate();
 		player->GetGameObject()->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
 		timer = -3;
 		for (unsigned i = 0; i < colorsize; ++i)
@@ -926,14 +927,14 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 		if (go->angle == 180)
 		{
-			meshList[GEO_LEFT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_LEFT_RIFLER], true);
+			meshList[GEO_LEFT_SHIELDMAN]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_SHIELDMAN], true);
 		}
 
 		else if (go->angle == 0)
 		{
-			meshList[GEO_RIGHT_RIFLER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-			RenderMesh(meshList[GEO_RIGHT_RIFLER], true);
+			meshList[GEO_RIGHT_SHIELDMAN]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_SHIELDMAN], true);
 		}
 		modelStack.PopMatrix();
 		break;
@@ -1604,8 +1605,34 @@ void SceneCollision::SpawnEnemy(float rate)
 
 	else if (timer > rate)
 	{
-		int type = Math::RandIntMinMax(1, 3);
+		int type;
+		if (wave < 4)
+			type = 1;
 
+		else if (wave < 7)
+		{
+			int ran = Math::RandIntMinMax(1, 10);
+			if (ran < 8)
+				type = 1;
+			else
+				type = 3;
+		}
+		
+		else if (wave < 15)
+		{
+			int ran = Math::RandIntMinMax(1, 10);
+			if (ran < 6)
+				type = 1;
+			else if (ran < 8)
+				type = 2;
+			else
+				type = 3;
+		}
+
+		else
+		{
+			type = Math::RandIntMinMax(1, 3);
+		}
 		Enemy* enemy;
 		GameObject* enemyGO;
 		GameObject* ewep;
@@ -1708,9 +1735,18 @@ void SceneCollision::SpawnEnemy(float rate)
 float SceneCollision::SetRate()
 {
 	float frequency;
-	totalEnemy = wave * 1;
+	totalEnemy = wave * 3;
+	if (wave >= 5)
+	{
+		totalEnemy += 3 * (wave - 4);
+	}
+
+	totalEnemy += (wave / 10) * 10;
 	frequency = 3 / (wave * 0.5);
-	std::cout << "Frequency: " << frequency << std::endl;
+	if (frequency < 0.1)
+	{
+		frequency = 0.1;
+	}
 
 	enemyLeft = totalEnemy;
 	return frequency;
@@ -1777,11 +1813,14 @@ void SceneCollision::SetWeapon()
 		cGameManager->weptype = player->GetWeapon()->WeaponType;
 	}
 
-	if (player->GetSideWeapon()->WeaponType != cGameManager->sideweptype)
+	if (player->GetSideWeapon() != nullptr)
 	{
-		ReturnGO(player->GetSideWeapon()->GetGameObject());
-		NewWeapon(cGameManager->sideweptype, false);
-		cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
+		if (player->GetSideWeapon()->WeaponType != cGameManager->sideweptype)
+		{
+			ReturnGO(player->GetSideWeapon()->GetGameObject());
+			NewWeapon(cGameManager->sideweptype, false);
+			cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
+		}
 	}
 }
 

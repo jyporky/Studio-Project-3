@@ -8,7 +8,7 @@ GameManger::GameManger()
 	bDebug = false;
 	dWaveNo = 1;
 	dPlayerScore = 1000;
-	waveClear = true;
+	waveClear = false;
 	outShop = false;
 	eButtonState = false;
 	switchWeapon = false;

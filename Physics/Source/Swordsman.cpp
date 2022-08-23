@@ -6,7 +6,7 @@ Swordsman::Swordsman()
     redTimer = 0;
     movementSpeed = 20;
     energyDropped = 2;
-    moneyDropped = 2;
+    moneyDropped = 10;
     attackDamage = 5;
     affectedByKnockback = true;
     gameobject = nullptr;
