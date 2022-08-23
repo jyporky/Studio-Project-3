@@ -97,6 +97,7 @@ void Player::Update(double dt, Vector3 mousepos)
 	{
 		movementDirection.x += 1;
 	}
+	gameobject->vel = movementDirection.Normalize() * movementspeed;
 
 	if (movementDirection != Vector3(0, 0, 0) && !dashing)
 		dashDirection = movementDirection;
