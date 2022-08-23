@@ -661,6 +661,10 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("boxingglove");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+						if (cGameManager->buyFirstWep)
+						{
+							// Add box glove code if intend to add in future
+						}
 					}
 					break;
 				case 2:
@@ -672,6 +676,10 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("rubberchicken");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+						if (cGameManager->buyFirstWep)
+						{
+							// Add chicken code if intend to add in future
+						}
 					}
 					break;
 				case 3:
@@ -683,6 +691,10 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("fryingpan");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+						if (cGameManager->buyFirstWep)
+						{
+							// Add frying pan code if intend to add in future
+						}
 					}
 					break;
 				}
@@ -729,14 +741,19 @@ void SceneShop::Update(double dt)
 				{
 				case 0:
 					//buy rifle
-					/*if ((player->getMoney() >= rifle->GetCost()) && (rifleBought == false))
+					if ((player->getMoney() >= rifle->GetCost()) && (rifleBought == false))
 					{
 						player->changeMoney(-rifle->GetCost());
 						rifleBought = true;
 						cInventoryItem = cInventoryManager->GetItem("rifle");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
-					}*/
+					}
+					if (cGameManager->buyFirstWep)
+					{
+						cGameManager->sideweptype = Weapon::RIFLE;
+						cGameManager->buyFirstWep = false;
+					}
 					break;
 				case 1:
 					//buy flamethrower
@@ -748,6 +765,11 @@ void SceneShop::Update(double dt)
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
+					if (cGameManager->buyFirstWep)
+					{
+						cGameManager->sideweptype = Weapon::FLAMETHROWER;
+						cGameManager->buyFirstWep = false;
+					}
 					break;
 				case 2:
 					//buy crossbow
@@ -758,6 +780,11 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("crossbow");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+					}
+					if (cGameManager->buyFirstWep)
+					{
+						cGameManager->sideweptype = Weapon::CROSSBOW;
+						cGameManager->buyFirstWep = false;
 					}
 					break;
 				}
@@ -2455,9 +2482,9 @@ void SceneShop::renderUI()
 	RenderMesh(meshList[GEO_HOTBAR], false);
 	modelStack.PopMatrix();
 
-	if (player->GetWeapon() != nullptr)
+	if (cGameManager->weptype != 0)
 		renderWeaponUI(wep1, scale, cGameManager->weptype);
-	if (player->GetSideWeapon() != nullptr)
+	if (cGameManager->weptype != 0)
 		renderWeaponUI(wep2, scale, cGameManager->sideweptype);
 
 	//potions

@@ -352,6 +352,13 @@ void SceneCollision::Update(double dt)
 
 	if (totalEnemy > 0 && timer > 0)
 		SpawnEnemy(rate);
+	else if (totalEnemy <= 0 && timer > rate / 3)
+	{
+		for (unsigned i = 0; i < colorsize; ++i)
+		{
+			color[i].Set(1, 1, 1);
+		}
+	}
 
 	if (timer >= 0)
 	{
@@ -427,7 +434,6 @@ void SceneCollision::Update(double dt)
 		if (cInventoryItem->GetCount() > 0)
 		{
 			button1 = true;
-			dealdamage = true;
 			HealthPotion->usePotion();
 			cInventoryItem->Remove(1);
 		}	
@@ -444,7 +450,6 @@ void SceneCollision::Update(double dt)
 		if ((cInventoryItem->GetCount() > 0) && (strengthPotTimer >= 30))
 		{
 			button2 = true;
-			dealdamage = true;
 			StrengthPotion->usePotion();
 			cInventoryItem->Remove(1);
 			strengthPotTimer = 0;
@@ -469,7 +474,6 @@ void SceneCollision::Update(double dt)
 		if ((cInventoryItem->GetCount() > 0) && (speedPotTimer >= 30))
 		{
 			button3 = true;
-			dealdamage = true;
 			SpeedPotion->usePotion();
 			cInventoryItem->Remove(1);
 			speedPotTimer = 0;
@@ -2042,6 +2046,11 @@ void SceneCollision::SetWeapon()
 			NewWeapon(cGameManager->sideweptype, false);
 			cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
 		}
+	}
+	else if (cGameManager->sideweptype != 0)
+	{
+		NewWeapon(cGameManager->sideweptype, false);
+		cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
 	}
 }
 

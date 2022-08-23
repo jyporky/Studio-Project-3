@@ -19,6 +19,7 @@ public:
 	bool switchWeapon;
 	int weptype;
 	int sideweptype;
+	bool buyFirstWep;
 
 	//weapon upgrades
 	bool pierceBought;

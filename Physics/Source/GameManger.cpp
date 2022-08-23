@@ -11,8 +11,9 @@ GameManger::GameManger()
 	outShop = false;
 	eButtonState = false;
 	switchWeapon = false;
-	int weptype = Weapon::NONE;
-	int sideweptype = Weapon::NONE;
+	buyFirstWep = true;
+	weptype = Weapon::NONE;
+	sideweptype = Weapon::NONE;
 
 	pierceBought = false;
 	fastfireBought = false;
