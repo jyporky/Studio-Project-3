@@ -124,7 +124,27 @@ bool Swordsman::Update(double dt)
         }
         break;
     case BACK_OFF:
-        leftdt = 0;
+        leftdt += dt;
+        if (!moveleft)
+        {
+            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+            direction = Vector3(-direction.y, direction.x, 0);
+            if (leftdt > 1.5)
+            {
+                moveleft = !moveleft;
+                leftdt = 0;
+            }
+        }
+        else
+        {
+            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+            direction = -(Vector3(-direction.y, direction.x, 0));
+            if (leftdt > 1.5)
+            {
+                moveleft = !moveleft;
+                leftdt = 0;
+            }
+        }
         //check if the enemy can attack or not
         if (CurrWeapon->attacktest())
         {
