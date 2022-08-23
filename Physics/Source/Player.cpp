@@ -152,7 +152,7 @@ void Player::Update(double dt, Vector3 mousepos)
 	}
 
 	static bool switch_weapon = false;
-	if (Application::IsMousePressed(1) && !switch_weapon && SideWeapon != nullptr && !dashing)
+	if (Application::IsMousePressed(1) && !switch_weapon && !dashing)
 	{
 		CurrWeapon->GetGameObject()->visible = false;
 		SwapWeapon();
@@ -276,6 +276,7 @@ void Player::Attack(Vector3 mousepos)
 				if (m_enemyList[idx] == hitlist[idx1])
 				{
 					hitb4 = true;
+					hitb4 = true;
 					break;
 				}
 			}
@@ -358,13 +359,16 @@ void Player::changeEnergy(float energyChange)
 
 void Player::SwapWeapon()
 {
-	Weapon* tempwep = CurrWeapon;
-	CurrWeapon = SideWeapon;
-	SideWeapon = tempwep;
-	cSoundController->StopPlayByID(12);
-	cSoundController->PlaySoundByID(12);
+	if (SideWeapon != nullptr)
+	{
+		Weapon* tempwep = CurrWeapon;
+		CurrWeapon = SideWeapon;
+		SideWeapon = tempwep;
+		cSoundController->StopPlayByID(12);
+		cSoundController->PlaySoundByID(12);
+	}
 
-	if (cGameManager->weptype != 0)
+	if (cGameManager->sideweptype != 0)
 	{
 		int temptype = cGameManager->weptype;
 		cGameManager->weptype = cGameManager->sideweptype;
@@ -388,3 +392,7 @@ GameObject* Player::getPlayer()
 	return gameobject;
 }
 
+void Player::SetSideWeapon(Weapon* sidewep)
+{
+	SideWeapon = sidewep;
+}
