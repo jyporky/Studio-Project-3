@@ -66,7 +66,6 @@ void SceneShop::Init()
 	ShopMenu3 = false;
 	ShopMenu4 = false;
 
-	weaponType = 'm'; // m -> melee 
 	playerUpgradeType = 'u'; //u -> upgrade
 	weaponUpgradePage = 1; //shop 1
 	computerPage = 1; //computer
@@ -79,9 +78,7 @@ void SceneShop::Init()
 
 	swordBought = false;
 	boxingGloveBought = false;
-	rubberchickenBought = false;
-	panBought = false;
-	
+
 	rifleBought = false;
 	flamethrowerBought = false;
 	crossbowBought = false;
@@ -163,14 +160,7 @@ void SceneShop::Update(double dt)
 		canInteract = true;
 		if (Application::IsKeyPressed('E'))
 		{
-			if (weaponType == 'm')
-			{
-				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
-			}
-			else if (weaponType == 'r')
-			{
-				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
-			}
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);	
 			inShop = true;
 			ShopMenu2 = true;
 		}
@@ -209,19 +199,12 @@ void SceneShop::Update(double dt)
 		canInteract = false;
 	}
 
-	if ((player->getPlayer()->pos.x >= 10) && (player->getPlayer()->pos.x <= 20) && (player->getPlayer()->pos.y >= 66))
+	if ((player->getPlayer()->pos.x >= 10) && (player->getPlayer()->pos.x <= 20) && (player->getPlayer()->pos.y >= 66)) //computer
 	{
 		canInteractComputer = true;
 		if (Application::IsKeyPressed('E'))
 		{
-			if (computerPage == 1)
-			{
-				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 6);
-			}
-			else if (computerPage == 2)
-			{
-				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
-			}
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
 			inComputer = true;		
 		}
 	}
@@ -270,7 +253,7 @@ void SceneShop::Update(double dt)
 				w = true;
 				if (shopbuttonhighlight == 0)
 				{
-					shopbuttonhighlight = 6;
+					shopbuttonhighlight = 4;
 				}
 				else
 					shopbuttonhighlight--;
@@ -281,7 +264,7 @@ void SceneShop::Update(double dt)
 			if (Application::IsKeyPressed('S') && !s)
 			{
 				s = true;
-				if (shopbuttonhighlight == 6)
+				if (shopbuttonhighlight == 4)
 				{
 					shopbuttonhighlight = 0;
 				}
@@ -304,29 +287,27 @@ void SceneShop::Update(double dt)
 					}
 					break;
 				case 1:
-					
+					cInventoryItem = cInventoryManager->GetItem("boxingglove");
+					if (CheckEquip(Weapon::BOXING_GLOVES) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->weptype = Weapon::BOXING_GLOVES;
+					}
 					break;
 				case 2:
-				
-					break;
-				case 3:
-					
-					break;
-				case 4:
 					cInventoryItem = cInventoryManager->GetItem("rifle");
 					if (CheckEquip(Weapon::RIFLE) && cInventoryItem->GetCount() > 0)
 					{
 						cGameManager->weptype = Weapon::RIFLE;
 					}
 					break;
-				case 5:
+				case 3:
 					cInventoryItem = cInventoryManager->GetItem("flamethrower");
 					if (CheckEquip(Weapon::FLAMETHROWER) && cInventoryItem->GetCount() > 0)
 					{
 						cGameManager->weptype = Weapon::FLAMETHROWER;
 					}
 					break;
-				case 6:
+				case 4:
 					cInventoryItem = cInventoryManager->GetItem("crossbow");
 					if (CheckEquip(Weapon::CROSSBOW) && cInventoryItem->GetCount() > 0)
 					{
@@ -463,7 +444,6 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-healthupgrade->getMoneyCost());
 						healthupgrade->receiveUpgrade();
 						cSoundController->PlaySoundByID(10);
-
 					}
 					break;
 				case 2:
@@ -594,205 +574,88 @@ void SceneShop::Update(double dt)
 	//weapons dealer to switch between ranged and melee
 	if (ShopMenu2 == true) 
 	{
-		if (Application::IsKeyPressed('Z'))
+		static bool w = false, s = false;
+		if (Application::IsKeyPressed('W') && !w)
 		{
-			weaponType = 'm'; //melee		
-			shopbuttonhighlight = 0;
+			w = true;
+			if (shopbuttonhighlight == 0)
+			{
+				shopbuttonhighlight = 3;
+			}
+			else
+				shopbuttonhighlight--;
 		}
-		else if (Application::IsKeyPressed('X'))
+		else if (!Application::IsKeyPressed('W') && w)
+			w = false;
+
+		if (Application::IsKeyPressed('S') && !s)
 		{
-			weaponType = 'r'; //ranged
-			shopbuttonhighlight = 0;
+			s = true;
+			if (shopbuttonhighlight == 3)
+			{
+				shopbuttonhighlight = 0;
+			}
+			else
+				shopbuttonhighlight++;
 		}
-			
+		else if (!Application::IsKeyPressed('S') && s)
+			s = false;
 
-		if (weaponType == 'm')
+		if (Application::IsKeyPressed('E') && !eButtonState)
 		{
-			static bool w = false, s = false;
-			if (Application::IsKeyPressed('W') && !w)
-			{
-				w = true;
-				if (shopbuttonhighlight == 0)
-				{
-					shopbuttonhighlight = 3;
-				}
-				else
-					shopbuttonhighlight--;
-			}
-			else if (!Application::IsKeyPressed('W') && w)
-				w = false;
+			eButtonState = true;
 
-			if (Application::IsKeyPressed('S') && !s)
+			switch (shopbuttonhighlight)
 			{
-				s = true;
-				if (shopbuttonhighlight == 3)
+			case 0:
+				//buy boxing glove
+				if ((player->getMoney() >= boxingGlove->GetCost()) && (boxingGloveBought == false))
 				{
-					shopbuttonhighlight = 0;
+					player->changeMoney(-boxingGlove->GetCost());
+					boxingGloveBought = true;
+					cInventoryItem = cInventoryManager->GetItem("boxingglove");
+					cSoundController->PlaySoundByID(10);
+					cInventoryItem->Add(1);
 				}
-				else
-					shopbuttonhighlight++;
-			}
-			else if (!Application::IsKeyPressed('S') && s)
-				s = false;
-
-			if (Application::IsKeyPressed('E') && !eButtonState)
-			{
-				eButtonState = true;
-
-				switch (shopbuttonhighlight)
+				break;
+			case 1:
+				//buy rifle
+				if ((player->getMoney() >= rifle->GetCost()) && (rifleBought == false))
 				{
-				case 0:
-					//buy sword
-					/*if ((player->getMoney() >= sword->GetCost()) && (swordBought == false))
-					{
-						player->changeMoney(-sword->GetCost());
-						swordBought = true;
-						cInventoryItem = cInventoryManager->GetItem("sword");
-						cSoundController->PlaySoundByID(10);
-						cInventoryItem->Add(1);
-					}*/
-					break;
-				case 1:
-					//buy boxing glove
-					if ((player->getMoney() >= boxingGlove->GetCost()) && (boxingGloveBought == false))
-					{
-						player->changeMoney(-boxingGlove->GetCost());
-						boxingGloveBought = true;
-						cInventoryItem = cInventoryManager->GetItem("boxingglove");
-						cSoundController->PlaySoundByID(10);
-						cInventoryItem->Add(1);
-						if (cGameManager->buyFirstWep)
-						{
-							// Add box glove code if intend to add in future
-						}
-					}
-					break;
-				case 2:
-					//buy chicken
-					if ((player->getMoney() >= rubberchicken->GetCost()) && (rubberchickenBought == false))
-					{
-						player->changeMoney(-rubberchicken->GetCost());
-						rubberchickenBought = true;
-						cInventoryItem = cInventoryManager->GetItem("rubberchicken");
-						cSoundController->PlaySoundByID(10);
-						cInventoryItem->Add(1);
-						if (cGameManager->buyFirstWep)
-						{
-							// Add chicken code if intend to add in future
-						}
-					}
-					break;
-				case 3:
-					//buy frying pan
-					if ((player->getMoney() >= pan->GetCost()) && (panBought == false))
-					{
-						player->changeMoney(-pan->GetCost());
-						panBought = true;
-						cInventoryItem = cInventoryManager->GetItem("fryingpan");
-						cSoundController->PlaySoundByID(10);
-						cInventoryItem->Add(1);
-						if (cGameManager->buyFirstWep)
-						{
-							// Add frying pan code if intend to add in future
-						}
-					}
-					break;
+					player->changeMoney(-rifle->GetCost());
+					rifleBought = true;
+					cInventoryItem = cInventoryManager->GetItem("rifle");
+					cSoundController->PlaySoundByID(10);
+					cInventoryItem->Add(1);
 				}
-			}
-			else if (!Application::IsKeyPressed('E') && eButtonState)
-			{
-				eButtonState = false;
+				break;
+			case 2:
+				//buy flamethrower
+				if ((player->getMoney() >= flamethrower->GetCost()) && (flamethrowerBought == false))
+				{
+					player->changeMoney(-flamethrower->GetCost());
+					flamethrowerBought = true;
+					cInventoryItem = cInventoryManager->GetItem("flamethrower");
+					cSoundController->PlaySoundByID(10);
+					cInventoryItem->Add(1);
+				}
+				break;
+			case 3:
+				//buy crossbow
+				if ((player->getMoney() >= crossbow->GetCost()) && (crossbowBought == false))
+				{
+					player->changeMoney(-crossbow->GetCost());
+					crossbowBought = true;
+					cInventoryItem = cInventoryManager->GetItem("crossbow");
+					cSoundController->PlaySoundByID(10);
+					cInventoryItem->Add(1);
+				}
+				break;
 			}
 		}
-		else if (weaponType == 'r')
+		else if (!Application::IsKeyPressed('E') && eButtonState)
 		{
-			static bool w = false, s = false;
-			if (Application::IsKeyPressed('W') && !w)
-			{
-				w = true;
-				if (shopbuttonhighlight == 0)
-				{
-					shopbuttonhighlight = 2;
-				}
-				else
-					shopbuttonhighlight--;
-			}
-			else if (!Application::IsKeyPressed('W') && w)
-				w = false;
-
-			if (Application::IsKeyPressed('S') && !s)
-			{
-				s = true;
-				if (shopbuttonhighlight == 2)
-				{
-					shopbuttonhighlight = 0;
-				}
-				else
-					shopbuttonhighlight++;
-			}
-			else if (!Application::IsKeyPressed('S') && s)
-				s = false;
-
-			if (Application::IsKeyPressed('E') && !eButtonState)
-			{
-				eButtonState = true;
-
-				switch (shopbuttonhighlight)
-				{
-				case 0:
-					//buy rifle
-					if ((player->getMoney() >= rifle->GetCost()) && (rifleBought == false))
-					{
-						player->changeMoney(-rifle->GetCost());
-						rifleBought = true;
-						cInventoryItem = cInventoryManager->GetItem("rifle");
-						cSoundController->PlaySoundByID(10);
-						cInventoryItem->Add(1);
-					}
-					if (cGameManager->buyFirstWep)
-					{
-						cGameManager->sideweptype = Weapon::RIFLE;
-						cGameManager->buyFirstWep = false;
-					}
-					break;
-				case 1:
-					//buy flamethrower
-					if ((player->getMoney() >= flamethrower->GetCost()) && (flamethrowerBought == false))
-					{
-						player->changeMoney(-flamethrower->GetCost());
-						flamethrowerBought = true;
-						cInventoryItem = cInventoryManager->GetItem("flamethrower");
-						cSoundController->PlaySoundByID(10);
-						cInventoryItem->Add(1);
-					}
-					if (cGameManager->buyFirstWep)
-					{
-						cGameManager->sideweptype = Weapon::FLAMETHROWER;
-						cGameManager->buyFirstWep = false;
-					}
-					break;
-				case 2:
-					//buy crossbow
-					if ((player->getMoney() >= crossbow->GetCost()) && (crossbowBought == false))
-					{
-						player->changeMoney(-crossbow->GetCost());
-						crossbowBought = true;
-						cInventoryItem = cInventoryManager->GetItem("crossbow");
-						cSoundController->PlaySoundByID(10);
-						cInventoryItem->Add(1);
-					}
-					if (cGameManager->buyFirstWep)
-					{
-						cGameManager->sideweptype = Weapon::CROSSBOW;
-						cGameManager->buyFirstWep = false;
-					}
-					break;
-				}
-			}
-			else if (!Application::IsKeyPressed('E') && eButtonState)
-			{
-				eButtonState = false;
-			}
+			eButtonState = false;
 		}
 	}
 
@@ -1212,59 +1075,19 @@ void SceneShop::Render()
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 38);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 36);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 38);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 36);
 			}
 
 			if (!CheckEquip(Weapon::BOXING_GLOVES))
 			{
 				ss << "(Equipped)";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 38);
-			}
-
-			cInventoryItem = cInventoryManager->GetItem("rubberchicken");
-			if (cInventoryItem->GetCount() == 1)
-			{
-				ss.str("");
-				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 33);
-			}
-			else
-			{
-				ss.str("");
-				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 33);
-			}
-
-			if (!CheckEquip(Weapon::RUBBER_CHICKEN))
-			{
-				ss << "(Equipped)";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 33);
-			}
-
-			cInventoryItem = cInventoryManager->GetItem("fryingpan");
-			if (cInventoryItem->GetCount() == 1)
-			{
-				ss.str("");
-				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 28);
-			}
-			else
-			{
-				ss.str("");
-				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 28);
-			}
-
-			if (!CheckEquip(Weapon::FRYING_PAN))
-			{
-				ss << "(Equipped)";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 28);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 36);
 			}
 
 			cInventoryItem = cInventoryManager->GetItem("rifle");
@@ -1272,19 +1095,19 @@ void SceneShop::Render()
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 23);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 29);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 23);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 29);
 			}
 
 			if (!CheckEquip(Weapon::RIFLE))
 			{
 				ss << "(Equipped)";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 23);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 29);
 			}
 
 			cInventoryItem = cInventoryManager->GetItem("flamethrower");
@@ -1292,19 +1115,19 @@ void SceneShop::Render()
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 18);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 22);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 18);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 22);
 			}
 
 			if (!CheckEquip(Weapon::FLAMETHROWER))
 			{
 				ss << "(Equipped)";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 18);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 22);
 			}
 
 			cInventoryItem = cInventoryManager->GetItem("crossbow");
@@ -1312,19 +1135,19 @@ void SceneShop::Render()
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 13);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 15);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 13);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 15);
 			}
 
 			if (!CheckEquip(Weapon::CROSSBOW))
 			{
 				ss << "(Equipped)";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 13);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 15);
 			}
 	
 		}
@@ -1784,213 +1607,122 @@ void SceneShop::renderShopMenu2()
 	ss << "Range";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 63, 36);
 
-	if (weaponType == 'm')
-	{
-		ss.str("");
-		ss << "Melee Weapons [Z]/[X]";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 8, 36);
+	ss.str("");
+	ss << "Weapons";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 8, 36);
 
-		modelStack.PushMatrix();
-		modelStack.Translate(33, 53.5, 1);
-		modelStack.Scale(8, 8, 1);
-		RenderMesh(meshList[GEO_SWORDR], false);
-		modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(41, 52.5, 1);
+	modelStack.Scale(7, 7, 1);
+	RenderMesh(meshList[GEO_BOXINGGLOVE], false);
+	modelStack.PopMatrix();
 
-		ss.str("");
-		ss << "Sword";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 31);
-		ss.str("");
-		ss << sword->GetCost();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 31);
-		ss.str("");
-		ss << sword->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 31);
-		ss.str("");
-		ss << sword->GetAttackSpeed();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 31);
-		ss.str("");
-		ss << sword->getDescription();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 49, 31);
-		ss.str("");
-		ss << sword->GetRange();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 31);
+	ss.str("");
+	ss << "Boxing Glove";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 31);
 
-		modelStack.PushMatrix();
-		modelStack.Translate(41, 43.5, 1);
-		modelStack.Scale(7, 7, 1);
-		RenderMesh(meshList[GEO_BOXINGGLOVE], false);
-		modelStack.PopMatrix();
+	ss.str("");
+	ss << boxingGlove->GetCost();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 31);
+	ss.str("");
+	ss << boxingGlove->GetDamage();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 31);
+	ss.str("");
+	ss << boxingGlove->GetAttackSpeed();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 31);
+	ss.str("");
+	ss << boxingGlove->getDescription();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 49, 31);
+	ss.str("");
+	ss << boxingGlove->GetRange();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 31);
 
-		ss.str("");
-		ss << "Boxing Glove";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 25);
+	//rifle
+	modelStack.PushMatrix();
+	modelStack.Translate(35, 42.5, 1);
+	modelStack.Scale(12, 5, 1);
+	RenderMesh(meshList[GEO_RIFLE_RIGHT], false);
+	modelStack.PopMatrix();
 
-		ss.str("");
-		ss << boxingGlove->GetCost();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 25);
-		ss.str("");
-		ss << boxingGlove->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 25);
-		ss.str("");
-		ss << boxingGlove->GetAttackSpeed();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 25);
-		ss.str("");
-		ss << boxingGlove->getDescription();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 49, 25);
-		ss.str("");
-		ss << boxingGlove->GetRange();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 25);
+	ss.str("");
+	ss << "Rifle";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 25);
 
-		modelStack.PushMatrix();
-		modelStack.Translate(43, 34.5, 1);
-		modelStack.Scale(7, 7, 1);
-		RenderMesh(meshList[GEO_CHICKEN], false);
-		modelStack.PopMatrix();
+	ss.str("");
+	ss << rifle->GetCost();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 25);
+	ss.str("");
+	ss << rifle->GetDamage();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 25);
+	ss.str("");
+	ss << rifle->GetAttackSpeed();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 25);
+	ss.str("");
+	ss << rifle->getDescription();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 25);
+	ss.str("");
+	ss << rifle->GetRange();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 25);
 
-		ss.str("");
-		ss << "Rubber Chicken";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 19);
+	//flamethrower
+	modelStack.PushMatrix();
+	modelStack.Translate(45, 32.5, 1);
+	modelStack.Scale(10, 6, 1);
+	RenderMesh(meshList[GEO_FLAMETHROWER], false);
+	modelStack.PopMatrix();
 
-		ss.str("");
-		ss << rubberchicken->GetCost();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 19);
-		ss.str("");
-		ss << rubberchicken->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 19);
-		ss.str("");
-		ss << rubberchicken->GetAttackSpeed();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 19);
-		ss.str("");
-		ss << rubberchicken->getDescription();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 19);
-		ss.str("");
-		ss << rubberchicken->GetRange();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 19);
+	ss.str("");
+	ss << "Flamethrower";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 19);
 
-		modelStack.PushMatrix();
-		modelStack.Translate(47, 22.5, 1);
-		modelStack.Scale(9, 6, 1);
-		RenderMesh(meshList[GEO_PAN], false);
-		modelStack.PopMatrix();
+	ss.str("");
+	ss << flamethrower->GetCost();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 19);
+	ss.str("");
+	ss << flamethrower->GetDamage();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 19);
+	ss.str("");
+	ss << flamethrower->GetAttackSpeed();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 19);
+	ss.str("");
+	ss << flamethrower->getDescription();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 19);
+	ss.str("");
+	ss << flamethrower->GetRange();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 19);
 
-		ss.str("");
-		ss << "Mom's Frying Pan";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 13);
+	//crossbow
+	modelStack.PushMatrix();
+	modelStack.Translate(40, 22.5, 1);
+	modelStack.Scale(8, 6, 1);
+	RenderMesh(meshList[GEO_CROSSBOW], false);
+	modelStack.PopMatrix();
 
-		ss.str("");
-		ss << pan->GetCost();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 13);
-		ss.str("");
-		ss << pan->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 13);
-		ss.str("");
-		ss << pan->GetAttackSpeed();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 13);
-		ss.str("");
-		ss << pan->getDescription();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 13);
-		ss.str("");
-		ss << pan->GetRange();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 13);
+	ss.str("");
+	ss << "Crossbow";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 13);
 
-		//selctor
-		ss.str("");
-		ss << ">";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 7, 30 - shopbuttonhighlight * 6);
-	}
-	else if (weaponType == 'r')
-	{
-		ss.str("");
-		ss << "Ranged Weapons [Z]/[X]";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 8, 36);
+	ss.str("");
+	ss << crossbow->GetCost();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 13);
+	ss.str("");
+	ss << crossbow->GetDamage();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 13);
+	ss.str("");
+	ss << crossbow->GetAttackSpeed();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 13);
+	ss.str("");
+	ss << crossbow->getDescription();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 13);
+	ss.str("");
+	ss << crossbow->GetRange();
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 13);
 
-		//rifle
-		modelStack.PushMatrix();
-		modelStack.Translate(35, 52.5, 1);
-		modelStack.Scale(12, 5, 1);
-		RenderMesh(meshList[GEO_RIFLE_RIGHT], false);
-		modelStack.PopMatrix();
 
-		ss.str("");
-		ss << "Rifle";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 31);
-
-		ss.str("");
-		ss << rifle->GetCost();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 31);
-		ss.str("");
-		ss << rifle->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 31);
-		ss.str("");
-		ss << rifle->GetAttackSpeed();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 31);
-		ss.str("");
-		ss << rifle->getDescription();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 31);
-		ss.str("");
-		ss << rifle->GetRange();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 31);
-
-		//flamethrower
-		modelStack.PushMatrix();
-		modelStack.Translate(45, 39.5, 1);
-		modelStack.Scale(10, 6, 1);
-		RenderMesh(meshList[GEO_FLAMETHROWER], false);
-		modelStack.PopMatrix();
-
-		ss.str("");
-		ss << "Flamethrower";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 23);
-
-		ss.str("");
-		ss << flamethrower->GetCost();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 23);
-		ss.str("");
-		ss << flamethrower->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 23);
-		ss.str("");
-		ss << flamethrower->GetAttackSpeed();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 23);
-		ss.str("");
-		ss << flamethrower->getDescription();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 23);
-		ss.str("");
-		ss << flamethrower->GetRange();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 22);
-
-		//crossbow
-		modelStack.PushMatrix();
-		modelStack.Translate(40, 26.5, 1);
-		modelStack.Scale(8, 6, 1);
-		RenderMesh(meshList[GEO_CROSSBOW], false);
-		modelStack.PopMatrix();
-
-		ss.str("");
-		ss << "Crossbow";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 9, 15);
-
-		ss.str("");
-		ss << crossbow->GetCost();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24.5, 15);
-		ss.str("");
-		ss << crossbow->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 31, 15);
-		ss.str("");
-		ss << crossbow->GetAttackSpeed();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 40, 15);
-		ss.str("");
-		ss << crossbow->getDescription();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 48, 15);
-		ss.str("");
-		ss << crossbow->GetRange();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 15);
-
-		//selector
-		ss.str("");
-		ss << ">";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 7, 30 - shopbuttonhighlight * 8.2);
-	}
-
+	//selctor
+	ss.str("");
+	ss << ">";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 7, 30 - shopbuttonhighlight * 6);
 
 	ss.str("");
 	ss << "[R]";
@@ -2328,27 +2060,19 @@ void SceneShop::renderComputerMenu()
 
 		ss.str("");
 		ss << "Boxing Glove";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 38);
-
-		ss.str("");
-		ss << "Rubber Chicken";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 33);
-
-		ss.str("");
-		ss << "Mom's Frying Pan";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 28);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 36);
 
 		ss.str("");
 		ss << "Rifle";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 23);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 29);
 
 		ss.str("");
 		ss << "Flamethrower";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 18);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 22);
 
 		ss.str("");
 		ss << "Crossbow";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 13);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 15);
 
 		ss.str("");
 		ss << sword->GetDamage();
@@ -2356,31 +2080,23 @@ void SceneShop::renderComputerMenu()
 
 		ss.str("");
 		ss << boxingGlove->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 38);
-
-		ss.str("");
-		ss << rubberchicken->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 33);
-
-		ss.str("");
-		ss << pan->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 28);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 36);
 
 		ss.str("");
 		ss << rifle->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 23);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 29);
 
 		ss.str("");
 		ss << flamethrower->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 18);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 22);
 
 		ss.str("");
 		ss << crossbow->GetDamage();
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 13);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 54, 15);
 		//selctor
 		ss.str("");
 		ss << ">";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 13, 42 - shopbuttonhighlight * 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 13, 42 - shopbuttonhighlight * 7);
 	}
 	else if (computerPage == 2)
 	{

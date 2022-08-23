@@ -18,8 +18,6 @@
 
 #include "Sword.h"
 #include "BoxingGloves.h"
-#include "RubberChicken.h"
-#include "FryingPan.h"
 
 #include "Rifle.h"
 #include "Flamethrower.h"
@@ -85,7 +83,6 @@ protected:
 	bool canLeave;
 	bool inShop;
 
-	char weaponType;
 	char playerUpgradeType;
 	int weaponUpgradePage;
 	int computerPage;
@@ -113,8 +110,6 @@ protected:
 	//weapons
 	Weapon* sword = new Sword();
 	Weapon* boxingGlove = new BoxingGloves();
-	Weapon* rubberchicken = new RubberChicken();
-	Weapon* pan = new FryingPan();
 
 	Weapon* rifle = new Rifle();
 	Weapon* flamethrower = new Flamethrower();
@@ -122,8 +117,6 @@ protected:
 
 	bool swordBought;
 	bool boxingGloveBought;
-	bool rubberchickenBought;
-	bool panBought;
 
 	bool rifleBought;
 	bool flamethrowerBought;
