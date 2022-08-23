@@ -149,80 +149,7 @@ void SceneShop::Update(double dt)
 		canLeave = false;
 	}
 
-	if ((player->getPlayer()->pos.x >= 29) && (player->getPlayer()->pos.x <= 43) && (player->getPlayer()->pos.y >= 66)) //part dealer
-	{
-		canInteract = true;
-		if (ebuttonpress)
-		{
-			if (playerUpgradeType == 'u')
-			{
-				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
-			}
-			else if (playerUpgradeType == 's')
-			{
-				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
-			}
-			inShop = true;
-			ShopMenu1 = true;
-		}
-	}
-	else if ((player->getPlayer()->pos.x >= 64) && (player->getPlayer()->pos.x <= 78) && (player->getPlayer()->pos.y >= 66)) //weapon dealer
-	{
-		canInteract = true;
-		if (ebuttonpress)
-		{
-			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);	
-			inShop = true;
-			ShopMenu2 = true;
-		}
-	}
-	else if ((player->getPlayer()->pos.x >= 100) && (player->getPlayer()->pos.x <= 114) && (player->getPlayer()->pos.y >= 66)) //blacksmith
-	{
-		canInteract = true;
-		if (ebuttonpress)
-		{
-			if (weaponUpgradePage == 1)
-			{
-				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
-			}
-			else if (weaponUpgradePage == 2)
-			{
-				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
-			}
-
-			inShop = true;
-			ShopMenu3 = true;
-		}
-	}
-	else if ((player->getPlayer()->pos.x >= 135) && (player->getPlayer()->pos.x <= 149) && (player->getPlayer()->pos.y >= 66)) //alchemist
-	{
-		canInteract = true;
-		if (ebuttonpress) 
-		{
-			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
-			inShop = true;
-			ShopMenu4 = true;
-		}
-	}
-
-	else
-	{
-		canInteract = false;
-	}
-
-	if ((player->getPlayer()->pos.x >= 10) && (player->getPlayer()->pos.x <= 20) && (player->getPlayer()->pos.y >= 66)) //computer
-	{
-		canInteractComputer = true;
-		if (ebuttonpress)
-		{
-			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
-			inComputer = true;		
-		}
-	}
-	else
-	{
-		canInteractComputer = false;
-	}
+	
 
 	if(Application::IsKeyPressed('R'))
 	{
@@ -285,9 +212,8 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (ebuttonpress && !eButtonState)
+			if (ebuttonpress)
 			{
-				eButtonState = true;
 				switch (shopbuttonhighlight)
 				{
 				case 0:
@@ -327,10 +253,6 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!ebuttonpress && eButtonState)
-			{
-				eButtonState = false;
-			}
 		}
 		else if (computerPage == 2)
 		{
@@ -361,9 +283,8 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (ebuttonpress && !eButtonState)
+			if (ebuttonpress)
 			{
-				eButtonState = true;
 				switch (shopbuttonhighlight)
 				{
 				case 0:
@@ -382,10 +303,6 @@ void SceneShop::Update(double dt)
 
 					break;
 				}
-			}
-			else if (!ebuttonpress && eButtonState)
-			{
-				eButtonState = false;
 			}
 		}
 	}
@@ -433,9 +350,8 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (ebuttonpress && !eButtonState)
+			if (ebuttonpress)
 			{
-				eButtonState = true;
 				switch (shopbuttonhighlight)
 				{
 				case 0:
@@ -479,10 +395,6 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!ebuttonpress && eButtonState)
-			{
-				eButtonState = false;
-			}
 		}
 		else if (playerUpgradeType == 's')
 		{
@@ -513,10 +425,8 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (ebuttonpress && !eButtonState)
+			if (ebuttonpress)
 			{
-				eButtonState = true;
-
 				switch (shopbuttonhighlight)
 				{
 				case 0:
@@ -576,10 +486,6 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!ebuttonpress && eButtonState)
-			{
-				eButtonState = false;
-			}
 		}
 	}
 	//weapons dealer to switch between ranged and melee
@@ -612,10 +518,8 @@ void SceneShop::Update(double dt)
 		else if (!Application::IsKeyPressed('S') && s)
 			s = false;
 
-		if (ebuttonpress && !eButtonState)
+		if (ebuttonpress)
 		{
-			eButtonState = true;
-
 			switch (shopbuttonhighlight)
 			{
 			case 0:
@@ -686,10 +590,6 @@ void SceneShop::Update(double dt)
 				break;
 			}
 		}
-		else if (!ebuttonpress && eButtonState)
-		{
-			eButtonState = false;
-		}
 	}
 
 	//weapon upgrades
@@ -735,10 +635,8 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (ebuttonpress && !eButtonState)
+			if (ebuttonpress)
 			{
-				eButtonState = true;
-
 				switch (shopbuttonhighlight)
 				{
 				case 0:
@@ -779,10 +677,6 @@ void SceneShop::Update(double dt)
 					break;
 				}
 			}
-			else if (!ebuttonpress && eButtonState)
-			{
-				eButtonState = false;
-			}
 		}
 		else if (weaponUpgradePage == 2)
 		{
@@ -813,10 +707,8 @@ void SceneShop::Update(double dt)
 			else if (!Application::IsKeyPressed('S') && s)
 				s = false;
 
-			if (ebuttonpress && !eButtonState)
+			if (ebuttonpress)
 			{
-				eButtonState = true;
-
 				switch (shopbuttonhighlight)
 				{
 				case 0:
@@ -847,10 +739,6 @@ void SceneShop::Update(double dt)
 					}
 					break;
 				}
-			}
-			else if (!ebuttonpress && eButtonState)
-			{
-				eButtonState = false;
 			}
 		}
 	}
@@ -885,10 +773,8 @@ void SceneShop::Update(double dt)
 		else if (!Application::IsKeyPressed('S') && s)
 			s = false;
 
-		if (ebuttonpress && !eButtonState)
+		if (ebuttonpress)
 		{
-			eButtonState = true;
-
 			//if shop menu == 4 
 			switch (shopbuttonhighlight)
 			{
@@ -924,9 +810,84 @@ void SceneShop::Update(double dt)
 				break;
 			}
 		}
-		else if (!ebuttonpress && eButtonState)
-			eButtonState = false;
 	}
+
+
+	if ((player->getPlayer()->pos.x >= 29) && (player->getPlayer()->pos.x <= 43) && (player->getPlayer()->pos.y >= 66)) //part dealer
+	{
+		canInteract = true;
+		if (ebuttonpress)
+		{
+			if (playerUpgradeType == 'u')
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+			}
+			else if (playerUpgradeType == 's')
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
+			}
+			inShop = true;
+			ShopMenu1 = true;
+		}
+	}
+	else if ((player->getPlayer()->pos.x >= 64) && (player->getPlayer()->pos.x <= 78) && (player->getPlayer()->pos.y >= 66)) //weapon dealer
+	{
+		canInteract = true;
+		if (ebuttonpress)
+		{
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+			inShop = true;
+			ShopMenu2 = true;
+		}
+	}
+	else if ((player->getPlayer()->pos.x >= 100) && (player->getPlayer()->pos.x <= 114) && (player->getPlayer()->pos.y >= 66)) //blacksmith
+	{
+		canInteract = true;
+		if (ebuttonpress)
+		{
+			if (weaponUpgradePage == 1)
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 3);
+			}
+			else if (weaponUpgradePage == 2)
+			{
+				shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
+			}
+
+			inShop = true;
+			ShopMenu3 = true;
+		}
+	}
+	else if ((player->getPlayer()->pos.x >= 135) && (player->getPlayer()->pos.x <= 149) && (player->getPlayer()->pos.y >= 66)) //alchemist
+	{
+		canInteract = true;
+		if (ebuttonpress)
+		{
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 2);
+			inShop = true;
+			ShopMenu4 = true;
+		}
+	}
+
+	else
+	{
+		canInteract = false;
+	}
+
+	if ((player->getPlayer()->pos.x >= 10) && (player->getPlayer()->pos.x <= 20) && (player->getPlayer()->pos.y >= 66)) //computer
+	{
+		canInteractComputer = true;
+		if (ebuttonpress)
+		{
+			shopbuttonhighlight = Clamp2(shopbuttonhighlight, 0, 4);
+			inComputer = true;
+		}
+	}
+	else
+	{
+		canInteractComputer = false;
+	}
+
 
 	if ((ShopMenu1) || (ShopMenu2))
 	{
