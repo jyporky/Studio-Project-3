@@ -609,14 +609,20 @@ void SceneShop::Update(double dt)
 			{
 			case 0:
 				//buy boxing glove
-				if ((player->getMoney() >= boxingGlove->GetCost()) && (boxingGloveBought == false))
-				{
-					player->changeMoney(-boxingGlove->GetCost());
-					boxingGloveBought = true;
-					cInventoryItem = cInventoryManager->GetItem("boxingglove");
-					cSoundController->PlaySoundByID(10);
-					cInventoryItem->Add(1);
-				}
+				//if ((player->getMoney() >= boxingGlove->GetCost()) && (boxingGloveBought == false))
+				//{
+				//	player->changeMoney(-boxingGlove->GetCost());
+				//	boxingGloveBought = true;
+				//	cInventoryItem = cInventoryManager->GetItem("boxingglove");
+				//	cSoundController->PlaySoundByID(10);
+				//	cInventoryItem->Add(1);
+				//}
+
+				//if (cGameManager->buyFirstWep)
+				//{
+				//	cGameManager->sideweptype = Weapon::BOXING_GLOVES;
+				//	cGameManager->buyFirstWep = false;
+				//}
 				break;
 			case 1:
 				//buy rifle
@@ -628,6 +634,12 @@ void SceneShop::Update(double dt)
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
 				}
+
+				if (cGameManager->buyFirstWep)
+				{
+					cGameManager->sideweptype = Weapon::RIFLE;
+					cGameManager->buyFirstWep = false;
+				}
 				break;
 			case 2:
 				//buy flamethrower
@@ -638,6 +650,11 @@ void SceneShop::Update(double dt)
 					cInventoryItem = cInventoryManager->GetItem("flamethrower");
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
+					if (cGameManager->buyFirstWep)
+					{
+						cGameManager->sideweptype = Weapon::FLAMETHROWER;
+						cGameManager->buyFirstWep = false;
+					}
 				}
 				break;
 			case 3:
@@ -649,6 +666,11 @@ void SceneShop::Update(double dt)
 					cInventoryItem = cInventoryManager->GetItem("crossbow");
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
+					if (cGameManager->buyFirstWep)
+					{
+						cGameManager->sideweptype = Weapon::CROSSBOW;
+						cGameManager->buyFirstWep = false;
+					}
 				}
 				break;
 			}

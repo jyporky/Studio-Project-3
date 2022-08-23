@@ -2121,9 +2121,7 @@ void SceneCollision::NewWeapon(int weptype, bool MainWep)
 
 	else
 	{
-		player->SwapWeapon();
-		player->SetWeapon(wep);
-		player->GetWeapon()->SetGameObject(weapon);
-		player->SwapWeapon();
+		player->SetSideWeapon(wep);
+		player->GetSideWeapon()->SetGameObject(weapon);
 	}
 }
