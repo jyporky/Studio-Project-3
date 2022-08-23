@@ -1,6 +1,6 @@
 #include "Potions.h"
 Potions::Potions() {
-
+	player = Player::GetInstance();
 }
 Potions::~Potions() {
 
@@ -16,4 +16,7 @@ int Potions::getDuration() {
 }
 int Potions::getMoneyCost() {
 	return 0;
+}
+void Potions::potionTimeUp() {
+	return;		
 }

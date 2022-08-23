@@ -178,6 +178,12 @@ void SceneCollision::Init()
 	}
 
 	meshList[GEO_TELEPORT_PAD]->material.kAmbient.Set(1, 1, 1);
+
+	strengthPotTimer = 30;
+	speedPotTimer = 30;
+
+	strengthPotUsed = false;
+	speedPotUsed = false;
 }
 
 GameObject* SceneCollision::FetchGO()
@@ -354,6 +360,7 @@ void SceneCollision::Update(double dt)
 	}
 
 	//use potions
+	//use health potion
 	static bool button1;
 	if (Application::IsKeyPressed('1') && !button1)
 	{
@@ -370,39 +377,55 @@ void SceneCollision::Update(double dt)
 	{
 		button1 = false;
 	}
-
+	//use strength potion
 	static bool button2;
 	if (Application::IsKeyPressed('2') && !button2)
 	{
 		cInventoryItem = cInventoryManager->GetItem("strengthpotion");
-		if (cInventoryItem->GetCount() > 0)
+		if ((cInventoryItem->GetCount() > 0) && (strengthPotTimer >= 30))
 		{
 			button2 = true;
 			dealdamage = true;
 			StrengthPotion->usePotion();
 			cInventoryItem->Remove(1);
+			strengthPotTimer = 0;
+			strengthPotUsed = true;
 		}
 	}
 	else if (!Application::IsKeyPressed('2') && button2)
 	{
 		button2 = false;
 	}
-
+	strengthPotTimer += dt;
+	if ((strengthPotTimer == 30) && (strengthPotUsed == true))
+	{
+		StrengthPotion->potionTimeUp();
+		strengthPotUsed = false;
+	}
+	//use speed potion
 	static bool button3;
 	if (Application::IsKeyPressed('3') && !button3)
 	{
 		cInventoryItem = cInventoryManager->GetItem("speedpotion");
-		if (cInventoryItem->GetCount() > 0)
+		if ((cInventoryItem->GetCount() > 0) && (speedPotTimer >= 30))
 		{
 			button3 = true;
 			dealdamage = true;
 			SpeedPotion->usePotion();
 			cInventoryItem->Remove(1);
+			speedPotTimer = 0;
+			speedPotUsed = true;
 		}
 	}
 	else if (!Application::IsKeyPressed('3') && button3)
 	{
 		button3 = false;
+	}
+	speedPotTimer += dt;
+	if ((speedPotTimer == 30) && (speedPotUsed == true))
+	{
+		SpeedPotion->potionTimeUp();
+		speedPotUsed = false;
 	}
 
 	//update enemy
@@ -1197,7 +1220,6 @@ void SceneCollision::Render()
 
 	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 37, 57);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0.5, 49);
-
 	if (cGameManager->waveClear && timer < 3)
 	{
 		if (NearShop())

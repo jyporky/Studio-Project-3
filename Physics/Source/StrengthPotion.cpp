@@ -15,6 +15,11 @@ int StrengthPot::getDuration() {
 	return 30;
 }
 void StrengthPot::usePotion() {
-	/*return player->hp + 30*/
-	return;
+	player->meleeDmgBoost += 5;
+	player->rangeDmgBoost += 5;
+}
+void StrengthPot::potionTimeUp()
+{
+	player->meleeDmgBoost -= 5;
+	player->rangeDmgBoost -= 5;
 }

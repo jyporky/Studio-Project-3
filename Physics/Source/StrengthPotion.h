@@ -9,4 +9,5 @@ public:
 	virtual int getMoneyCost();
 	virtual int getDuration();
 	virtual void usePotion();
+	virtual void potionTimeUp();
 };

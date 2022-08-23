@@ -17,3 +17,7 @@ int SpeedPot::getDuration() {
 void SpeedPot::usePotion() {
 	player->changeMovementSpeed(5);
 }
+void SpeedPot::potionTimeUp()
+{
+	player->changeMovementSpeed(-5);
+}
