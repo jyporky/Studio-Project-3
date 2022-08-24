@@ -1,6 +1,6 @@
 #include "HackSkill.h"
 Hack::Hack() {
-
+	hackState = false;
 }
 Hack::~Hack() {
 
@@ -15,5 +15,11 @@ int Hack::getEnegyCost() {
 	return 150;
 }
 void Hack::UseSkill() {
-	return;
+	hackState = true;
+}
+void Hack::resetHack() {
+	hackState = false;
+}
+bool Hack::getHackingState() {
+	return hackState;
 }

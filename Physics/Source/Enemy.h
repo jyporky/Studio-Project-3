@@ -25,6 +25,8 @@ public:
 	virtual unsigned GetEnergyDrop();
 	unsigned GetEnemyType();
 	virtual float GetAngle();
+	virtual bool getStunned();
+	virtual void makeEnemyStunned();
 protected:
 	static std::vector<Entity*> m_enemyList;
 	unsigned enemytype;
@@ -42,5 +44,6 @@ protected:
 	bool affectedByKnockback;
 	static Player* PlayerPointer;
 	static GameManger* cGameManager;
+	bool isStunned;
 };
 

@@ -204,6 +204,12 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_SHIELDMAN] = MeshBuilder::GenerateQuad("shieldManR", Color(1, 1, 1));
 	meshList[GEO_RIGHT_SHIELDMAN]->textureID = LoadTGA("Image//shieldmanR.tga");
 
+	meshList[GEO_LEFT_SHIELDER] = MeshBuilder::GenerateQuad("shielderL", Color(1, 1, 1));
+	meshList[GEO_LEFT_SHIELDER]->textureID = LoadTGA("Image//PaladinLeft.tga");
+
+	meshList[GEO_RIGHT_SHIELDER] = MeshBuilder::GenerateQuad("shielderR", Color(1, 1, 1));
+	meshList[GEO_RIGHT_SHIELDER]->textureID = LoadTGA("Image//PaladinRight.tga");
+
 	meshList[GEO_BULLET] = MeshBuilder::GenerateQuad("bullet", Color(1, 1, 1));
 	meshList[GEO_BULLET]->textureID = LoadTGA("Image//bullet.tga");
 
@@ -243,8 +249,11 @@ void SceneBase::Init()
 	meshList[GEO_CROSSBOW_RIGHT] = MeshBuilder::GenerateQuad("crossbowR", Color(1, 1, 1));
 	meshList[GEO_CROSSBOW_RIGHT]->textureID = LoadTGA("Image//crossbow_right.tga");
 
-	meshList[GEO_ARROW] = MeshBuilder::GenerateQuad("arrow", Color(1, 1, 1));
-	meshList[GEO_ARROW]->textureID = LoadTGA("Image//arrow.tga");
+	meshList[GEO_ARROWRED] = MeshBuilder::GenerateQuad("arrow red", Color(1, 1, 1));
+	meshList[GEO_ARROWRED]->textureID = LoadTGA("Image//laserarrowred.tga");
+
+	meshList[GEO_ARROWBLUE] = MeshBuilder::GenerateQuad("arrow blue", Color(1, 1, 1));
+	meshList[GEO_ARROWBLUE]->textureID = LoadTGA("Image//laserarrowblue.tga");
 
 	//skills
 	meshList[GEO_EMP] = MeshBuilder::GenerateQuad("emp", Color(1, 1, 1));
@@ -261,6 +270,9 @@ void SceneBase::Init()
 
 	meshList[GEO_OVERDRIVE] = MeshBuilder::GenerateQuad("overdrive", Color(1, 1, 1));
 	meshList[GEO_OVERDRIVE]->textureID = LoadTexture("Image//overdrive.png");
+
+	meshList[GEO_BLACKHOLE] = MeshBuilder::GenerateQuad("blackhole", Color(1, 1, 1));
+	meshList[GEO_BLACKHOLE]->textureID = LoadTGA("Image//blackhole.tga");
 
 	//self upgrades
 	meshList[GEO_SPEEDUP] = MeshBuilder::GenerateQuad("speedup", Color(1, 1, 1));
@@ -324,6 +336,9 @@ void SceneBase::Init()
 
 	meshList[GEO_STRENGTHPOT] = MeshBuilder::GenerateQuad("strenghtpot", Color(1, 1, 1));
 	meshList[GEO_STRENGTHPOT]->textureID = LoadTexture("Image//strength potion.png");
+
+	meshList[GEO_PARTICLE] = MeshBuilder::GenerateQuad("particle", Color(1, 1, 1));
+	meshList[GEO_PARTICLE]->textureID = LoadTexture("Image//white_particle.png");
 
 
 	bLightEnabled = false;

@@ -57,10 +57,10 @@ bool Swordsman::Update(double dt)
     }
     else if (redTimer <= 0)
         gameobject->color.Set(1, 1, 1);
-
+    if (isStunned)
+        sCurrState = IDLE;
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;
-    
     Entity* Target = PlayerPointer;
     if (turned)
     {
@@ -179,4 +179,10 @@ void Swordsman::SetWeapon(Weapon* weapon)
 Weapon* Swordsman::GetWeapon()
 {
     return CurrWeapon;
+}
+bool Swordsman::getStunned() {
+    return isStunned;
+}
+void Swordsman::makeEnemyStunned() {
+    isStunned = true;
 }

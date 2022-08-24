@@ -19,6 +19,7 @@ Enemy::Enemy()
     iFrameTimer = 0;
     greenTimer = 0;
     isSpawningBullet = false;
+    isStunned = false;
 }
 
 Enemy::~Enemy()
@@ -109,4 +110,10 @@ void Enemy::SetWeapon(Weapon* weapon)
 Weapon* Enemy::GetWeapon()
 {
     return CurrWeapon;
+}
+bool Enemy::getStunned() {
+    return false;
+}
+void Enemy::makeEnemyStunned() {
+    return;
 }

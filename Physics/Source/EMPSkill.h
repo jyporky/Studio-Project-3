@@ -10,5 +10,9 @@ public:
 	virtual int getMoneyCost();
 	virtual int getEnergyCost();
 	virtual void UseSkill();
+	virtual void resetStun();
+	virtual bool getStunState();
+protected:
+	bool isStunned;
 };
 

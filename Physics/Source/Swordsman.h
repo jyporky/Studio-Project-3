@@ -19,9 +19,10 @@ public:
     void Init();
     void SetWeapon(Weapon* weapon);
     Weapon* GetWeapon();
-
-
+    bool getStunned();
+    void makeEnemyStunned();
 private:
+    
     unsigned sCurrState;
     unsigned attackRange;
     float switchtime;
