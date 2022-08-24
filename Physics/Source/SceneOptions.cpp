@@ -260,6 +260,38 @@ void SceneOptions::Render()
 	ss << "Options";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 8, 4, 52);
 
+
+	ss.str("");
+	ss << "Controls";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 8, 45, 52);
+
+	ss.str("");
+	ss << "Movement: WASD";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 44);
+
+	ss.str("");
+	ss << "Look: Mouse";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 40);
+
+	ss.str("");
+	ss << "Use Weapon: Left CLick";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 36);
+
+	ss.str("");
+	ss << "Swap Weapon: Right Click";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 32);
+
+	ss.str("");
+	ss << "Use Potions: 1 / 2 / 3";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 28);
+
+	ss.str("");
+	ss << "Interact / Buy: E";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 24);
+
+	ss.str("");
+	ss << "Pause Menu: Q";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 20);
 }
 
 void SceneOptions::Exit()

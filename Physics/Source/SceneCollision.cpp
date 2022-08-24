@@ -337,6 +337,18 @@ void SceneCollision::Update(double dt)
 		}
 		return;
 	}
+	//pause
+	static bool qbutton = false;
+	if ((Application::IsKeyPressed('Q')) && (!qbutton))
+	{
+		Application::SetState(4);
+		qbutton = true;
+	}
+	else if ((!Application::IsKeyPressed('Q')) && (qbutton))
+	{
+		qbutton = false;
+	}
+
 	if (cGameManager->outShop)
 	{
 		cGameManager->outShop = false;
@@ -1411,7 +1423,9 @@ void SceneCollision::renderUI()
 	ss << player->getMoney();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 74.5, 56.7);
 
-
+	ss.str("");
+	ss << "[Q] Pause";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 72.5, 53.7);
 
 	//render energy
 	ss.str("");
@@ -1454,6 +1468,7 @@ void SceneCollision::renderUI()
 		renderWeaponUI(wep1, scale, player->GetWeapon()->GetGameObject());
 	if (player->GetSideWeapon() != nullptr)
 		renderWeaponUI(wep2, scale, player->GetSideWeapon()->GetGameObject());
+
 	//add equipped skill code
 	//if (player->getEnergy() >= 100)
 	//{

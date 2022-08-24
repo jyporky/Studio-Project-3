@@ -119,6 +119,18 @@ void SceneShop::Update(double dt)
 		ebuttonstate = false;
 	}
 
+	//pause
+	static bool qbutton = false;
+	if ((Application::IsKeyPressed('Q')) && (!qbutton))
+	{
+		Application::SetState(4);
+		qbutton = true;
+	}
+	else if ((!Application::IsKeyPressed('Q')) && (qbutton))
+	{
+		qbutton = false;
+	}
+
 	if ((inShop == false) && (inComputer == false))
 	{
 		player->Update(dt, mousePos); //movement
