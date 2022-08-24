@@ -8,8 +8,6 @@ class GameManger : public CSingletonTemplate<GameManger>
 public:
 	GameManger();
 	~GameManger();
-	bool bGameWin;
-	bool bWaveClear;
 	bool bPlayerLost;
 	bool bDebug;
 	unsigned dWaveNo;
