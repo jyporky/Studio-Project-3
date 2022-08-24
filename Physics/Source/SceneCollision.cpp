@@ -538,9 +538,9 @@ void SceneCollision::Update(double dt)
 	}
 
 	if (Application::IsKeyPressed('T')) {
-		//ImmortalitySkill->UseSkill();
-		EMPSkill->UseSkill();
-		/*blackhole = FetchGO();
+		ImmortalitySkill->UseSkill();
+		//EMPSkill->UseSkill();
+	/*	blackhole = FetchGO();
 		blackhole->type = GameObject::GO_BLACKHOLE;
 		blackhole->pos = player->GetGameObject()->pos;
 		blackhole->vel.SetZero();
@@ -570,8 +570,8 @@ void SceneCollision::Update(double dt)
 		ewep2->angle = 0;
 		ewep2->active = true;
 		ewep2->leftwep = false;
-		doppelganger->GetWeapon()->SetGameObject(ewep2);*/
-		/*test = true;
+		doppelganger->GetWeapon()->SetGameObject(ewep2);
+		test = true;
 		test2++;*/
 	}
 	if (test && test2 < 2) {
