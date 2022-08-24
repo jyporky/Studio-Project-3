@@ -714,7 +714,7 @@ void SceneCollision::Update(double dt)
 				bulletgo->pos = player->GetWeapon()->GetGameObject()->pos + RotateVector(Vector3(player->GetWeapon()->GetGameObject()->scale.x, player->GetWeapon()->GetGameObject()->scale.y * 0.5, 0), Math::DegreeToRadian(player->GetWeapon()->GetGameObject()->angle));
 			bulletgo->vel.SetZero();
 			bulletgo->pos.z = 0;
-			bulletgo->scale.Set(2, 2, 1);
+			bulletgo->scale.Set(2, 1, 1);
 			bulletgo->color.Set(1, 1, 1);
 			bulletgo->angle = player->GetWeapon()->GetGameObject()->angle;
 			bullet->SetGameObject(bulletgo);
