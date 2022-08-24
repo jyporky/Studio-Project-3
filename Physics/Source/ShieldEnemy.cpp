@@ -21,6 +21,7 @@ ShieldEnemy::ShieldEnemy()
     angle = 0;
     iFrameTimer = 0;
     shieldturningrate = 90;
+    isStunned = false;
 }
 
 ShieldEnemy::~ShieldEnemy()
@@ -73,6 +74,8 @@ bool ShieldEnemy::Update(double dt)
     else if (redTimer <= 0)
         gameobject->color.Set(1, 1, 1);
 
+    if (isStunned)
+        sCurrState = IDLE;
 
     Entity* Target = PlayerPointer;
     if (turned)
@@ -179,5 +182,10 @@ Weapon* ShieldEnemy::GetWeapon()
 {
 	return CurrWeapon;
 }
-
+bool ShieldEnemy::getStunned() {
+    return isStunned;
+}
+void ShieldEnemy::makeEnemyStunned() {
+    isStunned = true;
+}
 

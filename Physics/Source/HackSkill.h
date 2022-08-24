@@ -10,5 +10,9 @@ public:
 	virtual int getEnegyCost();
 	virtual std::string getDescription();	
 	virtual void UseSkill();
+	virtual void resetHack();
+	virtual bool getHackingState();
+protected:
+	bool hackState;
 };
 

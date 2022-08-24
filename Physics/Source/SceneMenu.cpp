@@ -138,7 +138,7 @@ void SceneMenu::Render()
 
 	ss.str("");
 	ss << "GROBYC";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 8, 4, 52);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 8, 4, 50);
 
 }
 

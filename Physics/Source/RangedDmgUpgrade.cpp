@@ -19,3 +19,7 @@ int RangedDmgUpgrade::getUpgradeLevel()
 {
 	return noOfTimesUpgraded;
 }
+void RangedDmgUpgrade::resetNoOfTimesUpgraded()
+{
+	noOfTimesUpgraded = 0;
+}

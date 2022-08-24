@@ -18,3 +18,7 @@ int SelfUpgrades::getUpgradeLevel()
 {
 	return noOfTimesUpgraded;
 }
+void SelfUpgrades::resetNoOfTimesUpgraded()
+{
+	return;
+}

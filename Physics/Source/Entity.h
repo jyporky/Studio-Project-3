@@ -29,6 +29,9 @@ public:
 
 	static bool CheckShieldCollision(Entity* projectile, Entity* shieldman);
 	static float shieldblockingangle;
+
+	virtual bool getStunned();
+	virtual void makeEnemyStunned();
 protected:
 	GameObject* gameobject;
 	Weapon* CurrWeapon;

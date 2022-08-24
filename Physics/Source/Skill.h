@@ -12,6 +12,12 @@ public:
 	~Skill();
 	virtual void resetImmortality();
 	virtual bool getState();
+	virtual void resetStun();
+	virtual bool getStunState();
+	virtual void resetBlackhole();
+	virtual bool getBlackholeState();
+	virtual void resetHack();
+	virtual bool getHackingState();
 protected:
 	Player* player;
 

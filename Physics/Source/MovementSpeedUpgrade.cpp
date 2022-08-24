@@ -19,3 +19,7 @@ int MovementSpeedUpgrade::getUpgradeLevel()
 {
 	return noOfTimesUpgraded;
 }
+void MovementSpeedUpgrade::resetNoOfTimesUpgraded()
+{
+	noOfTimesUpgraded = 0;
+}

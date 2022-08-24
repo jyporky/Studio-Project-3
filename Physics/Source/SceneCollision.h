@@ -36,6 +36,9 @@
 #include "OverdriveSkill.h"
 #include "HealSkill.h"
 #include "ImmortalSkill.h"
+#include "DoppelgangerSkill.h"
+#include "DoppelgangerAlly.h"
+#include "BlackholeSkill.h"
 
 #include "Potions.h"
 #include "HealthPotion.h"
@@ -72,6 +75,9 @@ public:
 
 	void renderUI();
 	void renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* object);
+
+	bool test;
+	int test2;
 protected:
 
 	//Physics
@@ -91,6 +97,7 @@ protected:
 	int m_objectCount;
 	CSoundController* cSoundController;
 	Player* player;
+	DoppelgangerAlly* doppelganger;
 	GameManger* cGameManager;
 	CInventoryManager* cInventoryManager;
 	CInventoryItem* cInventoryItem;
@@ -102,11 +109,16 @@ protected:
 	void SpawnEnemy(float rate);
 	float SetRate();
 	bool NearShop();
+	bool arrowCrit;
 	void SetWeapon();
 	void NewWeapon(int weptype, bool MainWep);
 	Skill* HackSkill = new Hack();
 	Skill* HealSkill = new Heal();
 	Skill* ImmortalitySkill = new Immortal();
+	Skill* DoppelgangerSkill = new Doppelganger();
+	Skill* BlackholeSkill = new Blackhole();
+	Skill* EMPSkill = new EMP();
+	GameObject* blackhole;
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
 	Potions* SpeedPotion = new SpeedPot();

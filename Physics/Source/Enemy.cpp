@@ -21,6 +21,7 @@ Enemy::Enemy()
     kbTimer = 0;
     kbEffect.SetZero();
     isSpawningBullet = false;
+    isStunned = false;
 }
 
 Enemy::~Enemy()
@@ -111,4 +112,10 @@ void Enemy::SetWeapon(Weapon* weapon)
 Weapon* Enemy::GetWeapon()
 {
     return CurrWeapon;
+}
+bool Enemy::getStunned() {
+    return false;
+}
+void Enemy::makeEnemyStunned() {
+    return;
 }

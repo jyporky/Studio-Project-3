@@ -19,6 +19,28 @@ public:
 	int sideweptype;
 	bool buyFirstWep;
 
+	bool reset;
+
+	//self upgrade
+	bool speedUpgradeBought;
+	bool healthUpgradeBought;
+	bool meleeUpgradeBought;
+	bool rangeUpgradeBought;
+
+	//skills
+	bool empBought;
+	bool hackBought;
+	bool healBought;
+	bool immortalBought;
+	bool overdriveBought;
+
+	//weapons
+	bool boxingGloveBought;
+
+	bool rifleBought;
+	bool flamethrowerBought;
+	bool crossbowBought;
+
 	//weapon upgrades
 	bool pierceBought;
 	bool fastfireBought;

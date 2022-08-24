@@ -70,19 +70,6 @@ void SceneShop::Init()
 	weaponUpgradePage = 1; //shop 1
 	computerPage = 1; //computer
 
-	empBought = false;
-	hackBought = false;
-	healBought = false;
-	immortalBought = false;
-	overdriveBought = false;
-
-	swordBought = false;
-	boxingGloveBought = false;
-
-	rifleBought = false;
-	flamethrowerBought = false;
-	crossbowBought = false;
-
 
 }
 
@@ -117,6 +104,18 @@ void SceneShop::Update(double dt)
 	else if (!Application::IsKeyPressed('E') && ebuttonstate)
 	{
 		ebuttonstate = false;
+	}
+
+	//pause
+	static bool qbutton = false;
+	if ((Application::IsKeyPressed('Q')) && (!qbutton))
+	{
+		Application::SetState(4);
+		qbutton = true;
+	}
+	else if ((!Application::IsKeyPressed('Q')) && (qbutton))
+	{
+		qbutton = false;
 	}
 
 	if ((inShop == false) && (inComputer == false))
@@ -363,6 +362,10 @@ void SceneShop::Update(double dt)
 						player->changeMovementSpeed(10); 
 						cSoundController->PlaySoundByID(10);
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 1:
 					//buy health
@@ -371,6 +374,10 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-healthupgrade->getMoneyCost());
 						healthupgrade->receiveUpgrade();
 						cSoundController->PlaySoundByID(10);
+					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
 					}
 					break;
 				case 2:
@@ -382,6 +389,10 @@ void SceneShop::Update(double dt)
 						cSoundController->PlaySoundByID(10);
 						player->meleeDmgBoost += 2;
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 3:
 					//buy ranged up
@@ -391,6 +402,10 @@ void SceneShop::Update(double dt)
 						rangeddmgupgrade->receiveUpgrade();
 						cSoundController->PlaySoundByID(10);
 						player->rangeDmgBoost += 2;
+					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
 					}
 					break;
 				}
@@ -431,57 +446,77 @@ void SceneShop::Update(double dt)
 				{
 				case 0:
 					//buy emp
-					if ((player->getMoney() >= emp->getMoneyCost()) && (empBought == false))
+					if ((player->getMoney() >= emp->getMoneyCost()) && (cGameManager->empBought == false))
 					{
 						player->changeMoney(-emp->getMoneyCost());
-						empBought = true;
+						cGameManager->empBought = true;
 						cInventoryItem = cInventoryManager->GetItem("emp");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 1:
 					//buy hack
-					if ((player->getMoney() >= hack->getMoneyCost()) && (hackBought == false))
+					if ((player->getMoney() >= hack->getMoneyCost()) && (cGameManager->hackBought == false))
 					{
 						player->changeMoney(-hack->getMoneyCost());
-						hackBought = true;
+						cGameManager->hackBought = true;
 						cInventoryItem = cInventoryManager->GetItem("hack");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 2:
 					//buy heal
-					if ((player->getMoney() >= heal->getMoneyCost()) && (healBought == false))
+					if ((player->getMoney() >= heal->getMoneyCost()) && (cGameManager->healBought == false))
 					{
 						player->changeMoney(-heal->getMoneyCost());
-						healBought = true;
+						cGameManager->healBought = true;
 						cInventoryItem = cInventoryManager->GetItem("heal");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 3:
 					//buy immortal
-					if ((player->getMoney() >= immortal->getMoneyCost()) && (immortalBought == false))
+					if ((player->getMoney() >= immortal->getMoneyCost()) && (cGameManager->immortalBought == false))
 					{
 						player->changeMoney(-immortal->getMoneyCost());
-						immortalBought = true;
+						cGameManager->immortalBought = true;
 						cInventoryItem = cInventoryManager->GetItem("immortal");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 4:
 					//buy overdrive
-					if ((player->getMoney() >= overdrive->getMoneyCost()) && (overdriveBought == false))
+					if ((player->getMoney() >= overdrive->getMoneyCost()) && (cGameManager->overdriveBought == false))
 					{
 						player->changeMoney(-overdrive->getMoneyCost());
-						overdriveBought = true;
+						cGameManager->overdriveBought = true;
 						cInventoryItem = cInventoryManager->GetItem("overdrive");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
 					}
 					break;
 				}
@@ -540,13 +575,24 @@ void SceneShop::Update(double dt)
 				break;
 			case 1:
 				//buy rifle
-				if ((player->getMoney() >= rifle->GetCost()) && (rifleBought == false))
+				if ((player->getMoney() >= rifle->GetCost()) && (cGameManager->rifleBought == false))
 				{
 					player->changeMoney(-rifle->GetCost());
-					rifleBought = true;
+					cGameManager->rifleBought = true;
 					cInventoryItem = cInventoryManager->GetItem("rifle");
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
+					
+				}
+				else
+				{
+					cSoundController->PlaySoundByID(13);
+				}
+				if (cGameManager->buyFirstWep)
+				{
+					cGameManager->sideweptype = Weapon::RIFLE;
+					cGameManager->buyFirstWep = false;
+				}
 					if (cGameManager->buyFirstWep)
 					{
 						cGameManager->sideweptype = Weapon::RIFLE;
@@ -556,10 +602,10 @@ void SceneShop::Update(double dt)
 				break;
 			case 2:
 				//buy flamethrower
-				if ((player->getMoney() >= flamethrower->GetCost()) && (flamethrowerBought == false))
+				if ((player->getMoney() >= flamethrower->GetCost()) && (cGameManager->flamethrowerBought == false))
 				{
 					player->changeMoney(-flamethrower->GetCost());
-					flamethrowerBought = true;
+					cGameManager->flamethrowerBought = true;
 					cInventoryItem = cInventoryManager->GetItem("flamethrower");
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
@@ -569,13 +615,17 @@ void SceneShop::Update(double dt)
 						cGameManager->buyFirstWep = false;
 					}
 				}
+				else
+				{
+					cSoundController->PlaySoundByID(13);
+				}
 				break;
 			case 3:
 				//buy crossbow
-				if ((player->getMoney() >= crossbow->GetCost()) && (crossbowBought == false))
+				if ((player->getMoney() >= crossbow->GetCost()) && (cGameManager->crossbowBought == false))
 				{
 					player->changeMoney(-crossbow->GetCost());
-					crossbowBought = true;
+					cGameManager->crossbowBought = true;
 					cInventoryItem = cInventoryManager->GetItem("crossbow");
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
@@ -584,6 +634,10 @@ void SceneShop::Update(double dt)
 						cGameManager->sideweptype = Weapon::CROSSBOW;
 						cGameManager->buyFirstWep = false;
 					}
+				}
+				else
+				{
+					cSoundController->PlaySoundByID(13);
 				}
 				break;
 			}
@@ -645,6 +699,10 @@ void SceneShop::Update(double dt)
 						cSoundController->PlaySoundByID(10);
 						cGameManager->pierceBought = true;
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 1:
 					//buy faster firing
@@ -653,6 +711,10 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-FasterFiringMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
 						cGameManager->fastfireBought = true;
+					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
 					}
 					break;
 				case 2:
@@ -663,6 +725,10 @@ void SceneShop::Update(double dt)
 						cSoundController->PlaySoundByID(10);
 						cGameManager->fastbulletBought = true;
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 3:
 					//buy explosive bullet
@@ -671,6 +737,11 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-ExplosiveMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
 						cGameManager->explosiveBought = true;
+
+					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
 					}
 					break;
 				}
@@ -717,6 +788,10 @@ void SceneShop::Update(double dt)
 						cSoundController->PlaySoundByID(10);
 						cGameManager->betterfuelBought = true;
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 1:
 					//buy accurate arrows
@@ -726,6 +801,10 @@ void SceneShop::Update(double dt)
 						cSoundController->PlaySoundByID(10);
 						cGameManager->accuratearrowsBought = true;
 					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
+					}
 					break;
 				case 2:
 					//buy faster melee
@@ -734,6 +813,10 @@ void SceneShop::Update(double dt)
 						player->changeMoney(-fasterMeleeMod->getMoneyCost());
 						cSoundController->PlaySoundByID(10);
 						cGameManager->fastmeleeBought = true;
+					}
+					else
+					{
+						cSoundController->PlaySoundByID(13);
 					}
 					break;
 				}
@@ -894,6 +977,39 @@ void SceneShop::Update(double dt)
 			
 		}
 	}
+
+	if (movementspeedupgrade->getUpgradeLevel() == 3)
+	{
+		cGameManager->speedUpgradeBought = true;
+	}
+	if (healthupgrade->getUpgradeLevel() == 6)
+	{
+		cGameManager->healthUpgradeBought = true;
+	}
+	if (meleedmgupgrade->getUpgradeLevel() == 5)
+	{
+		cGameManager->meleeUpgradeBought = true;
+	}
+	if (rangeddmgupgrade->getUpgradeLevel() == 5)
+	{
+		cGameManager->rangeUpgradeBought = true;
+	}
+
+	if (cGameManager->reset)
+	{
+		movementspeedupgrade->resetNoOfTimesUpgraded();
+		healthupgrade->resetNoOfTimesUpgraded();
+		meleedmgupgrade->resetNoOfTimesUpgraded();
+		rangeddmgupgrade->resetNoOfTimesUpgraded();
+
+		cGameManager->speedUpgradeBought = false;
+		cGameManager->healthUpgradeBought = false;
+		cGameManager->meleeUpgradeBought = false;
+		cGameManager->rangeUpgradeBought = false;
+		cGameManager->reset = false;
+	}
+	
+
 	player->getPlayer()->pos += movementDirection.Normalize() * 40 * dt;
 
 	Checkborder(player->getPlayer());
@@ -1263,7 +1379,6 @@ void SceneShop::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.2, 0.2, 0.2), 3, 30, 8);
 	}
 
-
 }
 
 
@@ -1378,6 +1493,14 @@ void SceneShop::renderShopMenu1()
 		ss << movementspeedupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 31);
 
+		if (cGameManager->speedUpgradeBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 53, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 		//health up
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 43.5, 1);
@@ -1398,6 +1521,14 @@ void SceneShop::renderShopMenu1()
 		ss << healthupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 25);
 
+		if (cGameManager->healthUpgradeBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 43, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 		//melee upgrade
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 33.5, 1);
@@ -1418,6 +1549,15 @@ void SceneShop::renderShopMenu1()
 		ss << meleedmgupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 19);
 
+		if (cGameManager->meleeUpgradeBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 33, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+		
 		//range upgrade
 		modelStack.PushMatrix();
 		modelStack.Translate(47, 23.5, 1);
@@ -1438,6 +1578,14 @@ void SceneShop::renderShopMenu1()
 		ss << rangeddmgupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 13);
 
+		if (cGameManager->rangeUpgradeBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 23, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		//selctor
 		ss.str("");
@@ -1481,7 +1629,15 @@ void SceneShop::renderShopMenu1()
 		ss.str("");
 		ss << emp->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 32);
-
+		
+		if (cGameManager->empBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 55, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		modelStack.PushMatrix();
 		modelStack.Translate(39, 46.5, 1);
@@ -1502,14 +1658,23 @@ void SceneShop::renderShopMenu1()
 		ss << hack->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 27);
 
+		if (cGameManager->hackBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 46.5, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
-		modelStack.Translate(39, 38.5, 1);
+		modelStack.Translate(49, 38.5, 1);
 		modelStack.Scale(6, 6, 1);
-		RenderMesh(meshList[GEO_HEAL], false);
+		RenderMesh(meshList[GEO_DOPPELGANGER], false);
 		modelStack.PopMatrix();
 
 		ss.str("");
-		ss << "Heal Skill";
+		ss << "Doppelganger Skill";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 22);
 		ss.str("");
 		ss << heal->getMoneyCost();
@@ -1521,6 +1686,14 @@ void SceneShop::renderShopMenu1()
 		ss << heal->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 22);
 
+		if (cGameManager->healBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 38.5, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		modelStack.PushMatrix();
 		modelStack.Translate(44, 30.5, 1);
@@ -1541,6 +1714,15 @@ void SceneShop::renderShopMenu1()
 		ss << immortal->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 17);
 
+		if (cGameManager->immortalBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 30, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
 		modelStack.Translate(44, 22.5, 1);
 		modelStack.Scale(6, 6, 1);
@@ -1560,13 +1742,20 @@ void SceneShop::renderShopMenu1()
 		ss << overdrive->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 12);
 
+		if (cGameManager->overdriveBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 21.5, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		//selctor
 		ss.str("");
 		ss << ">";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 8, 31 - shopbuttonhighlight * 5);
 	}
-
-
 
 }
 
@@ -1628,11 +1817,20 @@ void SceneShop::renderShopMenu2()
 	ss.str("");
 	ss << boxingGlove->GetRange();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 31);
+	
+	if (cGameManager->boxingGloveBought)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(85, 53, 1);
+		modelStack.Scale(135, 0.5, 1);
+		RenderMesh(meshList[GEO_SOLDOUT], false);
+		modelStack.PopMatrix();
+	}
 
 	//rifle
 	modelStack.PushMatrix();
 	modelStack.Translate(35, 42.5, 1);
-	modelStack.Scale(12, 5, 1);
+	modelStack.Scale(12, 4, 1);
 	RenderMesh(meshList[GEO_RIFLE_RIGHT], false);
 	modelStack.PopMatrix();
 
@@ -1656,10 +1854,19 @@ void SceneShop::renderShopMenu2()
 	ss << rifle->GetRange();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 25);
 
+	if (cGameManager->rifleBought)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(85, 43, 1);
+		modelStack.Scale(135, 0.5, 1);
+		RenderMesh(meshList[GEO_SOLDOUT], false);
+		modelStack.PopMatrix();
+	}
+
 	//flamethrower
 	modelStack.PushMatrix();
 	modelStack.Translate(45, 32.5, 1);
-	modelStack.Scale(10, 6, 1);
+	modelStack.Scale(12, 6, 1);
 	RenderMesh(meshList[GEO_FLAMETHROWER], false);
 	modelStack.PopMatrix();
 
@@ -1683,10 +1890,20 @@ void SceneShop::renderShopMenu2()
 	ss << flamethrower->GetRange();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 19);
 
+	if (cGameManager->flamethrowerBought)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(85, 33, 1);
+		modelStack.Scale(135, 0.5, 1);
+		RenderMesh(meshList[GEO_SOLDOUT], false);
+		modelStack.PopMatrix();
+	}
+
 	//crossbow
 	modelStack.PushMatrix();
-	modelStack.Translate(40, 22.5, 1);
-	modelStack.Scale(8, 6, 1);
+	modelStack.Translate(40, 23.5, 1);
+	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Scale(10, 8, 1);
 	RenderMesh(meshList[GEO_CROSSBOW], false);
 	modelStack.PopMatrix();
 
@@ -1710,7 +1927,14 @@ void SceneShop::renderShopMenu2()
 	ss << crossbow->GetRange();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 13);
 
-
+	if (cGameManager->crossbowBought)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(85, 23, 1);
+		modelStack.Scale(135, 0.5, 1);
+		RenderMesh(meshList[GEO_SOLDOUT], false);
+		modelStack.PopMatrix();
+	}
 	//selctor
 	ss.str("");
 	ss << ">";
@@ -1781,6 +2005,14 @@ void SceneShop::renderShopMenu3()
 		ss << "Rifle, Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 31);
 
+		if (cGameManager->pierceBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 53, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 43.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -1800,6 +2032,15 @@ void SceneShop::renderShopMenu3()
 		ss.str("");
 		ss << "Rifle, Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 25);
+
+		if (cGameManager->fastfireBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 43, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 33.5, 1);
@@ -1821,6 +2062,15 @@ void SceneShop::renderShopMenu3()
 		ss << "Rifle, Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 19);
 
+		if (cGameManager->fastbulletBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 33, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 23.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -1841,6 +2091,14 @@ void SceneShop::renderShopMenu3()
 		ss << "Rifle, Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 13);
 
+		if (cGameManager->explosiveBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 23, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 		//selctor
 		ss.str("");
 		ss << ">";
@@ -1868,6 +2126,15 @@ void SceneShop::renderShopMenu3()
 		ss << "Flamethrower";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 31);
 
+		if (cGameManager->betterfuelBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 53, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
 		modelStack.Translate(49, 40.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -1888,6 +2155,15 @@ void SceneShop::renderShopMenu3()
 		ss << "Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 23);
 
+		if (cGameManager->accuratearrowsBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 40, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
 		modelStack.Translate(52, 26.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -1907,6 +2183,15 @@ void SceneShop::renderShopMenu3()
 		ss.str("");
 		ss << "Melee weapons";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 15);
+
+		if (cGameManager->fastmeleeBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 26.5, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		//selector
 		ss.str("");
@@ -2113,7 +2398,7 @@ void SceneShop::renderComputerMenu()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 36);
 
 		ss.str("");
-		ss << "Heal Skill";
+		ss << "Doppelganger Skill";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 29);
 
 		ss.str("");

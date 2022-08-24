@@ -152,7 +152,7 @@ void SceneBase::Init()
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_BALL] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.4, 0.4, 0.3), 1.f);
-	meshList[GEO_SOLDOUT] = MeshBuilder::GenerateCube("cube", Color(1, 0.3, 0.3), 1.f);
+	meshList[GEO_SOLDOUT] = MeshBuilder::GenerateCube("cube", Color(1, 0.1, 0.1), 1.f);
 	
 	meshList[GEO_SHOPMENUBG] = MeshBuilder::GenerateCube("shopmenubg", Color(0.3, 0.3, 0.3), 1.f);
 
@@ -204,6 +204,12 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_SHIELDMAN] = MeshBuilder::GenerateQuad("shieldManR", Color(1, 1, 1));
 	meshList[GEO_RIGHT_SHIELDMAN]->textureID = LoadTGA("Image//shieldmanR.tga");
 
+	meshList[GEO_LEFT_SHIELDER] = MeshBuilder::GenerateQuad("shielderL", Color(1, 1, 1));
+	meshList[GEO_LEFT_SHIELDER]->textureID = LoadTGA("Image//PaladinLeft.tga");
+
+	meshList[GEO_RIGHT_SHIELDER] = MeshBuilder::GenerateQuad("shielderR", Color(1, 1, 1));
+	meshList[GEO_RIGHT_SHIELDER]->textureID = LoadTGA("Image//PaladinRight.tga");
+
 	meshList[GEO_BULLET] = MeshBuilder::GenerateQuad("bullet", Color(1, 1, 1));
 	meshList[GEO_BULLET]->textureID = LoadTGA("Image//bullet.tga");
 
@@ -218,12 +224,6 @@ void SceneBase::Init()
 
 	meshList[GEO_BOXINGGLOVE] = MeshBuilder::GenerateQuad("boxing glove", Color(1, 1, 1));
 	meshList[GEO_BOXINGGLOVE]->textureID = LoadTexture("Image//boxing_glove.png");
-
-	meshList[GEO_CHICKEN] = MeshBuilder::GenerateQuad("chicken", Color(1, 1, 1));
-	meshList[GEO_CHICKEN]->textureID = LoadTexture("Image//chicken.png");
-
-	meshList[GEO_PAN] = MeshBuilder::GenerateQuad("frying pan", Color(1, 1, 1));
-	meshList[GEO_PAN]->textureID = LoadTexture("Image//pan.png");
 
 	meshList[GEO_RIFLE_LEFT] = MeshBuilder::GenerateQuad("rifleL", Color(1, 1, 1));
 	meshList[GEO_RIFLE_LEFT]->textureID = LoadTGA("Image//ar_left.tga");
@@ -241,7 +241,7 @@ void SceneBase::Init()
 	meshList[GEO_SHIELD]->textureID = LoadTexture("Image//shield.png");
 
 	meshList[GEO_CROSSBOW] = MeshBuilder::GenerateQuad("crossbow", Color(1, 1, 1));
-	meshList[GEO_CROSSBOW]->textureID = LoadTexture("Image//crossbow.png");
+	meshList[GEO_CROSSBOW]->textureID = LoadTexture("Image//crossbow_left.tga");
 
 	meshList[GEO_CROSSBOW_LEFT] = MeshBuilder::GenerateQuad("crossbowL", Color(1, 1, 1));
 	meshList[GEO_CROSSBOW_LEFT]->textureID = LoadTGA("Image//crossbow_left.tga");
@@ -255,8 +255,13 @@ void SceneBase::Init()
 	meshList[GEO_BOXINGGLOVE_RIGHT] = MeshBuilder::GenerateQuad("boxingGloveR", Color(1, 1, 1));
 	meshList[GEO_BOXINGGLOVE_RIGHT]->textureID = LoadTGA("Image//boxingglove_right.tga");
 
-	meshList[GEO_ARROW] = MeshBuilder::GenerateQuad("arrow", Color(1, 1, 1));
-	meshList[GEO_ARROW]->textureID = LoadTGA("Image//arrow.tga");
+	//meshList[GEO_ARROW] = MeshBuilder::GenerateQuad("arrow", Color(1, 1, 1));
+	//meshList[GEO_ARROW]->textureID = LoadTGA("Image//arrow.tga");
+	meshList[GEO_ARROWRED] = MeshBuilder::GenerateQuad("arrow red", Color(1, 1, 1));
+	meshList[GEO_ARROWRED]->textureID = LoadTGA("Image//laserarrowred.tga");
+
+	meshList[GEO_ARROWBLUE] = MeshBuilder::GenerateQuad("arrow blue", Color(1, 1, 1));
+	meshList[GEO_ARROWBLUE]->textureID = LoadTGA("Image//laserarrowblue.tga");
 
 	//skills
 	meshList[GEO_EMP] = MeshBuilder::GenerateQuad("emp", Color(1, 1, 1));
@@ -265,14 +270,17 @@ void SceneBase::Init()
 	meshList[GEO_HACK] = MeshBuilder::GenerateQuad("hack", Color(1, 1, 1));
 	meshList[GEO_HACK]->textureID = LoadTexture("Image//hack.png");
 
-	meshList[GEO_HEAL] = MeshBuilder::GenerateQuad("heal", Color(1, 1, 1));
-	meshList[GEO_HEAL]->textureID = LoadTexture("Image//heal.png");
+	meshList[GEO_DOPPELGANGER] = MeshBuilder::GenerateQuad("doppelganger", Color(1, 1, 1));
+	meshList[GEO_DOPPELGANGER]->textureID = LoadTGA("Image//doppelganger.tga");
 
 	meshList[GEO_IMMORTAL] = MeshBuilder::GenerateQuad("immortal", Color(1, 1, 1));
 	meshList[GEO_IMMORTAL]->textureID = LoadTexture("Image//immortal.png");
 
 	meshList[GEO_OVERDRIVE] = MeshBuilder::GenerateQuad("overdrive", Color(1, 1, 1));
 	meshList[GEO_OVERDRIVE]->textureID = LoadTexture("Image//overdrive.png");
+
+	meshList[GEO_BLACKHOLE] = MeshBuilder::GenerateQuad("blackhole", Color(1, 1, 1));
+	meshList[GEO_BLACKHOLE]->textureID = LoadTGA("Image//blackhole.tga");
 
 	//self upgrades
 	meshList[GEO_SPEEDUP] = MeshBuilder::GenerateQuad("speedup", Color(1, 1, 1));
@@ -336,6 +344,9 @@ void SceneBase::Init()
 
 	meshList[GEO_STRENGTHPOT] = MeshBuilder::GenerateQuad("strenghtpot", Color(1, 1, 1));
 	meshList[GEO_STRENGTHPOT]->textureID = LoadTexture("Image//strength potion.png");
+
+	meshList[GEO_PARTICLE] = MeshBuilder::GenerateQuad("particle", Color(1, 1, 1));
+	meshList[GEO_PARTICLE]->textureID = LoadTexture("Image//white_particle.png");
 
 
 	bLightEnabled = false;

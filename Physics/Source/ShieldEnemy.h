@@ -20,7 +20,8 @@ public:
         return angle;
     }
     
-    
+    bool getStunned();
+    void makeEnemyStunned();
 private:
     unsigned sCurrState;
     unsigned attackRange;

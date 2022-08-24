@@ -15,7 +15,7 @@ Player::Player()
 	movementspeed = 40;
 	dashBoost = 80;
 	iFrame = false;
-	money = 500;
+	money = 0;
 	energy = 0;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
@@ -354,6 +354,11 @@ void Player::changeMovementSpeed(float change)
 {
 	movementspeed += change;
 	dashBoost = movementspeed * 1.5f;
+}
+
+void Player::setMovementSpeed(int ms)
+{
+	movementspeed = ms;
 }
 
 void Player::changeEnergy(float energyChange)

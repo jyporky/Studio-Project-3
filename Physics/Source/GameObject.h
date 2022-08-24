@@ -14,6 +14,7 @@ struct GameObject
 		GO_PILLAR,
 		GO_WALL,
 		GO_PLAYER,
+		GO_DOPPELGANGER,
 		GO_SWORD,
 		GO_SWORDSMAN,
 		GO_BULLET,
@@ -26,6 +27,8 @@ struct GameObject
 		GO_CROSSBOW,
 		GO_ARROW,
 		GO_BOXINGGLOVES,
+		GO_BLACKHOLE,
+		GO_DEATH_PARTICLE,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;
@@ -48,7 +51,7 @@ struct GameObject
 	std::vector <GameObject*> otherGameObjects;
 
 	bool checkCollision;
-	bool disappearWhenHit;
+	float time2disappear;
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();
 

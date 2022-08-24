@@ -7,6 +7,7 @@ public:
 	virtual std::string getDescription();
 	virtual int getMoneyCost();
 	virtual int getUpgradeLevel();
+	virtual void resetNoOfTimesUpgraded();
 	RangedDmgUpgrade();
 	~RangedDmgUpgrade();
 protected:
