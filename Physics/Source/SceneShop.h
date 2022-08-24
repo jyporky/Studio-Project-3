@@ -26,9 +26,9 @@
 #include "Skill.h"
 #include "EMPSkill.h"
 #include "HackSkill.h"
-#include "HealSkill.h"
+#include "DoppelgangerSkill.h"
 #include "ImmortalSkill.h"
-#include "OverdriveSkill.h"
+#include "BlackholeSkill.h"
 
 #include "SelfUpgrades.h"
 #include "HealthUpgrade.h"
@@ -118,9 +118,9 @@ protected:
 	//skills
 	Skill* emp = new EMP();
 	Skill* hack = new Hack();
-	Skill* heal = new Heal();
+	Skill* doppelganger = new Doppelganger();
 	Skill* immortal = new Immortal();
-	Skill* overdrive = new Overdrive();
+	Skill* blackhole = new Blackhole();
 
 	//self upgrades
 	SelfUpgrades* movementspeedupgrade = new MovementSpeedUpgrade();

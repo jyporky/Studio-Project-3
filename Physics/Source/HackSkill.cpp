@@ -11,7 +11,7 @@ std::string Hack::getDescription() {
 int Hack::getMoneyCost() {
 	return 400;
 }
-int Hack::getEnegyCost() {
+int Hack::getEnergyCost() {
 	return 150;
 }
 void Hack::UseSkill() {

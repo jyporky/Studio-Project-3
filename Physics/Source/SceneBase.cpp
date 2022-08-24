@@ -270,9 +270,6 @@ void SceneBase::Init()
 	meshList[GEO_IMMORTAL] = MeshBuilder::GenerateQuad("immortal", Color(1, 1, 1));
 	meshList[GEO_IMMORTAL]->textureID = LoadTexture("Image//immortal.png");
 
-	meshList[GEO_OVERDRIVE] = MeshBuilder::GenerateQuad("overdrive", Color(1, 1, 1));
-	meshList[GEO_OVERDRIVE]->textureID = LoadTexture("Image//overdrive.png");
-
 	meshList[GEO_BLACKHOLE] = MeshBuilder::GenerateQuad("blackhole", Color(1, 1, 1));
 	meshList[GEO_BLACKHOLE]->textureID = LoadTGA("Image//blackhole.tga");
 

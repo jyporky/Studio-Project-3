@@ -6,7 +6,7 @@ Doppelganger::~Doppelganger() {
 
 }
 std::string Doppelganger::getDescription() {
-	return "Summons a clone of yourself that attacks enemies for the rest of the wave";
+	return "Summon a clone that attacks enemies for the rest of the wave";
 }
 int Doppelganger::getMoneyCost() {
 	return 450;

@@ -18,6 +18,7 @@ public:
 	virtual bool getBlackholeState();
 	virtual void resetHack();
 	virtual bool getHackingState();
+	
 protected:
 	Player* player;
 

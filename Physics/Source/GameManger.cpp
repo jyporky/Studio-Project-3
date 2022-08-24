@@ -23,9 +23,9 @@ GameManger::GameManger()
 	//skills
 	empBought = false;
 	hackBought = false;
-	healBought = false;
+	doppelgangerBought = false;
 	immortalBought = false;
-	overdriveBought = false;
+	blackholeBought = false;
 
 	//weapons
 	boxingGloveBought = false;
