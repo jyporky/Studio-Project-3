@@ -138,3 +138,10 @@ bool Entity::CheckShieldCollision(Entity* projectile, Entity* shieldman)
     }
     return false;
 }
+
+bool Entity::getStunned() {
+	return false;
+}
+void Entity::makeEnemyStunned() {
+	return;
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
-
+#include "Skill.h"
+#include "EMPSkill.h"
 
 class Rifler :
     public Enemy
@@ -19,7 +20,10 @@ public:
     bool Update(double dt);
     void Init();
     bool IsSpawningBullet();
-
+    bool getStunned();
+    void makeEnemyStunned();
+protected:
+    
 private:
     bool isSpawningBullet;
     unsigned sCurrState;

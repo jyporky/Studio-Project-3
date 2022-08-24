@@ -1,6 +1,6 @@
 #include "EMPSkill.h"
 EMP::EMP() {
-
+	isStunned = false;
 }
 EMP::~EMP() {
 
@@ -15,5 +15,11 @@ int EMP::getEnergyCost() {
 	return 100;
 }
 void EMP::UseSkill() {
-	return;
+	isStunned = true;
+}
+void EMP::resetStun() {
+	isStunned = false;
+}
+bool EMP::getStunState() {
+	return isStunned;
 }

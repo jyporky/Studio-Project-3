@@ -18,6 +18,7 @@ Rifler::Rifler()
     runRange = 20;
     iFrameTimer = 0;
     enemytype = RIFER;
+    isStunned = false;
 }
 
 Rifler::~Rifler()
@@ -35,6 +36,7 @@ bool Rifler::IsSpawningBullet() {
 }
 bool Rifler::Update(double dt)
 {
+   
     isSpawningBullet = false;
 
     if (iFrameTimer > 0)
@@ -61,6 +63,15 @@ bool Rifler::Update(double dt)
     else if (redTimer <= 0)
         gameobject->color.Set(1, 1, 1);
 
+    if (isStunned) {
+        sCurrState = IDLE;
+    }
+    else if (sCurrState != IDLE) {
+        if (CurrWeapon->attack())
+            isSpawningBullet = true;
+    }
+
+  
 
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;
@@ -161,4 +172,10 @@ void Rifler::Init()
     isCamper = Math::RandInt();
     //get the revelant pointers
     PlayerPointer = Player::GetInstance();
+}
+bool Rifler::getStunned() {
+    return isStunned;
+}
+void Rifler::makeEnemyStunned() {
+    isStunned = true;
 }

@@ -99,6 +99,12 @@ void SceneCollision::Init()
 
 	timer = -3;
 
+	arrowCrit = false;
+
+	blackhole = nullptr;
+	doppelganger = nullptr;
+	test = false;
+	test2 = 0;
 	//load sound
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
@@ -141,7 +147,7 @@ void SceneCollision::Init()
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
-	m_player->pos.Set(m_worldWidth/2, m_worldHeight/2, 1);
+	m_player->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
 	m_player->vel.SetZero();
 	m_player->scale.Set(10, 10, 1);
 	m_player->color.Set(1, 1, 1);
@@ -214,19 +220,20 @@ void SceneCollision::Init()
 	//enemy2->SetWeapon(new Rifle());
 	//enemy2->SetGameObject(enemy2GO);
 	//m_enemyList.push_back(enemy2);
+	
+	
+	
 
-	//GameObject* ewep2 = FetchGO();
-	//ewep2->type = GameObject::GO_RIFLE;
-	//ewep2->vel.SetZero();
-	//ewep2->scale.Set(8, 3, 1);
-	//ewep2->pos = enemy2GO->pos;
-	//ewep2->color.Set(1, 1, 1);
-	//ewep2->angle = 0;
-	//ewep2->active = true;
-	//ewep2->leftwep = false;
-	//enemy2->GetWeapon()->SetGameObject(ewep2);
+	
 
-
+	/*blackhole = FetchGO();
+	blackhole->type = GameObject::GO_BLACKHOLE;
+	blackhole->pos = player->GetGameObject()->pos;
+	blackhole->vel.SetZero();
+	blackhole->scale.Set(12, 12, 1);
+	blackhole->color.Set(1, 1, 1);
+	blackhole->angle = 0;
+	blackhole->active = true;*/
 	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
 	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 
@@ -420,8 +427,6 @@ void SceneCollision::Update(double dt)
 	float height = Application::GetWindowHeight();
 	Application::GetCursorPos(&x, &y);
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
-	
-
 	SceneBase::Update(dt);
 	//std::cout << ImmortalitySkill->getState() << std::endl;
 	if (cGameManager->bPlayerLost)
@@ -532,11 +537,81 @@ void SceneCollision::Update(double dt)
 		ubutton = false;
 	}
 
+	if (Application::IsKeyPressed('T')) {
+		//ImmortalitySkill->UseSkill();
+		EMPSkill->UseSkill();
+		/*blackhole = FetchGO();
+		blackhole->type = GameObject::GO_BLACKHOLE;
+		blackhole->pos = player->GetGameObject()->pos;
+		blackhole->vel.SetZero();
+		blackhole->scale.Set(12, 12, 1);
+		blackhole->color.Set(1, 1, 1);
+		blackhole->angle = 0;
+		blackhole->active = true;*/
+		/*doppelganger = new DoppelgangerAlly();
+		doppelganger->Init();
+		GameObject* enemy2GO = FetchGO();
+		enemy2GO->type = GameObject::GO_DOPPELGANGER;
+		enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
+		enemy2GO->vel.SetZero();
+		enemy2GO->scale.Set(10, 10, 1);
+		enemy2GO->color.Set(1, 1, 1);
+		enemy2GO->angle = 0;
+		doppelganger->SetWeapon(new Sword());
+		doppelganger->SetGameObject(enemy2GO);
+		m_enemyList.push_back(doppelganger);
+
+		GameObject* ewep2 = FetchGO();
+		ewep2->type = GameObject::GO_SWORD;
+		ewep2->vel.SetZero();
+		ewep2->scale.Set(10, 10, 1);
+		ewep2->pos = enemy2GO->pos;
+		ewep2->color.Set(1, 1, 1);
+		ewep2->angle = 0;
+		ewep2->active = true;
+		ewep2->leftwep = false;
+		doppelganger->GetWeapon()->SetGameObject(ewep2);*/
+		/*test = true;
+		test2++;*/
+	}
+	if (test && test2 < 2) {
+		doppelganger = new DoppelgangerAlly();
+		doppelganger->Init();
+		GameObject* enemy2GO = FetchGO();
+		enemy2GO->type = GameObject::GO_DOPPELGANGER;
+		enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
+		enemy2GO->vel.SetZero();
+		enemy2GO->scale.Set(10, 10, 1);
+		enemy2GO->color.Set(1, 1, 1);
+		enemy2GO->angle = 0;
+		doppelganger->SetWeapon(new Sword());
+		doppelganger->SetGameObject(enemy2GO);
+		m_enemyList.push_back(doppelganger);
+
+		GameObject* ewep2 = FetchGO();
+		ewep2->type = GameObject::GO_SWORD;
+		ewep2->vel.SetZero();
+		ewep2->scale.Set(10, 10, 1);
+		ewep2->pos = enemy2GO->pos;
+		ewep2->color.Set(1, 1, 1);
+		ewep2->angle = 0;
+		ewep2->active = true;
+		ewep2->leftwep = false;
+		doppelganger->GetWeapon()->SetGameObject(ewep2);
+		test = false;
+	}
+
+	//update enemy
+	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 	//use potions
 	//use health potion
 	static bool button1;
 	if (Application::IsKeyPressed('1') && !button1)
 	{
+		if (EMPSkill->getStunState() == true) {
+			m_enemyList[idx]->makeEnemyStunned();
+		}
+		if (m_enemyList[idx]->Update(dt))
 		cInventoryItem = cInventoryManager->GetItem("healthpotion");
 		if (cInventoryItem->GetCount() > 0)
 		{
@@ -598,6 +673,69 @@ void SceneCollision::Update(double dt)
 		speedPotUsed = false;
 	}
 
+			//delete the enemy
+			ReturnGO(m_enemyList[idx]->GetGameObject());
+			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+			player->changeEnergy(m_enemyList[idx]->GetEnergyDrop());
+			player->changeMoney(m_enemyList[idx]->GetMoneyDrop());
+			cGameManager->dPlayerScore += 100;
+			if (m_enemyList[idx]->GetGameObject()->type == GameObject::GO_DOPPELGANGER)
+				doppelganger = nullptr;
+			delete m_enemyList[idx];
+			m_enemyList.erase(m_enemyList.begin() + idx);
+			enemyLeft--;
+			continue;
+		}
+
+		if (m_enemyList[idx]->IsSpawningBullet())
+		{
+			Vector3 shootPlayer = player->getPlayer()->pos - m_enemyList[idx]->GetGameObject()->pos;
+			Bullet* bullet = new Bullet;
+			GameObject* bulletgo = FetchGO();
+			bulletgo->type = GameObject::GO_BULLET;
+			bulletgo->pos = m_enemyList[idx]->GetGameObject()->pos;
+			bulletgo->pos.z = 1;
+			bulletgo->vel.SetZero();
+			bulletgo->scale.Set(2, 2, 1);
+			bulletgo->color.Set(1, 1, 1);
+			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
+			bullet->SetGameObject(bulletgo);
+			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage() + player->rangeDmgBoost, m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer.Normalize());
+			m_ebulletList.push_back(bullet);
+		}
+		if (blackhole) {
+			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
+				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(blackhole->pos) < 500.0f) {
+					Vector3 distance = blackhole->pos - m_enemyList[idx]->GetGameObject()->pos;
+					m_enemyList[idx]->GetGameObject()->pos += (distance.Normalized() * 0.5);
+				}
+			}
+		}
+		if (HackSkill->getHackingState()) {
+			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
+				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(player->GetGameObject()->pos) < 800.0f) {
+
+				}
+			}
+		}
+		
+		//if (dealdamage)
+		//{
+		//	if (m_enemyList[idx]->ChangeHealth(-1))
+		//	{
+		//		//delete the enemy
+		//		ReturnGO(m_enemyList[idx]->GetGameObject());
+		//		ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+		//		delete m_enemyList[idx];
+		//		m_enemyList.erase(m_enemyList.begin() + idx);
+		//	}
+		//}
+	}
+	//update doppelganger when it is spawned
+	if (doppelganger) {
+		doppelganger->SetEnemyVector(m_enemyList);
+		doppelganger->Update(dt);
+	}
 	//update the player
 	Vector3 temppos = player->GetGameObject()->pos;
 	player->SetEnemyVector(m_enemyList);
@@ -640,7 +778,7 @@ void SceneCollision::Update(double dt)
 			arrowgo->type = GameObject::GO_ARROW;
 			arrowgo->pos = player->GetGameObject()->pos;
 			arrowgo->vel.SetZero();
-			arrowgo->scale.Set(4, 4, 1);
+			arrowgo->scale.Set(5, 2, 1);
 			arrowgo->color.Set(1, 1, 1);
 			arrowgo->angle = player->GetWeapon()->GetGameObject()->angle;
 			arrow->SetGameObject(arrowgo);
@@ -812,6 +950,16 @@ void SceneCollision::Update(double dt)
 
 			}
 		}
+		else if (doppelganger) {
+			if (CheckCollision(m_ebulletList[idx]->GetGameObject(), doppelganger->GetGameObject())) {
+			doppelganger->ChangeHealth(-m_ebulletList[idx]->GetDamage());
+				if (!m_ebulletList[idx]->GetPenetrationValue()) {
+					ReturnGO(m_ebulletList[idx]->GetGameObject());
+					delete m_ebulletList[idx];
+					m_ebulletList.erase(m_ebulletList.begin() + idx);
+				}
+			}
+		}
 	}
 	//update the flame particles
 	for (unsigned idx = 0; idx < m_FlameParticle.size(); idx++)
@@ -882,9 +1030,11 @@ void SceneCollision::Update(double dt)
 			if (CheckCollision(m_parrowList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
 				if (m_parrowList[idx]->getCrit() == 1) {
+					arrowCrit = true;
 					m_enemyList[idx1]->ChangeHealth(-m_parrowList[idx]->GetDamage() * 2);
 				}
 				else {
+					arrowCrit = false;
 					m_enemyList[idx1]->ChangeHealth(-m_parrowList[idx]->GetDamage());
 				}
 				if (!m_parrowList[idx]->GetPenetrationValue())
@@ -944,6 +1094,7 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 			return false;
 		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
 	}
+	case GameObject::GO_DOPPELGANGER:
 	case GameObject::GO_PLAYER:
 	case GameObject::GO_SWORDSMAN:
 	case GameObject::GO_RIFLER:
@@ -1333,8 +1484,14 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Rotate(go->angle, 0, 0, 1);
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-		meshList[GEO_ARROW]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
-		RenderMesh(meshList[GEO_ARROW], true);
+		if (arrowCrit == false) {
+			meshList[GEO_ARROWRED]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_ARROWRED], true);
+		}
+		else {
+			meshList[GEO_ARROWBLUE]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_ARROWBLUE], true);
+		}
 		modelStack.PopMatrix();
 		break;
 
@@ -1356,7 +1513,34 @@ void SceneCollision::RenderGO(GameObject *go)
 		RenderMesh(meshList[GEO_CUBE], true);
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_DOPPELGANGER:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_PLAYER], true);
+		}
+
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_PLAYER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_PLAYER], true);
+		}
+		modelStack.PopMatrix();
+		break;
+	case GameObject::GO_BLACKHOLE:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		meshList[GEO_BLACKHOLE]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+		RenderMesh(meshList[GEO_BLACKHOLE], true);
+		modelStack.PopMatrix();
+		break;
 	}
+
 }
 
 void SceneCollision::Render()
@@ -1683,6 +1867,12 @@ void SceneCollision::Exit()
 		Bullet* go = m_ebulletList.back();
 		delete go;
 		m_ebulletList.pop_back();
+	}
+	while (m_parrowList.size() > 0)
+	{
+		Arrow* go = m_parrowList.back();
+		delete go;
+		m_parrowList.pop_back();
 	}
 	while (m_FlameParticle.size() > 0)
 	{

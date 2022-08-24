@@ -14,6 +14,7 @@ struct GameObject
 		GO_PILLAR,
 		GO_WALL,
 		GO_PLAYER,
+		GO_DOPPELGANGER,
 		GO_SWORD,
 		GO_SWORDSMAN,
 		GO_BULLET,
@@ -25,6 +26,7 @@ struct GameObject
 		GO_RIFLE,
 		GO_CROSSBOW,
 		GO_ARROW,
+		GO_BLACKHOLE,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;
