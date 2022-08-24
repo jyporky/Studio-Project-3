@@ -61,7 +61,6 @@ bool Swordsman::Update(double dt)
         sCurrState = IDLE;
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;
-    
     Entity* Target = PlayerPointer;
     if (turned)
     {

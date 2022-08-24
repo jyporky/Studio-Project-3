@@ -421,7 +421,7 @@ void SceneCollision::Update(double dt)
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-	
+
 	double x, y;
 	float width = Application::GetWindowWidth();
 	float height = Application::GetWindowHeight();
@@ -511,14 +511,14 @@ void SceneCollision::Update(double dt)
 	}
 	else if (!Application::IsKeyPressed('E') && e)
 		e = false;
-	
+
 	if (cGameManager->bDebug)
 	{
-		if(Application::IsKeyPressed('9'))
+		if (Application::IsKeyPressed('9'))
 		{
 			m_speed = Math::Max(0.f, m_speed - 0.1f);
 		}
-		if(Application::IsKeyPressed('0'))
+		if (Application::IsKeyPressed('0'))
 		{
 			m_speed += 0.1f;
 		}
@@ -601,24 +601,20 @@ void SceneCollision::Update(double dt)
 		test = false;
 	}
 
-	//update enemy
-	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
+
 	//use potions
 	//use health potion
 	static bool button1;
 	if (Application::IsKeyPressed('1') && !button1)
 	{
-		if (EMPSkill->getStunState() == true) {
-			m_enemyList[idx]->makeEnemyStunned();
-		}
-		if (m_enemyList[idx]->Update(dt))
+
 		cInventoryItem = cInventoryManager->GetItem("healthpotion");
 		if (cInventoryItem->GetCount() > 0)
 		{
 			button1 = true;
 			HealthPotion->usePotion();
 			cInventoryItem->Remove(1);
-		}	
+		}
 	}
 	else if (!Application::IsKeyPressed('1') && button1)
 	{
@@ -673,69 +669,12 @@ void SceneCollision::Update(double dt)
 		speedPotUsed = false;
 	}
 
-			//delete the enemy
-			ReturnGO(m_enemyList[idx]->GetGameObject());
-			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
-			player->changeEnergy(m_enemyList[idx]->GetEnergyDrop());
-			player->changeMoney(m_enemyList[idx]->GetMoneyDrop());
-			cGameManager->dPlayerScore += 100;
-			if (m_enemyList[idx]->GetGameObject()->type == GameObject::GO_DOPPELGANGER)
-				doppelganger = nullptr;
-			delete m_enemyList[idx];
-			m_enemyList.erase(m_enemyList.begin() + idx);
-			enemyLeft--;
-			continue;
-		}
-
-		if (m_enemyList[idx]->IsSpawningBullet())
-		{
-			Vector3 shootPlayer = player->getPlayer()->pos - m_enemyList[idx]->GetGameObject()->pos;
-			Bullet* bullet = new Bullet;
-			GameObject* bulletgo = FetchGO();
-			bulletgo->type = GameObject::GO_BULLET;
-			bulletgo->pos = m_enemyList[idx]->GetGameObject()->pos;
-			bulletgo->pos.z = 1;
-			bulletgo->vel.SetZero();
-			bulletgo->scale.Set(2, 2, 1);
-			bulletgo->color.Set(1, 1, 1);
-			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
-			bullet->SetGameObject(bulletgo);
-			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage() + player->rangeDmgBoost, m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer.Normalize());
-			m_ebulletList.push_back(bullet);
-		}
-		if (blackhole) {
-			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
-				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(blackhole->pos) < 500.0f) {
-					Vector3 distance = blackhole->pos - m_enemyList[idx]->GetGameObject()->pos;
-					m_enemyList[idx]->GetGameObject()->pos += (distance.Normalized() * 0.5);
-				}
-			}
-		}
-		if (HackSkill->getHackingState()) {
-			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
-				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(player->GetGameObject()->pos) < 800.0f) {
-
-				}
-			}
-		}
-		
-		//if (dealdamage)
-		//{
-		//	if (m_enemyList[idx]->ChangeHealth(-1))
-		//	{
-		//		//delete the enemy
-		//		ReturnGO(m_enemyList[idx]->GetGameObject());
-		//		ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
-		//		delete m_enemyList[idx];
-		//		m_enemyList.erase(m_enemyList.begin() + idx);
-		//	}
-		//}
-	}
 	//update doppelganger when it is spawned
 	if (doppelganger) {
 		doppelganger->SetEnemyVector(m_enemyList);
 		doppelganger->Update(dt);
 	}
+
 	//update the player
 	Vector3 temppos = player->GetGameObject()->pos;
 	player->SetEnemyVector(m_enemyList);
@@ -806,10 +745,12 @@ void SceneCollision::Update(double dt)
 			m_pbulletList.push_back(bullet);
 		}
 	}
-
 	//update enemy
 	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 	{
+		if (EMPSkill->getStunState() == true) {
+			m_enemyList[idx]->makeEnemyStunned();
+		}
 		if (m_enemyList[idx]->Update(dt))
 		{
 			//delete the enemy
@@ -817,6 +758,8 @@ void SceneCollision::Update(double dt)
 			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
 			player->changeEnergy(m_enemyList[idx]->GetEnergyDrop());
 			player->changeMoney(m_enemyList[idx]->GetMoneyDrop());
+			if (m_enemyList[idx]->GetGameObject()->type == GameObject::GO_DOPPELGANGER)
+				doppelganger = nullptr;
 			delete m_enemyList[idx];
 			m_enemyList.erase(m_enemyList.begin() + idx);
 			enemyLeft--;
@@ -851,17 +794,21 @@ void SceneCollision::Update(double dt)
 			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage() + player->rangeDmgBoost, m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer);
 			m_ebulletList.push_back(bullet);
 		}
-		//if (dealdamage)
-		//{
-		//	if (m_enemyList[idx]->ChangeHealth(-1))
-		//	{
-		//		//delete the enemy
-		//		ReturnGO(m_enemyList[idx]->GetGameObject());
-		//		ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
-		//		delete m_enemyList[idx];
-		//		m_enemyList.erase(m_enemyList.begin() + idx);
-		//	}
-		//}
+		if (blackhole) {
+			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
+				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(blackhole->pos) < 500.0f) {
+					Vector3 distance = blackhole->pos - m_enemyList[idx]->GetGameObject()->pos;
+					m_enemyList[idx]->GetGameObject()->pos += (distance.Normalized() * 0.5);
+				}
+			}
+		}
+		if (HackSkill->getHackingState()) {
+			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
+				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(player->GetGameObject()->pos) < 800.0f) {
+
+				}
+			}
+		}
 	}
 	
 	

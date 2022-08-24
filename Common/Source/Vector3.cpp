@@ -436,7 +436,7 @@ Normalize this vector and return a reference to it
 Vector3& Vector3::Normalize( void ) throw( DivideByZero )
 {
 	float d = Length();
-	if (d == 0)
+	if (d == 0 || d == Math::EPSILON)
 	{
 		x = 0;
 		y = 0;
