@@ -22,6 +22,9 @@ ShieldEnemy::ShieldEnemy()
     iFrameTimer = 0;
     shieldturningrate = 90;
     isStunned = false;
+    switchtime = 0;
+    moveleft = true;
+    leftdt = 0;
 }
 
 ShieldEnemy::~ShieldEnemy()
@@ -127,17 +130,36 @@ bool ShieldEnemy::Update(double dt)
     case IDLE:
         break;
     case CHASE:
+    {
         //chase the player
-        gameobject->pos += (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
+        leftdt += dt;
+        Vector3 direction;
+        direction.SetZero();
+        direction = (Target->GetGameObject()->pos - gameobject->pos).Normalize();
+        if (moveleft)
+            direction += Vector3(-direction.y, direction.x, 0);
+        else
+            direction -= Vector3(-direction.y, direction.x, 0);
+
+        if (leftdt > switchtime)
+        {
+            leftdt = 0;
+            moveleft = !moveleft;
+        }
+
+        gameobject->pos += direction * dt * movementSpeed;
         if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
         {
             sCurrState = ATTACK;
         }
         break;
+    }
     case ATTACK:
+        leftdt = 0;
         if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
             sCurrState = CHASE;
-        //check if the enemy is facing the player
+
+        //check if the enemy shield is facing the player
         if (enemy2player.Dot(enemy2shield) < 0)
             break;
 
@@ -170,6 +192,8 @@ bool ShieldEnemy::Update(double dt)
 
 void ShieldEnemy::Init()
 {
+    switchtime = Math::RandFloatMinMax(0.5f, 8.0f);
+    //get the revelant pointer
     PlayerPointer = Player::GetInstance();
 }
 

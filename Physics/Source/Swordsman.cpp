@@ -176,7 +176,7 @@ bool Swordsman::Update(double dt)
 
 void Swordsman::Init()
 {
-    switchtime = Math::RandFloatMinMax(0.5, 8);
+    switchtime = Math::RandFloatMinMax(0.5f, 8.0f);
     //get the revelant pointer
     PlayerPointer = Player::GetInstance();
 }

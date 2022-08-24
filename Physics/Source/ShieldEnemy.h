@@ -27,5 +27,8 @@ private:
     unsigned attackRange;
     float angle;
     float shieldturningrate;
+    float switchtime;
+    bool moveleft = true;
+    float leftdt = 0;
 };
 
