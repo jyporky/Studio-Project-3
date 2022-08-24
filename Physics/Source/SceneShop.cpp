@@ -475,12 +475,12 @@ void SceneShop::Update(double dt)
 					}
 					break;
 				case 2:
-					//buy heal
-					if ((player->getMoney() >= heal->getMoneyCost()) && (cGameManager->healBought == false))
+					//buy doppelganger
+					if ((player->getMoney() >= doppelganger->getMoneyCost()) && (cGameManager->doppelgangerBought == false))
 					{
-						player->changeMoney(-heal->getMoneyCost());
-						cGameManager->healBought = true;
-						cInventoryItem = cInventoryManager->GetItem("heal");
+						player->changeMoney(-doppelganger->getMoneyCost());
+						cGameManager->doppelgangerBought = true;
+						cInventoryItem = cInventoryManager->GetItem("doppelganger");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
@@ -505,12 +505,12 @@ void SceneShop::Update(double dt)
 					}
 					break;
 				case 4:
-					//buy overdrive
-					if ((player->getMoney() >= overdrive->getMoneyCost()) && (cGameManager->overdriveBought == false))
+					//buy blackhole
+					if ((player->getMoney() >= blackhole->getMoneyCost()) && (cGameManager->blackholeBought == false))
 					{
-						player->changeMoney(-overdrive->getMoneyCost());
-						cGameManager->overdriveBought = true;
-						cInventoryItem = cInventoryManager->GetItem("overdrive");
+						player->changeMoney(-blackhole->getMoneyCost());
+						cGameManager->blackholeBought = true;
+						cInventoryItem = cInventoryManager->GetItem("blackhole");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
 					}
@@ -1284,7 +1284,7 @@ void SceneShop::Render()
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 36);
 			}
 
-			cInventoryItem = cInventoryManager->GetItem("heal");
+			cInventoryItem = cInventoryManager->GetItem("doppelganger");
 			if (cInventoryItem->GetCount() == 1)
 			{
 				ss.str("");
@@ -1312,7 +1312,7 @@ void SceneShop::Render()
 				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 22);
 			}
 
-			cInventoryItem = cInventoryManager->GetItem("overdrive");
+			cInventoryItem = cInventoryManager->GetItem("blackhole");
 			if (cInventoryItem->GetCount() == 1)
 			{
 				ss.str("");
@@ -1672,16 +1672,16 @@ void SceneShop::renderShopMenu1()
 		ss << "Doppelganger Skill";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 22);
 		ss.str("");
-		ss << heal->getMoneyCost();
+		ss << doppelganger->getMoneyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 22);
 		ss.str("");
-		ss << heal->getDescription();
+		ss << doppelganger->getDescription();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0.1, 0.1), 1.5, 31, 22);
 		ss.str("");
-		ss << heal->getEnergyCost();
+		ss << doppelganger->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 22);
 
-		if (cGameManager->healBought)
+		if (cGameManager->doppelgangerBought)
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(80, 38.5, 1);
@@ -1719,25 +1719,25 @@ void SceneShop::renderShopMenu1()
 		}
 
 		modelStack.PushMatrix();
-		modelStack.Translate(44, 22.5, 1);
-		modelStack.Scale(6, 6, 1);
-		RenderMesh(meshList[GEO_OVERDRIVE], false);
+		modelStack.Translate(44, 22, 1);
+		modelStack.Scale(8, 8, 1);
+		RenderMesh(meshList[GEO_BLACKHOLE], false);
 		modelStack.PopMatrix();
 
 		ss.str("");
-		ss << "Overdrive Skill";
+		ss << "Blackhole Skill";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 12);
 		ss.str("");
-		ss << overdrive->getMoneyCost();
+		ss << blackhole->getMoneyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 24, 12);
 		ss.str("");
-		ss << overdrive->getDescription();
+		ss << blackhole->getDescription();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0.1), 1.5, 31, 12);
 		ss.str("");
-		ss << overdrive->getEnergyCost();
+		ss << blackhole->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 12);
 
-		if (cGameManager->overdriveBought)
+		if (cGameManager->blackholeBought)
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(80, 21.5, 1);
@@ -2401,7 +2401,7 @@ void SceneShop::renderComputerMenu()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 22);
 
 		ss.str("");
-		ss << "Overdrive Skill";
+		ss << "Blackhole Skill";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 15, 15);
 
 
@@ -2414,7 +2414,7 @@ void SceneShop::renderComputerMenu()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 36.5);
 
 		ss.str("");
-		ss << heal->getDescription();
+		ss << doppelganger->getDescription();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 29.5);
 
 		ss.str("");
@@ -2422,7 +2422,7 @@ void SceneShop::renderComputerMenu()
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 22.5);
 
 		ss.str("");
-		ss << overdrive->getDescription();
+		ss << blackhole->getDescription();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 1.5, 43, 15.5);
 
 		//selctor

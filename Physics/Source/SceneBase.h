@@ -81,7 +81,6 @@ public:
 		GEO_HACK,
 		GEO_DOPPELGANGER,
 		GEO_IMMORTAL,
-		GEO_OVERDRIVE,
 		GEO_BLACKHOLE,
 
 		//potions

@@ -30,9 +30,9 @@ public:
 	//skills
 	bool empBought;
 	bool hackBought;
-	bool healBought;
+	bool doppelgangerBought;
 	bool immortalBought;
-	bool overdriveBought;
+	bool blackholeBought;
 
 	//weapons
 	bool boxingGloveBought;

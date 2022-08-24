@@ -7,7 +7,7 @@ public:
 	Hack();
 	~Hack();
 	virtual int getMoneyCost();
-	virtual int getEnegyCost();
+	virtual int getEnergyCost();
 	virtual std::string getDescription();	
 	virtual void UseSkill();
 	virtual void resetHack();

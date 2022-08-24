@@ -140,9 +140,9 @@ void SceneCollision::Init()
 	//skills
 	cInventoryItem = cInventoryManager->Add("emp", 1, 0);
 	cInventoryItem = cInventoryManager->Add("hack", 1, 0);
-	cInventoryItem = cInventoryManager->Add("heal", 1, 0);
+	cInventoryItem = cInventoryManager->Add("doppelganger", 1, 0);
 	cInventoryItem = cInventoryManager->Add("immortal", 1, 0);
-	cInventoryItem = cInventoryManager->Add("overdrive", 1, 0);
+	cInventoryItem = cInventoryManager->Add("blackhole", 1, 0);
 
 	cGameManager = GameManger::GetInstance();
 
@@ -382,11 +382,11 @@ void SceneCollision::ResetLevel()
 	cInventoryItem->Remove(1);
 	cInventoryItem = cInventoryManager->GetItem("hack");
 	cInventoryItem->Remove(1);
-	cInventoryItem = cInventoryManager->GetItem("heal");
+	cInventoryItem = cInventoryManager->GetItem("doppelganger");
 	cInventoryItem->Remove(1);
 	cInventoryItem = cInventoryManager->GetItem("immortal");
 	cInventoryItem->Remove(1);
-	cInventoryItem = cInventoryManager->GetItem("overdrive");
+	cInventoryItem = cInventoryManager->GetItem("blackhole");
 	cInventoryItem->Remove(1);
 
 	rate = SetRate();
@@ -419,9 +419,9 @@ void SceneCollision::ResetLevel()
 
 	cGameManager->empBought = false;
 	cGameManager->hackBought = false;
-	cGameManager->healBought = false;
+	cGameManager->doppelgangerBought = false;
 	cGameManager->immortalBought = false;
-	cGameManager->overdriveBought = false;
+	cGameManager->blackholeBought = false;
 
 	cGameManager->boxingGloveBought = false;
 	cGameManager->rifleBought = false;
