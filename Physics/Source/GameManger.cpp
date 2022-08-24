@@ -2,8 +2,6 @@
 
 GameManger::GameManger()
 {
-	bGameWin = false;
-	bWaveClear = false;
 	bPlayerLost = false;
 	bDebug = false;
 	dWaveNo = 1;

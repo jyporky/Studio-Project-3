@@ -34,6 +34,7 @@ public:
 	void SwapWeapon();
 	void changeMovementSpeed(float change);
 	void SetSideWeapon(Weapon* sidewep);
+	void ResetPlayer();
 	unsigned GetMovementSpeed()
 	{
 		return movementspeed;
