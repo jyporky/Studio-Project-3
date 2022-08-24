@@ -11,6 +11,7 @@ public:
         CHASE,
         ATTACK,
         RUN,
+        CAMP,
         NUM_SM_STATES,
     };
     Rifler();
@@ -24,4 +25,5 @@ private:
     unsigned sCurrState;
     unsigned attackRange;
     unsigned runRange;
+    bool isCamper;
 };
