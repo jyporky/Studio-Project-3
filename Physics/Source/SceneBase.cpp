@@ -343,6 +343,9 @@ void SceneBase::Init()
 	meshList[GEO_STRENGTHPOT] = MeshBuilder::GenerateQuad("strenghtpot", Color(1, 1, 1));
 	meshList[GEO_STRENGTHPOT]->textureID = LoadTexture("Image//strength potion.png");
 
+	meshList[GEO_PARTICLE] = MeshBuilder::GenerateQuad("particle", Color(1, 1, 1));
+	meshList[GEO_PARTICLE]->textureID = LoadTexture("Image//white_particle.png");
+
 
 	bLightEnabled = false;
 	eButtonState = false;

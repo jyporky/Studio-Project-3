@@ -753,6 +753,42 @@ void SceneCollision::Update(double dt)
 		}
 		if (m_enemyList[idx]->Update(dt))
 		{
+			unsigned particlespeed = 2;
+			unsigned particlescale = 2;
+			//create the particle effect
+			GameObject* particle = FetchGO();
+			particle->type = GameObject::GO_DEATH_PARTICLE;
+			particle->pos = m_enemyList[idx]->GetGameObject()->pos;
+			particle->color.Set(1, 1, 1);
+			particle->vel = Vector3(1, 0, 0) * particlespeed;
+			particle->scale.Set(particlescale, particlescale, 1);
+			particle->time2disappear = 2;
+
+			particle = FetchGO();
+			particle->type = GameObject::GO_DEATH_PARTICLE;
+			particle->pos = m_enemyList[idx]->GetGameObject()->pos;
+			particle->color.Set(1, 1, 1);
+			particle->vel = RotateVector(Vector3(0,1,0), -Math::PI * 0.3) * particlespeed;
+			particle->scale.Set(particlescale, particlescale, 1);
+			particle->time2disappear = 2;
+
+			particle = FetchGO();
+			particle->type = GameObject::GO_DEATH_PARTICLE;
+			particle->pos = m_enemyList[idx]->GetGameObject()->pos;
+			particle->color.Set(1, 1, 1);
+			particle->vel = RotateVector(Vector3(0, 1, 0), Math::PI * 0.3) * particlespeed;
+			particle->scale.Set(particlescale, particlescale, 1);
+			particle->time2disappear = 2;
+
+			particle = FetchGO();
+			particle->type = GameObject::GO_DEATH_PARTICLE;
+			particle->pos = m_enemyList[idx]->GetGameObject()->pos;
+			particle->color.Set(1, 1, 1);
+			particle->vel = Vector3(-1, 0, 0) * particlespeed;
+			particle->scale.Set(particlescale, particlescale, 1);
+			particle->time2disappear = 2;
+
+
 			//delete the enemy
 			ReturnGO(m_enemyList[idx]->GetGameObject());
 			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
@@ -763,6 +799,7 @@ void SceneCollision::Update(double dt)
 			delete m_enemyList[idx];
 			m_enemyList.erase(m_enemyList.begin() + idx);
 			enemyLeft--;
+
 			continue;
 		}
 		//ensure that the enemy does not move out of the map
@@ -1016,6 +1053,23 @@ void SceneCollision::Update(double dt)
 	{
 		bRButtonState = false;
 	}
+
+	//Update the particles
+	for (unsigned idx = 0; idx < m_goList.size(); idx++)
+	{
+		if (!m_goList[idx]->active)
+			continue;
+		
+		if (m_goList[idx]->type != GameObject::GO_DEATH_PARTICLE)
+			continue;
+
+		m_goList[idx]->pos += m_goList[idx]->vel * dt;
+		m_goList[idx]->time2disappear -= dt;
+		if (m_goList[idx]->time2disappear <= 0)
+		{
+			ReturnGO(m_goList[idx]);
+		}
+	}
 }
 
 bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
@@ -1129,7 +1183,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	pillar1->color = color;
 	pillar1->scale.Set(size, size, 1);
 	pillar1->pos = pos + height * 0.48f * tangent + width * 0.48f * normal;
-	pillar1->disappearWhenHit = true;
 	pillar1->visible = true;
 
 
@@ -1139,7 +1192,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	pillar2->color = color;
 	pillar2->scale.Set(size, size, 1);
 	pillar2->pos = pos + height * 0.48f * tangent - width * 0.48f * normal;
-	pillar2->disappearWhenHit = true;
 	pillar2->visible = true;
 
 	//4 pillars
@@ -1148,7 +1200,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	pillar3->color = color;
 	pillar3->scale.Set(size, size, 1);
 	pillar3->pos = pos - height * 0.48f * tangent - width * 0.48f * normal;
-	pillar3->disappearWhenHit = true;
 	pillar3->visible = true;
 
 	//4 pillars
@@ -1157,7 +1208,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	pillar4->color = color;
 	pillar4->scale.Set(size, size, 1);
 	pillar4->pos = pos - height * 0.48f * tangent + width * 0.48f * normal;
-	pillar4->disappearWhenHit = true;
 	pillar4->visible = true;
 
 	GameObject* wall1 = FetchGO();
@@ -1166,7 +1216,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	wall1->normal = normal;
 	wall1->color = color;
 	wall1->pos = pos;
-	wall1->disappearWhenHit = true;
 	wall1->visible = true;
 
 	GameObject* wall2 = FetchGO();
@@ -1176,7 +1225,6 @@ void SceneCollision::MakeThickWall(float width, float height, const Vector3& nor
 	wall2->color = color;
 	wall2->pos = pos;
 	wall2->visible = false;
-	wall2->disappearWhenHit = true;
 
 
 	//add the game objects to each other
@@ -1224,6 +1272,14 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 		meshList[GEO_BALL]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 		RenderMesh(meshList[GEO_BALL], true);
+		modelStack.PopMatrix();
+		break;
+	case GameObject::GO_DEATH_PARTICLE:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		meshList[GEO_PARTICLE]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+		RenderMesh(meshList[GEO_PARTICLE], true);
 		modelStack.PopMatrix();
 		break;
 	case GameObject::GO_PLAYER:

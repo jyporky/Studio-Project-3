@@ -11,9 +11,9 @@ GameObject::GameObject(GAMEOBJECT_TYPE typeValue)
 	angularVelocity = 0;
 	momentOfInertia = 0;
 	checkCollision = true;
-	disappearWhenHit = false;
 	visible = true;
 	leftwep = false;
+	time2disappear = 0;
 }
 
 GameObject::~GameObject()
@@ -37,6 +37,6 @@ void GameObject::ResetValues()
 	momentOfInertia = 0;
 	otherGameObjects.clear();
 	checkCollision = true;
-	disappearWhenHit = false;
 	leftwep = false;
+	time2disappear = 0;
 }
