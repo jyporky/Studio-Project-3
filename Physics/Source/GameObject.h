@@ -25,6 +25,7 @@ struct GameObject
 		GO_RIFLE,
 		GO_CROSSBOW,
 		GO_ARROW,
+		GO_DEATH_PARTICLE,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;
@@ -47,7 +48,7 @@ struct GameObject
 	std::vector <GameObject*> otherGameObjects;
 
 	bool checkCollision;
-	bool disappearWhenHit;
+	float time2disappear;
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();
 
