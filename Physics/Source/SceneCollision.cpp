@@ -92,7 +92,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 6;
+	wave = 1;
 	
 
 	rate = SetRate();
