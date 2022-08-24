@@ -118,11 +118,8 @@ void SceneCollision::Init()
 
 	cInventoryManager = CInventoryManager::GetInstance();
 	//weapons
-	cInventoryItem = cInventoryManager->Add("Fist", 1, 0);
 	cInventoryItem = cInventoryManager->Add("sword", 1, 1);
 	cInventoryItem = cInventoryManager->Add("boxingglove", 1, 0);	
-	cInventoryItem = cInventoryManager->Add("rubberchicken", 1, 0);
-	cInventoryItem = cInventoryManager->Add("fryingpan", 1, 0);
 	
 	cInventoryItem = cInventoryManager->Add("rifle", 1, 0);
 	cInventoryItem = cInventoryManager->Add("flamethrower", 1, 0);
@@ -299,13 +296,115 @@ void SceneCollision::ResetLevel()
 		ReturnGO(m_goList[idx]);
 		m_goList[idx]->ResetValues();
 	}
-	if (cGameManager->bWaveClear)
-		cGameManager->dWaveNo++;
-	else if (cGameManager->bPlayerLost)
-		cGameManager->dWaveNo = 1;
+
+	while (m_enemyList.size() > 0)
+	{
+		Entity* go = m_enemyList.back();
+		delete go;
+		m_enemyList.pop_back();
+	}
+	while (m_pbulletList.size() > 0)
+	{
+		Bullet* go = m_pbulletList.back();
+		delete go;
+		m_pbulletList.pop_back();
+	}
+	while (m_ebulletList.size() > 0)
+	{
+		Bullet* go = m_ebulletList.back();
+		delete go;
+		m_ebulletList.pop_back();
+	}
+	while (m_FlameParticle.size() > 0)
+	{
+		FlameParticle* go = m_FlameParticle.back();
+		delete go;
+		m_FlameParticle.pop_back();
+	}
+
+	while (m_parrowList.size() > 0)
+	{
+		Arrow* go = m_parrowList.back();
+		delete go;
+		m_parrowList.pop_back();
+	}
+
+	player->ResetPlayer();
+	GameObject* m_player = FetchGO();
+	m_player->type = GameObject::GO_PLAYER;
+	m_player->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
+	m_player->vel.SetZero();
+	m_player->scale.Set(10, 10, 1);
+	m_player->color.Set(1, 1, 1);
+	m_player->angle = 0;
+	m_player->active = true;
+	player->SetGameObject(m_player);
+	Sword* sword = new Sword();
+	player->SetWeapon(sword);
+	GameObject* weapon2 = FetchGO();
+	weapon2->type = GameObject::GO_SWORD;
+	weapon2->pos.SetZero();
+	weapon2->vel.SetZero();
+	weapon2->scale.Set(10, 10, 1);
+	weapon2->angle = 0;
+	weapon2->color.Set(1, 1, 1);
+	weapon2->leftwep = false;
+	cGameManager->weptype = Weapon::SWORD;
+	player->GetWeapon()->SetGameObject(weapon2);
+
 
 	cGameManager->bPlayerLost = false;
-	cGameManager->bGameWin = false;
+	wave = 1;
+	cGameManager->sideweptype = Weapon::NONE;
+	cInventoryItem = cInventoryManager->GetItem("boxingglove");
+	cInventoryItem->Remove(1);	
+	cInventoryItem = cInventoryManager->GetItem("rifle");
+	cInventoryItem->Remove(1);	
+	cInventoryItem = cInventoryManager->GetItem("flamethrower");
+	cInventoryItem->Remove(1);	
+	cInventoryItem = cInventoryManager->GetItem("crossbow");
+	cInventoryItem->Remove(1);	
+	cInventoryItem = cInventoryManager->GetItem("healthpotion");
+	cInventoryItem->Remove(10);	
+	cInventoryItem = cInventoryManager->GetItem("strengthpotion");
+	cInventoryItem->Remove(10);	
+	cInventoryItem = cInventoryManager->GetItem("speedpotion");
+	cInventoryItem->Remove(10);
+	cInventoryItem = cInventoryManager->GetItem("emp");
+	cInventoryItem->Remove(1);
+	cInventoryItem = cInventoryManager->GetItem("hack");
+	cInventoryItem->Remove(1);
+	cInventoryItem = cInventoryManager->GetItem("heal");
+	cInventoryItem->Remove(1);
+	cInventoryItem = cInventoryManager->GetItem("immortal");
+	cInventoryItem->Remove(1);
+	cInventoryItem = cInventoryManager->GetItem("overdrive");
+	cInventoryItem->Remove(1);
+
+	rate = SetRate();
+	timer = -3;
+
+	colorsize = 3;
+	for (unsigned i = 0; i < colorsize; ++i)
+	{
+		color[i] = Vector3(1, 1, 1);
+	}
+
+	meshList[GEO_TELEPORT_PAD]->material.kAmbient.Set(1, 1, 1);
+
+	strengthPotTimer = 30;
+	speedPotTimer = 30;
+
+	strengthPotUsed = false;
+	speedPotUsed = false;
+
+	cGameManager->pierceBought = false;
+	cGameManager->fastfireBought = false;
+	cGameManager->fastbulletBought = false;
+	cGameManager->explosiveBought = false;
+	cGameManager->betterfuelBought = false;
+	cGameManager->accuratearrowsBought = false;
+	cGameManager->fastmeleeBought = false;
 }
 
 void SceneCollision::Update(double dt)
@@ -325,12 +424,12 @@ void SceneCollision::Update(double dt)
 
 	SceneBase::Update(dt);
 	//std::cout << ImmortalitySkill->getState() << std::endl;
-	if (cGameManager->bPlayerLost || cGameManager->bWaveClear || cGameManager->bGameWin)
+	if (cGameManager->bPlayerLost)
 	{
-		/*if (Application::IsKeyPressed('R') && !cGameManager->bGameWin)
+		if (Application::IsKeyPressed('R'))
 		{
 			ResetLevel();
-		}*/
+		}
 		if (Application::IsKeyPressed(VK_OEM_3))
 		{
 			Application::SetState(1);
@@ -363,6 +462,9 @@ void SceneCollision::Update(double dt)
 		}
 	}
 
+	if (timer > -0.1 && timer < 0)
+		timer = 10;
+
 	if (totalEnemy > 0 && timer > 0)
 		SpawnEnemy(rate);
 	else if (totalEnemy <= 0 && timer > rate / 3)
@@ -371,6 +473,10 @@ void SceneCollision::Update(double dt)
 		{
 			color[i].Set(1, 1, 1);
 		}
+	}
+	if (Application::IsKeyPressed('P'))
+	{
+		player->ChangeHealth(-200);
 	}
 
 	if (timer >= 0)
@@ -399,10 +505,10 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
-	if (Application::IsKeyPressed('R')) //for debug
-	{
-		Application::SetState(3);
-	}
+	//if (Application::IsKeyPressed('R')) //for debug
+	//{
+	//	Application::SetState(3);
+	//}
 	if (Application::IsKeyPressed('E') && cGameManager->waveClear && !e && NearShop()) //go shop
 	{
 		Application::SetState(3);
@@ -1375,16 +1481,6 @@ void SceneCollision::Render()
 		ss.str("");
 		ss << "Press '~' to return to main menu";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 16);
-	}
-
-	if (cGameManager->bGameWin)
-	{
-		ss.str("");
-		ss << "You cleared the game!";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 10, 24);
-		ss.str("");
-		ss << "Press '~' to return to main menu";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 10, 16);
 	}
 }
 

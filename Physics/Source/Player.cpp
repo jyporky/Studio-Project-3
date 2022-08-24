@@ -396,3 +396,27 @@ void Player::SetSideWeapon(Weapon* sidewep)
 {
 	SideWeapon = sidewep;
 }
+
+void Player::ResetPlayer()
+{
+	greenTimer = 0;
+	redTimer = 0;
+	blueTimer = 0;
+	maxHealth = 100;
+	health = maxHealth;
+	gameobject = nullptr;
+	CurrWeapon = nullptr;
+	SideWeapon = nullptr;
+	movementspeed = 40;
+	dashBoost = 80;
+	iFrame = false;
+	money = 0;
+	energy = 0;
+	isSpawningBullet = false;
+	dashDirection.Set(1, 0, 0);
+	meleeDmgBoost = 0;
+	rangeDmgBoost = 0;
+	dashing = false;
+	rotate = 0;
+	dashcd = 0;
+}
