@@ -55,6 +55,12 @@ bool Rifler::Update(double dt)
     else
         gameobject->color.Set(1, 1, 1);
 
+    if (kbTimer > 0)
+    {
+        gameobject->direction -= kbEffect;
+        kbEffect -= dt;
+    }
+
     if (greenTimer > 0)
     {
         gameobject->color.Set(0, 1, 0);
@@ -159,6 +165,13 @@ bool Rifler::Update(double dt)
             break;
         }
     }
+
+    if (kbTimer > 0)
+    {
+        gameobject->pos -= kbEffect;
+        kbTimer -= dt;
+    }
+
     gameobject->pos.z = 0;
     if (CurrWeapon->attack())
         isSpawningBullet = true;

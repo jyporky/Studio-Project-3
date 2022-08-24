@@ -320,7 +320,11 @@ void Player::Attack(Vector3 mousepos)
 			if (dotproduct > CurrWeapon->GetAttackAngle() * 0.5f)
 				continue;
 
-			m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage() - meleeDmgBoost);
+			if (cGameManager->weptype == Weapon::BOXING_GLOVES)
+				m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage() - meleeDmgBoost, gameobject->pos);
+			else
+				m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage() - meleeDmgBoost);
+
 			hitlist.push_back(m_enemyList[idx]);
 		}
 	}

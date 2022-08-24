@@ -60,6 +60,12 @@ bool ShieldEnemy::Update(double dt)
     else
         gameobject->color.Set(1, 1, 1);
 
+    if (kbTimer > 0)
+    {
+        gameobject->direction -= kbEffect;
+        kbEffect -= dt;
+    }
+
     if (greenTimer > 0)
     {
         gameobject->color.Set(0, 1, 0);
@@ -148,6 +154,12 @@ bool ShieldEnemy::Update(double dt)
         break;
     }
 
+    if (kbTimer > 0)
+    {
+        gameobject->pos -= kbEffect;
+        kbTimer -= dt;
+    }
+    gameobject->pos.z = 0;
     Vector3 direction = Vector3(1, 0, 0);
     direction = RotateVector2(direction, Math::DegreeToRadian(angle));
     //move the shield

@@ -1462,6 +1462,31 @@ void SceneCollision::RenderGO(GameObject *go)
 		}
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_BOXINGGLOVES:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Rotate(go->angle, 0, 0, 1);
+
+		if (go->leftwep == false)
+		{
+			modelStack.Translate(go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_BOXINGGLOVE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			meshList[GEO_BOXINGGLOVE_RIGHT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_BOXINGGLOVE_RIGHT], true);
+		}
+
+		else
+		{
+			modelStack.Translate(-go->scale.x * 0.3, go->scale.y * 0.3, 0);
+			modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+			meshList[GEO_BOXINGGLOVE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			meshList[GEO_BOXINGGLOVE_LEFT]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_BOXINGGLOVE_LEFT], true);
+		}
+		modelStack.PopMatrix();
+		break;
+
 	case GameObject::GO_RIFLE:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
@@ -2385,6 +2410,14 @@ void SceneCollision::renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* obje
 		RenderMesh(meshList[GEO_CROSSBOW], true);
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_BOXINGGLOVES:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x - 2, scale.y - 2, scale.z);
+		meshList[GEO_BOXINGGLOVE_RIGHT]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_BOXINGGLOVE_RIGHT], true);
+		modelStack.PopMatrix();
+		break;
 	}
 }
 
@@ -2426,6 +2459,15 @@ void SceneCollision::NewWeapon(int weptype, bool MainWep)
 		if (cGameManager->fastmeleeBought)
 		{
 			wep->SetAttackSpeed(0.6);
+		}
+		break;
+	case Weapon::BOXING_GLOVES:
+		wep = new BoxingGloves;
+		weapon->type = GameObject::GO_BOXINGGLOVES;
+		weapon->scale.Set(6, 6, 1);
+		if (cGameManager->fastmeleeBought)
+		{
+			wep->SetAttackSpeed(0.3);
 		}
 		break;
 	case Weapon::RIFLE:

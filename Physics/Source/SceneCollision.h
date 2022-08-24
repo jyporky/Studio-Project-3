@@ -15,6 +15,7 @@
 #include "Weapon.h"
 #include "Fist.h"
 #include "Sword.h"
+#include "BoxingGloves.h"
 #include "Swordsman.h"
 #include "Bullet.h"
 #include "Rifle.h"

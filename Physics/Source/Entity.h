@@ -18,6 +18,7 @@ public:
 	virtual void SetGameObject(GameObject* GO);
 	virtual GameObject* GetGameObject();
 	virtual bool ChangeHealth(int changeInHealth);
+	virtual bool ChangeHealth(int changeInHealth, Vector3 attackvec);
 	virtual Weapon* GetWeapon();
 	virtual bool IsSpawningBullet();
 	virtual void SetWeapon(Weapon* weapon);
@@ -36,5 +37,7 @@ protected:
 	Weapon* CurrWeapon;
 	Weapon* SideWeapon;
 	static CSoundController* cSoundController;
+	float kbTimer;
+	Vector3 kbEffect;
 };
 

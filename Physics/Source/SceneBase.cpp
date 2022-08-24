@@ -243,6 +243,14 @@ void SceneBase::Init()
 	meshList[GEO_CROSSBOW_RIGHT] = MeshBuilder::GenerateQuad("crossbowR", Color(1, 1, 1));
 	meshList[GEO_CROSSBOW_RIGHT]->textureID = LoadTGA("Image//crossbow_right.tga");
 
+	meshList[GEO_BOXINGGLOVE_LEFT] = MeshBuilder::GenerateQuad("boxingGloveL", Color(1, 1, 1));
+	meshList[GEO_BOXINGGLOVE_LEFT]->textureID = LoadTGA("Image//boxingglove_left.tga");
+
+	meshList[GEO_BOXINGGLOVE_RIGHT] = MeshBuilder::GenerateQuad("boxingGloveR", Color(1, 1, 1));
+	meshList[GEO_BOXINGGLOVE_RIGHT]->textureID = LoadTGA("Image//boxingglove_right.tga");
+
+	//meshList[GEO_ARROW] = MeshBuilder::GenerateQuad("arrow", Color(1, 1, 1));
+	//meshList[GEO_ARROW]->textureID = LoadTGA("Image//arrow.tga");
 	meshList[GEO_ARROWRED] = MeshBuilder::GenerateQuad("arrow red", Color(1, 1, 1));
 	meshList[GEO_ARROWRED]->textureID = LoadTGA("Image//laserarrowred.tga");
 

@@ -16,6 +16,8 @@ Swordsman::Swordsman()
     attackRange = 12;
     attackSpeed = 1.5;
     iFrameTimer = 0;
+    kbTimer = 0;
+    kbEffect.SetZero();
     enemytype = SWORDMAN;
 }
 
@@ -156,6 +158,12 @@ bool Swordsman::Update(double dt)
         //move the enemy away from the target
         gameobject->pos -= (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
         break;
+    }
+
+    if (kbTimer > 0)
+    {
+        gameobject->pos -= kbEffect;
+        kbTimer -= dt;
     }
 
     gameobject->pos.z = 0;
