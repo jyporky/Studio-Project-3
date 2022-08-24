@@ -128,9 +128,9 @@ void SceneCollision::Init()
 	cInventoryItem = cInventoryManager->Add("crossbow", 1, 0);
 
 	//potions
-	cInventoryItem = cInventoryManager->Add("healthpotion", 10, 0);
-	cInventoryItem = cInventoryManager->Add("strengthpotion", 10, 0);
-	cInventoryItem = cInventoryManager->Add("speedpotion", 10, 0);
+	cInventoryItem = cInventoryManager->Add("healthpotion", 99, 0);
+	cInventoryItem = cInventoryManager->Add("strengthpotion", 99, 0);
+	cInventoryItem = cInventoryManager->Add("speedpotion", 99, 0);
 
 	//skills
 	cInventoryItem = cInventoryManager->Add("emp", 1, 0);

@@ -1386,6 +1386,14 @@ void SceneShop::renderShopMenu1()
 		ss << movementspeedupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 31);
 
+		if (movementspeedupgrade->getUpgradeLevel() == 3)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 53, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 		//health up
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 43.5, 1);
@@ -1406,6 +1414,14 @@ void SceneShop::renderShopMenu1()
 		ss << healthupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 25);
 
+		if (healthupgrade->getUpgradeLevel() == 6)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 43, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 		//melee upgrade
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 33.5, 1);
@@ -1426,6 +1442,15 @@ void SceneShop::renderShopMenu1()
 		ss << meleedmgupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 19);
 
+		if (meleedmgupgrade->getUpgradeLevel() == 5)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 33, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+		
 		//range upgrade
 		modelStack.PushMatrix();
 		modelStack.Translate(47, 23.5, 1);
@@ -1446,6 +1471,14 @@ void SceneShop::renderShopMenu1()
 		ss << rangeddmgupgrade->getUpgradeLevel();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 58, 13);
 
+		if (rangeddmgupgrade->getUpgradeLevel() == 5)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 23, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		//selctor
 		ss.str("");
@@ -1490,6 +1523,14 @@ void SceneShop::renderShopMenu1()
 		ss << emp->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 32);
 
+		if (empBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 55, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		modelStack.PushMatrix();
 		modelStack.Translate(39, 46.5, 1);
@@ -1510,14 +1551,23 @@ void SceneShop::renderShopMenu1()
 		ss << hack->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 27);
 
+		if (hackBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 46.5, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
-		modelStack.Translate(39, 38.5, 1);
+		modelStack.Translate(49, 38.5, 1);
 		modelStack.Scale(6, 6, 1);
-		RenderMesh(meshList[GEO_HEAL], false);
+		RenderMesh(meshList[GEO_DOPPELGANGER], false);
 		modelStack.PopMatrix();
 
 		ss.str("");
-		ss << "Heal Skill";
+		ss << "Doppelganger Skill";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 10, 22);
 		ss.str("");
 		ss << heal->getMoneyCost();
@@ -1529,6 +1579,14 @@ void SceneShop::renderShopMenu1()
 		ss << heal->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 22);
 
+		if (healBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 38.5, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		modelStack.PushMatrix();
 		modelStack.Translate(44, 30.5, 1);
@@ -1549,6 +1607,15 @@ void SceneShop::renderShopMenu1()
 		ss << immortal->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 17);
 
+		if (immortalBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 30, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
 		modelStack.Translate(44, 22.5, 1);
 		modelStack.Scale(6, 6, 1);
@@ -1568,13 +1635,20 @@ void SceneShop::renderShopMenu1()
 		ss << overdrive->getEnergyCost();
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 60, 12);
 
+		if (overdriveBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(80, 21.5, 1);
+			modelStack.Scale(120, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		//selctor
 		ss.str("");
 		ss << ">";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0.1, 0.7, 1), 4, 8, 31 - shopbuttonhighlight * 5);
 	}
-
-
 
 }
 
@@ -1637,10 +1711,19 @@ void SceneShop::renderShopMenu2()
 	ss << boxingGlove->GetRange();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 31);
 
+	if (boxingGloveBought)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(85, 53, 1);
+		modelStack.Scale(135, 0.5, 1);
+		RenderMesh(meshList[GEO_SOLDOUT], false);
+		modelStack.PopMatrix();
+	}
+
 	//rifle
 	modelStack.PushMatrix();
 	modelStack.Translate(35, 42.5, 1);
-	modelStack.Scale(12, 5, 1);
+	modelStack.Scale(12, 4, 1);
 	RenderMesh(meshList[GEO_RIFLE_RIGHT], false);
 	modelStack.PopMatrix();
 
@@ -1664,10 +1747,19 @@ void SceneShop::renderShopMenu2()
 	ss << rifle->GetRange();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 25);
 
+	if (rifleBought)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(85, 43, 1);
+		modelStack.Scale(135, 0.5, 1);
+		RenderMesh(meshList[GEO_SOLDOUT], false);
+		modelStack.PopMatrix();
+	}
+
 	//flamethrower
 	modelStack.PushMatrix();
 	modelStack.Translate(45, 32.5, 1);
-	modelStack.Scale(10, 6, 1);
+	modelStack.Scale(12, 6, 1);
 	RenderMesh(meshList[GEO_FLAMETHROWER], false);
 	modelStack.PopMatrix();
 
@@ -1691,10 +1783,20 @@ void SceneShop::renderShopMenu2()
 	ss << flamethrower->GetRange();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 19);
 
+	if (flamethrowerBought)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(85, 33, 1);
+		modelStack.Scale(135, 0.5, 1);
+		RenderMesh(meshList[GEO_SOLDOUT], false);
+		modelStack.PopMatrix();
+	}
+
 	//crossbow
 	modelStack.PushMatrix();
-	modelStack.Translate(40, 22.5, 1);
-	modelStack.Scale(8, 6, 1);
+	modelStack.Translate(40, 23.5, 1);
+	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Scale(10, 8, 1);
 	RenderMesh(meshList[GEO_CROSSBOW], false);
 	modelStack.PopMatrix();
 
@@ -1718,7 +1820,14 @@ void SceneShop::renderShopMenu2()
 	ss << crossbow->GetRange();
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 64, 13);
 
-
+	if (crossbowBought)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(85, 23, 1);
+		modelStack.Scale(135, 0.5, 1);
+		RenderMesh(meshList[GEO_SOLDOUT], false);
+		modelStack.PopMatrix();
+	}
 	//selctor
 	ss.str("");
 	ss << ">";
@@ -1789,6 +1898,14 @@ void SceneShop::renderShopMenu3()
 		ss << "Rifle, Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 31);
 
+		if (cGameManager->pierceBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 53, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 43.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -1808,6 +1925,15 @@ void SceneShop::renderShopMenu3()
 		ss.str("");
 		ss << "Rifle, Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 25);
+
+		if (cGameManager->fastfireBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 43, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 33.5, 1);
@@ -1829,6 +1955,15 @@ void SceneShop::renderShopMenu3()
 		ss << "Rifle, Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 19);
 
+		if (cGameManager->fastbulletBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 33, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
 		modelStack.Translate(46, 23.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -1849,6 +1984,14 @@ void SceneShop::renderShopMenu3()
 		ss << "Rifle, Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 13);
 
+		if (cGameManager->explosiveBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 23, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 		//selctor
 		ss.str("");
 		ss << ">";
@@ -1876,6 +2019,15 @@ void SceneShop::renderShopMenu3()
 		ss << "Flamethrower";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 31);
 
+		if (cGameManager->betterfuelBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 53, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
 		modelStack.Translate(49, 40.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -1896,6 +2048,15 @@ void SceneShop::renderShopMenu3()
 		ss << "Crossbow";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 23);
 
+		if (cGameManager->accuratearrowsBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 40, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
+
 		modelStack.PushMatrix();
 		modelStack.Translate(52, 26.5, 1);
 		modelStack.Scale(7, 7, 1);
@@ -1915,6 +2076,15 @@ void SceneShop::renderShopMenu3()
 		ss.str("");
 		ss << "Melee weapons";
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 56, 15);
+
+		if (cGameManager->fastmeleeBought)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(85, 26.5, 1);
+			modelStack.Scale(130, 0.5, 1);
+			RenderMesh(meshList[GEO_SOLDOUT], false);
+			modelStack.PopMatrix();
+		}
 
 		//selector
 		ss.str("");

@@ -152,7 +152,7 @@ void SceneBase::Init()
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_BALL] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.4, 0.4, 0.3), 1.f);
-	meshList[GEO_SOLDOUT] = MeshBuilder::GenerateCube("cube", Color(1, 0.3, 0.3), 1.f);
+	meshList[GEO_SOLDOUT] = MeshBuilder::GenerateCube("cube", Color(1, 0.1, 0.1), 1.f);
 	
 	meshList[GEO_SHOPMENUBG] = MeshBuilder::GenerateCube("shopmenubg", Color(0.3, 0.3, 0.3), 1.f);
 
@@ -219,12 +219,6 @@ void SceneBase::Init()
 	meshList[GEO_BOXINGGLOVE] = MeshBuilder::GenerateQuad("boxing glove", Color(1, 1, 1));
 	meshList[GEO_BOXINGGLOVE]->textureID = LoadTexture("Image//boxing_glove.png");
 
-	meshList[GEO_CHICKEN] = MeshBuilder::GenerateQuad("chicken", Color(1, 1, 1));
-	meshList[GEO_CHICKEN]->textureID = LoadTexture("Image//chicken.png");
-
-	meshList[GEO_PAN] = MeshBuilder::GenerateQuad("frying pan", Color(1, 1, 1));
-	meshList[GEO_PAN]->textureID = LoadTexture("Image//pan.png");
-
 	meshList[GEO_RIFLE_LEFT] = MeshBuilder::GenerateQuad("rifleL", Color(1, 1, 1));
 	meshList[GEO_RIFLE_LEFT]->textureID = LoadTGA("Image//ar_left.tga");
 
@@ -241,7 +235,7 @@ void SceneBase::Init()
 	meshList[GEO_SHIELD]->textureID = LoadTexture("Image//shield.png");
 
 	meshList[GEO_CROSSBOW] = MeshBuilder::GenerateQuad("crossbow", Color(1, 1, 1));
-	meshList[GEO_CROSSBOW]->textureID = LoadTexture("Image//crossbow.png");
+	meshList[GEO_CROSSBOW]->textureID = LoadTexture("Image//crossbow_left.tga");
 
 	meshList[GEO_CROSSBOW_LEFT] = MeshBuilder::GenerateQuad("crossbowL", Color(1, 1, 1));
 	meshList[GEO_CROSSBOW_LEFT]->textureID = LoadTGA("Image//crossbow_left.tga");
@@ -259,8 +253,8 @@ void SceneBase::Init()
 	meshList[GEO_HACK] = MeshBuilder::GenerateQuad("hack", Color(1, 1, 1));
 	meshList[GEO_HACK]->textureID = LoadTexture("Image//hack.png");
 
-	meshList[GEO_HEAL] = MeshBuilder::GenerateQuad("heal", Color(1, 1, 1));
-	meshList[GEO_HEAL]->textureID = LoadTexture("Image//heal.png");
+	meshList[GEO_DOPPELGANGER] = MeshBuilder::GenerateQuad("doppelganger", Color(1, 1, 1));
+	meshList[GEO_DOPPELGANGER]->textureID = LoadTGA("Image//doppelganger.tga");
 
 	meshList[GEO_IMMORTAL] = MeshBuilder::GenerateQuad("immortal", Color(1, 1, 1));
 	meshList[GEO_IMMORTAL]->textureID = LoadTexture("Image//immortal.png");
