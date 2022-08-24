@@ -12,6 +12,7 @@ GameManger::GameManger()
 	buyFirstWep = true;
 	weptype = Weapon::NONE;
 	sideweptype = Weapon::NONE;
+	bulletExplosionRadius = 20;
 
 	reset = false;
 	//self upgrades

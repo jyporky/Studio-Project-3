@@ -787,7 +787,7 @@ void SceneCollision::Update(double dt)
 			bulletgo->color.Set(1, 1, 1);
 			bulletgo->angle = player->GetWeapon()->GetGameObject()->angle;
 			bullet->SetGameObject(bulletgo);
-			bullet->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), player->GetWeapon()->GetPiercing(), player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize());
+			bullet->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), player->GetWeapon()->GetPiercing(), player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize(), cGameManager->explosiveBought, cGameManager->bulletExplosionRadius);
 			m_pbulletList.push_back(bullet);
 		}
 	}
@@ -799,7 +799,7 @@ void SceneCollision::Update(double dt)
 		}
 		if (m_enemyList[idx]->Update(dt))
 		{
-			unsigned particlespeed = 2;
+			unsigned particlespeed = 4;
 			unsigned particlescale = 2;
 			//create the particle effect
 			GameObject* particle = FetchGO();
@@ -934,7 +934,22 @@ void SceneCollision::Update(double dt)
 			}
 			if (CheckCollision(m_pbulletList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
-				m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage());
+				if (m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage()))
+				{
+					//for explosive bullets
+					if (m_pbulletList[idx]->isExplosive)
+					{
+						for (unsigned idx2 = 0; idx2 < m_enemyList.size(); idx2++)
+						{
+							//check distance of the bullet to the enemy
+							if ((m_enemyList[idx2]->GetGameObject()->pos - m_pbulletList[idx]->GetGameObject()->pos).LengthSquared() <= m_pbulletList[idx]->explosionRadius * m_pbulletList[idx]->explosionRadius)
+							{
+								//deal damage to the enemy
+								m_enemyList[idx2]->ChangeHealth(-m_pbulletList[idx]->GetDamage());
+							}
+						}
+					}
+				}
 				if (!m_pbulletList[idx]->GetPenetrationValue())
 				{
 					//delete the bullet

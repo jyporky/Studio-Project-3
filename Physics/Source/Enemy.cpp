@@ -79,7 +79,7 @@ bool Enemy::ChangeHealth(int changeInHealth)
         cSoundController->PlaySoundByID(4);
         return true;
     }
-    return false;
+    return true;
 }
 
 unsigned Enemy::GetMoneyDrop()
