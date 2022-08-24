@@ -33,9 +33,14 @@ public:
 	void changeEnergy(float energyChange);
 	void SwapWeapon();
 	void changeMovementSpeed(float change);
+	void SetSideWeapon(Weapon* sidewep);
 	unsigned GetMovementSpeed()
 	{
 		return movementspeed;
+	}
+	unsigned GetDashBoost()
+	{
+		return dashBoost;
 	}
 
 	int meleeDmgBoost;

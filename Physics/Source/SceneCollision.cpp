@@ -93,6 +93,7 @@ void SceneCollision::Init()
 	m_objectCount = 0;
 
 	wave = 1;
+	
 
 	rate = SetRate();
 
@@ -352,6 +353,13 @@ void SceneCollision::Update(double dt)
 
 	if (totalEnemy > 0 && timer > 0)
 		SpawnEnemy(rate);
+	else if (totalEnemy <= 0 && timer > rate / 3)
+	{
+		for (unsigned i = 0; i < colorsize; ++i)
+		{
+			color[i].Set(1, 1, 1);
+		}
+	}
 
 	if (timer >= 0)
 	{
@@ -489,7 +497,12 @@ void SceneCollision::Update(double dt)
 	player->SetEnemyVector(m_enemyList);
 	player->Update(dt, mousePos);
 	Checkborder(player->getPlayer());
-	player->GetGameObject()->vel = (player->GetGameObject()->pos - temppos).Normalize() * player->GetMovementSpeed();
+	if (!player->dashing)
+		player->GetGameObject()->vel = (player->GetGameObject()->pos - temppos).Normalize() * player->GetMovementSpeed();
+	else
+	{
+		player->GetGameObject()->vel = (player->GetGameObject()->pos - temppos).Normalize() * (player->GetMovementSpeed() - player->GetDashBoost());
+	}
 	if (player->IsSpawningBullet())
 	{
 		Application::GetCursorPos(&x, &y);
@@ -2040,6 +2053,11 @@ void SceneCollision::SetWeapon()
 			cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
 		}
 	}
+	else if (cGameManager->sideweptype != 0)
+	{
+		NewWeapon(cGameManager->sideweptype, false);
+		cGameManager->sideweptype = player->GetSideWeapon()->WeaponType;
+	}
 }
 
 void SceneCollision::NewWeapon(int weptype, bool MainWep)
@@ -2109,9 +2127,7 @@ void SceneCollision::NewWeapon(int weptype, bool MainWep)
 
 	else
 	{
-		player->SwapWeapon();
-		player->SetWeapon(wep);
-		player->GetWeapon()->SetGameObject(weapon);
-		player->SwapWeapon();
+		player->SetSideWeapon(wep);
+		player->GetSideWeapon()->SetGameObject(weapon);
 	}
 }

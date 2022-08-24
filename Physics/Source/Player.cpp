@@ -15,7 +15,7 @@ Player::Player()
 	movementspeed = 40;
 	dashBoost = 80;
 	iFrame = false;
-	money = 3000;
+	money = 200;
 	energy = 0;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
@@ -24,6 +24,7 @@ Player::Player()
 	rangeDmgBoost = 0;
 	dashing = false;
 	rotate = 0;
+	dashcd = 0;
 }
 
 Player::~Player()
@@ -151,7 +152,7 @@ void Player::Update(double dt, Vector3 mousepos)
 	}
 
 	static bool switch_weapon = false;
-	if (Application::IsMousePressed(1) && !switch_weapon && SideWeapon != nullptr && !dashing)
+	if (Application::IsMousePressed(1) && !switch_weapon && !dashing)
 	{
 		CurrWeapon->GetGameObject()->visible = false;
 		SwapWeapon();
@@ -275,6 +276,7 @@ void Player::Attack(Vector3 mousepos)
 				if (m_enemyList[idx] == hitlist[idx1])
 				{
 					hitb4 = true;
+					hitb4 = true;
 					break;
 				}
 			}
@@ -347,6 +349,7 @@ int Player::getEnergy()
 void Player::changeMovementSpeed(float change)
 {
 	movementspeed += change;
+	dashBoost = movementspeed * 1.5f;
 }
 
 void Player::changeEnergy(float energyChange)
@@ -356,13 +359,16 @@ void Player::changeEnergy(float energyChange)
 
 void Player::SwapWeapon()
 {
-	Weapon* tempwep = CurrWeapon;
-	CurrWeapon = SideWeapon;
-	SideWeapon = tempwep;
-	cSoundController->StopPlayByID(12);
-	cSoundController->PlaySoundByID(12);
+	if (SideWeapon != nullptr)
+	{
+		Weapon* tempwep = CurrWeapon;
+		CurrWeapon = SideWeapon;
+		SideWeapon = tempwep;
+		cSoundController->StopPlayByID(12);
+		cSoundController->PlaySoundByID(12);
+	}
 
-	if (cGameManager->weptype != 0)
+	if (cGameManager->sideweptype != 0)
 	{
 		int temptype = cGameManager->weptype;
 		cGameManager->weptype = cGameManager->sideweptype;
@@ -386,3 +392,7 @@ GameObject* Player::getPlayer()
 	return gameobject;
 }
 
+void Player::SetSideWeapon(Weapon* sidewep)
+{
+	SideWeapon = sidewep;
+}
