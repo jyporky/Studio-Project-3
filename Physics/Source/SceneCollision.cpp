@@ -92,7 +92,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 1;
+	wave = 6;
 	
 
 	rate = SetRate();
@@ -170,31 +170,18 @@ void SceneCollision::Init()
 	//player->GetWeapon()->SetGameObject(weapon1);
 	//player->SwapWeapon();
 
-	BoxingGloves* sword = new BoxingGloves();
+	Sword* sword = new Sword();
 	player->SetWeapon(sword);
 	GameObject* weapon2 = FetchGO();
-	weapon2->type = GameObject::GO_BOXINGGLOVES;
+	weapon2->type = GameObject::GO_SWORD;
 	weapon2->pos.SetZero();
 	weapon2->vel.SetZero();
-	weapon2->scale.Set(6, 6, 1);
+	weapon2->scale.Set(10, 10, 1);
 	weapon2->angle = 0;
 	weapon2->color.Set(1, 1, 1);
 	weapon2->leftwep = false;
-	cGameManager->weptype = Weapon::BOXING_GLOVES;
+	cGameManager->weptype = Weapon::SWORD;
 	player->GetWeapon()->SetGameObject(weapon2);
-
-	//Sword* sword = new Sword();
-	//player->SetWeapon(sword);
-	//GameObject* weapon2 = FetchGO();
-	//weapon2->type = GameObject::GO_SWORD;
-	//weapon2->pos.SetZero();
-	//weapon2->vel.SetZero();
-	//weapon2->scale.Set(10, 10, 1);
-	//weapon2->angle = 0;
-	//weapon2->color.Set(1, 1, 1);
-	//weapon2->leftwep = false;
-	//cGameManager->weptype = Weapon::SWORD;
-	//player->GetWeapon()->SetGameObject(weapon2);
 
 	////spawn one enemy
 	//Enemy* enemy = new Swordsman();

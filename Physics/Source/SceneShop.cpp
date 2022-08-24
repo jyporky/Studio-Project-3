@@ -559,10 +559,10 @@ void SceneShop::Update(double dt)
 			{
 			case 0:
 				//buy boxing glove
-				if ((player->getMoney() >= boxingGlove->GetCost()) && (boxingGloveBought == false))
+				if ((player->getMoney() >= boxingGlove->GetCost()) && (cGameManager->boxingGloveBought == false))
 				{
 					player->changeMoney(-boxingGlove->GetCost());
-					boxingGloveBought = true;
+					cGameManager->boxingGloveBought = true;
 					cInventoryItem = cInventoryManager->GetItem("boxingglove");
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
@@ -598,7 +598,6 @@ void SceneShop::Update(double dt)
 						cGameManager->sideweptype = Weapon::RIFLE;
 						cGameManager->buyFirstWep = false;
 					}
-				}
 				break;
 			case 2:
 				//buy flamethrower
