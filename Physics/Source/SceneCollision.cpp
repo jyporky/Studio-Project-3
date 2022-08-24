@@ -874,7 +874,7 @@ void SceneCollision::Update(double dt)
 			bulletgo->color.Set(1, 1, 1);
 			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
 			bullet->SetGameObject(bulletgo);
-			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage() + player->rangeDmgBoost, m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer);
+			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage(), m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer);
 			m_ebulletList.push_back(bullet);
 		}
 		if (blackhole) {
@@ -934,7 +934,7 @@ void SceneCollision::Update(double dt)
 			}
 			if (CheckCollision(m_pbulletList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
-				m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage());
+				m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage() - player->rangeDmgBoost);
 				if (!m_pbulletList[idx]->GetPenetrationValue())
 				{
 					//delete the bullet

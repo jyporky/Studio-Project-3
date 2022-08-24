@@ -582,22 +582,16 @@ void SceneShop::Update(double dt)
 					cInventoryItem = cInventoryManager->GetItem("rifle");
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
-					
-				}
-				else
-				{
-					cSoundController->PlaySoundByID(13);
-				}
-				if (cGameManager->buyFirstWep)
-				{
-					cGameManager->sideweptype = Weapon::RIFLE;
-					cGameManager->buyFirstWep = false;
-				}
 					if (cGameManager->buyFirstWep)
 					{
 						cGameManager->sideweptype = Weapon::RIFLE;
 						cGameManager->buyFirstWep = false;
 					}
+				}
+				else
+				{
+					cSoundController->PlaySoundByID(13);
+				}
 				break;
 			case 2:
 				//buy flamethrower
