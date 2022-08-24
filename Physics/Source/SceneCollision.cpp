@@ -156,20 +156,6 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	//player->SetWeapon(new Flamethrower());
-	//GameObject* weapon1 = FetchGO();
-	//weapon1->type = GameObject::GO_FLAMETHROWER;
-	//weapon1->pos.SetZero();
-	//weapon1->vel.SetZero();
-	//weapon1->scale.Set(8, 3, 1);
-	//weapon1->angle = 0;
-	//weapon1->color.Set(1, 1, 1);
-	//weapon1->leftwep = false;
-	//cGameManager->sideweptype = Weapon::FLAMETHROWER;
-	//cGameManager->weptype = 0;
-	//player->GetWeapon()->SetGameObject(weapon1);
-	//player->SwapWeapon();
-
 	Sword* sword = new Sword();
 	player->SetWeapon(sword);
 	GameObject* weapon2 = FetchGO();
@@ -182,61 +168,6 @@ void SceneCollision::Init()
 	weapon2->leftwep = false;
 	cGameManager->weptype = Weapon::SWORD;
 	player->GetWeapon()->SetGameObject(weapon2);
-
-	////spawn one enemy
-	//Enemy* enemy = new Swordsman();
-	//enemy->Init();
-	//GameObject* enemyGO = FetchGO();
-	//enemyGO->type = GameObject::GO_SWORDSMAN;
-	//enemyGO->pos = Vector3(m_worldWidth / 2, m_worldHeight / 2, 0);
-	//enemyGO->vel.SetZero();
-	//enemyGO->scale.Set(10, 10, 1);
-	//enemyGO->color.Set(1, 1, 1);
-	//enemyGO->angle = 0;
-	//enemy->SetWeapon(new Sword());
-	//enemy->SetGameObject(enemyGO);
-	//m_enemyList.push_back(enemy);
-
-	//GameObject* ewep = FetchGO();
-	//ewep->type = GameObject::GO_SWORD;
-	//ewep->vel.SetZero();
-	//ewep->scale.Set(10, 10, 1);
-	//ewep->pos = enemyGO->pos;
-	//ewep->color.Set(1, 1, 1);
-	//ewep->angle = 0;
-	//ewep->active = true;
-	//ewep->leftwep = false;
-	//enemy->GetWeapon()->SetGameObject(ewep);
-
-	//// spawn rifler enemy
-	//Enemy* enemy2 = new Rifler();
-	//enemy2->Init();
-	//GameObject* enemy2GO = FetchGO();
-	//enemy2GO->type = GameObject::GO_RIFLER;
-	//enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
-	//enemy2GO->vel.SetZero();
-	//enemy2GO->scale.Set(10, 10, 1);
-	//enemy2GO->color.Set(1, 1, 1);
-	//enemy2GO->angle = 0;
-	//enemy2->SetWeapon(new Rifle());
-	//enemy2->SetGameObject(enemy2GO);
-	//m_enemyList.push_back(enemy2);
-	
-	
-	
-
-	
-
-	/*blackhole = FetchGO();
-	blackhole->type = GameObject::GO_BLACKHOLE;
-	blackhole->pos = player->GetGameObject()->pos;
-	blackhole->vel.SetZero();
-	blackhole->scale.Set(12, 12, 1);
-	blackhole->color.Set(1, 1, 1);
-	blackhole->angle = 0;
-	blackhole->active = true;*/
-	/*offset.Set(weapon->scale.x * 0.2, -weapon->scale.y * 0.4, 0);*/
-	//MakeThickWall(10, 40, Vector3(0, 1, 0), Vector3(m_worldWidth / 2, m_worldHeight / 2, 0.f));
 
 	colorsize = 3;
 	for (unsigned i = 0; i < colorsize; ++i)
