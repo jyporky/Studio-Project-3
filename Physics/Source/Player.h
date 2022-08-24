@@ -43,7 +43,7 @@ public:
 	{
 		return dashBoost;
 	}
-
+	void setMovementSpeed(int ms);
 	int meleeDmgBoost;
 	int rangeDmgBoost;
 	bool dashing;

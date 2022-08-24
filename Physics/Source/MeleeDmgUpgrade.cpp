@@ -18,3 +18,7 @@ int MeleeDmgUpgrade::getUpgradeLevel()
 {
 	return noOfTimesUpgraded;
 }
+void MeleeDmgUpgrade::resetNoOfTimesUpgraded()
+{
+	noOfTimesUpgraded = 0;
+}

@@ -61,7 +61,6 @@ public:
 		GEO_COMPUTER,
 
 		GEO_TELEPORT_PAD,
-		GEO_PAUSE,
 
 		// Weapons
 		GEO_SWORDL,

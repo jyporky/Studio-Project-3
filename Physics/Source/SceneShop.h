@@ -115,25 +115,12 @@ protected:
 	Weapon* flamethrower = new Flamethrower();
 	Weapon* crossbow = new Crossbow();
 
-	bool swordBought;
-	bool boxingGloveBought;
-
-	bool rifleBought;
-	bool flamethrowerBought;
-	bool crossbowBought;
-
 	//skills
 	Skill* emp = new EMP();
 	Skill* hack = new Hack();
 	Skill* heal = new Heal();
 	Skill* immortal = new Immortal();
 	Skill* overdrive = new Overdrive();
-
-	bool empBought;
-	bool hackBought;
-	bool healBought;
-	bool immortalBought;
-	bool overdriveBought;
 
 	//self upgrades
 	SelfUpgrades* movementspeedupgrade = new MovementSpeedUpgrade();
@@ -149,8 +136,6 @@ protected:
 	WeaponMods* betterFuelMod = new BetterFuelMod();
 	WeaponMods* accurateArrowsMod = new AccurateArrowsMod();
 	WeaponMods* fasterMeleeMod = new FasterMeleeMod();
-
-	
 
 	void renderWeaponUI(Vector3 pos, Vector3 scale, int object);
 	bool CheckEquip(Weapon::WEAPONTYPE wep);

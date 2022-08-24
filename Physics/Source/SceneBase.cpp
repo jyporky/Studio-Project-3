@@ -162,9 +162,6 @@ void SceneBase::Init()
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
 	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");	
 
-	meshList[GEO_PAUSE] = MeshBuilder::GenerateQuad("pause", Color(1, 1, 1));
-	meshList[GEO_PAUSE]->textureID = LoadTGA("Image//pause.tga");
-
 	meshList[GEO_HOTBAR] = MeshBuilder::GenerateQuad("hotbar", Color(1, 1, 1));
 	meshList[GEO_HOTBAR]->textureID = LoadTGA("Image//hotbar.tga");	
 

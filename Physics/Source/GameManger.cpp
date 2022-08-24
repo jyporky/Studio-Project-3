@@ -13,6 +13,28 @@ GameManger::GameManger()
 	weptype = Weapon::NONE;
 	sideweptype = Weapon::NONE;
 
+	reset = false;
+	//self upgrades
+	speedUpgradeBought = false;
+	healthUpgradeBought = false;
+	meleeUpgradeBought = false;
+	rangeUpgradeBought = false;
+
+	//skills
+	empBought = false;
+	hackBought = false;
+	healBought = false;
+	immortalBought = false;
+	overdriveBought = false;
+
+	//weapons
+	boxingGloveBought = false;
+
+	rifleBought = false;
+	flamethrowerBought = false;
+	crossbowBought = false;
+
+	//weapon upgrades
 	pierceBought = false;
 	fastfireBought = false;
 	fastbulletBought = false;

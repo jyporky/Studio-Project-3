@@ -352,6 +352,11 @@ void Player::changeMovementSpeed(float change)
 	dashBoost = movementspeed * 1.5f;
 }
 
+void Player::setMovementSpeed(int ms)
+{
+	movementspeed = ms;
+}
+
 void Player::changeEnergy(float energyChange)
 {
 	energy += energyChange;

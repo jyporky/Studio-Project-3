@@ -114,6 +114,7 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 10, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\Shieldblock.ogg"), 11, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\switch_weapon.ogg"), 12, false);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\errorSound.ogg"), 13, false);
 
 
 	cInventoryManager = CInventoryManager::GetInstance();
@@ -392,11 +393,33 @@ void SceneCollision::ResetLevel()
 
 	meshList[GEO_TELEPORT_PAD]->material.kAmbient.Set(1, 1, 1);
 
+	player->setMovementSpeed(40);
+	player->SetMaxHealth(100);
+	player->meleeDmgBoost = 0;
+	player->rangeDmgBoost = 0;
+
+
+
 	strengthPotTimer = 30;
 	speedPotTimer = 30;
 
 	strengthPotUsed = false;
 	speedPotUsed = false;
+
+	cGameManager->reset = true;
+
+
+
+	cGameManager->empBought = false;
+	cGameManager->hackBought = false;
+	cGameManager->healBought = false;
+	cGameManager->immortalBought = false;
+	cGameManager->overdriveBought = false;
+
+	cGameManager->boxingGloveBought = false;
+	cGameManager->rifleBought = false;
+	cGameManager->flamethrowerBought = false;
+	cGameManager->crossbowBought = false;
 
 	cGameManager->pierceBought = false;
 	cGameManager->fastfireBought = false;
@@ -421,6 +444,7 @@ void SceneCollision::Update(double dt)
 	Application::GetCursorPos(&x, &y);
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
 	
+	
 
 	SceneBase::Update(dt);
 	//std::cout << ImmortalitySkill->getState() << std::endl;
@@ -436,6 +460,13 @@ void SceneCollision::Update(double dt)
 		}
 		return;
 	}
+
+	//to go shop for debugging
+	if (Application::IsKeyPressed('H'))
+	{
+		Application::SetState(3);
+	}
+
 	//pause
 	static bool qbutton = false;
 	if ((Application::IsKeyPressed('Q')) && (!qbutton))
@@ -474,6 +505,7 @@ void SceneCollision::Update(double dt)
 			color[i].Set(1, 1, 1);
 		}
 	}
+	//to test dying
 	if (Application::IsKeyPressed('P'))
 	{
 		player->ChangeHealth(-200);
@@ -1753,7 +1785,7 @@ void SceneCollision::Exit()
 
 GameObject* SceneCollision::Checkborder(GameObject* go)
 {
-	float offset = 10;
+	float offset = 7.5;
 	if (go->pos.x + go->scale.x / 2 > m_worldWidth - offset)
 	{
 		go->pos.x = m_worldWidth - go->scale.x / 2 - offset;

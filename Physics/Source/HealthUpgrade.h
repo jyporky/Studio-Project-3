@@ -7,6 +7,7 @@ public:
 	virtual int getUpgradeLevel();
 	virtual std::string getDescription();
 	virtual int getMoneyCost();
+	virtual void resetNoOfTimesUpgraded();
 	HealthUpgrade();
 	~HealthUpgrade();
 protected:

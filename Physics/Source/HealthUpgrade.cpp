@@ -20,3 +20,7 @@ int HealthUpgrade::getUpgradeLevel()
 {
 	return noOfTimesUpgraded;
 }
+void HealthUpgrade::resetNoOfTimesUpgraded()
+{
+	noOfTimesUpgraded = 0;
+}
