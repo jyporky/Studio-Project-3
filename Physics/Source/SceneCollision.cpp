@@ -865,7 +865,7 @@ void SceneCollision::Update(double dt)
 			}
 			if (CheckCollision(m_pbulletList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
-				if (m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage()))
+				if (m_enemyList[idx1]->ChangeHealth(-m_pbulletList[idx]->GetDamage() - player->rangeDmgBoost))
 				{
 					//for explosive bullets
 					if (m_pbulletList[idx]->isExplosive)
@@ -876,7 +876,7 @@ void SceneCollision::Update(double dt)
 							if ((m_enemyList[idx2]->GetGameObject()->pos - m_pbulletList[idx]->GetGameObject()->pos).LengthSquared() <= m_pbulletList[idx]->explosionRadius * m_pbulletList[idx]->explosionRadius)
 							{
 								//deal damage to the enemy
-								m_enemyList[idx2]->ChangeHealth(-m_pbulletList[idx]->GetDamage());
+								m_enemyList[idx2]->ChangeHealth(-m_pbulletList[idx]->GetDamage() - player->rangeDmgBoost);
 							}
 						}
 					}
