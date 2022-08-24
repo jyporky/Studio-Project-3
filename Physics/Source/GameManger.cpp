@@ -5,7 +5,7 @@ GameManger::GameManger()
 	bPlayerLost = false;
 	bDebug = false;
 	dWaveNo = 1;
-	waveClear = false;
+	waveClear = true;
 	outShop = false;
 	eButtonState = false;
 	switchWeapon = false;

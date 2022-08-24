@@ -18,6 +18,8 @@ Enemy::Enemy()
     attackSpeed = 0;
     iFrameTimer = 0;
     greenTimer = 0;
+    kbTimer = 0;
+    kbEffect.SetZero();
     isSpawningBullet = false;
 }
 

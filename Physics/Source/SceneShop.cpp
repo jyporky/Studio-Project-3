@@ -524,20 +524,19 @@ void SceneShop::Update(double dt)
 			{
 			case 0:
 				//buy boxing glove
-				//if ((player->getMoney() >= boxingGlove->GetCost()) && (boxingGloveBought == false))
-				//{
-				//	player->changeMoney(-boxingGlove->GetCost());
-				//	boxingGloveBought = true;
-				//	cInventoryItem = cInventoryManager->GetItem("boxingglove");
-				//	cSoundController->PlaySoundByID(10);
-				//	cInventoryItem->Add(1);
-				//}
-
-				//if (cGameManager->buyFirstWep)
-				//{
-				//	cGameManager->sideweptype = Weapon::BOXING_GLOVES;
-				//	cGameManager->buyFirstWep = false;
-				//}
+				if ((player->getMoney() >= boxingGlove->GetCost()) && (boxingGloveBought == false))
+				{
+					player->changeMoney(-boxingGlove->GetCost());
+					boxingGloveBought = true;
+					cInventoryItem = cInventoryManager->GetItem("boxingglove");
+					cSoundController->PlaySoundByID(10);
+					cInventoryItem->Add(1);
+					if (cGameManager->buyFirstWep)
+					{
+						cGameManager->sideweptype = Weapon::BOXING_GLOVES;
+						cGameManager->buyFirstWep = false;
+					}
+				}
 				break;
 			case 1:
 				//buy rifle
@@ -548,12 +547,11 @@ void SceneShop::Update(double dt)
 					cInventoryItem = cInventoryManager->GetItem("rifle");
 					cSoundController->PlaySoundByID(10);
 					cInventoryItem->Add(1);
-				}
-
-				if (cGameManager->buyFirstWep)
-				{
-					cGameManager->sideweptype = Weapon::RIFLE;
-					cGameManager->buyFirstWep = false;
+					if (cGameManager->buyFirstWep)
+					{
+						cGameManager->sideweptype = Weapon::RIFLE;
+						cGameManager->buyFirstWep = false;
+					}
 				}
 				break;
 			case 2:
@@ -2321,6 +2319,15 @@ void SceneShop::renderWeaponUI(Vector3 pos, Vector3 scale, int object)
 		modelStack.Scale(scale.x - 2, scale.y - 2, scale.z);
 		meshList[GEO_CROSSBOW]->material.kAmbient.Set(1, 1, 1);
 		RenderMesh(meshList[GEO_CROSSBOW], true);
+		modelStack.PopMatrix();
+		break;
+
+	case Weapon::BOXING_GLOVES:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x - 2, scale.y - 2, scale.z);
+		meshList[GEO_BOXINGGLOVE_RIGHT]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_BOXINGGLOVE_RIGHT], true);
 		modelStack.PopMatrix();
 		break;
 	}

@@ -25,6 +25,7 @@ struct GameObject
 		GO_RIFLE,
 		GO_CROSSBOW,
 		GO_ARROW,
+		GO_BOXINGGLOVES,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;
