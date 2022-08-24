@@ -2,6 +2,7 @@
 
 Swordsman::Swordsman()
 {
+    //init variables
     health = 20;
     redTimer = 0;
     movementSpeed = 20;
@@ -19,6 +20,7 @@ Swordsman::Swordsman()
     kbTimer = 0;
     kbEffect.SetZero();
     enemytype = SWORDMAN;
+    switchtime = 0;
 }
 
 Swordsman::~Swordsman()

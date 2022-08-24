@@ -86,7 +86,7 @@ protected:
 	std::vector<Bullet*> m_ebulletList;
 	std::vector<Bullet*> m_pbulletList;
 
-	std::vector<Weapon*> m_weaponList;
+	//std::vector<Weapon*> m_weaponList;
 	std::vector<FlameParticle*> m_FlameParticle;
 
 	std::vector<Arrow*> m_parrowList;

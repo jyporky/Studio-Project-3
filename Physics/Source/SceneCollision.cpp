@@ -485,6 +485,46 @@ void SceneCollision::Update(double dt)
 		player->getPlayer()->pos.x = m_worldWidth / 2;
 		player->getPlayer()->pos.y = 12;
 		cGameManager->eButtonState;
+		
+		//clear the projectiles
+		while (m_ebulletList.size() != 0)
+		{
+			ReturnGO(m_ebulletList.back()->GetGameObject());
+			delete m_ebulletList.back();
+			m_ebulletList.pop_back();
+		}
+		while (m_pbulletList.size() != 0)
+		{
+			ReturnGO(m_pbulletList.back()->GetGameObject());
+			delete m_pbulletList.back();
+			m_pbulletList.pop_back();
+		}
+		while (m_parrowList.size() != 0)
+		{
+			ReturnGO(m_parrowList.back()->GetGameObject());
+			delete m_parrowList.back();
+			m_parrowList.pop_back();
+		}
+		while (m_FlameParticle.size() != 0)
+		{
+			ReturnGO(m_FlameParticle.back()->GetGameObject());
+			delete m_FlameParticle.back();
+			m_FlameParticle.pop_back();
+		}
+
+
+		//remove the particles
+		for (unsigned idx = 0; idx < m_goList.size(); idx++)
+		{
+			if (!m_goList[idx]->active)
+				continue;
+
+			if (m_goList[idx]->type != GameObject::GO_DEATH_PARTICLE)
+				continue;
+
+			ReturnGO(m_goList[idx]);
+		}
+
 	}
 	else if (!Application::IsKeyPressed('E') && e)
 		e = false;
