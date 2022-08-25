@@ -23,11 +23,6 @@ Entity::~Entity()
 		delete SideWeapon;
 		SideWeapon = nullptr;
 	}
-
-	if (Target) {
-		delete Target;
-		Target = nullptr;
-	}
 }
 
 bool Entity::Update(double dt)
