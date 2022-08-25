@@ -665,11 +665,7 @@ void SceneCollision::Update(double dt)
 	}
 
 
-		HackSkill->UseSkill();
-		doppelganger->GetWeapon()->SetGameObject(ewep2);
-		test = true;
-		test2++;*/
-	}
+	
 	if (test && test2 < 2) {
 		doppelganger = new DoppelgangerAlly();
 		doppelganger->Init();
