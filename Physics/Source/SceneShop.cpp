@@ -379,7 +379,7 @@ void SceneShop::Update(double dt)
 					{
 						player->changeMoney(-movementspeedupgrade->getMoneyCost());
 						movementspeedupgrade->receiveUpgrade();
-						player->changeMovementSpeed(10); 
+						player->changeMovementSpeed(5); 
 						cSoundController->PlaySoundByID(10);
 					}
 					else

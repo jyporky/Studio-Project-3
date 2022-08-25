@@ -76,6 +76,7 @@ public:
 	void renderUI();
 	void renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* object);
 	void renderSkillUI(Vector3 pos, Vector3 scale, int object);
+	void spawnBlackhole();
 
 	bool test;
 	int test2;
@@ -139,7 +140,10 @@ protected:
 	bool speedPotUsed;
 
 	float empTimer;
+	float hackTimer;
 	float immortalTimer;
+	float blackholeTimer;
+	bool blackholeUsed;
 };
 
 #endif

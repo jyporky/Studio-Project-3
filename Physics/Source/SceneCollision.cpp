@@ -184,7 +184,10 @@ void SceneCollision::Init()
 	speedPotUsed = false;
 
 	empTimer = 0;
+	hackTimer = 0;
 	immortalTimer = 0;
+	blackholeTimer = 0;
+	blackholeUsed = false;
 }
 
 GameObject* SceneCollision::FetchGO()
@@ -559,13 +562,34 @@ void SceneCollision::Update(double dt)
 	{
 		EMPSkill->resetStun();
 	}
-	std::cout << empTimer << std::endl;
+
+	hackTimer -= dt;
+	if (hackTimer <= 0)
+	{
+		HackSkill->resetHack();
+	}
 
 	immortalTimer -= dt;
 	if (immortalTimer <= 0)
 	{
 		ImmortalitySkill->resetImmortality();
 	}
+
+	if (blackhole) 
+	{
+		if (blackholeUsed)
+		{
+			blackholeTimer -= dt;
+		}
+		if (blackholeTimer <= 0)
+		{
+			blackholeUsed = false;
+			ReturnGO(blackhole);
+			BlackholeSkill->resetBlackhole();
+			blackhole = nullptr;
+		}
+	}
+
 	static bool qbutton = false;
 	if ((Application::IsKeyPressed('Q')) && (!qbutton))
 	{
@@ -585,10 +609,11 @@ void SceneCollision::Update(double dt)
 			}
 			break;
 		case Skill::HACK:
-			if (player->getEnergy() >= HackSkill->getEnergyCost())
+			if ((player->getEnergy() >= HackSkill->getEnergyCost()) && (hackTimer <= 0))
 			{
 				HackSkill->UseSkill();
 				player->changeEnergy(-HackSkill->getEnergyCost());
+				hackTimer = 10;
 			}
 			else
 			{
@@ -619,10 +644,13 @@ void SceneCollision::Update(double dt)
 			}
 			break;
 		case Skill::BLACKHOLE:
-			if (player->getEnergy() >= BlackholeSkill->getEnergyCost())
+			if ((player->getEnergy() >= BlackholeSkill->getEnergyCost()) && (blackholeTimer <= 0) && (blackholeUsed == false))
 			{
 				BlackholeSkill->UseSkill();
+				spawnBlackhole();
 				player->changeEnergy(-BlackholeSkill->getEnergyCost());
+				blackholeTimer = 3;
+				blackholeUsed = true;
 			}
 			else
 			{
@@ -639,10 +667,13 @@ void SceneCollision::Update(double dt)
 		qbutton = false;
 	}
 
+
+
+
 	if (Application::IsKeyPressed('T')) {
 		//ImmortalitySkill->UseSkill();
 		//EMPSkill->UseSkill();
-		HackSkill->UseSkill();
+		//HackSkill->UseSkill();
 	/*	blackhole = FetchGO();
 		blackhole->type = GameObject::GO_BLACKHOLE;
 		blackhole->pos = player->GetGameObject()->pos;
@@ -1871,9 +1902,9 @@ void SceneCollision::renderUI()
 
 	
 
-	Vector3 wep1 = Vector3(16, 15, 1);
-	Vector3 wep2 = Vector3(26, 15, 1);
-	Vector3 skillVec = Vector3(36, 15, 1);
+	Vector3 wep1 = Vector3(16, 7, 1);
+	Vector3 wep2 = Vector3(26, 7, 1);
+	Vector3 skillVec = Vector3(36, 7, 1);
 	Vector3 scale = Vector3(10, 10, 1);
 	Vector3 scale2 = Vector3(7, 7, 1);
 	// render hotbar
@@ -1907,7 +1938,7 @@ void SceneCollision::renderUI()
 
 	ss.str("");
 	ss << "[Q]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 5);
 
 
 	//potions
@@ -2614,4 +2645,16 @@ void SceneCollision::NewWeapon(int weptype, bool MainWep)
 		player->SetSideWeapon(wep);
 		player->GetSideWeapon()->SetGameObject(weapon);
 	}
+}
+
+void SceneCollision::spawnBlackhole()
+{
+	blackhole = FetchGO();
+	blackhole->type = GameObject::GO_BLACKHOLE;
+	blackhole->pos = player->GetGameObject()->pos;
+	blackhole->vel.SetZero();
+	blackhole->scale.Set(12, 12, 1);
+	blackhole->color.Set(1, 1, 1);
+	blackhole->angle = 0;
+	//blackhole->active = true;
 }
