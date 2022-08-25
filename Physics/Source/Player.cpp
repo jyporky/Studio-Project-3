@@ -220,7 +220,7 @@ bool Player::ChangeHealth(int ChangeAmount)
 
 	if (ChangeAmount > 0 && health == maxHealth)
 		return false;
-	bool godmode = true;
+	bool godmode = false;
 	if (godmode)
 		return false;
 

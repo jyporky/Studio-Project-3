@@ -221,6 +221,9 @@
     <ClCompile Include="Source\BlackholeSkill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Necromancer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -440,6 +443,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\BlackholeSkill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Necromancer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

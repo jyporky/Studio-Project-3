@@ -23,6 +23,11 @@ Entity::~Entity()
 		delete SideWeapon;
 		SideWeapon = nullptr;
 	}
+
+	if (Target) {
+		delete Target;
+		Target = nullptr;
+	}
 }
 
 bool Entity::Update(double dt)
@@ -156,4 +161,13 @@ bool Entity::getStunned() {
 }
 void Entity::makeEnemyStunned() {
 	return;
+}
+bool Entity::getTurnedState() {
+	return false;
+}
+void Entity::turnEnemy() {
+	return;
+}
+Entity* Entity::getTarget() {
+	return Target;
 }

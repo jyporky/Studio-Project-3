@@ -92,7 +92,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 10;
+	wave = 5;
 	
 
 	rate = SetRate();
@@ -555,8 +555,9 @@ void SceneCollision::Update(double dt)
 	}
 
 	if (Application::IsKeyPressed('T')) {
-		ImmortalitySkill->UseSkill();
+		//ImmortalitySkill->UseSkill();
 		//EMPSkill->UseSkill();
+		HackSkill->UseSkill();
 	/*	blackhole = FetchGO();
 		blackhole->type = GameObject::GO_BLACKHOLE;
 		blackhole->pos = player->GetGameObject()->pos;
@@ -763,11 +764,16 @@ void SceneCollision::Update(double dt)
 		}
 	}
 	//update enemy
+	
 	for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 	{
 		if (EMPSkill->getStunState() == true) {
 			m_enemyList[idx]->makeEnemyStunned();
 		}
+		if (HackSkill->getHackingState()) {
+			m_enemyList[idx]->turnEnemy();
+		}
+		Enemy::SetEnemyVector(m_enemyList);
 		if (m_enemyList[idx]->Update(dt))
 		{
 			unsigned particlespeed = 4;
@@ -824,9 +830,9 @@ void SceneCollision::Update(double dt)
 		if (m_enemyList[idx]->IsSpawningBullet())
 		{
 			Vector3 shootPlayer;
-			if (!InterceptionDirection(player->GetGameObject()->pos, m_enemyList[idx]->GetGameObject()->pos, player->GetGameObject()->vel, m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), shootPlayer))
+			if (!InterceptionDirection(m_enemyList[idx]->getTarget()->GetGameObject()->pos, m_enemyList[idx]->GetGameObject()->pos, m_enemyList[idx]->getTarget()->GetGameObject()->vel, m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), shootPlayer))
 			{
-				shootPlayer = (player->getPlayer()->pos - m_enemyList[idx]->GetGameObject()->pos).Normalize();
+				shootPlayer = (m_enemyList[idx]->getTarget()->GetGameObject()->pos - m_enemyList[idx]->GetGameObject()->pos).Normalize();
 			}
 
 			Bullet* bullet = new Bullet;
@@ -845,8 +851,11 @@ void SceneCollision::Update(double dt)
 			bulletgo->color.Set(1, 1, 1);
 			bulletgo->angle = m_enemyList[idx]->GetWeapon()->GetGameObject()->angle;
 			bullet->SetGameObject(bulletgo);
-			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage(), m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer);
-			m_ebulletList.push_back(bullet);
+			bullet->SetBullet(m_enemyList[idx]->GetWeapon()->GetBulletSpeed(), m_enemyList[idx]->GetWeapon()->GetDamage() + player->rangeDmgBoost, m_enemyList[idx]->GetWeapon()->GetPiercing(), m_enemyList[idx]->GetWeapon()->GetRange(), shootPlayer);
+			if (m_enemyList[idx]->getTurnedState())
+				m_pbulletList.push_back(bullet);
+			else
+				m_ebulletList.push_back(bullet);
 		}
 		if (blackhole) {
 			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {

@@ -27,6 +27,10 @@ public:
 	virtual float GetAngle();
 	virtual bool getStunned();
 	virtual void makeEnemyStunned();
+	virtual bool getTurnedState();
+	virtual void turnEnemy();
+	virtual Entity* getTarget();
+	static void SetEnemyVector(std::vector<Entity*> m_enemyList);
 protected:
 	static std::vector<Entity*> m_enemyList;
 	unsigned enemytype;

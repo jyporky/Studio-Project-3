@@ -194,6 +194,7 @@
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\MovementSpeedUpgrade.cpp" />
+    <ClCompile Include="Source\Necromancer.cpp" />
     <ClCompile Include="Source\OverdriveSkill.cpp" />
     <ClCompile Include="Source\PiercingBulletMod.cpp" />
     <ClCompile Include="Source\Player.cpp" />
@@ -267,6 +268,7 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MovementSpeedUpgrade.h" />
+    <ClInclude Include="Source\Necromancer.h" />
     <ClInclude Include="Source\OverdriveSkill.h" />
     <ClInclude Include="Source\PiercingBulletMod.h" />
     <ClInclude Include="Source\Player.h" />

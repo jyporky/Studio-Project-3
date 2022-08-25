@@ -1,35 +1,30 @@
 #pragma once
 #include "Enemy.h"
 
-class ShieldEnemy : public Enemy
+
+class Necromancer :
+    public Enemy
 {
 public:
-    enum SHEILDSTATES {
+    enum NECROMANCER_STATES {
         IDLE,
         CHASE,
-        ATTACK,
+        SPAWNENEMY,
+        NUM_SM_STATES,
     };
-    ShieldEnemy();
-    ~ShieldEnemy();
+    Necromancer();
+    ~Necromancer();
     bool Update(double dt);
     void Init();
     void SetWeapon(Weapon* weapon);
     Weapon* GetWeapon();
-    float GetAngle()
-    {
-        return angle;
-    }
-    
     bool getStunned();
     void makeEnemyStunned();
     void turnEnemy();
 private:
     unsigned sCurrState;
     unsigned attackRange;
-    float angle;
-    float shieldturningrate;
     float switchtime;
     bool moveleft = true;
     float leftdt = 0;
 };
-
