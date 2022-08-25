@@ -302,8 +302,8 @@ void Player::Attack(Vector3 mousepos)
 			{
 				Bullet* testbullet = new Bullet();
 				testbullet->SetGameObject(new GameObject);
-				testbullet->GetGameObject()->pos = gameobject->pos;
-				//testbullet->GetGameObject()->pos += (m_enemyList[idx]->GetGameObject()->pos - gameobject->pos).Normalize() * 2;
+				testbullet->GetGameObject()->pos = m_enemyList[idx]->GetGameObject()->pos;
+				testbullet->GetGameObject()->pos += (gameobject->pos - m_enemyList[idx]->GetGameObject()->pos).Normalize();
 
 				if (Entity::CheckShieldCollision(testbullet, m_enemyList[idx]))
 				{
