@@ -32,7 +32,11 @@ public:
 
 	virtual bool getStunned();
 	virtual void makeEnemyStunned();
+	virtual bool getTurnedState();
+	virtual void turnEnemy();
+	virtual Entity* getTarget();
 protected:
+	Entity* Target;
 	GameObject* gameobject;
 	Weapon* CurrWeapon;
 	Weapon* SideWeapon;

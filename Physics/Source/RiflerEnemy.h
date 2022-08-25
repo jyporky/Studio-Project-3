@@ -22,8 +22,11 @@ public:
     bool IsSpawningBullet();
     bool getStunned();
     void makeEnemyStunned();
+    bool getTurnedState();
+    void turnEnemy();
+    Entity* getTarget();
 protected:
-    
+   
 private:
     bool isSpawningBullet;
     unsigned sCurrState;

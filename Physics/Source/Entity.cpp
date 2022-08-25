@@ -157,3 +157,12 @@ bool Entity::getStunned() {
 void Entity::makeEnemyStunned() {
 	return;
 }
+bool Entity::getTurnedState() {
+	return false;
+}
+void Entity::turnEnemy() {
+	return;
+}
+Entity* Entity::getTarget() {
+	return Target;
+}

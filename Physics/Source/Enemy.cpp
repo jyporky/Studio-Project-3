@@ -2,6 +2,7 @@
 
 Player* Enemy::PlayerPointer = Player::GetInstance();
 GameManger* Enemy::cGameManager = GameManger::GetInstance();
+std::vector<Entity*> Enemy::m_enemyList;
 
 Enemy::Enemy()
 {
@@ -118,4 +119,17 @@ bool Enemy::getStunned() {
 }
 void Enemy::makeEnemyStunned() {
     return;
+}
+
+bool Enemy::getTurnedState() {
+    return false;
+}
+void Enemy::turnEnemy() {
+    return;
+}
+void Enemy::SetEnemyVector(std::vector<Entity*> m_enemyList) {
+    Enemy::m_enemyList = m_enemyList;
+}
+Entity* Enemy::getTarget() {
+    return Target;
 }

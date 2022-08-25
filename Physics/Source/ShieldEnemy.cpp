@@ -25,6 +25,7 @@ ShieldEnemy::ShieldEnemy()
     switchtime = 0;
     moveleft = true;
     leftdt = 0;
+    turned = false;
 }
 
 ShieldEnemy::~ShieldEnemy()
@@ -80,49 +81,63 @@ bool ShieldEnemy::Update(double dt)
     if (isStunned)
         sCurrState = IDLE;
 
-    Entity* Target = PlayerPointer;
+    Target = nullptr;
     if (turned)
     {
-        //find an enemy to target
+        for (unsigned idx = 0; idx < m_enemyList.size(); idx++) {
+            if (m_enemyList[idx] == this)
+                continue;
+            if (Target == nullptr) {
+                Target = m_enemyList[idx];
+                continue;
+            }
+            if ((m_enemyList[idx]->GetGameObject()->pos - gameobject->pos).LengthSquared() < (Target->GetGameObject()->pos - gameobject->pos).LengthSquared()) {
+                Target = m_enemyList[idx];
+            }
+        }
     }
-    Vector3 enemy2player = (PlayerPointer->GetGameObject()->pos - gameobject->pos).Normalize();
-    Vector3 enemy2shield = (CurrWeapon->GetGameObject()->pos - gameobject->pos).Normalize();
-    enemy2player.z = 0;
-    enemy2shield.z = 0;
-    if (enemy2player == Vector3(0, 0, 0))
-    {
-        enemy2player = Vector3(1, 0, 0);
+    else {
+        Target = PlayerPointer;
     }
-    float tempangle;
-    tempangle = Math::RadianToDegree(atan2(enemy2player.y, enemy2player.x) - atan2(enemy2shield.y, enemy2shield.x));
+    if (Target) {
+        Vector3 enemy2player = (Target->GetGameObject()->pos - gameobject->pos).Normalize();
+        Vector3 enemy2shield = (CurrWeapon->GetGameObject()->pos - gameobject->pos).Normalize();
+        enemy2player.z = 0;
+        enemy2shield.z = 0;
+        if (enemy2player == Vector3(0, 0, 0))
+        {
+            enemy2player = Vector3(1, 0, 0);
+        }
+        float tempangle;
+        tempangle = Math::RadianToDegree(atan2(enemy2player.y, enemy2player.x) - atan2(enemy2shield.y, enemy2shield.x));
 
-    if (tempangle > 180)
-        tempangle -= 360;
-    else if (tempangle < -180)
-        tempangle += 360;
-    if (tempangle < 3 && tempangle > -3)
-    {
-        tempangle = 0;
-    }
-    else
-    {
-        if (tempangle > 0)
-            tempangle = 1;
-        else if (tempangle < 0)
-            tempangle = -1;
-        else
+        if (tempangle > 180)
+            tempangle -= 360;
+        else if (tempangle < -180)
+            tempangle += 360;
+        if (tempangle < 3 && tempangle > -3)
+        {
             tempangle = 0;
-    }
-    angle += tempangle * dt * shieldturningrate;
+        }
+        else
+        {
+            if (tempangle > 0)
+                tempangle = 1;
+            else if (tempangle < 0)
+                tempangle = -1;
+            else
+                tempangle = 0;
+        }
+        angle += tempangle * dt * shieldturningrate;
 
-    if ((angle >= 0 && angle <= 90) || (angle >= 270 && angle <= 360))
-    {
-        gameobject->angle = 0;
-    }
-    else
-    {
-        gameobject->angle = 180;
-    }
+        if ((angle >= 0 && angle <= 90) || (angle >= 270 && angle <= 360))
+        {
+            gameobject->angle = 0;
+        }
+        else
+        {
+            gameobject->angle = 180;
+        }
 
     //ai of the enemy
     switch (sCurrState)
@@ -130,36 +145,17 @@ bool ShieldEnemy::Update(double dt)
     case IDLE:
         break;
     case CHASE:
-    {
         //chase the player
-        leftdt += dt;
-        Vector3 direction;
-        direction.SetZero();
-        direction = (Target->GetGameObject()->pos - gameobject->pos).Normalize();
-        if (moveleft)
-            direction += Vector3(-direction.y, direction.x, 0);
-        else
-            direction -= Vector3(-direction.y, direction.x, 0);
-
-        if (leftdt > switchtime)
-        {
-            leftdt = 0;
-            moveleft = !moveleft;
-        }
-
-        gameobject->pos += direction * dt * movementSpeed;
+        gameobject->pos += (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
         if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
         {
             sCurrState = ATTACK;
         }
         break;
-    }
     case ATTACK:
-        leftdt = 0;
         if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
             sCurrState = CHASE;
-
-        //check if the enemy shield is facing the player
+        //check if the enemy is facing the player
         if (enemy2player.Dot(enemy2shield) < 0)
             break;
 
@@ -167,10 +163,14 @@ bool ShieldEnemy::Update(double dt)
         //Attack the player
         if (CurrWeapon->attack())
         {
-            //deal damage to the player
-            if (PlayerPointer->iFrame == false)
-            {
-                PlayerPointer->ChangeHealth(-attackDamage);
+            if (turned) {
+                Target->ChangeHealth(-attackDamage);
+            }
+            else {
+                if (PlayerPointer->iFrame == false)
+                {
+                    PlayerPointer->ChangeHealth(-attackDamage);
+                }
             }
         }
         break;
@@ -182,11 +182,12 @@ bool ShieldEnemy::Update(double dt)
         kbTimer -= dt;
     }
     gameobject->pos.z = 0;
-    Vector3 direction = Vector3(1, 0, 0);
-    direction = RotateVector2(direction, Math::DegreeToRadian(angle));
     //move the shield
-    CurrWeapon->Update(dt, direction, Vector3(0,0,0), gameobject);
-    
+        Vector3 direction = Vector3(1, 0, 0);
+        direction = RotateVector2(direction, Math::DegreeToRadian(angle));
+        //move the shield
+        CurrWeapon->Update(dt, direction, Vector3(0, 0, 0), gameobject);
+    }
 	return false;
 }
 
@@ -212,4 +213,6 @@ bool ShieldEnemy::getStunned() {
 void ShieldEnemy::makeEnemyStunned() {
     isStunned = true;
 }
-
+void ShieldEnemy::turnEnemy() {
+    turned = true;
+}
