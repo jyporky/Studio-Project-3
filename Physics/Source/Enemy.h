@@ -30,6 +30,7 @@ public:
 	virtual bool getTurnedState();
 	virtual void turnEnemy();
 	virtual Entity* getTarget();
+	virtual bool IsSpawningSwordsman();
 	static void SetEnemyVector(std::vector<Entity*> m_enemyList);
 protected:
 	static std::vector<Entity*> m_enemyList;
@@ -49,5 +50,6 @@ protected:
 	static Player* PlayerPointer;
 	static GameManger* cGameManager;
 	bool isStunned;
+	bool isSpawningSwordsman;
 };
 

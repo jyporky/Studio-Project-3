@@ -182,6 +182,20 @@ void SceneCollision::Init()
 
 	strengthPotUsed = false;
 	speedPotUsed = false;
+
+	Enemy* enemy;
+	GameObject* enemyGO;
+	enemy = new Necromancer();
+	enemy->Init();
+	enemyGO = FetchGO();
+	enemyGO->type = GameObject::GO_NECROMANCER;
+	enemyGO->pos = (m_worldWidth / 2, m_worldHeight / 2, 1);
+	enemyGO->vel.SetZero();
+	enemyGO->scale.Set(13, 10, 1);
+	enemyGO->color.Set(1, 1, 1);
+	enemyGO->angle = 0;
+	enemy->SetGameObject(enemyGO);
+	m_enemyList.push_back(enemy);
 }
 
 GameObject* SceneCollision::FetchGO()
@@ -564,8 +578,7 @@ void SceneCollision::Update(double dt)
 		blackhole->vel.SetZero();
 		blackhole->scale.Set(12, 12, 1);
 		blackhole->color.Set(1, 1, 1);
-		blackhole->angle = 0;
-		blackhole->active = true;*/
+		blackhole->angle = 0;*/
 		/*doppelganger = new DoppelgangerAlly();
 		doppelganger->Init();
 		GameObject* enemy2GO = FetchGO();
@@ -588,12 +601,12 @@ void SceneCollision::Update(double dt)
 		ewep2->angle = 0;
 		ewep2->active = true;
 		ewep2->leftwep = false;
-		doppelganger->GetWeapon()->SetGameObject(ewep2);
-		test = true;
+		doppelganger->GetWeapon()->SetGameObject(ewep2);*/
+		/*test = true;
 		test2++;*/
 	}
 	if (test && test2 < 2) {
-		doppelganger = new DoppelgangerAlly();
+	/*	doppelganger = new DoppelgangerAlly();
 		doppelganger->Init();
 		GameObject* enemy2GO = FetchGO();
 		enemy2GO->type = GameObject::GO_DOPPELGANGER;
@@ -615,10 +628,19 @@ void SceneCollision::Update(double dt)
 		ewep2->angle = 0;
 		ewep2->active = true;
 		ewep2->leftwep = false;
-		doppelganger->GetWeapon()->SetGameObject(ewep2);
+		doppelganger->GetWeapon()->SetGameObject(ewep2);*/
+		blackhole = FetchGO();
+		blackhole->type = GameObject::GO_BLACKHOLE;
+		blackhole->pos = player->GetGameObject()->pos;
+		blackhole->vel.SetZero();
+		blackhole->scale.Set(12, 12, 1);
+		blackhole->color.Set(1, 1, 1);
 		test = false;
 	}
-
+	if (Application::IsKeyPressed('O') && blackhole) {
+		ReturnGO(blackhole);
+		blackhole = nullptr;
+	}
 
 	//use potions
 	//use health potion
@@ -770,9 +792,6 @@ void SceneCollision::Update(double dt)
 		if (EMPSkill->getStunState() == true) {
 			m_enemyList[idx]->makeEnemyStunned();
 		}
-		if (HackSkill->getHackingState()) {
-			m_enemyList[idx]->turnEnemy();
-		}
 		Enemy::SetEnemyVector(m_enemyList);
 		if (m_enemyList[idx]->Update(dt))
 		{
@@ -814,7 +833,8 @@ void SceneCollision::Update(double dt)
 
 			//delete the enemy
 			ReturnGO(m_enemyList[idx]->GetGameObject());
-			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+			if(m_enemyList[idx]->GetWeapon())
+				ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
 			player->changeEnergy(m_enemyList[idx]->GetEnergyDrop());
 			player->changeMoney(m_enemyList[idx]->GetMoneyDrop());
 			if (m_enemyList[idx]->GetGameObject()->type == GameObject::GO_DOPPELGANGER)
@@ -857,6 +877,35 @@ void SceneCollision::Update(double dt)
 			else
 				m_ebulletList.push_back(bullet);
 		}
+		if (m_enemyList[idx]->IsSpawningSwordsman()) {
+			Enemy* enemy;
+			GameObject* enemyGO;
+			GameObject* ewep;
+			for (int i = 0; i < 3; i++) {
+				enemy = new Swordsman();
+				enemy->Init();
+				enemyGO = FetchGO();
+				enemyGO->type = GameObject::GO_SWORDSMAN;
+				enemyGO->pos = m_enemyList[idx]->GetGameObject()->pos;
+				enemyGO->vel.SetZero();
+				enemyGO->scale.Set(10, 10, 1);
+				enemyGO->color.Set(1, 1, 1);
+				enemyGO->angle = 0;
+				enemy->SetWeapon(new Sword());
+				enemy->SetGameObject(enemyGO);
+				m_enemyList.push_back(enemy);
+
+				ewep = FetchGO();
+				ewep->type = GameObject::GO_SWORD;
+				ewep->vel.SetZero();
+				ewep->scale.Set(10, 10, 1);
+				ewep->color.Set(1, 1, 1);
+				ewep->angle = 0;
+				ewep->active = true;
+				ewep->leftwep = false;
+				enemy->GetWeapon()->SetGameObject(ewep);
+			}
+		}
 		if (blackhole) {
 			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
 				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(blackhole->pos) < 500.0f) {
@@ -868,7 +917,7 @@ void SceneCollision::Update(double dt)
 		if (HackSkill->getHackingState()) {
 			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
 				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(player->GetGameObject()->pos) < 800.0f) {
-
+					m_enemyList[idx]->turnEnemy();
 				}
 			}
 		}
@@ -961,7 +1010,7 @@ void SceneCollision::Update(double dt)
 		}
 		//check collision
 		if (CheckCollision(m_ebulletList[idx]->GetGameObject(), player->GetGameObject())) {
-			if (ImmortalitySkill->getState() == true) {
+			if (cGameManager->isImmortal == true) {
 				player->ChangeHealth(m_ebulletList[idx]->GetDamage());
 			}
 			else {
@@ -1606,6 +1655,23 @@ void SceneCollision::RenderGO(GameObject *go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 		meshList[GEO_BLACKHOLE]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
 		RenderMesh(meshList[GEO_BLACKHOLE], true);
+		modelStack.PopMatrix();
+		break;
+	case GameObject::GO_NECROMANCER:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_NECROMANCER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_NECROMANCER], true);
+		}
+
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_NECROMANCER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_NECROMANCER], true);
+		}
 		modelStack.PopMatrix();
 		break;
 	}

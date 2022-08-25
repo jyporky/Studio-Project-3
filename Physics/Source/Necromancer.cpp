@@ -13,11 +13,13 @@ Necromancer::Necromancer()
     PlayerPointer = nullptr;
     CurrWeapon = nullptr;
     sCurrState = CHASE;
-    attackRange = 12;
+    attackRange = 30;
     attackSpeed = 1.5;
     iFrameTimer = 0;
     enemytype = SWORDMAN;
     turned = false;
+    spawnTimer = 0;
+    isSpawningSwordsman = false;
 }
 
 Necromancer::~Necromancer()
@@ -95,39 +97,24 @@ bool Necromancer::Update(double dt)
             break;
         case CHASE:
             //chase the player
-            leftdt += dt;
-            if (!moveleft)
-            {
-                direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
-                direction = Vector3(-direction.y, direction.x, 0);
-                if (leftdt > 2)
-                {
-                    moveleft = !moveleft;
-                    leftdt = 0;
-                }
-            }
-            else
-            {
-                direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
-                direction = -(Vector3(-direction.y, direction.x, 0));
-                if (leftdt > 2)
-                {
-                    moveleft = !moveleft;
-                    leftdt = 0;
-                }
-            }
-            gameobject->pos += ((Target->GetGameObject()->pos - gameobject->pos).Normalize() + direction) * dt * movementSpeed;
+            gameobject->pos += (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
             if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
             {
-                //sCurrState = ATTACK;
+                sCurrState = IDLE;
             }
             break;
         }
-
+        if (spawnTimer >= 3) {
+            isSpawningSwordsman = true;
+            spawnTimer = 0;
+        }
+        else if (spawnTimer < 3) {
+            isSpawningSwordsman = false;
+        }
+        spawnTimer += dt;
 
         gameobject->pos.z = 0;
         // Make the sword point to the player
-        CurrWeapon->Update(dt, Target->GetGameObject()->pos, 0, gameobject);
     }
     return false;
 }
@@ -156,4 +143,7 @@ void Necromancer::makeEnemyStunned() {
 }
 void Necromancer::turnEnemy() {
     turned = true;
+}
+bool Necromancer::IsSpawningSwordsman() {
+    return isSpawningSwordsman;
 }

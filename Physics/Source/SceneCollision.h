@@ -21,6 +21,7 @@
 #include "Rifle.h"
 #include "RiflerEnemy.h"
 #include "Rifle.h"
+#include "Necromancer.h"
 
 #include "FlameParticle.h"
 #include "Flamethrower.h"

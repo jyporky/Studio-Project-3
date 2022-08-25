@@ -166,3 +166,6 @@ void Entity::turnEnemy() {
 Entity* Entity::getTarget() {
 	return Target;
 }
+bool Entity::IsSpawningSwordsman() {
+	return false;
+}

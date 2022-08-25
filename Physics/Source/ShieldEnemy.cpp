@@ -169,7 +169,10 @@ bool ShieldEnemy::Update(double dt)
             else {
                 if (PlayerPointer->iFrame == false)
                 {
-                    PlayerPointer->ChangeHealth(-attackDamage);
+                    if(cGameManager->isImmortal)
+                       PlayerPointer->ChangeHealth(attackDamage);
+                    else if(cGameManager->isImmortal != true)
+                       PlayerPointer->ChangeHealth(-attackDamage);
                 }
             }
         }

@@ -43,6 +43,8 @@ GameManger::GameManger()
 	betterfuelBought = false;
 	accuratearrowsBought = false;
 	fastmeleeBought = false;
+
+	isImmortal = false;
 }
 
 GameManger::~GameManger()

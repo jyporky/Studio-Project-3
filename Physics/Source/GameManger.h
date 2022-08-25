@@ -50,5 +50,7 @@ public:
 	bool betterfuelBought;
 	bool accuratearrowsBought;
 	bool fastmeleeBought;
+
+	bool isImmortal;
 };
 
