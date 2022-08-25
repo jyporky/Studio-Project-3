@@ -407,12 +407,12 @@ void SceneCollision::Update(double dt)
 
 	//pause
 	static bool qbutton = false;
-	if ((Application::IsKeyPressed('Q')) && (!qbutton))
+	if ((Application::IsKeyPressed(VK_OEM_3)) && (!qbutton))
 	{
 		Application::SetState(4);
 		qbutton = true;
 	}
-	else if ((!Application::IsKeyPressed('Q')) && (qbutton))
+	else if ((!Application::IsKeyPressed(VK_OEM_3)) && (qbutton))
 	{
 		qbutton = false;
 	}
