@@ -13,6 +13,7 @@ GameManger::GameManger()
 	buyFirstWep = true;
 	weptype = Weapon::NONE;
 	sideweptype = Weapon::NONE;
+	skilltype = Skill::NONE;
 	bulletExplosionRadius = 20;
 
 	reset = false;

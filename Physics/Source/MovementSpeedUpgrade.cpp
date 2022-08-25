@@ -6,11 +6,10 @@ MovementSpeedUpgrade::~MovementSpeedUpgrade() {
 
 }
 void MovementSpeedUpgrade::receiveUpgrade() {
-	//player->getmovementspeed + 5;
 	noOfTimesUpgraded++;
 }
 std::string MovementSpeedUpgrade::getDescription() {
-	return "Increases movement speed by 10";
+	return "Increases movement speed by 5";
 }
 int MovementSpeedUpgrade::getMoneyCost() {
 	return 30 + (20 * noOfTimesUpgraded);

@@ -3,8 +3,8 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "GameManger.h"
+#include "Skill.h"
 #include "Bullet.h"
-#include "Weapon.h"
 #include <cmath>
 #include <iostream>
 #include "SoundController.h"
