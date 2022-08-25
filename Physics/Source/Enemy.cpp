@@ -133,3 +133,6 @@ void Enemy::SetEnemyVector(std::vector<Entity*> m_enemyList) {
 Entity* Enemy::getTarget() {
     return Target;
 }
+bool Enemy::IsSpawningSwordsman() {
+    return false;
+}

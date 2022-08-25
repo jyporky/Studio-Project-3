@@ -37,7 +37,7 @@ bool Rifler::IsSpawningBullet() {
 }
 bool Rifler::Update(double dt)
 {
-
+    
     isSpawningBullet = false;
 
     if (iFrameTimer > 0)

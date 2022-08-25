@@ -205,6 +205,12 @@ void SceneBase::Init()
 	meshList[GEO_RIGHT_SHIELDMAN] = MeshBuilder::GenerateQuad("shieldManR", Color(1, 1, 1));
 	meshList[GEO_RIGHT_SHIELDMAN]->textureID = LoadTGA("Image//shieldmanR.tga");
 
+	meshList[GEO_LEFT_NECROMANCER] = MeshBuilder::GenerateQuad("necromancerL", Color(1, 1, 1));
+	meshList[GEO_LEFT_NECROMANCER]->textureID = LoadTGA("Image//necromancerLeft.tga");
+
+	meshList[GEO_RIGHT_NECROMANCER] = MeshBuilder::GenerateQuad("necromancerR", Color(1, 1, 1));
+	meshList[GEO_RIGHT_NECROMANCER]->textureID = LoadTGA("Image//necromancerRight.tga");
+
 	meshList[GEO_BULLET] = MeshBuilder::GenerateQuad("bullet", Color(1, 1, 1));
 	meshList[GEO_BULLET]->textureID = LoadTGA("Image//bullet.tga");
 

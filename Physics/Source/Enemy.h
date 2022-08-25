@@ -30,6 +30,7 @@ public:
 	virtual bool getTurnedState();
 	virtual void turnEnemy();
 	virtual Entity* getTarget();
+	virtual bool IsSpawningSwordsman();
 	virtual unsigned GetMaxHealth()
 	{
 		return maxhealth;
@@ -57,6 +58,7 @@ protected:
 	static Player* PlayerPointer;
 	static GameManger* cGameManager;
 	bool isStunned;
+	bool isSpawningSwordsman;
 	unsigned maxhealth;
 };
 
