@@ -182,7 +182,9 @@ bool Rifler::Update(double dt)
 
 void Rifler::Init()
 {
-    isCamper = Math::RandInt();
+    float temp = Math::RandFloatMinMax(0,1);
+    temp = round(temp);
+    isCamper = temp;
     //get the revelant pointers
     PlayerPointer = Player::GetInstance();
 }
