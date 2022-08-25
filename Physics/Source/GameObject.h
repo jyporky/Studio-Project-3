@@ -26,6 +26,7 @@ struct GameObject
 		GO_RIFLE,
 		GO_CROSSBOW,
 		GO_ARROW,
+		GO_BOXINGGLOVES,
 		GO_BLACKHOLE,
 		GO_DEATH_PARTICLE,
 		GO_TOTAL, //must be last

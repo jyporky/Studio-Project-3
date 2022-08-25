@@ -21,8 +21,8 @@ public:
     Weapon* GetWeapon();
     bool getStunned();
     void makeEnemyStunned();
+    void turnEnemy();
 private:
-    
     unsigned sCurrState;
     unsigned attackRange;
     float switchtime;

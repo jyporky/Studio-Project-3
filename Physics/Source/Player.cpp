@@ -43,6 +43,7 @@ void Player::SetGameObject(GameObject* player)
 
 void Player::Update(double dt, Vector3 mousepos)
 {
+	
 	if (redTimer > 0)
 	{
 		gameobject->color.Set(1, 0, 0);
@@ -102,6 +103,8 @@ void Player::Update(double dt, Vector3 mousepos)
 
 	if (movementDirection != Vector3(0, 0, 0) && !dashing)
 		dashDirection = movementDirection;
+	//set the position to 0
+	gameobject->pos.z = 0;
 
 	if (!dashing)
 	{
@@ -206,9 +209,6 @@ void Player::Update(double dt, Vector3 mousepos)
 
 bool Player::ChangeHealth(int ChangeAmount)
 {
-	bool godmode = false;
-	if (godmode)
-		return false;
 	if (ChangeAmount > 0 && health != maxHealth)
 		greenTimer = 0.5;
 	else if (ChangeAmount < 0)
@@ -219,6 +219,9 @@ bool Player::ChangeHealth(int ChangeAmount)
 	}
 
 	if (ChangeAmount > 0 && health == maxHealth)
+		return false;
+	bool godmode = false;
+	if (godmode)
 		return false;
 
 	health += ChangeAmount;
@@ -299,8 +302,8 @@ void Player::Attack(Vector3 mousepos)
 			{
 				Bullet* testbullet = new Bullet();
 				testbullet->SetGameObject(new GameObject);
-				testbullet->GetGameObject()->pos = gameobject->pos;
-				//testbullet->GetGameObject()->pos += (m_enemyList[idx]->GetGameObject()->pos - gameobject->pos).Normalize() * 2;
+				testbullet->GetGameObject()->pos = m_enemyList[idx]->GetGameObject()->pos;
+				testbullet->GetGameObject()->pos += (gameobject->pos - m_enemyList[idx]->GetGameObject()->pos).Normalize();
 
 				if (Entity::CheckShieldCollision(testbullet, m_enemyList[idx]))
 				{
@@ -320,7 +323,11 @@ void Player::Attack(Vector3 mousepos)
 			if (dotproduct > CurrWeapon->GetAttackAngle() * 0.5f)
 				continue;
 
-			m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage() - meleeDmgBoost);
+			if (cGameManager->weptype == Weapon::BOXING_GLOVES)
+				m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage() - meleeDmgBoost, gameobject->pos);
+			else
+				m_enemyList[idx]->ChangeHealth(-CurrWeapon->GetDamage() - meleeDmgBoost);
+
 			hitlist.push_back(m_enemyList[idx]);
 		}
 	}

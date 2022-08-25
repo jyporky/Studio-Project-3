@@ -22,10 +22,14 @@ public:
     
     bool getStunned();
     void makeEnemyStunned();
+    void turnEnemy();
 private:
     unsigned sCurrState;
     unsigned attackRange;
     float angle;
     float shieldturningrate;
+    float switchtime;
+    bool moveleft = true;
+    float leftdt = 0;
 };
 

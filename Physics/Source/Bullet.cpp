@@ -7,6 +7,8 @@ Bullet::Bullet()
 	numOfEntitiesHit = 0;
 	penetrationValue = 0;
 	direction.SetZero();
+	isExplosive = false;
+	explosionRadius = 0;
 }
 
 Bullet::~Bullet()
@@ -19,6 +21,7 @@ bool Bullet::Update(double dt)
 	gameobject->pos += (direction * bulletspeed * dt);
 	distanceTravelled += (direction * bulletspeed * dt).Length();
 	gameobject->vel = direction;
+	gameobject->pos.z = 0;
 	if (distanceTravelled > range)
 	{
 		return true;
@@ -33,6 +36,21 @@ void Bullet::SetBullet(float bulletspeed, unsigned damage, bool pen, float range
 	penetrationValue = pen;
 	this->range = range;
 	this->direction = direction;
+	isExplosive = false;
+	explosionRadius = 0;
+	direction.z = 0;
+}
+
+void Bullet::SetBullet(float bulletspeed, unsigned damage, bool pen, float range, Vector3 direction, bool isExplosive, float explosionRad)
+{
+	this->bulletspeed = bulletspeed;
+	this->damage = damage;
+	penetrationValue = pen;
+	this->range = range;
+	this->direction = direction;
+	this->isExplosive = isExplosive;
+	explosionRadius = explosionRad;
+	direction.z = 0;
 }
 
 unsigned Bullet::GetDamage()

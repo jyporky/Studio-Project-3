@@ -15,6 +15,7 @@
 #include "Weapon.h"
 #include "Fist.h"
 #include "Sword.h"
+#include "BoxingGloves.h"
 #include "Swordsman.h"
 #include "Bullet.h"
 #include "Rifle.h"
@@ -86,7 +87,6 @@ protected:
 	std::vector<Bullet*> m_ebulletList;
 	std::vector<Bullet*> m_pbulletList;
 
-	std::vector<Weapon*> m_weaponList;
 	std::vector<FlameParticle*> m_FlameParticle;
 
 	std::vector<Arrow*> m_parrowList;

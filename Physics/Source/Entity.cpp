@@ -49,6 +49,18 @@ bool Entity::ChangeHealth(int changeInHealth)
 	return CurrWeapon;
 }
 
+bool Entity::ChangeHealth(int changeInHealth, Vector3 attackvec)
+{
+    ChangeHealth(changeInHealth);
+    Vector3 direction;
+    direction = attackvec - gameobject->pos;
+    direction.Normalize();
+    kbTimer = 0.5;
+    kbEffect = direction;
+
+    return true;
+}
+
 Weapon* Entity::GetWeapon()
 {
 	return CurrWeapon;
@@ -144,4 +156,13 @@ bool Entity::getStunned() {
 }
 void Entity::makeEnemyStunned() {
 	return;
+}
+bool Entity::getTurnedState() {
+	return false;
+}
+void Entity::turnEnemy() {
+	return;
+}
+Entity* Entity::getTarget() {
+	return Target;
 }

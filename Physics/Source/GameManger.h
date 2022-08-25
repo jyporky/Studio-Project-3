@@ -19,6 +19,7 @@ public:
 	int weptype;
 	int sideweptype;
 	bool buyFirstWep;
+	float bulletExplosionRadius;
 
 	int skilltype;
 
