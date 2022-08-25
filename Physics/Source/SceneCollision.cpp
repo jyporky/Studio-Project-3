@@ -92,7 +92,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 5;
+	wave = 1;
 	
 
 	rate = SetRate();
@@ -1784,8 +1784,8 @@ void SceneCollision::renderUI()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 8, 52.8);
 
 
-	Vector3 wep1 = Vector3(16, 15, 1);
-	Vector3 wep2 = Vector3(26, 15, 1);
+	Vector3 wep1 = Vector3(16, 7, 1);
+	Vector3 wep2 = Vector3(26, 7, 1);
 	Vector3 scale = Vector3(10, 10, 1);
 	// render hotbar
 	modelStack.PushMatrix();
@@ -1887,30 +1887,30 @@ void SceneCollision::renderUI()
 
 	ss.str("");
 	ss << "[1]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 61, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 61, 5);
 
 	ss.str("");
 	ss << "[2]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 65.5, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 65.5, 5);
 
 	ss.str("");
 	ss << "[3]";
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 70, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 70, 5);
 
 	ss.str("");
 	cInventoryItem = cInventoryManager->GetItem("healthpotion");
 	ss << cInventoryItem->GetCount();
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 62.7, 5.7);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 62.7, 0.9);
 
 	ss.str("");
 	cInventoryItem = cInventoryManager->GetItem("strengthpotion");
 	ss << cInventoryItem->GetCount();
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 67.2, 5.7);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 67.2, 0.9);
 
 	ss.str("");
 	cInventoryItem = cInventoryManager->GetItem("speedpotion");
 	ss << cInventoryItem->GetCount();
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 71.7, 5.7);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 71.7, 0.9);
 }
 void SceneCollision::Exit()
 {
