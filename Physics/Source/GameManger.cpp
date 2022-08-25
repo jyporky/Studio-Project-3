@@ -15,6 +15,7 @@ GameManger::GameManger()
 	sideweptype = Weapon::NONE;
 	skilltype = Skill::NONE;
 	bulletExplosionRadius = 20;
+	showHealthBar = true;
 
 	reset = false;
 	//self upgrades
@@ -49,5 +50,4 @@ GameManger::GameManger()
 
 GameManger::~GameManger()
 {
-	// Delete the animated sprites
 }

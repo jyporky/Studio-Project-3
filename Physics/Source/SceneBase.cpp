@@ -158,6 +158,7 @@ void SceneBase::Init()
 
 	meshList[GEO_HEALTH_UI_BASE] = MeshBuilder::GenerateQuad("healthui", Color(1, 1, 1));
 	meshList[GEO_HEALTH_UI_RED] = MeshBuilder::GenerateQuad("healthuired", Color(1, 0, 0));
+	meshList[GEO_HEALTH_UI_GREEN] = MeshBuilder::GenerateQuad("healthuigreen", Color(0, 1, 0));
 
 	meshList[GEO_SANDBG] = MeshBuilder::GenerateQuad("sand bg", Color(1, 1, 1));
 	meshList[GEO_SANDBG]->textureID = LoadTGA("Image//sand.tga");	

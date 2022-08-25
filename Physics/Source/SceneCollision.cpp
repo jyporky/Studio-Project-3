@@ -1598,6 +1598,19 @@ void SceneCollision::Render()
 		}
 	}
 
+	//render the Health bar of the enemies
+	if (cGameManager->showHealthBar)
+	{
+		float ratiox, ratioy;
+		ratiox = 80 / m_worldWidth;
+		ratioy = 60 / m_worldHeight;
+		for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
+		{
+			RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], m_enemyList[idx]->GetGameObject()->pos.x * ratiox, (m_enemyList[idx]->GetGameObject()->pos.y + 6.5) * ratioy, 5, 1.25);
+			RenderMeshOnScreen(meshList[GEO_HEALTH_UI_GREEN], m_enemyList[idx]->GetGameObject()->pos.x * ratiox, (m_enemyList[idx]->GetGameObject()->pos.y + 6.5) * ratioy, 5.0f * ((double)m_enemyList[idx]->GetHealth() / (double)m_enemyList[idx]->GetMaxHealth()), 1.25);
+		}
+	}
+
 	RenderWall();
 	renderUI();
 
