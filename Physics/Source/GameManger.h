@@ -19,6 +19,7 @@ public:
 	int sideweptype;
 	bool buyFirstWep;
 	float bulletExplosionRadius;
+	int highestWave;
 
 	bool reset;
 

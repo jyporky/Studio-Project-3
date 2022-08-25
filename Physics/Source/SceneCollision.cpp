@@ -79,6 +79,7 @@ void SceneCollision::Init()
 {
 	SceneBase::Init();
 	
+	cGameManager = GameManger::GetInstance();
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
@@ -92,7 +93,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 1;
+	cGameManager->dWaveNo = 1;
 	
 
 	rate = SetRate();
@@ -115,8 +116,8 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\shoot.ogg"), 5, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\playerDash.ogg"), 6, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\flamethrower.ogg"), 7, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sound\\menuBGM.ogg"), 8, false, CSoundInfo::BGM);
-	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, false, CSoundInfo::BGM);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\menuBGM.ogg"), 8, true, CSoundInfo::BGM);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, true, CSoundInfo::BGM);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 10, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\Shieldblock.ogg"), 11, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\switch_weapon.ogg"), 12, false);
@@ -144,7 +145,7 @@ void SceneCollision::Init()
 	cInventoryItem = cInventoryManager->Add("immortal", 1, 0);
 	cInventoryItem = cInventoryManager->Add("blackhole", 1, 0);
 
-	cGameManager = GameManger::GetInstance();
+	
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
@@ -293,7 +294,7 @@ void SceneCollision::ResetLevel()
 
 
 	cGameManager->bPlayerLost = false;
-	wave = 1;
+	cGameManager->dWaveNo = 1;
 	cGameManager->sideweptype = Weapon::NONE;
 	cInventoryItem = cInventoryManager->GetItem("boxingglove");
 	cInventoryItem->Remove(1);	
@@ -421,7 +422,7 @@ void SceneCollision::Update(double dt)
 	{
 		cGameManager->outShop = false;
 		SetWeapon();
-		wave++;
+		cGameManager->dWaveNo++;
 		rate = SetRate();
 		player->GetGameObject()->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
 		timer = -3;
@@ -715,7 +716,7 @@ void SceneCollision::Update(double dt)
 			bulletgo->color.Set(1, 1, 1);
 			bulletgo->angle = player->GetWeapon()->GetGameObject()->angle;
 			bullet->SetGameObject(bulletgo);
-			bullet->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), player->GetWeapon()->GetPiercing(), player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize(), cGameManager->explosiveBought, cGameManager->bulletExplosionRadius);
+			bullet->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), true, player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize(), cGameManager->explosiveBought, cGameManager->bulletExplosionRadius);
 			m_pbulletList.push_back(bullet);
 		}
 	}
@@ -1497,7 +1498,7 @@ void SceneCollision::Render()
 	
 	}
 
-	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 37, 57);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(cGameManager->dWaveNo), Color(1, 1, 1), 3, 37, 57);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0.5, 49);
 	if (cGameManager->waveClear && timer < 3)
 	{
@@ -1533,14 +1534,14 @@ void SceneCollision::Render()
 	if (cGameManager->bPlayerLost)
 	{
 		ss.str("");
-		ss << "You Died";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 30, 24);
+		ss << "You Died, Highest Wave: " << cGameManager->highestWave;
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 4, 20, 24);
 		ss.str("");
 		ss << "Press 'R' to restart";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 4, 20, 20);
 		ss.str("");
 		ss << "Press '~' to return to main menu";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 4, 20, 16);
 	}
 }
 
@@ -1624,48 +1625,6 @@ void SceneCollision::renderUI()
 		renderWeaponUI(wep1, scale, player->GetWeapon()->GetGameObject());
 	if (player->GetSideWeapon() != nullptr)
 		renderWeaponUI(wep2, scale, player->GetSideWeapon()->GetGameObject());
-
-	//add equipped skill code
-	//if (player->getEnergy() >= 100)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(26, 90, 1);
-	//	modelStack.Scale(7, 7, 1);
-	//	RenderMesh(meshList[GEO_EMP], false);
-	//	modelStack.PopMatrix();
-	//}
-	//if (player->getEnergy() >= 150)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(26, 90, 1);
-	//	modelStack.Scale(7, 7, 1);
-	//	RenderMesh(meshList[GEO_HACK], false);
-	//	modelStack.PopMatrix();
-	//}
-	//if (player->getEnergy() >= 150)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(26, 90, 1);
-	//	modelStack.Scale(7, 7, 1);
-	//	RenderMesh(meshList[GEO_HEAL], false);
-	//	modelStack.PopMatrix();
-	//}
-	//if (player->getEnergy() >= 200)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(26, 90, 1);
-	//	modelStack.Scale(7, 7, 1);
-	//	RenderMesh(meshList[GEO_IMMORTAL], false);
-	//	modelStack.PopMatrix();
-	//}
-	//if (player->getEnergy() >= 80)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(26, 90, 1);
-	//	modelStack.Scale(7, 7, 1);
-	//	RenderMesh(meshList[GEO_OVERDRIVE], false);
-	//	modelStack.PopMatrix();
-	//}
 
 	//potions
 	modelStack.PushMatrix();
@@ -2014,10 +1973,10 @@ void SceneCollision::SpawnEnemy(float rate)
 	else if (timer > rate)
 	{
 		int type;
-		if (wave < 4)
+		if (cGameManager->dWaveNo < 4)
 			type = 1;
 
-		else if (wave < 7)
+		else if (cGameManager->dWaveNo < 7)
 		{
 			int ran = Math::RandIntMinMax(1, 10);
 			if (ran < 8)
@@ -2026,7 +1985,7 @@ void SceneCollision::SpawnEnemy(float rate)
 				type = 3;
 		}
 		
-		else if (wave < 15)
+		else if (cGameManager->dWaveNo < 15)
 		{
 			int ran = Math::RandIntMinMax(1, 10);
 			if (ran < 6)
@@ -2143,14 +2102,14 @@ void SceneCollision::SpawnEnemy(float rate)
 float SceneCollision::SetRate()
 {
 	float frequency;
-	totalEnemy = wave * 3;
-	if (wave >= 5)
+	totalEnemy = cGameManager->dWaveNo * 3;
+	if (cGameManager->dWaveNo >= 5)
 	{
-		totalEnemy += 3 * (wave - 4);
+		totalEnemy += 3 * (cGameManager->dWaveNo - 4);
 	}
 
-	totalEnemy += (wave / 10) * 10;
-	frequency = 3 / (wave * 0.5);
+	totalEnemy += (cGameManager->dWaveNo / 10) * 10;
+	frequency = 3 / (cGameManager->dWaveNo * 0.5);
 	if (frequency < 0.1)
 	{
 		frequency = 0.1;

@@ -99,7 +99,6 @@ protected:
 	CInventoryManager* cInventoryManager;
 	CInventoryItem* cInventoryItem;
 	void RenderWall();
-	int wave;
 	float rate;
 	int totalEnemy;
 	int enemyLeft;

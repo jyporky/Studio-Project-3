@@ -15,7 +15,7 @@ Player::Player()
 	movementspeed = 40;
 	dashBoost = 80;
 	iFrame = false;
-	money = 0;
+	money = 2000;
 	energy = 0;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
@@ -228,6 +228,8 @@ bool Player::ChangeHealth(int ChangeAmount)
 	if (health <= 0)
 	{
 		cGameManager->bPlayerLost = true;
+		if (cGameManager->highestWave < cGameManager->dWaveNo)
+			cGameManager->highestWave = cGameManager->dWaveNo;
 		health = 0;
 	}
 	else if (health > maxHealth)
