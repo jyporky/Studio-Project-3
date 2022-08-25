@@ -45,12 +45,7 @@ struct GameObject
 
 	//Rotation variables
 	Vector3 direction;
-	float momentOfInertia;
-	float angularVelocity;
 
-	std::vector <GameObject*> otherGameObjects;
-
-	bool checkCollision;
 	float time2disappear;
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();

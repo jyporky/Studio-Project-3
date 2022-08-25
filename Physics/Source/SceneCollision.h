@@ -69,8 +69,6 @@ public:
 	void ResetLevel();
 
 	bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2);
-	void SceneCollision::CollisionResponse(GameObject* go1, GameObject* go2);
-	void MakeThickWall(float width, float height, const Vector3& normal, const Vector3& pos, const Vector3& color);
 	GameObject* Checkborder(GameObject* go);
 
 	void renderUI();

@@ -448,11 +448,6 @@ void SceneCollision::Update(double dt)
 			color[i].Set(1, 1, 1);
 		}
 	}
-	//to test dying
-	if (Application::IsKeyPressed('P'))
-	{
-		player->ChangeHealth(-200);
-	}
 
 	if (timer >= 0)
 	{
@@ -480,7 +475,9 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
-	
+	//{
+	//	Application::SetState(3);
+	//}
 	if (Application::IsKeyPressed('E') && cGameManager->waveClear && !e && NearShop()) //go shop
 	{
 		Application::SetState(3);
@@ -668,42 +665,7 @@ void SceneCollision::Update(double dt)
 	}
 
 
-
-
-	if (Application::IsKeyPressed('T')) {
-		//ImmortalitySkill->UseSkill();
-		//EMPSkill->UseSkill();
-		//HackSkill->UseSkill();
-	/*	blackhole = FetchGO();
-		blackhole->type = GameObject::GO_BLACKHOLE;
-		blackhole->pos = player->GetGameObject()->pos;
-		blackhole->vel.SetZero();
-		blackhole->scale.Set(12, 12, 1);
-		blackhole->color.Set(1, 1, 1);
-		blackhole->angle = 0;
-		blackhole->active = true;*/
-		/*doppelganger = new DoppelgangerAlly();
-		doppelganger->Init();
-		GameObject* enemy2GO = FetchGO();
-		enemy2GO->type = GameObject::GO_DOPPELGANGER;
-		enemy2GO->pos = Vector3(m_worldWidth / 2 + 10, m_worldHeight / 2, 0);
-		enemy2GO->vel.SetZero();
-		enemy2GO->scale.Set(10, 10, 1);
-		enemy2GO->color.Set(1, 1, 1);
-		enemy2GO->angle = 0;
-		doppelganger->SetWeapon(new Sword());
-		doppelganger->SetGameObject(enemy2GO);
-		m_enemyList.push_back(doppelganger);
-
-		GameObject* ewep2 = FetchGO();
-		ewep2->type = GameObject::GO_SWORD;
-		ewep2->vel.SetZero();
-		ewep2->scale.Set(10, 10, 1);
-		ewep2->pos = enemy2GO->pos;
-		ewep2->color.Set(1, 1, 1);
-		ewep2->angle = 0;
-		ewep2->active = true;
-		ewep2->leftwep = false;
+		HackSkill->UseSkill();
 		doppelganger->GetWeapon()->SetGameObject(ewep2);
 		test = true;
 		test2++;*/
@@ -736,7 +698,6 @@ void SceneCollision::Update(double dt)
 	}
 
 
-	//use potions
 	//use health potion
 	static bool button1;
 	if (Application::IsKeyPressed('1') && !button1)
@@ -778,6 +739,7 @@ void SceneCollision::Update(double dt)
 		StrengthPotion->potionTimeUp();
 		strengthPotUsed = false;
 	}
+
 	//use speed potion
 	static bool button3;
 	if (Application::IsKeyPressed('3') && !button3)
@@ -1258,11 +1220,8 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 	case GameObject::GO_RIFLER:
 	case GameObject::GO_SHIELDMAN:
 	{
-		Vector3 relativeVel = go1->vel - go2->vel;
 		Vector3 disDiff = go2->pos - go1->pos;
 
-		/*if (relativeVel.Dot(disDiff) <= 0)
-			return false;*/
 		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x) * 0.4f;
 	}
 
@@ -1272,16 +1231,6 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 		Vector3 axisX = go2->normal;
 		Vector3 axisY = Vector3(-go2->normal.y, go2->normal.x, 0);
 		float projectedDist = diff.Dot(axisX);
-
-		//if it is a thick wall
-		if (go2->otherGameObjects.size() != 0)
-		{
-			if (Math::FAbs(projectedDist) / go2->scale.x < Math::FAbs(diff.Dot(axisY)) / go2->otherGameObjects[0]->scale.x)
-			{
-				return false;
-			}
-		}
-
 
 		if (projectedDist > 0)
 			axisX = -axisX;
@@ -1293,130 +1242,6 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 	}
 	return false;
 }
-
-void SceneCollision::CollisionResponse(GameObject* go1, GameObject* go2)
-{
-	u1 = go1->vel;
-	u2 = go2->vel;
-	m1 = go1->mass;
-	m2 = go2->mass;
-
-
-	switch (go2->type)
-	{
-		case GameObject::GO_BALL:
-		{
-			//2D Version 2
-			Vector3 n = go1->pos - go2->pos;
-			Vector3 vec = (u1 - u2).Dot(n) / (n).LengthSquared() * n;
-			go1->vel = u1 - (2 * m2 / (m1 + m2)) * vec;
-			go2->vel = u2 - (2 * m1 / (m2 + m1)) * -vec;
-			break;
-		}
-		case GameObject::GO_WALL:
-		{
-			go1->vel = u1 - (2.0 * u1.Dot(go2->normal)) * go2->normal;
-			break;
-		}
-		case GameObject::GO_PILLAR:
-		{
-			Vector3 n = (go2->pos - go1->pos).Normalize();
-			go1->vel = u1 - (2.0 * u1.Dot(n) * n);
-			break;
-		}
-	}
-}
-
-
-void SceneCollision::MakeThickWall(float width, float height, const Vector3& normal, const Vector3& pos, const Vector3& color)
-{
-	Vector3 tangent(-normal.y, normal.x);
-
-	float size = 0.1f;
-
-	//4 pillars
-	GameObject* pillar1 = FetchGO();
-	pillar1->type = GameObject::GO_PILLAR;
-	pillar1->color = color;
-	pillar1->scale.Set(size, size, 1);
-	pillar1->pos = pos + height * 0.48f * tangent + width * 0.48f * normal;
-	pillar1->visible = true;
-
-
-	//4 pillars
-	GameObject* pillar2 = FetchGO();
-	pillar2->type = GameObject::GO_PILLAR;
-	pillar2->color = color;
-	pillar2->scale.Set(size, size, 1);
-	pillar2->pos = pos + height * 0.48f * tangent - width * 0.48f * normal;
-	pillar2->visible = true;
-
-	//4 pillars
-	GameObject* pillar3 = FetchGO();
-	pillar3->type = GameObject::GO_PILLAR;
-	pillar3->color = color;
-	pillar3->scale.Set(size, size, 1);
-	pillar3->pos = pos - height * 0.48f * tangent - width * 0.48f * normal;
-	pillar3->visible = true;
-
-	//4 pillars
-	GameObject* pillar4 = FetchGO();
-	pillar4->type = GameObject::GO_PILLAR;
-	pillar4->color = color;
-	pillar4->scale.Set(size, size, 1);
-	pillar4->pos = pos - height * 0.48f * tangent + width * 0.48f * normal;
-	pillar4->visible = true;
-
-	GameObject* wall1 = FetchGO();
-	wall1->type = GameObject::GO_WALL;
-	wall1->scale.Set(width, height, 1.f);
-	wall1->normal = normal;
-	wall1->color = color;
-	wall1->pos = pos;
-	wall1->visible = true;
-
-	GameObject* wall2 = FetchGO();
-	wall2->type = GameObject::GO_WALL;
-	wall2->scale.Set(height, width, 1.f);
-	wall2->normal = tangent;
-	wall2->color = color;
-	wall2->pos = pos;
-	wall2->visible = false;
-
-
-	//add the game objects to each other
-	wall1->otherGameObjects.push_back(wall2);
-	wall1->otherGameObjects.push_back(pillar1);
-	wall1->otherGameObjects.push_back(pillar2);
-	wall1->otherGameObjects.push_back(pillar3);
-	wall1->otherGameObjects.push_back(pillar4);
-	wall2->otherGameObjects.push_back(wall1);
-	wall2->otherGameObjects.push_back(pillar1);
-	wall2->otherGameObjects.push_back(pillar2);
-	wall2->otherGameObjects.push_back(pillar3);
-	wall2->otherGameObjects.push_back(pillar4);
-	pillar1->otherGameObjects.push_back(wall1);
-	pillar1->otherGameObjects.push_back(wall2);
-	pillar1->otherGameObjects.push_back(pillar2);
-	pillar1->otherGameObjects.push_back(pillar3);
-	pillar1->otherGameObjects.push_back(pillar4);
-	pillar2->otherGameObjects.push_back(wall1);
-	pillar2->otherGameObjects.push_back(wall2);
-	pillar2->otherGameObjects.push_back(pillar1);
-	pillar2->otherGameObjects.push_back(pillar3);
-	pillar2->otherGameObjects.push_back(pillar4);
-	pillar3->otherGameObjects.push_back(wall1);
-	pillar3->otherGameObjects.push_back(wall2);
-	pillar3->otherGameObjects.push_back(pillar1);
-	pillar3->otherGameObjects.push_back(pillar2);
-	pillar3->otherGameObjects.push_back(pillar4);
-	pillar4->otherGameObjects.push_back(wall1);
-	pillar4->otherGameObjects.push_back(wall2);
-	pillar4->otherGameObjects.push_back(pillar1);
-	pillar4->otherGameObjects.push_back(pillar2);
-	pillar4->otherGameObjects.push_back(pillar3);
-}
-
 
 void SceneCollision::RenderGO(GameObject *go)
 {
