@@ -94,6 +94,8 @@ bool Necromancer::Update(double dt)
         {
         case IDLE:
             //do nothing
+            if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() >= attackRange * attackRange)
+                sCurrState = CHASE;
             break;
         case CHASE:
             //chase the player
