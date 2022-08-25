@@ -16,8 +16,10 @@ using namespace irrklang;
 
 // Include string
 #include <string>
+#include "MyMath.h"
 // Include map storage
 #include <map>
+
 using namespace std;
 
 // Include SoundInfo class; it stores the sound and other information
