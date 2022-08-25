@@ -2,6 +2,7 @@
 #include "SingletonTemplate.h"
 #include "SpriteAnimation.h"
 #include "Weapon.h"
+#include "Skill.h"
 
 class GameManger : public CSingletonTemplate<GameManger>
 {
@@ -19,6 +20,9 @@ public:
 	int sideweptype;
 	bool buyFirstWep;
 	float bulletExplosionRadius;
+	int highestWave;
+
+	int skilltype;
 
 	bool reset;
 

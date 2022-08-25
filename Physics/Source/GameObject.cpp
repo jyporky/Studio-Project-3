@@ -8,9 +8,6 @@ GameObject::GameObject(GAMEOBJECT_TYPE typeValue)
 	mass(1.f)
 {
 	angle = 0;
-	angularVelocity = 0;
-	momentOfInertia = 0;
-	checkCollision = true;
 	visible = true;
 	leftwep = false;
 	time2disappear = 0;
@@ -33,10 +30,6 @@ void GameObject::ResetValues()
 	color.SetZero();
 	normal.SetZero();
 	direction.SetZero();
-	angularVelocity = 0;
-	momentOfInertia = 0;
-	otherGameObjects.clear();
-	checkCollision = true;
 	leftwep = false;
 	time2disappear = 0;
 }

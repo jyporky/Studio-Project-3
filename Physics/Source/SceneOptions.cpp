@@ -290,8 +290,12 @@ void SceneOptions::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 24);
 
 	ss.str("");
-	ss << "Pause Menu: Q";
+	ss << "Pause Menu: `";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 20);
+
+	ss.str("");
+	ss << "Use Skill: Q";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 16);
 }
 
 void SceneOptions::Exit()

@@ -5,6 +5,7 @@ GameManger::GameManger()
 	bPlayerLost = false;
 	bDebug = false;
 	dWaveNo = 1;
+	highestWave = 0;
 	waveClear = false;
 	outShop = false;
 	eButtonState = false;
@@ -12,6 +13,7 @@ GameManger::GameManger()
 	buyFirstWep = true;
 	weptype = Weapon::NONE;
 	sideweptype = Weapon::NONE;
+	skilltype = Skill::NONE;
 	bulletExplosionRadius = 20;
 
 	reset = false;

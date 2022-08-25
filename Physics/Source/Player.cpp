@@ -228,6 +228,8 @@ bool Player::ChangeHealth(int ChangeAmount)
 	if (health <= 0)
 	{
 		cGameManager->bPlayerLost = true;
+		if (cGameManager->highestWave < cGameManager->dWaveNo)
+			cGameManager->highestWave = cGameManager->dWaveNo;
 		health = 0;
 	}
 	else if (health > maxHealth)
