@@ -43,6 +43,7 @@ void Player::SetGameObject(GameObject* player)
 
 void Player::Update(double dt, Vector3 mousepos)
 {
+	
 	if (redTimer > 0)
 	{
 		gameobject->color.Set(1, 0, 0);
@@ -102,6 +103,8 @@ void Player::Update(double dt, Vector3 mousepos)
 
 	if (movementDirection != Vector3(0, 0, 0) && !dashing)
 		dashDirection = movementDirection;
+	//set the position to 0
+	gameobject->pos.z = 0;
 
 	if (!dashing)
 	{
@@ -206,9 +209,6 @@ void Player::Update(double dt, Vector3 mousepos)
 
 bool Player::ChangeHealth(int ChangeAmount)
 {
-	bool godmode = false;
-	if (godmode)
-		return false;
 	if (ChangeAmount > 0 && health != maxHealth)
 		greenTimer = 0.5;
 	else if (ChangeAmount < 0)
@@ -219,6 +219,9 @@ bool Player::ChangeHealth(int ChangeAmount)
 	}
 
 	if (ChangeAmount > 0 && health == maxHealth)
+		return false;
+	bool godmode = true;
+	if (godmode)
 		return false;
 
 	health += ChangeAmount;

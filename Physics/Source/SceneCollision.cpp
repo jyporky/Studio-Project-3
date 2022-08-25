@@ -92,7 +92,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 1;
+	wave = 10;
 	
 
 	rate = SetRate();
@@ -1136,8 +1136,8 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 		Vector3 relativeVel = go1->vel - go2->vel;
 		Vector3 disDiff = go2->pos - go1->pos;
 
-		if (relativeVel.Dot(disDiff) <= 0)
-			return false;
+		/*if (relativeVel.Dot(disDiff) <= 0)
+			return false;*/
 		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x) * 0.4f;
 	}
 
