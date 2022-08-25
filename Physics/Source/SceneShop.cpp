@@ -107,15 +107,15 @@ void SceneShop::Update(double dt)
 	}
 
 	//pause
-	static bool qbutton = false;
-	if ((Application::IsKeyPressed('Q')) && (!qbutton))
+	static bool oem_3 = false;
+	if ((Application::IsKeyPressed(VK_OEM_3)) && (!oem_3))
 	{
 		Application::SetState(4);
-		qbutton = true;
+		oem_3 = true;
 	}
-	else if ((!Application::IsKeyPressed('Q')) && (qbutton))
+	else if ((!Application::IsKeyPressed(VK_OEM_3)) && (oem_3))
 	{
-		qbutton = false;
+		oem_3 = false;
 	}
 
 	if ((inShop == false) && (inComputer == false))
@@ -287,19 +287,39 @@ void SceneShop::Update(double dt)
 				switch (shopbuttonhighlight)
 				{
 				case 0:
-
+					cInventoryItem = cInventoryManager->GetItem("emp");
+					if (CheckEquipSkill(Skill::EMP) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->skilltype = Skill::EMP;
+					}
 					break;
 				case 1:
-
+					cInventoryItem = cInventoryManager->GetItem("hack");
+					if (CheckEquipSkill(Skill::HACK) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->skilltype = Skill::HACK;
+					}
 					break;
 				case 2:
-
+					cInventoryItem = cInventoryManager->GetItem("doppelganger");
+					if (CheckEquipSkill(Skill::DOPPELGANGER) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->skilltype = Skill::DOPPELGANGER;
+					}
 					break;
 				case 3:
-
+					cInventoryItem = cInventoryManager->GetItem("immortal");
+					if (CheckEquipSkill(Skill::IMMORTAL) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->skilltype = Skill::IMMORTAL;
+					}
 					break;
 				case 4:
-
+					cInventoryItem = cInventoryManager->GetItem("blackhole");
+					if (CheckEquipSkill(Skill::BLACKHOLE) && cInventoryItem->GetCount() > 0)
+					{
+						cGameManager->skilltype = Skill::BLACKHOLE;
+					}
 					break;
 				}
 			}
@@ -1261,13 +1281,19 @@ void SceneShop::Render()
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 43);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 30, 43);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 43);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 30, 43);
+			}
+			if (!CheckEquipSkill(Skill::EMP))
+			{
+				ss.str("");
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 35, 43);
 			}
 
 			cInventoryItem = cInventoryManager->GetItem("hack");
@@ -1275,13 +1301,19 @@ void SceneShop::Render()
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 36);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 30, 36);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 36);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 30, 36);
+			}
+			if (!CheckEquipSkill(Skill::HACK))
+			{
+				ss.str("");
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 35, 36);
 			}
 
 			cInventoryItem = cInventoryManager->GetItem("doppelganger");
@@ -1289,27 +1321,38 @@ void SceneShop::Render()
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 29);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 30, 29);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 29);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 30, 29);
 			}
-
+			if (!CheckEquipSkill(Skill::DOPPELGANGER))
+			{
+				ss.str("");
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 35, 29);
+			}
 			cInventoryItem = cInventoryManager->GetItem("immortal");
 			if (cInventoryItem->GetCount() == 1)
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 22);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 30, 22);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 22);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 30, 22);
+			}
+			if (!CheckEquipSkill(Skill::IMMORTAL))
+			{
+				ss.str("");
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 35, 22);
 			}
 
 			cInventoryItem = cInventoryManager->GetItem("blackhole");
@@ -1317,14 +1360,21 @@ void SceneShop::Render()
 			{
 				ss.str("");
 				ss << "Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 32, 15);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 30, 15);
 			}
 			else
 			{
 				ss.str("");
 				ss << "Not Owned";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 32, 15);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2.5, 30, 15);
 			}
+			if (!CheckEquipSkill(Skill::BLACKHOLE))
+			{
+				ss.str("");
+				ss << "(Equipped)";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2.5, 35, 15);
+			}
+
 		}
 	}
 
@@ -2378,7 +2428,7 @@ void SceneShop::renderComputerMenu()
 
 		ss.str("");
 		ss << "Owned";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 32, 48);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 30, 48);
 
 		ss.str("");
 		ss << "Description";
@@ -2454,7 +2504,9 @@ void SceneShop::renderUI()
 
 	Vector3 wep1 = Vector3(16, 15, 1);
 	Vector3 wep2 = Vector3(26, 15, 1);
+	Vector3 skillVec = Vector3(36, 15, 1);
 	Vector3 scale = Vector3(10, 10, 1);
+	Vector3 scale2 = Vector3(7, 7, 1);
 
 	// render hotbar
 	modelStack.PushMatrix();
@@ -2474,6 +2526,16 @@ void SceneShop::renderUI()
 		renderWeaponUI(wep1, scale, cGameManager->weptype);
 	if (cGameManager->weptype != 0)
 		renderWeaponUI(wep2, scale, cGameManager->sideweptype);
+
+	//render skill UI
+	modelStack.PushMatrix();
+	modelStack.Translate(skillVec.x, skillVec.y, skillVec.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderMesh(meshList[GEO_HOTBAR], false);
+	modelStack.PopMatrix();
+
+	if (cGameManager->skilltype != 0)
+		renderSkillUI(skillVec, scale2, cGameManager->skilltype);
 
 	//potions
 	modelStack.PushMatrix();
@@ -2511,18 +2573,6 @@ void SceneShop::renderUI()
 	modelStack.Scale(5, 5, 1);
 	RenderMesh(meshList[GEO_SPEEDPOT], false);
 	modelStack.PopMatrix();
-
-	//ss.str("");
-	//ss << "[1]";
-	//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 61, 10);
-
-	//ss.str("");
-	//ss << "[2]";
-	//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 65.5, 10);
-
-	//ss.str("");
-	//ss << "[3]";
-	//RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 70, 10);
 
 	ss.str("");
 	cInventoryItem = cInventoryManager->GetItem("healthpotion");
@@ -2604,10 +2654,64 @@ void SceneShop::renderWeaponUI(Vector3 pos, Vector3 scale, int object)
 	}
 }
 
+void SceneShop::renderSkillUI(Vector3 pos, Vector3 scale, int object)
+{
+	switch (object)
+	{
+	case Skill::EMP:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		meshList[GEO_EMP]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_EMP], true);
+		modelStack.PopMatrix();
+		break;
+	case Skill::HACK:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		meshList[GEO_HACK]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_HACK], true);
+		modelStack.PopMatrix();
+		break;
+	case Skill::DOPPELGANGER:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		meshList[GEO_DOPPELGANGER]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_DOPPELGANGER], true);
+		modelStack.PopMatrix();
+		break;
+	case Skill::IMMORTAL:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		meshList[GEO_IMMORTAL]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_IMMORTAL], true);
+		modelStack.PopMatrix();
+		break;
+	case Skill::BLACKHOLE:
+		modelStack.PushMatrix();
+		modelStack.Translate(pos.x, pos.y, pos.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		meshList[GEO_BLACKHOLE]->material.kAmbient.Set(1, 1, 1);
+		RenderMesh(meshList[GEO_BLACKHOLE], true);
+		modelStack.PopMatrix();
+		break;
+	}
+}
 
 bool SceneShop::CheckEquip(Weapon::WEAPONTYPE wep)
 {
 	if ((cGameManager->weptype == wep) || (cGameManager->sideweptype == wep))
+	{
+		return false;
+	}
+	return true;
+}
+bool SceneShop::CheckEquipSkill(Skill::SKILLTYPE skill)
+{
+	if (cGameManager->skilltype == skill)
 	{
 		return false;
 	}

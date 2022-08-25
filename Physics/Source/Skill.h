@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "Player.h"
+//#include "Player.h"
 class Skill
 {
 public:
@@ -19,8 +19,16 @@ public:
 	virtual void resetHack();
 	virtual bool getHackingState();
 	
+	enum SKILLTYPE {
+		NONE,
+		EMP,
+		HACK,
+		DOPPELGANGER,
+		IMMORTAL,
+		BLACKHOLE,
+	};
 protected:
-	Player* player;
+	//Player* player;
 
 };
 

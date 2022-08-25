@@ -74,6 +74,7 @@ public:
 
 	void renderUI();
 	void renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* object);
+	void renderSkillUI(Vector3 pos, Vector3 scale, int object);
 
 	bool test;
 	int test2;
@@ -111,12 +112,12 @@ protected:
 	bool arrowCrit;
 	void SetWeapon();
 	void NewWeapon(int weptype, bool MainWep);
-	Skill* HackSkill = new Hack();
-	Skill* HealSkill = new Heal();
-	Skill* ImmortalitySkill = new Immortal();
-	Skill* DoppelgangerSkill = new Doppelganger();
-	Skill* BlackholeSkill = new Blackhole();
 	Skill* EMPSkill = new EMP();
+	Skill* HackSkill = new Hack();
+	Skill* DoppelgangerSkill = new Doppelganger();
+	Skill* ImmortalitySkill = new Immortal();
+	Skill* BlackholeSkill = new Blackhole();
+	Skill* HealSkill = new Heal();
 	GameObject* blackhole;
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
@@ -129,12 +130,16 @@ protected:
 	//Auditing
 	float m1, m2;
 	Vector3 u1, u2, v1, v2;
+
 	float strengthPotTimer;
 
 	float speedPotTimer;
 
 	bool strengthPotUsed;
 	bool speedPotUsed;
+
+	float empTimer;
+	float immortalTimer;
 };
 
 #endif

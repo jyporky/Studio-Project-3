@@ -16,7 +16,7 @@ Player::Player()
 	dashBoost = 80;
 	iFrame = false;
 	money = 2000;
-	energy = 0;
+	energy = 1110;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
 
