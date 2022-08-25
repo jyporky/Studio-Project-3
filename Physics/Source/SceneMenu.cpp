@@ -148,8 +148,6 @@ void SceneMenu::Render()
 		ss << "Highest Wave Reached: " << cGameManager->highestWave;
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 4);
 	}
-	
-
 }
 
 void SceneMenu::Exit()
