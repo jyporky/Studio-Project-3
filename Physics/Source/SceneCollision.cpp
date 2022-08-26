@@ -162,17 +162,17 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	Sword* sword = new Sword();
+	Rifle* sword = new Rifle();
 	player->SetWeapon(sword);
 	GameObject* weapon2 = FetchGO();
-	weapon2->type = GameObject::GO_SWORD;
+	weapon2->type = GameObject::GO_RIFLE;
 	weapon2->pos.SetZero();
 	weapon2->vel.SetZero();
 	weapon2->scale.Set(10, 10, 1);
 	weapon2->angle = 0;
 	weapon2->color.Set(1, 1, 1);
 	weapon2->leftwep = false;
-	cGameManager->weptype = Weapon::SWORD;
+	cGameManager->weptype = Weapon::RIFLE;
 	player->GetWeapon()->SetGameObject(weapon2);
 
 	colorsize = 3;
@@ -1345,6 +1345,7 @@ bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2)
 			return false;
 		return disDiff.LengthSquared() <= (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
 	}
+	case GameObject::GO_NECROMANCER:
 	case GameObject::GO_DOPPELGANGER:
 	case GameObject::GO_PLAYER:
 	case GameObject::GO_SWORDSMAN:
