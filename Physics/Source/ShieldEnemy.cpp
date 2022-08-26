@@ -8,7 +8,7 @@ ShieldEnemy::ShieldEnemy()
     maxhealth = health;
     redTimer = 0;
     movementSpeed = 15;
-    energyDropped = 2;
+    energyDropped = 5;
     moneyDropped = 15;
     attackDamage = 5;
     affectedByKnockback = true;

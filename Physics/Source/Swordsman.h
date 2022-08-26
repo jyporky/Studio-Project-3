@@ -22,10 +22,12 @@ public:
     bool getStunned();
     void makeEnemyStunned();
     void turnEnemy();
+    void SetUndead();
 private:
     unsigned sCurrState;
     unsigned attackRange;
     float switchtime;
     bool moveleft = true;
     float leftdt = 0;
+    bool undead;
 };

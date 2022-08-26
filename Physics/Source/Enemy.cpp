@@ -136,3 +136,8 @@ Entity* Enemy::getTarget() {
 bool Enemy::IsSpawningSwordsman() {
     return false;
 }
+void Enemy::SetUndead()
+{
+    energyDropped = 0;
+    moneyDropped = 0;
+}

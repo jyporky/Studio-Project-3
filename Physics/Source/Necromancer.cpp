@@ -6,8 +6,8 @@ Necromancer::Necromancer()
     maxhealth = health;
     redTimer = 0;
     movementSpeed = 20;
-    energyDropped = 2;
-    moneyDropped = 10;
+    energyDropped = 10;
+    moneyDropped = 30;
     attackDamage = 5;
     affectedByKnockback = true;
     gameobject = nullptr;

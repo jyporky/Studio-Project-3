@@ -23,6 +23,7 @@ Swordsman::Swordsman()
     enemytype = SWORDMAN;
     turned = false;
     switchtime = 0;
+    undead = false;
 }
 
 Swordsman::~Swordsman()
@@ -52,6 +53,8 @@ bool Swordsman::Update(double dt)
     {
         gameobject->color.Set(1, 0, 0);
         redTimer -= dt;
+        if (undead)
+            gameobject->color.Set(0.6, 0.3, 0.4);
     }
     else
         gameobject->color.Set(1, 1, 1);
@@ -61,6 +64,9 @@ bool Swordsman::Update(double dt)
         gameobject->color.Set(0, 1, 0);
         greenTimer -= dt;
     }
+    else if (redTimer <= 0 && undead)
+        gameobject->color.Set(0.4, 0.3, 0.4);
+
     else if (redTimer <= 0)
         gameobject->color.Set(1, 1, 1);
     if (isStunned)
@@ -229,4 +235,10 @@ void Swordsman::makeEnemyStunned() {
 }
 void Swordsman::turnEnemy() {
     turned = true;
+}
+void Swordsman::SetUndead()
+{
+    energyDropped = 0;
+    moneyDropped = 0;
+    undead = true;
 }
