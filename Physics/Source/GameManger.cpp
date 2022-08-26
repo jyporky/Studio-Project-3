@@ -17,6 +17,7 @@ GameManger::GameManger()
 	bulletExplosionRadius = 20;
 	showHealthBar = true;
 
+	buyFirstSkill = true;
 	reset = false;
 	//self upgrades
 	speedUpgradeBought = false;

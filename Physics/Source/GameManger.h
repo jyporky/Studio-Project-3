@@ -24,7 +24,7 @@ public:
 	bool showHealthBar;
 
 	int skilltype;
-
+	bool buyFirstSkill;
 	bool reset;
 
 	//self upgrade

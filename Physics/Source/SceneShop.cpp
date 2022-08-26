@@ -473,11 +473,17 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("emp");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+						if (cGameManager->buyFirstSkill)
+						{
+							cGameManager->skilltype = Skill::EMP;
+							cGameManager->buyFirstSkill = false;
+						}
 					}
 					else
 					{
 						cSoundController->PlaySoundByID(13);
 					}
+
 					break;
 				case 1:
 					//buy hack
@@ -488,6 +494,11 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("hack");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+						if (cGameManager->buyFirstSkill)
+						{
+							cGameManager->skilltype = Skill::HACK;
+							cGameManager->buyFirstSkill = false;
+						}
 					}
 					else
 					{
@@ -503,6 +514,11 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("doppelganger");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+						if (cGameManager->buyFirstSkill)
+						{
+							cGameManager->skilltype = Skill::DOPPELGANGER;
+							cGameManager->buyFirstSkill = false;
+						}
 					}
 					else
 					{
@@ -518,6 +534,11 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("immortal");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+						if (cGameManager->buyFirstSkill)
+						{
+							cGameManager->skilltype = Skill::IMMORTAL;
+							cGameManager->buyFirstSkill = false;
+						}
 					}
 					else
 					{
@@ -533,6 +554,11 @@ void SceneShop::Update(double dt)
 						cInventoryItem = cInventoryManager->GetItem("blackhole");
 						cSoundController->PlaySoundByID(10);
 						cInventoryItem->Add(1);
+						if (cGameManager->buyFirstSkill)
+						{
+							cGameManager->skilltype = Skill::BLACKHOLE;
+							cGameManager->buyFirstSkill = false;
+						}
 					}
 					else
 					{
@@ -591,6 +617,10 @@ void SceneShop::Update(double dt)
 						cGameManager->sideweptype = Weapon::BOXING_GLOVES;
 						cGameManager->buyFirstWep = false;
 					}
+				}
+				else
+				{
+					cSoundController->PlaySoundByID(13);
 				}
 				break;
 			case 1:
