@@ -3,6 +3,7 @@
 DoppelgangerAlly::DoppelgangerAlly()
 {
     health = 1;
+    maxhealth = health;
     redTimer = 0;
     movementSpeed = 10;
     attackDamage = 3;

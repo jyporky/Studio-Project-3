@@ -5,6 +5,7 @@
 #include <vector>
 #include "SceneBase.h"
 #include "SoundController.h"
+#include "GameManger.h"
 
 class SceneOptions : public SceneBase
 {

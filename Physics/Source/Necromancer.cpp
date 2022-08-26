@@ -3,6 +3,7 @@
 Necromancer::Necromancer()
 {
     health = 20;
+    maxhealth = health;
     redTimer = 0;
     movementSpeed = 20;
     energyDropped = 2;

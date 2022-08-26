@@ -5,6 +5,7 @@
 ShieldEnemy::ShieldEnemy()
 {
     health = 69;
+    maxhealth = health;
     redTimer = 0;
     movementSpeed = 15;
     energyDropped = 2;

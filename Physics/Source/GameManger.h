@@ -21,9 +21,10 @@ public:
 	bool buyFirstWep;
 	float bulletExplosionRadius;
 	int highestWave;
+	bool showHealthBar;
 
 	int skilltype;
-
+	bool buyFirstSkill;
 	bool reset;
 
 	//self upgrade

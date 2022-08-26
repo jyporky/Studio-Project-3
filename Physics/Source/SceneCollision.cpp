@@ -495,9 +495,6 @@ void SceneCollision::Update(double dt)
 	else if (!Application::IsKeyPressed('Q') && q)
 		q = false;
 
-	//{
-	//	Application::SetState(3);
-	//}
 	if (Application::IsKeyPressed('E') && cGameManager->waveClear && !e && NearShop()) //go shop
 	{
 		Application::SetState(3);
@@ -796,6 +793,7 @@ void SceneCollision::Update(double dt)
 		doppelganger->Update(dt);
 	}
 
+	
 	//update the player
 	Vector3 temppos = player->GetGameObject()->pos;
 	player->SetEnemyVector(m_enemyList);
@@ -842,6 +840,14 @@ void SceneCollision::Update(double dt)
 			arrowgo->color.Set(1, 1, 1);
 			arrowgo->angle = player->GetWeapon()->GetGameObject()->angle;
 			arrow->SetGameObject(arrowgo);
+			if (cGameManager->accuratearrowsBought)
+			{
+				arrow->setCrit(3);
+			}
+			else
+			{
+				arrow->setCrit(5);
+			}
 			arrow->SetArrow(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), player->GetWeapon()->GetPiercing(), player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize());
 			m_parrowList.push_back(arrow);
 		}
@@ -862,7 +868,15 @@ void SceneCollision::Update(double dt)
 			bulletgo->color.Set(1, 1, 1);
 			bulletgo->angle = player->GetWeapon()->GetGameObject()->angle;
 			bullet->SetGameObject(bulletgo);
-			bullet->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), true, player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize(), cGameManager->explosiveBought, cGameManager->bulletExplosionRadius);
+			if (cGameManager->pierceBought)
+			{
+				bullet->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), true, player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize(), cGameManager->explosiveBought, cGameManager->bulletExplosionRadius);
+			}
+			else
+			{
+				bullet->SetBullet(player->GetWeapon()->GetBulletSpeed(), player->GetWeapon()->GetDamage(), false, player->GetWeapon()->GetRange(), (mousepos - player->GetGameObject()->pos).Normalize(), cGameManager->explosiveBought, cGameManager->bulletExplosionRadius);
+			}
+
 			m_pbulletList.push_back(bullet);
 		}
 	}
@@ -1249,11 +1263,13 @@ void SceneCollision::Update(double dt)
 			{
 				if (m_parrowList[idx]->getCrit() == 1) {
 					arrowCrit = true;
-					m_enemyList[idx1]->ChangeHealth(-m_parrowList[idx]->GetDamage() * 2);
+					m_enemyList[idx1]->ChangeHealth(-m_parrowList[idx]->GetDamage() * 20);
+
 				}
 				else {
 					arrowCrit = false;
 					m_enemyList[idx1]->ChangeHealth(-m_parrowList[idx]->GetDamage());
+
 				}
 				if (!m_parrowList[idx]->GetPenetrationValue())
 				{
@@ -1730,6 +1746,19 @@ void SceneCollision::Render()
 		if(go->active && go->visible)
 		{
 			RenderGO(go);
+		}
+	}
+
+	//render the Health bar of the enemies
+	if (cGameManager->showHealthBar)
+	{
+		float ratiox, ratioy;
+		ratiox = 80 / m_worldWidth;
+		ratioy = 60 / m_worldHeight;
+		for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
+		{
+			RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], m_enemyList[idx]->GetGameObject()->pos.x * ratiox, (m_enemyList[idx]->GetGameObject()->pos.y + 6.5) * ratioy, 5, 1.25);
+			RenderMeshOnScreen(meshList[GEO_HEALTH_UI_GREEN], m_enemyList[idx]->GetGameObject()->pos.x * ratiox, (m_enemyList[idx]->GetGameObject()->pos.y + 6.5) * ratioy, 5.0f * ((double)m_enemyList[idx]->GetHealth() / (double)m_enemyList[idx]->GetMaxHealth()), 1.25);
 		}
 	}
 
