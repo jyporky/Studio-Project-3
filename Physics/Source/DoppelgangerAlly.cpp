@@ -13,7 +13,7 @@ DoppelgangerAlly::DoppelgangerAlly()
     attackRange = 12;
     attackSpeed = 2.0;
     iFrameTimer = 0;
-  /*  enemytype = SWORDMAN;*/
+    entitytype = DOPPLEGANGER;
 }
 
 DoppelgangerAlly::~DoppelgangerAlly()

@@ -140,59 +140,76 @@ bool ShieldEnemy::Update(double dt)
             gameobject->angle = 180;
         }
 
-    //ai of the enemy
-    switch (sCurrState)
-    {
-    case IDLE:
-        if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() >= attackRange * attackRange)
-            sCurrState = CHASE;
-        else if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
+        //ai of the enemy
+        switch (sCurrState)
         {
-            sCurrState = ATTACK;
-        }
-        break;
-    case CHASE:
-        //chase the player
-        gameobject->pos += (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
-        if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
-        {
-            sCurrState = ATTACK;
-        }
-        break;
-    case ATTACK:
-        if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
-            sCurrState = CHASE;
-        //check if the enemy is facing the player
-        if (enemy2player.Dot(enemy2shield) < 0)
-            break;
-
-
-        //Attack the player
-        if (CurrWeapon->attack())
-        {
-            if (turned) {
-                Target->ChangeHealth(-attackDamage);
+        case IDLE:
+            if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() >= attackRange * attackRange)
+                sCurrState = CHASE;
+            else if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
+            {
+                sCurrState = ATTACK;
             }
-            else {
-                if (PlayerPointer->iFrame == false)
-                {
-                    if(cGameManager->isImmortal)
-                       PlayerPointer->ChangeHealth(attackDamage);
-                    else if(cGameManager->isImmortal != true)
-                       PlayerPointer->ChangeHealth(-attackDamage);
+            break;
+        case CHASE:
+        {
+            //chase the player
+            leftdt += dt;
+            Vector3 direction;
+            direction.SetZero();
+            direction = (Target->GetGameObject()->pos - gameobject->pos).Normalize();
+            if (moveleft)
+                direction += Vector3(-direction.y, direction.x, 0);
+            else
+                direction -= Vector3(-direction.y, direction.x, 0);
+
+            if (leftdt > switchtime)
+            {
+                leftdt = 0;
+                moveleft = !moveleft;
+            }
+
+            gameobject->pos += direction * dt * movementSpeed;
+            if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
+            {
+                sCurrState = ATTACK;
+            }
+            break; 
+        }
+        case ATTACK:
+            if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
+                sCurrState = CHASE;
+            //check if the enemy is facing the player
+            if (enemy2player.Dot(enemy2shield) < 0)
+                break;
+
+
+            //Attack the player
+            if (CurrWeapon->attack())
+            {
+                if (turned) {
+                    Target->ChangeHealth(-attackDamage);
+                }
+                else {
+                    if (PlayerPointer->iFrame == false)
+                    {
+                        if(cGameManager->isImmortal)
+                           PlayerPointer->ChangeHealth(attackDamage);
+                        else if(cGameManager->isImmortal != true)
+                           PlayerPointer->ChangeHealth(-attackDamage);
+                    }
                 }
             }
+            break;
         }
-        break;
-    }
 
-    if (kbTimer > 0)
-    {
-        gameobject->pos -= kbEffect;
-        kbTimer -= dt;
-    }
-    gameobject->pos.z = 0;
-    //move the shield
+        if (kbTimer > 0)
+        {
+            gameobject->pos -= kbEffect;
+            kbTimer -= dt;
+        }
+        gameobject->pos.z = 0;
+        //move the shield
         Vector3 direction = Vector3(1, 0, 0);
         direction = RotateVector2(direction, Math::DegreeToRadian(angle));
         //move the shield

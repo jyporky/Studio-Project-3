@@ -1710,7 +1710,6 @@ void SceneCollision::Render()
 			RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], m_enemyList[idx]->GetGameObject()->pos.x * ratiox, (m_enemyList[idx]->GetGameObject()->pos.y + 6.5) * ratioy, 5, 1.25);
 			if (m_enemyList[idx]->GetHealth() <= m_enemyList[idx]->GetMaxHealth())
 				RenderMeshOnScreen(meshList[GEO_HEALTH_UI_GREEN], m_enemyList[idx]->GetGameObject()->pos.x * ratiox, (m_enemyList[idx]->GetGameObject()->pos.y + 6.5) * ratioy, 5.0f * ((double)m_enemyList[idx]->GetHealth() / (double)m_enemyList[idx]->GetMaxHealth()), 1.25);
-			std::cout << "Health" << m_enemyList[idx]->GetHealth() << "/" << m_enemyList[idx]->GetMaxHealth() << std::endl;
 		}
 	}
 
