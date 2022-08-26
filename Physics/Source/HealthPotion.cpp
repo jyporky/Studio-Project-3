@@ -12,5 +12,5 @@ int HealthPot::getMoneyCost() {
 	return 30;
 }
 void HealthPot::usePotion() {
-	player->ChangeHealth(50);
+	player->ChangeHealth(30);
 }

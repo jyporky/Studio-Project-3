@@ -751,8 +751,11 @@ void SceneCollision::Update(double dt)
 	{
 		button2 = false;
 	}
-	strengthPotTimer += dt;
-	if ((strengthPotTimer == 30) && (strengthPotUsed == true))
+	if (strengthPotUsed)
+	{
+		strengthPotTimer += dt;
+	}
+	if ((strengthPotTimer >= 30) && (strengthPotUsed == true))
 	{
 		StrengthPotion->potionTimeUp();
 		strengthPotUsed = false;

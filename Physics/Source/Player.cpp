@@ -369,6 +369,10 @@ void Player::setMovementSpeed(int ms)
 void Player::changeEnergy(float energyChange)
 {
 	energy += energyChange;
+	if (energy > 200)
+	{
+		energy = 200;
+	}
 }
 
 void Player::SwapWeapon()

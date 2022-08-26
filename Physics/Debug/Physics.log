@@ -1,1 +1,25 @@
-﻿
+﻿  Player.cpp
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Entity.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(50,17): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(58,19): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(68,18): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(69,36): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(76,15): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(102,52): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(126,23): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(131,23): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(135,23): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(149,18): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(170,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(170,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(172,50): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(172,66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(231,33): warning C4018: '<': signed/unsigned mismatch
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(235,18): warning C4018: '>': signed/unsigned mismatch
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(329,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(331,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(350,22): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(360,25): warning C4244: '+=': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(361,28): warning C4244: '=': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\iandi\Documents\GitHub\Studio-Project-3\Physics\Source\Player.cpp(371,24): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  Physics.vcxproj -> C:\Users\iandi\Documents\GitHub\Studio-Project-3\Debug\Physics.exe
