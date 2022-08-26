@@ -15,8 +15,8 @@ Player::Player()
 	movementspeed = 40;
 	dashBoost = 80;
 	iFrame = false;
-	money = 0;
-	energy = 0;
+	money = 100000;
+	energy = 200;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
 

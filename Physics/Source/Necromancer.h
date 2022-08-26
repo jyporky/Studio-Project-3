@@ -19,6 +19,7 @@ public:
     Weapon* GetWeapon();
     bool getStunned();
     void makeEnemyStunned();
+    void resetEnemyStunned();
     void turnEnemy();
     bool IsSpawningSwordsman();
 private:

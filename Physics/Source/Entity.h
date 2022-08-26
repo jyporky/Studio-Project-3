@@ -35,8 +35,10 @@ public:
 
 	virtual bool getStunned();
 	virtual void makeEnemyStunned();
+	virtual void resetEnemyStunned();
 	virtual bool getTurnedState();
 	virtual void turnEnemy();
+	virtual void resetEnemyTurned();
 	virtual Entity* getTarget();
 protected:
 	Entity* Target;
