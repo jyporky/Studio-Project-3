@@ -22,7 +22,7 @@ public:
 	float bulletExplosionRadius;
 
 	int skilltype;
-
+	bool buyFirstSkill;
 	bool reset;
 
 	//self upgrade

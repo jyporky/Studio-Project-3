@@ -15,6 +15,7 @@ GameManger::GameManger()
 	skilltype = Skill::NONE;
 	bulletExplosionRadius = 20;
 
+	buyFirstSkill = true;
 	reset = false;
 	//self upgrades
 	speedUpgradeBought = false;
