@@ -50,7 +50,7 @@ void SceneOptions::Update(double dt)
 		w = true;
 		if (menubuttonhighlight == 0)
 		{
-			menubuttonhighlight = 4;
+			menubuttonhighlight = 5;
 		}
 		else
 			menubuttonhighlight--;
@@ -61,7 +61,7 @@ void SceneOptions::Update(double dt)
 	if (Application::IsKeyPressed('S') && !s)
 	{
 		s = true;
-		if (menubuttonhighlight == 4)
+		if (menubuttonhighlight == 5)
 		{
 			menubuttonhighlight = 0;
 		}
@@ -192,9 +192,12 @@ void SceneOptions::Update(double dt)
 		switch (menubuttonhighlight)
 		{
 		case 3:
-			Application::SetState(1);
+			GameManger::GetInstance()->showHealthBar = !GameManger::GetInstance()->showHealthBar;
 			break;
 		case 4:
+			Application::SetState(1);
+			break;
+		case 5:
 			Application::SetState(2);
 			break;
 		}
@@ -249,12 +252,20 @@ void SceneOptions::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 36);
 
 	ss.str("");
-	ss << "Return to Main Menu";
+	ss << "Show Enemy Health: ";
+	if (GameManger::GetInstance()->showHealthBar)
+		ss << "Yes";
+	else
+		ss << "No";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 32);
 
 	ss.str("");
-	ss << "Resume Game";
+	ss << "Return to Main Menu";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 28);
+
+	ss.str("");
+	ss << "Resume Game";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 24);
 
 	ss.str("");
 	ss << "Options";
@@ -292,6 +303,10 @@ void SceneOptions::Render()
 	ss.str("");
 	ss << "Pause Menu: `";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 20);
+
+	ss.str("");
+	ss << "Use Skill: Q";
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 45, 16);
 }
 
 void SceneOptions::Exit()

@@ -29,6 +29,7 @@ struct GameObject
 		GO_BOXINGGLOVES,
 		GO_BLACKHOLE,
 		GO_DEATH_PARTICLE,
+		GO_NECROMANCER,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;
@@ -45,12 +46,7 @@ struct GameObject
 
 	//Rotation variables
 	Vector3 direction;
-	float momentOfInertia;
-	float angularVelocity;
 
-	std::vector <GameObject*> otherGameObjects;
-
-	bool checkCollision;
 	float time2disappear;
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();

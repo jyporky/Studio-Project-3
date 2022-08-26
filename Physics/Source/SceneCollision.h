@@ -21,6 +21,7 @@
 #include "Rifle.h"
 #include "RiflerEnemy.h"
 #include "Rifle.h"
+#include "Necromancer.h"
 
 #include "FlameParticle.h"
 #include "Flamethrower.h"
@@ -69,12 +70,12 @@ public:
 	void ResetLevel();
 
 	bool SceneCollision::CheckCollision(GameObject* go1, GameObject* go2);
-	void SceneCollision::CollisionResponse(GameObject* go1, GameObject* go2);
-	void MakeThickWall(float width, float height, const Vector3& normal, const Vector3& pos, const Vector3& color);
 	GameObject* Checkborder(GameObject* go);
 
 	void renderUI();
 	void renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* object);
+	void renderSkillUI(Vector3 pos, Vector3 scale, int object);
+	void spawnBlackhole();
 
 	bool test;
 	int test2;
@@ -101,7 +102,6 @@ protected:
 	CInventoryManager* cInventoryManager;
 	CInventoryItem* cInventoryItem;
 	void RenderWall();
-	int wave;
 	float rate;
 	int totalEnemy;
 	int enemyLeft;
@@ -111,12 +111,12 @@ protected:
 	bool arrowCrit;
 	void SetWeapon();
 	void NewWeapon(int weptype, bool MainWep);
-	Skill* HackSkill = new Hack();
-	Skill* HealSkill = new Heal();
-	Skill* ImmortalitySkill = new Immortal();
-	Skill* DoppelgangerSkill = new Doppelganger();
-	Skill* BlackholeSkill = new Blackhole();
 	Skill* EMPSkill = new EMP();
+	Skill* HackSkill = new Hack();
+	Skill* DoppelgangerSkill = new Doppelganger();
+	Skill* ImmortalitySkill = new Immortal();
+	Skill* BlackholeSkill = new Blackhole();
+	Skill* HealSkill = new Heal();
 	GameObject* blackhole;
 	Potions* StrengthPotion = new StrengthPot();
 	Potions* HealthPotion = new HealthPot();
@@ -129,12 +129,19 @@ protected:
 	//Auditing
 	float m1, m2;
 	Vector3 u1, u2, v1, v2;
+
 	float strengthPotTimer;
 
 	float speedPotTimer;
 
 	bool strengthPotUsed;
 	bool speedPotUsed;
+
+	float empTimer;
+	float hackTimer;
+	float immortalTimer;
+	float blackholeTimer;
+	bool blackholeUsed;
 };
 
 #endif

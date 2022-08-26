@@ -2,6 +2,7 @@
 #include "SingletonTemplate.h"
 #include "SpriteAnimation.h"
 #include "Weapon.h"
+#include "Skill.h"
 
 class GameManger : public CSingletonTemplate<GameManger>
 {
@@ -19,6 +20,10 @@ public:
 	int sideweptype;
 	bool buyFirstWep;
 	float bulletExplosionRadius;
+	int highestWave;
+	bool showHealthBar;
+
+	int skilltype;
 
 	bool reset;
 
@@ -50,5 +55,7 @@ public:
 	bool betterfuelBought;
 	bool accuratearrowsBought;
 	bool fastmeleeBought;
+
+	bool isImmortal;
 };
 

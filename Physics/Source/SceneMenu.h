@@ -5,6 +5,7 @@
 #include <vector>
 #include "SceneBase.h"
 #include "SoundController.h"
+#include "GameManger.h"
 class SceneMenu : public SceneBase
 {
 public:
@@ -19,6 +20,7 @@ public:
 protected:
 	//sound
 	CSoundController* cSoundController;
+	GameManger* cGameManager;
 
 	float m_worldWidth;
 	float m_worldHeight;

@@ -27,6 +27,19 @@ public:
 	virtual float GetAngle();
 	virtual bool getStunned();
 	virtual void makeEnemyStunned();
+	virtual bool getTurnedState();
+	virtual void turnEnemy();
+	virtual Entity* getTarget();
+	virtual bool IsSpawningSwordsman();
+	virtual unsigned GetMaxHealth()
+	{
+		return maxhealth;
+	}
+	virtual unsigned GetHealth()
+	{
+		return health;
+	}
+	static void SetEnemyVector(std::vector<Entity*> m_enemyList);
 protected:
 	static std::vector<Entity*> m_enemyList;
 	unsigned enemytype;
@@ -45,5 +58,7 @@ protected:
 	static Player* PlayerPointer;
 	static GameManger* cGameManager;
 	bool isStunned;
+	bool isSpawningSwordsman;
+	unsigned maxhealth;
 };
 

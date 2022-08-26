@@ -4,6 +4,7 @@ Swordsman::Swordsman()
 {
     //init variables
     health = 20;
+    maxhealth = health;
     redTimer = 0;
     movementSpeed = 20;
     energyDropped = 2;
@@ -20,6 +21,7 @@ Swordsman::Swordsman()
     kbTimer = 0;
     kbEffect.SetZero();
     enemytype = SWORDMAN;
+    turned = false;
     switchtime = 0;
 }
 
@@ -65,113 +67,142 @@ bool Swordsman::Update(double dt)
         sCurrState = IDLE;
     if (cGameManager->bPlayerLost)
         sCurrState = IDLE;
-    Entity* Target = PlayerPointer;
-    if (turned)
-    {
-        //find an enemy to target
-    }
+    Target = nullptr;
 
-    
-    
+    //find an enemy to target
     Vector3 direction;
     direction.SetZero();
-    switch (sCurrState)
+
+    if (turned)
     {
-    case IDLE:
-        //do nothing
-        break;
-    case CHASE:
-        //chase the player
-        leftdt += dt;
-        if (!moveleft)
-        {
-            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
-            direction = Vector3(-direction.y, direction.x, 0);
-            if (leftdt > 2)
-            {
-                moveleft = !moveleft;
-                leftdt = 0;
+        for (unsigned idx = 0; idx < m_enemyList.size(); idx++) {
+            if (m_enemyList[idx] == this)
+                continue;
+            if (Target == nullptr) {
+                Target = m_enemyList[idx];
+                continue;
+            }
+            if ((m_enemyList[idx]->GetGameObject()->pos - gameobject->pos).LengthSquared() < (Target->GetGameObject()->pos - gameobject->pos).LengthSquared()) {
+                Target = m_enemyList[idx];
             }
         }
-        else
+    }
+    else {
+        Target = PlayerPointer;
+    }
+
+    if (Target)
+    {
+        switch (sCurrState)
         {
-            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
-            direction = -(Vector3(-direction.y, direction.x, 0));
-            if (leftdt > 2)
-            {
-                moveleft = !moveleft;
-                leftdt = 0;
-            }
-        }
-        gameobject->pos += ((Target->GetGameObject()->pos - gameobject->pos).Normalize() + direction) * dt * movementSpeed;
-        if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
-        {
-            sCurrState = ATTACK;
-        }
-        break;
-    case ATTACK:
-        leftdt = 0;
-        if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
-        {
-            sCurrState = CHASE;
+        case IDLE:
+            //do nothing
             break;
-        }
-        //Attack the player
-        if (CurrWeapon->attack())
-        {
-            //deal damage to the player
-            if (PlayerPointer->iFrame == false)
+        case CHASE:
+            //chase the player
+            leftdt += dt;
+            if (!moveleft)
             {
-                PlayerPointer->ChangeHealth(-attackDamage);
+                direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+                direction = Vector3(-direction.y, direction.x, 0);
+                if (leftdt > 2)
+                {
+                    moveleft = !moveleft;
+                    leftdt = 0;
+                }
             }
-            sCurrState = BACK_OFF;
-        }
-        break;
-    case BACK_OFF:
-        leftdt += dt;
-        if (!moveleft)
-        {
-            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
-            direction = Vector3(-direction.y, direction.x, 0);
-            if (leftdt > switchtime)
+            else
             {
-                moveleft = !moveleft;
-                leftdt = 0;
+                direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+                direction = -(Vector3(-direction.y, direction.x, 0));
+                if (leftdt > 2)
+                {
+                    moveleft = !moveleft;
+                    leftdt = 0;
+                }
             }
-        }
-        else
-        {
-            direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
-            direction = -(Vector3(-direction.y, direction.x, 0));
-            if (leftdt > switchtime)
+            gameobject->pos += ((Target->GetGameObject()->pos - gameobject->pos).Normalize() + direction) * dt * movementSpeed;
+            if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
             {
-                moveleft = !moveleft;
-                leftdt = 0;
+                sCurrState = ATTACK;
             }
-        }
-        //check if the enemy can attack or not
-        if (CurrWeapon->attacktest())
-        {
+            break;
+        case ATTACK:
             leftdt = 0;
-            sCurrState = CHASE;
+            if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() > attackRange * attackRange)
+            {
+                sCurrState = CHASE;
+                break;
+            }
+            //Attack the player
+            if (CurrWeapon->attack())
+            {
+                //deal damage to the player
+                if (turned) {
+                    Target->ChangeHealth(-attackDamage);
+                }
+                else {
+                    if (PlayerPointer->iFrame == false)
+                    {
+                        if (cGameManager->isImmortal)
+                            PlayerPointer->ChangeHealth(attackDamage);
+                        else if (cGameManager->isImmortal != true)
+                            PlayerPointer->ChangeHealth(-attackDamage);
+                    }
+                }
+                sCurrState = BACK_OFF;
+            }
+            break;
+        case BACK_OFF:
+            leftdt += dt;
+            if (!moveleft)
+            {
+                direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+                direction = Vector3(-direction.y, direction.x, 0);
+                if (leftdt > switchtime)
+                {
+                    moveleft = !moveleft;
+                    leftdt = 0;
+                }
+            }
+            else
+            {
+                direction = (gameobject->pos - Target->GetGameObject()->pos).Normalize();
+                direction = -(Vector3(-direction.y, direction.x, 0));
+                if (leftdt > switchtime)
+                {
+                    moveleft = !moveleft;
+                    leftdt = 0;
+                }
+            }
+            //check if the enemy can attack or not
+            if (CurrWeapon->attacktest())
+            {
+                leftdt = 0;
+                sCurrState = CHASE;
+                break;
+            }
+
+            //move the enemy away from the target
+            gameobject->pos -= (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
             break;
         }
 
-        //move the enemy away from the target
-        gameobject->pos -= (Target->GetGameObject()->pos - gameobject->pos).Normalize() * dt * movementSpeed;
-        break;
-    }
+        if (kbTimer > 0)
+        {
+            gameobject->pos -= kbEffect;
+            kbTimer -= dt;
+        }
 
-    if (kbTimer > 0)
-    {
-        gameobject->pos -= kbEffect;
-        kbTimer -= dt;
-    }
+        // Make the sword point to the player
 
-    gameobject->pos.z = 0;
-    // Make the sword point to the player
-    CurrWeapon->Update(dt, Target->GetGameObject()->pos, 0, gameobject);
+
+        gameobject->pos.z = 0;
+        // Make the sword point to the player
+        CurrWeapon->Update(dt, Target->GetGameObject()->pos, 0, gameobject);
+    }
     return false;
+
 }
 
 void Swordsman::Init()
@@ -195,4 +226,7 @@ bool Swordsman::getStunned() {
 }
 void Swordsman::makeEnemyStunned() {
     isStunned = true;
+}
+void Swordsman::turnEnemy() {
+    turned = true;
 }

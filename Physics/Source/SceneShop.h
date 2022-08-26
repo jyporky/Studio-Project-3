@@ -138,7 +138,10 @@ protected:
 	WeaponMods* fasterMeleeMod = new FasterMeleeMod();
 
 	void renderWeaponUI(Vector3 pos, Vector3 scale, int object);
+	void renderSkillUI(Vector3 pos, Vector3 scale, int object);
+
 	bool CheckEquip(Weapon::WEAPONTYPE wep);
+	bool CheckEquipSkill(Skill::SKILLTYPE skill);
 };
 
 #endif

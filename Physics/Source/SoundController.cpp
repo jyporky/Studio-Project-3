@@ -176,7 +176,7 @@ void CSoundController::SetMasterVolume(double volume)
 	cSoundEngine->setSoundVolume(volume);
 	if (cSoundEngine->getSoundVolume() > 1)
 		cSoundEngine->setSoundVolume(1);
-	else if (cSoundEngine->getSoundVolume() < 0)
+	else if (cSoundEngine->getSoundVolume() <= Math::EPSILON)
 		cSoundEngine->setSoundVolume(0);
 }
 
@@ -190,7 +190,7 @@ void CSoundController::SetMusicVolume(double volume)
 	MusicVolume = volume;
 	if (MusicVolume > 1)
 		MusicVolume = 1;
-	else if (MusicVolume < 0)
+	else if (MusicVolume <= Math::EPSILON)
 		MusicVolume = 0;
 }
 
@@ -204,7 +204,7 @@ void CSoundController::SetSFXVolume(double volume)
 	SFXVolume = volume;
 	if (SFXVolume > 1)
 		SFXVolume = 1;
-	else if (SFXVolume < 0)
+	else if (SFXVolume <= Math::EPSILON)
 		SFXVolume = 0;
 }
 

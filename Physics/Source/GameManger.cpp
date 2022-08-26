@@ -5,14 +5,17 @@ GameManger::GameManger()
 	bPlayerLost = false;
 	bDebug = false;
 	dWaveNo = 1;
-	waveClear = true;
+	highestWave = 0;
+	waveClear = false;
 	outShop = false;
 	eButtonState = false;
 	switchWeapon = false;
 	buyFirstWep = true;
 	weptype = Weapon::NONE;
 	sideweptype = Weapon::NONE;
+	skilltype = Skill::NONE;
 	bulletExplosionRadius = 20;
+	showHealthBar = true;
 
 	reset = false;
 	//self upgrades
@@ -43,9 +46,10 @@ GameManger::GameManger()
 	betterfuelBought = false;
 	accuratearrowsBought = false;
 	fastmeleeBought = false;
+
+	isImmortal = false;
 }
 
 GameManger::~GameManger()
 {
-	// Delete the animated sprites
 }

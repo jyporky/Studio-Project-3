@@ -28,6 +28,7 @@ void SceneMenu::Init()
 
 	bLightEnabled = true;
 	cSoundController = CSoundController::GetInstance();
+	cGameManager = GameManger::GetInstance();
 
 	Math::InitRNG();
 
@@ -140,6 +141,13 @@ void SceneMenu::Render()
 	ss << "GROBYC";
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 8, 4, 50);
 
+	//display the high score
+	if (cGameManager->highestWave != 0)
+	{
+		ss.str("");
+		ss << "Highest Wave Reached: " << cGameManager->highestWave;
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 4, 4);
+	}
 }
 
 void SceneMenu::Exit()
