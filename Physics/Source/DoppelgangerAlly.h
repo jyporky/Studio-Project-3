@@ -31,4 +31,6 @@ private:
     float attackSpeed;
     float iFrameTimer;
     
+protected:
+    unsigned maxhealth;
 };

@@ -5,6 +5,7 @@ GameManger::GameManger()
 	bPlayerLost = false;
 	bDebug = false;
 	dWaveNo = 1;
+	highestWave = 0;
 	waveClear = false;
 	outShop = false;
 	eButtonState = false;
@@ -14,6 +15,7 @@ GameManger::GameManger()
 	sideweptype = Weapon::NONE;
 	skilltype = Skill::NONE;
 	bulletExplosionRadius = 20;
+	showHealthBar = true;
 
 	buyFirstSkill = true;
 	reset = false;
@@ -45,9 +47,10 @@ GameManger::GameManger()
 	betterfuelBought = false;
 	accuratearrowsBought = false;
 	fastmeleeBought = false;
+
+	isImmortal = false;
 }
 
 GameManger::~GameManger()
 {
-	// Delete the animated sprites
 }

@@ -21,6 +21,7 @@
 #include "Rifle.h"
 #include "RiflerEnemy.h"
 #include "Rifle.h"
+#include "Necromancer.h"
 
 #include "FlameParticle.h"
 #include "Flamethrower.h"
@@ -101,7 +102,6 @@ protected:
 	CInventoryManager* cInventoryManager;
 	CInventoryItem* cInventoryItem;
 	void RenderWall();
-	int wave;
 	float rate;
 	int totalEnemy;
 	int enemyLeft;

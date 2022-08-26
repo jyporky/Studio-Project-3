@@ -26,6 +26,9 @@ public:
 	virtual unsigned GetEnergyDrop();
 	virtual unsigned GetEnemyType();
 	virtual float GetAngle();
+	virtual bool IsSpawningSwordsman();
+	virtual unsigned GetMaxHealth();
+	virtual unsigned GetHealth();
 
 	static bool CheckShieldCollision(Entity* projectile, Entity* shieldman);
 	static float shieldblockingangle;

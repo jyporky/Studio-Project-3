@@ -20,6 +20,8 @@ public:
 	int sideweptype;
 	bool buyFirstWep;
 	float bulletExplosionRadius;
+	int highestWave;
+	bool showHealthBar;
 
 	int skilltype;
 	bool buyFirstSkill;
@@ -53,5 +55,7 @@ public:
 	bool betterfuelBought;
 	bool accuratearrowsBought;
 	bool fastmeleeBought;
+
+	bool isImmortal;
 };
 

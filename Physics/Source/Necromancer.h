@@ -9,7 +9,6 @@ public:
     enum NECROMANCER_STATES {
         IDLE,
         CHASE,
-        SPAWNENEMY,
         NUM_SM_STATES,
     };
     Necromancer();
@@ -21,10 +20,13 @@ public:
     bool getStunned();
     void makeEnemyStunned();
     void turnEnemy();
+    bool IsSpawningSwordsman();
 private:
     unsigned sCurrState;
     unsigned attackRange;
     float switchtime;
     bool moveleft = true;
     float leftdt = 0;
+    float spawnTimer;
+    bool isSpawningSwordsman;
 };

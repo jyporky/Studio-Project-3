@@ -29,6 +29,7 @@ struct GameObject
 		GO_BOXINGGLOVES,
 		GO_BLACKHOLE,
 		GO_DEATH_PARTICLE,
+		GO_NECROMANCER,
 		GO_TOTAL, //must be last
 	};
 	GAMEOBJECT_TYPE type;

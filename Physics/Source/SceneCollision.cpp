@@ -79,6 +79,7 @@ void SceneCollision::Init()
 {
 	SceneBase::Init();
 	
+	cGameManager = GameManger::GetInstance();
 	//Calculating aspect ratio
 	m_worldHeight = 100.f;
 	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
@@ -92,7 +93,7 @@ void SceneCollision::Init()
 	//Exercise 1: initialize m_objectCount
 	m_objectCount = 0;
 
-	wave = 1;
+	cGameManager->dWaveNo = 1;
 	
 
 	rate = SetRate();
@@ -115,8 +116,8 @@ void SceneCollision::Init()
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\shoot.ogg"), 5, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\playerDash.ogg"), 6, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\flamethrower.ogg"), 7, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sound\\menuBGM.ogg"), 8, false, CSoundInfo::BGM);
-	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, false, CSoundInfo::BGM);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\menuBGM.ogg"), 8, true, CSoundInfo::BGM);
+	cSoundController->LoadSound(FileSystem::getPath("Sound\\gameplayBGM.ogg"), 9, true, CSoundInfo::BGM);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\buyItem.ogg"), 10, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\Shieldblock.ogg"), 11, false);
 	cSoundController->LoadSound(FileSystem::getPath("Sound\\switch_weapon.ogg"), 12, false);
@@ -144,7 +145,7 @@ void SceneCollision::Init()
 	cInventoryItem = cInventoryManager->Add("immortal", 1, 0);
 	cInventoryItem = cInventoryManager->Add("blackhole", 1, 0);
 
-	cGameManager = GameManger::GetInstance();
+	
 
 	GameObject* m_player = FetchGO();
 	m_player->type = GameObject::GO_PLAYER;
@@ -183,11 +184,25 @@ void SceneCollision::Init()
 	strengthPotUsed = false;
 	speedPotUsed = false;
 
-	empTimer = 0;
-	hackTimer = 0;
-	immortalTimer = 0;
-	blackholeTimer = 0;
-	blackholeUsed = false;
+	Enemy* enemy4;
+	
+	GameObject* enemyGO4;
+	
+	
+
+
+	enemy4 = new Necromancer();
+	enemy4->Init();
+	enemyGO4 = FetchGO();
+	enemyGO4->type = GameObject::GO_NECROMANCER;
+	enemyGO4->pos = (m_worldWidth / 2, m_worldHeight / 2, 1);
+	enemyGO4->vel.SetZero();
+	enemyGO4->scale.Set(13, 10, 1);
+	enemyGO4->color.Set(1, 1, 1);
+	enemyGO4->angle = 0;
+	enemy4->SetGameObject(enemyGO4);
+	m_enemyList.push_back(enemy4);
+	enemyLeft++;
 }
 
 GameObject* SceneCollision::FetchGO()
@@ -299,7 +314,7 @@ void SceneCollision::ResetLevel()
 
 
 	cGameManager->bPlayerLost = false;
-	wave = 1;
+	cGameManager->dWaveNo = 1;
 	cGameManager->sideweptype = Weapon::NONE;
 	cInventoryItem = cInventoryManager->GetItem("boxingglove");
 	cInventoryItem->Remove(1);	
@@ -426,7 +441,7 @@ void SceneCollision::Update(double dt)
 	{
 		cGameManager->outShop = false;
 		SetWeapon();
-		wave++;
+		cGameManager->dWaveNo++;
 		rate = SetRate();
 		player->GetGameObject()->pos.Set(m_worldWidth / 2, m_worldHeight / 2, 1);
 		timer = -3;
@@ -664,7 +679,7 @@ void SceneCollision::Update(double dt)
 
 	
 	if (test && test2 < 2) {
-		doppelganger = new DoppelgangerAlly();
+	/*	doppelganger = new DoppelgangerAlly();
 		doppelganger->Init();
 		GameObject* enemy2GO = FetchGO();
 		enemy2GO->type = GameObject::GO_DOPPELGANGER;
@@ -686,8 +701,18 @@ void SceneCollision::Update(double dt)
 		ewep2->angle = 0;
 		ewep2->active = true;
 		ewep2->leftwep = false;
-		doppelganger->GetWeapon()->SetGameObject(ewep2);
+		doppelganger->GetWeapon()->SetGameObject(ewep2);*/
+		blackhole = FetchGO();
+		blackhole->type = GameObject::GO_BLACKHOLE;
+		blackhole->pos = player->GetGameObject()->pos;
+		blackhole->vel.SetZero();
+		blackhole->scale.Set(12, 12, 1);
+		blackhole->color.Set(1, 1, 1);
 		test = false;
+	}
+	if (Application::IsKeyPressed('O') && blackhole) {
+		ReturnGO(blackhole);
+		blackhole = nullptr;
 	}
 
 
@@ -858,9 +883,6 @@ void SceneCollision::Update(double dt)
 		if (EMPSkill->getStunState() == true) {
 			m_enemyList[idx]->makeEnemyStunned();
 		}
-		if (HackSkill->getHackingState()) {
-			m_enemyList[idx]->turnEnemy();
-		}
 		Enemy::SetEnemyVector(m_enemyList);
 		if (m_enemyList[idx]->Update(dt))
 		{
@@ -902,7 +924,8 @@ void SceneCollision::Update(double dt)
 
 			//delete the enemy
 			ReturnGO(m_enemyList[idx]->GetGameObject());
-			ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
+			if(m_enemyList[idx]->GetWeapon())
+				ReturnGO(m_enemyList[idx]->GetWeapon()->GetGameObject());
 			player->changeEnergy(m_enemyList[idx]->GetEnergyDrop());
 			player->changeMoney(m_enemyList[idx]->GetMoneyDrop());
 			if (m_enemyList[idx]->GetGameObject()->type == GameObject::GO_DOPPELGANGER)
@@ -945,6 +968,88 @@ void SceneCollision::Update(double dt)
 			else
 				m_ebulletList.push_back(bullet);
 		}
+		if (m_enemyList[idx]->IsSpawningSwordsman()) {
+			Enemy* enemy;
+			Enemy* enemy2;
+			Enemy* enemy3;
+			GameObject* enemyGO;
+			GameObject* enemyGO2;
+			GameObject* enemyGO3;
+			GameObject* ewep;
+			GameObject* ewep2;
+			GameObject* ewep3;
+		
+			enemy = new Swordsman();
+			enemy->Init();
+			enemyGO = FetchGO();
+			enemyGO->type = GameObject::GO_SWORDSMAN;
+			enemyGO->pos = m_enemyList[idx]->GetGameObject()->pos + Vector3(0, 5, 0);
+			enemyGO->vel.SetZero();
+			enemyGO->scale.Set(10, 10, 1);
+			enemyGO->color.Set(1, 1, 1);
+			enemyGO->angle = 0;
+			enemy->SetWeapon(new Sword());
+			enemy->SetGameObject(enemyGO);
+			m_enemyList.push_back(enemy);
+
+			ewep = FetchGO();
+			ewep->type = GameObject::GO_SWORD;
+			ewep->vel.SetZero();
+			ewep->scale.Set(10, 10, 1);
+			ewep->color.Set(1, 1, 1);
+			ewep->angle = 0;
+			ewep->active = true;
+			ewep->leftwep = false;
+			enemy->GetWeapon()->SetGameObject(ewep);
+
+			enemy2 = new Swordsman();
+			enemy2->Init();
+			enemyGO2 = FetchGO();
+			enemyGO2->type = GameObject::GO_SWORDSMAN;
+			enemyGO2->pos = m_enemyList[idx]->GetGameObject()->pos + Vector3(5,0,0);
+			enemyGO2->vel.SetZero();
+			enemyGO2->scale.Set(10, 10, 1);
+			enemyGO2->color.Set(1, 1, 1);
+			enemyGO2->angle = 0;
+			enemy2->SetWeapon(new Sword());
+			enemy2->SetGameObject(enemyGO2);
+			m_enemyList.push_back(enemy2);
+
+			ewep2 = FetchGO();
+			ewep2->type = GameObject::GO_SWORD;
+			ewep2->vel.SetZero();
+			ewep2->scale.Set(10, 10, 1);
+			ewep2->color.Set(1, 1, 1);
+			ewep2->angle = 0;
+			ewep2->active = true;
+			ewep2->leftwep = false;
+			enemy2->GetWeapon()->SetGameObject(ewep2);
+
+			enemy3 = new Swordsman();
+			enemy3->Init();
+			enemyGO3 = FetchGO();
+			enemyGO3->type = GameObject::GO_SWORDSMAN;
+			enemyGO3->pos = m_enemyList[idx]->GetGameObject()->pos - Vector3(5,0,0);
+			enemyGO3->vel.SetZero();
+			enemyGO3->scale.Set(10, 10, 1);
+			enemyGO3->color.Set(1, 1, 1);
+			enemyGO3->angle = 0;
+			enemy3->SetWeapon(new Sword());
+			enemy3->SetGameObject(enemyGO3);
+			m_enemyList.push_back(enemy3);
+
+			ewep3 = FetchGO();
+			ewep3->type = GameObject::GO_SWORD;
+			ewep3->vel.SetZero();
+			ewep3->scale.Set(10, 10, 1);
+			ewep3->color.Set(1, 1, 1);
+			ewep3->angle = 0;
+			ewep3->active = true;
+			ewep3->leftwep = false;
+			enemy3->GetWeapon()->SetGameObject(ewep3);
+			
+			enemyLeft += 3;
+		}
 		if (blackhole) {
 			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
 				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(blackhole->pos) < 500.0f) {
@@ -956,7 +1061,7 @@ void SceneCollision::Update(double dt)
 		if (HackSkill->getHackingState()) {
 			if (m_enemyList[idx]->GetGameObject()->type != GameObject::GO_DOPPELGANGER) {
 				if (m_enemyList[idx]->GetGameObject()->pos.DistanceSquared(player->GetGameObject()->pos) < 800.0f) {
-
+					m_enemyList[idx]->turnEnemy();
 				}
 			}
 		}
@@ -1049,7 +1154,7 @@ void SceneCollision::Update(double dt)
 		}
 		//check collision
 		if (CheckCollision(m_ebulletList[idx]->GetGameObject(), player->GetGameObject())) {
-			if (ImmortalitySkill->getState() == true) {
+			if (cGameManager->isImmortal == true) {
 				player->ChangeHealth(m_ebulletList[idx]->GetDamage());
 			}
 			else {
@@ -1561,6 +1666,23 @@ void SceneCollision::RenderGO(GameObject *go)
 		RenderMesh(meshList[GEO_BLACKHOLE], true);
 		modelStack.PopMatrix();
 		break;
+	case GameObject::GO_NECROMANCER:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		if (go->angle == 180)
+		{
+			meshList[GEO_LEFT_NECROMANCER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_LEFT_NECROMANCER], true);
+		}
+
+		else if (go->angle == 0)
+		{
+			meshList[GEO_RIGHT_NECROMANCER]->material.kAmbient.Set(go->color.x, go->color.y, go->color.z);
+			RenderMesh(meshList[GEO_RIGHT_NECROMANCER], true);
+		}
+		modelStack.PopMatrix();
+		break;
 	}
 
 }
@@ -1613,6 +1735,19 @@ void SceneCollision::Render()
 		}
 	}
 
+	//render the Health bar of the enemies
+	if (cGameManager->showHealthBar)
+	{
+		float ratiox, ratioy;
+		ratiox = 80 / m_worldWidth;
+		ratioy = 60 / m_worldHeight;
+		for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
+		{
+			RenderMeshOnScreen(meshList[GEO_HEALTH_UI_RED], m_enemyList[idx]->GetGameObject()->pos.x * ratiox, (m_enemyList[idx]->GetGameObject()->pos.y + 6.5) * ratioy, 5, 1.25);
+			RenderMeshOnScreen(meshList[GEO_HEALTH_UI_GREEN], m_enemyList[idx]->GetGameObject()->pos.x * ratiox, (m_enemyList[idx]->GetGameObject()->pos.y + 6.5) * ratioy, 5.0f * ((double)m_enemyList[idx]->GetHealth() / (double)m_enemyList[idx]->GetMaxHealth()), 1.25);
+		}
+	}
+
 	RenderWall();
 	renderUI();
 
@@ -1631,7 +1766,7 @@ void SceneCollision::Render()
 	
 	}
 
-	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(wave), Color(1, 1, 1), 3, 37, 57);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Wave:" + std::to_string(cGameManager->dWaveNo), Color(1, 1, 1), 3, 37, 57);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Enemies Left:" + std::to_string(enemyLeft), Color(1, 1, 1), 3, 0.5, 49);
 	if (cGameManager->waveClear && timer < 3)
 	{
@@ -1667,14 +1802,14 @@ void SceneCollision::Render()
 	if (cGameManager->bPlayerLost)
 	{
 		ss.str("");
-		ss << "You Died";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 30, 24);
+		ss << "You Died, Highest Wave: " << cGameManager->highestWave;
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 4, 20, 24);
 		ss.str("");
 		ss << "Press 'R' to restart";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 4, 20, 20);
 		ss.str("");
 		ss << "Press '~' to return to main menu";
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 4, 20, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 4, 20, 16);
 	}
 }
 
@@ -2125,10 +2260,10 @@ void SceneCollision::SpawnEnemy(float rate)
 	else if (timer > rate)
 	{
 		int type;
-		if (wave < 4)
+		if (cGameManager->dWaveNo < 4)
 			type = 1;
 
-		else if (wave < 7)
+		else if (cGameManager->dWaveNo < 7)
 		{
 			int ran = Math::RandIntMinMax(1, 10);
 			if (ran < 8)
@@ -2137,7 +2272,7 @@ void SceneCollision::SpawnEnemy(float rate)
 				type = 3;
 		}
 		
-		else if (wave < 15)
+		else if (cGameManager->dWaveNo < 15)
 		{
 			int ran = Math::RandIntMinMax(1, 10);
 			if (ran < 6)
@@ -2254,14 +2389,14 @@ void SceneCollision::SpawnEnemy(float rate)
 float SceneCollision::SetRate()
 {
 	float frequency;
-	totalEnemy = wave * 3;
-	if (wave >= 5)
+	totalEnemy = cGameManager->dWaveNo * 3;
+	if (cGameManager->dWaveNo >= 5)
 	{
-		totalEnemy += 3 * (wave - 4);
+		totalEnemy += 3 * (cGameManager->dWaveNo - 4);
 	}
 
-	totalEnemy += (wave / 10) * 10;
-	frequency = 3 / (wave * 0.5);
+	totalEnemy += (cGameManager->dWaveNo / 10) * 10;
+	frequency = 3 / (cGameManager->dWaveNo * 0.5);
 	if (frequency < 0.1)
 	{
 		frequency = 0.1;

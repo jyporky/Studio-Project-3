@@ -96,33 +96,16 @@ float Entity::GetAngle()
 	return 0.0f;
 }
 
+unsigned Entity::GetMaxHealth()
+{
+	return 0;
+}
 
-//bool Entity::CheckShieldCollision(Bullet* projectile, Entity* shieldman)
-//{
-//    //check if the bullet is close enough
-//    if (projectile->GetGameObject()->pos.DistanceSquared(shieldman->GetGameObject()->pos) > (shieldman->GetWeapon()->GetRange() + shieldman->GetWeapon()->GetGameObject()->scale.x * 0.5f) * (shieldman->GetWeapon()->GetRange() + shieldman->GetWeapon()->GetGameObject()->scale.x * 0.5f))
-//        return false;
-//
-//    Vector3 projectilevector = (projectile->GetGameObject()->pos - shieldman->GetGameObject()->pos).Normalize();
-//    Vector3 shieldman2shield = (shieldman->GetWeapon()->GetGameObject()->pos - shieldman->GetGameObject()->pos).Normalize();
-//    //check if the projectile is being blocked
-//    float angle, angle2;
-//    angle = atan2f(projectilevector.y, projectilevector.x);
-//    angle2 = atan2f(shieldman2shield.y, shieldman2shield.x);
-//    if (angle < 0)
-//        angle += Math::TWO_PI;
-//
-//    if (angle2 < 0)
-//        angle2 += Math::TWO_PI;
-//    angle = Math::RadianToDegree(angle - angle2);
-//    if (angle <= shieldblockingangle * 0.5 && angle >= -shieldblockingangle * 0.5)
-//    {
-//        cSoundController->StopPlayByID(8);
-//        cSoundController->PlaySoundByID(8);
-//        return true;
-//    }
-//    return false;
-//}
+unsigned Entity::GetHealth()
+{
+	return 0;
+}
+
 
 bool Entity::CheckShieldCollision(Entity* projectile, Entity* shieldman)
 {
@@ -165,4 +148,7 @@ void Entity::turnEnemy() {
 }
 Entity* Entity::getTarget() {
 	return Target;
+}
+bool Entity::IsSpawningSwordsman() {
+	return false;
 }
