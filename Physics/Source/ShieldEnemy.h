@@ -22,7 +22,9 @@ public:
     
     bool getStunned();
     void makeEnemyStunned();
+    void resetEnemyStunned();
     void turnEnemy();
+    void resetEnemyTurned();
 private:
     unsigned sCurrState;
     unsigned attackRange;

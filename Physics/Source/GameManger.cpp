@@ -6,7 +6,7 @@ GameManger::GameManger()
 	bDebug = false;
 	dWaveNo = 1;
 	highestWave = 0;
-	waveClear = false;
+	waveClear = true;
 	outShop = false;
 	eButtonState = false;
 	switchWeapon = false;

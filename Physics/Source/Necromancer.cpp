@@ -106,14 +106,16 @@ bool Necromancer::Update(double dt)
             }
             break;
         }
-        if (spawnTimer >= 3) {
-            isSpawningSwordsman = true;
-            spawnTimer = 0;
+        if (!isStunned) {
+            if (spawnTimer >= 3) {
+                isSpawningSwordsman = true;
+                spawnTimer = 0;
+            }
+            else if (spawnTimer < 3) {
+                isSpawningSwordsman = false;
+            }
+            spawnTimer += dt;
         }
-        else if (spawnTimer < 3) {
-            isSpawningSwordsman = false;
-        }
-        spawnTimer += dt;
 
         gameobject->pos.z = 0;
         // Make the sword point to the player
@@ -142,6 +144,9 @@ bool Necromancer::getStunned() {
 }
 void Necromancer::makeEnemyStunned() {
     isStunned = true;
+}
+void Necromancer::resetEnemyStunned() {
+    isStunned = false;
 }
 void Necromancer::turnEnemy() {
     turned = true;

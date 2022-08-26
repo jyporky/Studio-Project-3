@@ -143,6 +143,12 @@ bool ShieldEnemy::Update(double dt)
     switch (sCurrState)
     {
     case IDLE:
+        if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() >= attackRange * attackRange)
+            sCurrState = CHASE;
+        else if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
+        {
+            sCurrState = ATTACK;
+        }
         break;
     case CHASE:
         //chase the player
@@ -216,6 +222,15 @@ bool ShieldEnemy::getStunned() {
 void ShieldEnemy::makeEnemyStunned() {
     isStunned = true;
 }
+void ShieldEnemy::resetEnemyStunned() {
+    isStunned = false;
+}
 void ShieldEnemy::turnEnemy() {
     turned = true;
+}
+
+void ShieldEnemy::resetEnemyTurned()
+{
+    if(turned)
+      turned = false;
 }

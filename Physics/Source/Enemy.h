@@ -27,8 +27,10 @@ public:
 	virtual float GetAngle();
 	virtual bool getStunned();
 	virtual void makeEnemyStunned();
+	virtual void resetEnemyStunned();
 	virtual bool getTurnedState();
 	virtual void turnEnemy();
+	virtual void resetEnemyTurned();
 	virtual Entity* getTarget();
 	virtual bool IsSpawningSwordsman();
 	static void SetEnemyVector(std::vector<Entity*> m_enemyList);

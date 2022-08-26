@@ -95,7 +95,12 @@ bool Swordsman::Update(double dt)
         switch (sCurrState)
         {
         case IDLE:
-            //do nothing
+            if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() >= attackRange * attackRange)
+                sCurrState = CHASE;
+            else if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
+            {
+                sCurrState = ATTACK;
+            }
             break;
         case CHASE:
             //chase the player
@@ -226,6 +231,15 @@ bool Swordsman::getStunned() {
 void Swordsman::makeEnemyStunned() {
     isStunned = true;
 }
+void Swordsman::resetEnemyStunned() {
+    isStunned = false;
+}
 void Swordsman::turnEnemy() {
     turned = true;
+}
+
+void Swordsman::resetEnemyTurned()
+{
+    if (turned)
+        turned = false;
 }

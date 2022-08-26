@@ -106,6 +106,11 @@ void SceneCollision::Init()
 	doppelganger = nullptr;
 	test = false;
 	test2 = 0;
+	enemyHacked = false;
+	empTimer = 0;
+	blackholeTimer = 0;
+	immortalTimer = 0;
+	hackTimer = 0;
 	//load sound
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
@@ -568,37 +573,38 @@ void SceneCollision::Update(double dt)
 	{
 		ubutton = false;
 	}
-
-	empTimer -= dt;
-	if (empTimer <= 0)
-	{
+	if (EMPSkill->getStunState())
+		empTimer += dt;
+	if (empTimer >= 3) {
+		empTimer = 0;
 		EMPSkill->resetStun();
 	}
 
-	hackTimer -= dt;
-	if (hackTimer <= 0)
+	
+	if(ImmortalitySkill->getState())
+	   immortalTimer += dt;
+	if (immortalTimer >= 2)
 	{
+		cGameManager->isImmortal = false;
+		ImmortalitySkill->resetImmortality();
+		empTimer = 0;
+	}
+	if (HackSkill->getHackingState()) {
+		enemyHacked = true;
 		HackSkill->resetHack();
 	}
-
-	immortalTimer -= dt;
-	if (immortalTimer <= 0)
-	{
-		ImmortalitySkill->resetImmortality();
-	}
-
+	if (enemyHacked)
+		hackTimer += dt;
 	if (blackhole) 
 	{
-		if (blackholeUsed)
+		blackholeTimer += dt;
+		if (blackholeTimer >= 3)
 		{
-			blackholeTimer -= dt;
-		}
-		if (blackholeTimer <= 0)
-		{
-			blackholeUsed = false;
+		
 			ReturnGO(blackhole);
 			BlackholeSkill->resetBlackhole();
 			blackhole = nullptr;
+			blackholeTimer = 0;
 		}
 	}
 
@@ -609,23 +615,22 @@ void SceneCollision::Update(double dt)
 		switch (cGameManager->skilltype)
 		{
 		case Skill::EMP:
-			if ((player->getEnergy() >= EMPSkill->getEnergyCost()) && (empTimer <= 0))
+			if ((player->getEnergy() >= EMPSkill->getEnergyCost()) && (empTimer == 0))
 			{
 				EMPSkill->UseSkill();
 				player->changeEnergy(-EMPSkill->getEnergyCost());
-				empTimer = 3;
 			}
 			else
 			{
 				cSoundController->PlaySoundByID(13);
 			}
+			
 			break;
 		case Skill::HACK:
 			if ((player->getEnergy() >= HackSkill->getEnergyCost()) && (hackTimer <= 0))
 			{
 				HackSkill->UseSkill();
 				player->changeEnergy(-HackSkill->getEnergyCost());
-				hackTimer = 10;
 			}
 			else
 			{
@@ -635,7 +640,7 @@ void SceneCollision::Update(double dt)
 		case Skill::DOPPELGANGER:
 			if (player->getEnergy() >= DoppelgangerSkill->getEnergyCost())
 			{
-				DoppelgangerSkill->UseSkill();
+				spawnDoppelganger();
 				player->changeEnergy(-DoppelgangerSkill->getEnergyCost());
 			}
 			else
@@ -647,8 +652,8 @@ void SceneCollision::Update(double dt)
 			if ((player->getEnergy() >= ImmortalitySkill->getEnergyCost()) && (immortalTimer <= 0))
 			{
 				ImmortalitySkill->UseSkill();
+				cGameManager->isImmortal = true;
 				player->changeEnergy(-ImmortalitySkill->getEnergyCost());
-				immortalTimer = 3;
 			}
 			else
 			{
@@ -656,13 +661,12 @@ void SceneCollision::Update(double dt)
 			}
 			break;
 		case Skill::BLACKHOLE:
-			if ((player->getEnergy() >= BlackholeSkill->getEnergyCost()) && (blackholeTimer <= 0) && (blackholeUsed == false))
+			if ((player->getEnergy() >= BlackholeSkill->getEnergyCost()) && (blackholeTimer <= 0))
 			{
 				BlackholeSkill->UseSkill();
 				spawnBlackhole();
 				player->changeEnergy(-BlackholeSkill->getEnergyCost());
-				blackholeTimer = 3;
-				blackholeUsed = true;
+				
 			}
 			else
 			{
@@ -760,7 +764,7 @@ void SceneCollision::Update(double dt)
 		StrengthPotion->potionTimeUp();
 		strengthPotUsed = false;
 	}
-
+	
 	//use speed potion
 	static bool button3;
 	if (Application::IsKeyPressed('3') && !button3)
@@ -868,6 +872,9 @@ void SceneCollision::Update(double dt)
 	{
 		if (EMPSkill->getStunState() == true) {
 			m_enemyList[idx]->makeEnemyStunned();
+		}
+		else {
+			m_enemyList[idx]->resetEnemyStunned();
 		}
 		Enemy::SetEnemyVector(m_enemyList);
 		if (m_enemyList[idx]->Update(dt))
@@ -1050,6 +1057,13 @@ void SceneCollision::Update(double dt)
 					m_enemyList[idx]->turnEnemy();
 				}
 			}
+		}
+		if (hackTimer >= 3) {
+			for (unsigned idx2 = 0; idx2 < m_enemyList.size(); idx2++) {
+				m_enemyList[idx2]->resetEnemyTurned();
+			}
+			hackTimer = 0;
+			enemyHacked = false;
 		}
 	}
 	
@@ -2600,4 +2614,29 @@ void SceneCollision::spawnBlackhole()
 	blackhole->color.Set(1, 1, 1);
 	blackhole->angle = 0;
 	//blackhole->active = true;
+}
+void SceneCollision::spawnDoppelganger() {
+	doppelganger = new DoppelgangerAlly();
+	doppelganger->Init();
+	GameObject* doppelgangerGO = FetchGO();
+	doppelgangerGO->type = GameObject::GO_DOPPELGANGER;
+	doppelgangerGO->pos = player->GetGameObject()->pos;
+	doppelgangerGO->vel.SetZero();
+	doppelgangerGO->scale.Set(8, 8, 1);
+	doppelgangerGO->color.Set(1, 1, 1);
+	doppelgangerGO->angle = 0;
+	doppelganger->SetWeapon(new Sword());
+	doppelganger->SetGameObject(doppelgangerGO);
+	m_enemyList.push_back(doppelganger);
+
+	GameObject* dwep = FetchGO();
+	dwep->type = GameObject::GO_SWORD;
+	dwep->vel.SetZero();
+	dwep->scale.Set(8, 8, 1);
+	dwep->pos = doppelgangerGO->pos;
+	dwep->color.Set(1, 1, 1);
+	dwep->angle = 0;
+	dwep->active = true;
+	dwep->leftwep = false;
+	doppelganger->GetWeapon()->SetGameObject(dwep);
 }
