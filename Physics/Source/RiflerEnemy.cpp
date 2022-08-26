@@ -107,7 +107,15 @@ bool Rifler::Update(double dt)
             {
             case IDLE:
             {
-                //do nothing
+                if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() >= attackRange * attackRange)
+                    sCurrState = CHASE;
+                else if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() <= attackRange * attackRange)
+                {
+                    sCurrState = ATTACK;
+                }
+                else if ((Target->GetGameObject()->pos - gameobject->pos).LengthSquared() < runRange * runRange) {
+                    sCurrState = RUN;
+                }
                 break;
             }
             case CHASE:
@@ -204,11 +212,19 @@ bool Rifler::getStunned() {
 void Rifler::makeEnemyStunned() {
     isStunned = true;
 }
+void Rifler::resetEnemyStunned() {
+    isStunned = false;
+}
 bool Rifler::getTurnedState() {
     return turned;
 }
 void Rifler::turnEnemy() {
     turned = true;
+}
+void Rifler::resetEnemyTurned()
+{
+    if(turned)
+      turned = false;
 }
 Entity* Rifler::getTarget() {
     return Target;

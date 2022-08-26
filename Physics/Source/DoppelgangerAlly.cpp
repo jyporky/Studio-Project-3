@@ -50,7 +50,7 @@ bool DoppelgangerAlly::Update(double dt)
         gameobject->color.Set(1, 1, 1);
 
     
-    Entity* Target = nullptr;
+     Target = nullptr;
     //if (m_enemyList.size() > 0) {
         for (unsigned idx = 0; idx < m_enemyList.size(); idx++) {
             if (m_enemyList[idx]->GetGameObject() == gameobject)

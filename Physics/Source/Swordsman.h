@@ -21,7 +21,9 @@ public:
     Weapon* GetWeapon();
     bool getStunned();
     void makeEnemyStunned();
+    void resetEnemyStunned();
     void turnEnemy();
+    void resetEnemyTurned();
     void SetUndead();
 private:
     unsigned sCurrState;

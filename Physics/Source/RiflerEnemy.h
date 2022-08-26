@@ -22,8 +22,10 @@ public:
     bool IsSpawningBullet();
     bool getStunned();
     void makeEnemyStunned();
+    void resetEnemyStunned();
     bool getTurnedState();
     void turnEnemy();
+    void resetEnemyTurned();
     Entity* getTarget();
 protected:
    

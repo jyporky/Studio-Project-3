@@ -120,11 +120,17 @@ bool Enemy::getStunned() {
 void Enemy::makeEnemyStunned() {
     return;
 }
-
+void Enemy::resetEnemyStunned() {
+    return;
+}
 bool Enemy::getTurnedState() {
     return false;
 }
 void Enemy::turnEnemy() {
+    return;
+}
+void Enemy::resetEnemyTurned()
+{
     return;
 }
 void Enemy::SetEnemyVector(std::vector<Entity*> m_enemyList) {

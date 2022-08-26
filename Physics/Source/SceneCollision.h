@@ -76,9 +76,10 @@ public:
 	void renderWeaponUI(Vector3 pos, Vector3 scale, GameObject* object);
 	void renderSkillUI(Vector3 pos, Vector3 scale, int object);
 	void spawnBlackhole();
-
+	void spawnDoppelganger();
 	bool test;
 	int test2;
+	bool enemyHacked;
 protected:
 
 	//Physics

@@ -6,7 +6,7 @@ Immortal::~Immortal() {
 
 }
 std::string Immortal::getDescription() {
-	return "Immune to all damage for 3 seconds";
+	return "Heal instead of taking damage for 2s";
 }
 int Immortal::getMoneyCost() {
 	return 600;
