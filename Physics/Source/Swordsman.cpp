@@ -250,7 +250,6 @@ void Swordsman::resetEnemyTurned()
     if (turned)
         turned = false;
 }
-}
 void Swordsman::SetUndead()
 {
     energyDropped = 0;

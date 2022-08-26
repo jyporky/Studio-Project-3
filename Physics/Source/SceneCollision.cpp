@@ -162,17 +162,17 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	Rifle* sword = new Rifle();
+	Sword* sword = new Sword();
 	player->SetWeapon(sword);
 	GameObject* weapon2 = FetchGO();
-	weapon2->type = GameObject::GO_RIFLE;
+	weapon2->type = GameObject::GO_SWORD;
 	weapon2->pos.SetZero();
 	weapon2->vel.SetZero();
 	weapon2->scale.Set(10, 10, 1);
 	weapon2->angle = 0;
 	weapon2->color.Set(1, 1, 1);
 	weapon2->leftwep = false;
-	cGameManager->weptype = Weapon::RIFLE;
+	cGameManager->weptype = Weapon::SWORD;
 	player->GetWeapon()->SetGameObject(weapon2);
 
 	colorsize = 3;
@@ -2382,7 +2382,6 @@ float SceneCollision::SetRate()
 {
 	float frequency;
 	totalEnemy = cGameManager->dWaveNo * 3;
-	totalEnemy = 1;
 	if (cGameManager->dWaveNo >= 5)
 	{
 		totalEnemy += 3 * (cGameManager->dWaveNo - 4);
