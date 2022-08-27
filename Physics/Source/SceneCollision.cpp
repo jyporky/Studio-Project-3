@@ -404,14 +404,34 @@ void SceneCollision::Update(double dt)
 	Vector3 mousePos = Vector3((x / width) * m_worldWidth, ((height - y) / height) * m_worldHeight, 0);
 	
 	
+	if (player->GetWeapon()->WeaponType != Weapon::FLAMETHROWER)
+	{
+		//stop the flamethrower sound
+		cSoundController->StopPlayByID(7);
+	}
 	SceneBase::Update(dt);
 	if (Application::IsKeyPressed('R'))
 	{
 		ResetLevel();
 	}
+	static bool tbuttonstate = false;
+	if (Application::IsKeyPressed('T') && !tbuttonstate)
+	{
+		unsigned level = cGameManager->dWaveNo;
+		ResetLevel();
+		cGameManager->dWaveNo = ++level;
+		tbuttonstate = true;
+	}
+	else if (!Application::IsKeyPressed('T') && tbuttonstate)
+		tbuttonstate = false;
+
+	if (Application::IsKeyPressed('Y'))
+	{
+		player->changeEnergy(200);
+	}
 	if (cGameManager->bPlayerLost)
 	{
-		
+		cSoundController->StopPlayByID(7);
 		if (Application::IsKeyPressed(VK_OEM_3))
 		{
 			Application::SetState(1);
@@ -1055,7 +1075,7 @@ void SceneCollision::Update(double dt)
 		//check collision
 		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
 		{
-			if (m_enemyList[idx]->entitytype == Entity::DOPPLEGANGER)
+			if (m_enemyList[idx1]->entitytype == Entity::DOPPLEGANGER)
 				continue;
 			//for shield enemy
 			if (m_enemyList[idx1]->GetEnemyType() == Enemy::SHIELDMAN)
@@ -1160,7 +1180,7 @@ void SceneCollision::Update(double dt)
 		bool hit = false, deleted = false;
 		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
 		{
-			if (m_enemyList[idx]->entitytype == Entity::DOPPLEGANGER)
+			if (m_enemyList[idx1]->entitytype == Entity::DOPPLEGANGER)
 				continue;
 			//for shield enemy
 			if (m_enemyList[idx1]->GetEnemyType() == Enemy::SHIELDMAN)
@@ -1214,7 +1234,7 @@ void SceneCollision::Update(double dt)
 		}
 		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
 		{
-			if (m_enemyList[idx]->entitytype == Entity::DOPPLEGANGER)
+			if (m_enemyList[idx1]->entitytype == Entity::DOPPLEGANGER)
 				continue;
 			if (CheckCollision(m_parrowList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
