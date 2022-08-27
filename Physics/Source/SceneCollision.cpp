@@ -405,13 +405,13 @@ void SceneCollision::Update(double dt)
 	
 	
 	SceneBase::Update(dt);
-	//std::cout << ImmortalitySkill->getState() << std::endl;
+	if (Application::IsKeyPressed('R'))
+	{
+		ResetLevel();
+	}
 	if (cGameManager->bPlayerLost)
 	{
-		if (Application::IsKeyPressed('R'))
-		{
-			ResetLevel();
-		}
+		
 		if (Application::IsKeyPressed(VK_OEM_3))
 		{
 			Application::SetState(1);
@@ -1055,6 +1055,8 @@ void SceneCollision::Update(double dt)
 		//check collision
 		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
 		{
+			if (m_enemyList[idx]->entitytype == Entity::DOPPLEGANGER)
+				continue;
 			//for shield enemy
 			if (m_enemyList[idx1]->GetEnemyType() == Enemy::SHIELDMAN)
 			{
@@ -1077,6 +1079,8 @@ void SceneCollision::Update(double dt)
 					{
 						for (unsigned idx2 = 0; idx2 < m_enemyList.size(); idx2++)
 						{
+							if (m_enemyList[idx2]->entitytype == Entity::DOPPLEGANGER)
+								continue;
 							//check distance of the bullet to the enemy
 							if ((m_enemyList[idx2]->GetGameObject()->pos - m_pbulletList[idx]->GetGameObject()->pos).LengthSquared() <= m_pbulletList[idx]->explosionRadius * m_pbulletList[idx]->explosionRadius)
 							{
@@ -1156,6 +1160,8 @@ void SceneCollision::Update(double dt)
 		bool hit = false, deleted = false;
 		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
 		{
+			if (m_enemyList[idx]->entitytype == Entity::DOPPLEGANGER)
+				continue;
 			//for shield enemy
 			if (m_enemyList[idx1]->GetEnemyType() == Enemy::SHIELDMAN)
 			{
@@ -1208,6 +1214,8 @@ void SceneCollision::Update(double dt)
 		}
 		for (unsigned idx1 = 0; idx1 < m_enemyList.size(); idx1++)
 		{
+			if (m_enemyList[idx]->entitytype == Entity::DOPPLEGANGER)
+				continue;
 			if (CheckCollision(m_parrowList[idx]->GetGameObject(), m_enemyList[idx1]->GetGameObject()))
 			{
 				if (m_parrowList[idx]->getCrit() == 1) {
