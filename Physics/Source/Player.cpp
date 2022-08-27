@@ -15,8 +15,8 @@ Player::Player()
 	movementspeed = 40;
 	dashBoost = 80;
 	iFrame = false;
-	money = 8000;
-	energy = 2000;
+	money = 000;
+	energy = 000;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
 
@@ -431,8 +431,8 @@ void Player::ResetPlayer()
 	movementspeed = 40;
 	dashBoost = 80;
 	iFrame = false;
-	money = 8000;
-	energy = 200;
+	money = 0000;
+	energy = 000;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
 	meleeDmgBoost = 0;

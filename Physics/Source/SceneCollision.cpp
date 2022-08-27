@@ -488,6 +488,13 @@ void SceneCollision::Update(double dt)
 	{
 		if (enemyLeft <= 0)
 		{
+			if (doppelganger)
+			{
+				m_enemyList.clear();
+				ReturnGO(doppelganger->GetGameObject());
+				ReturnGO(doppelganger->GetWeapon()->GetGameObject());
+				doppelganger = nullptr;
+			}
 			cGameManager->waveClear = true;
 			timer = 0;
 		}
@@ -599,7 +606,7 @@ void SceneCollision::Update(double dt)
 	{
 		cGameManager->isImmortal = false;
 		ImmortalitySkill->resetImmortality();
-		empTimer = 0;
+		immortalTimer = 0;
 	}
 	if (HackSkill->getHackingState()) {
 		enemyHacked = true;

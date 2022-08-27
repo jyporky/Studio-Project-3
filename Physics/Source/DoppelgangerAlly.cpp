@@ -2,11 +2,11 @@
 
 DoppelgangerAlly::DoppelgangerAlly()
 {
-    health = 1;
+    health = 20;
     maxhealth = health;
     redTimer = 0;
     movementSpeed = 10;
-    attackDamage = 3;
+    attackDamage = 7;
     gameobject = nullptr;
     CurrWeapon = nullptr;
     sCurrState = CHASE;
