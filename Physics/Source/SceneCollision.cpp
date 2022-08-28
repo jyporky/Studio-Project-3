@@ -162,17 +162,17 @@ void SceneCollision::Init()
 	m_player->active = true;
 	player = Player::GetInstance();
 	player->SetGameObject(m_player);
-	Rifle* sword = new Rifle();
+	Sword* sword = new Sword();
 	player->SetWeapon(sword);
 	GameObject* weapon2 = FetchGO();
-	weapon2->type = GameObject::GO_RIFLE;
+	weapon2->type = GameObject::GO_SWORD;
 	weapon2->pos.SetZero();
 	weapon2->vel.SetZero();
 	weapon2->scale.Set(10, 10, 1);
 	weapon2->angle = 0;
 	weapon2->color.Set(1, 1, 1);
 	weapon2->leftwep = false;
-	cGameManager->weptype = Weapon::RIFLE;
+	cGameManager->weptype = Weapon::SWORD;
 	player->GetWeapon()->SetGameObject(weapon2);
 
 	colorsize = 3;
@@ -783,8 +783,11 @@ void SceneCollision::Update(double dt)
 	{
 		button3 = false;
 	}
-	speedPotTimer += dt;
-	if ((speedPotTimer == 30) && (speedPotUsed == true))
+	if (speedPotUsed)
+	{
+		speedPotTimer += dt;
+	}
+	if ((speedPotTimer >= 30) && (speedPotUsed == true))
 	{
 		SpeedPotion->potionTimeUp();
 		speedPotUsed = false;
