@@ -24,10 +24,12 @@ public:
     void resetEnemyStunned();
     void turnEnemy();
     void resetEnemyTurned();
+    void SetUndead();
 private:
     unsigned sCurrState;
     unsigned attackRange;
     float switchtime;
     bool moveleft = true;
     float leftdt = 0;
+    bool undead;
 };

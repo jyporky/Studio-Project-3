@@ -42,6 +42,7 @@ public:
 		return health;
 	}
 	static void SetEnemyVector(std::vector<Entity*> m_enemyList);
+	virtual void SetUndead();
 protected:
 	static std::vector<Entity*> m_enemyList;
 	unsigned enemytype;

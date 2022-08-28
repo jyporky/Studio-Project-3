@@ -19,6 +19,14 @@ public:
     void SetEnemyVector(std::vector<Entity*> m_enemyList);
     Weapon* GetWeapon();
     bool ChangeHealth(int changeInHealth);
+    virtual unsigned GetMaxHealth()
+    {
+        return maxhealth;
+    }
+    virtual unsigned GetHealth()
+    {
+        return health;
+    }
 
 private:
     std::vector<Entity*> m_enemyList;

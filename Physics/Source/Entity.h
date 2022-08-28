@@ -10,6 +10,9 @@ public:
 		SWORDMAN,
 		RIFER,
 		SHIELDMAN,
+		DOPPLEGANGER,
+		NECROMANCER,
+		NUMTYPES
 	};
 	Entity();
 	~Entity();
@@ -40,6 +43,7 @@ public:
 	virtual void turnEnemy();
 	virtual void resetEnemyTurned();
 	virtual Entity* getTarget();
+	unsigned entitytype = NUMTYPES;
 protected:
 	Entity* Target;
 	GameObject* gameobject;

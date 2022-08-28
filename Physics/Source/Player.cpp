@@ -273,6 +273,9 @@ void Player::Attack(Vector3 mousepos)
 		//for melee weapons
 		for (unsigned idx = 0; idx < m_enemyList.size(); idx++)
 		{
+			//check if the enemy is a doppleganger
+			if (m_enemyList[idx]->entitytype == Entity::DOPPLEGANGER)
+				continue;
 			
 			//check if the enemy has been hit before
 			bool hitb4 = false;
@@ -428,8 +431,8 @@ void Player::ResetPlayer()
 	movementspeed = 40;
 	dashBoost = 80;
 	iFrame = false;
-	money = 0;
-	energy = 0;
+	money = 0000;
+	energy = 000;
 	isSpawningBullet = false;
 	dashDirection.Set(1, 0, 0);
 	meleeDmgBoost = 0;

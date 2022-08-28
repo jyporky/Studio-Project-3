@@ -3,8 +3,9 @@
 Rifler::Rifler()
 {
     health = 15;
+    maxhealth = health;
     movementSpeed = 14;
-    energyDropped = 2;
+    energyDropped = 8;
     moneyDropped = 20;
     attackDamage = 3;
     affectedByKnockback = true;
